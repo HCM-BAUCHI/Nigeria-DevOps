@@ -36,11 +36,11 @@ cluster-configs:
 
     hcm-moz-impl:
       name: hcm-moz-impl
-      namespace: [ health ]
+      namespace: [egov]
 
   secrets:
     db: 
-      namespace: egov
+      namespace: [ egov ]
       name: db
 
     egov-notification-sms:
@@ -52,7 +52,7 @@ cluster-configs:
       name: egov-filestore
 
     hcm-moz-impl:
-      namespace: health
+      namespace: egov
       name: hcm-moz-impl
       
     egov-location: 
@@ -80,7 +80,7 @@ cluster-configs:
       name: home-isolation-notification-mail      
 
     git-sync: 
-      namespace: egov
+      namespace: [ egov ]
       name: git-creds   
 
     kibana: 
@@ -90,10 +90,6 @@ cluster-configs:
     kibana-infra: 
       namespace: egov
       name: kibana-infra-creds     
-
-    pgadmin: 
-      namespace: playground
-      name: pgadmin
 
     egov-si-microservice:
       namespace: egov
@@ -151,10 +147,10 @@ cluster-configs:
       namespace: jenkins
       name: postgres
 
-    elasticsearch-master-creds:
-      namespace: [ backbone, egov ]
-      name: elasticsearch-master-credentials
+    elastic:
+      namespace: egov
+      name: elastic
 
-    kafka-kraft:
-      name: release-name-kafka-kraft-cluster-id
-      namespace: backbone
+    jupyter:
+      namespace: jupyter
+      name: jupyter

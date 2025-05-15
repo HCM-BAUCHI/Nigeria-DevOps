@@ -117,7 +117,8 @@ spec:
         {{- if .Values.createCert }}
         - name: elasticsearch-certs
           secret:
-            secretName: {{ template "name" . }}-certs
+            secretName: elasticsearch-master-certs
+{{/*            secretName: {{ template "name" . }}-certs TODO: changed for security issue*/}}
         {{- end }}
 {{- if .Values.keystore }}
         - name: keystore

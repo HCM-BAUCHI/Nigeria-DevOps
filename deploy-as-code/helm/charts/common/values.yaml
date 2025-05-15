@@ -231,7 +231,14 @@ extraEnv:
             name: egov-config
             key: spring-jpa-show-sql     
       - name: IS_ENVIRONMENT_CENTRAL_INSTANCE
-        value: "false"
+        value: "true"
+      - name: STATE_SCHEMA_INDEX_POSITION_TENANTID
+        valueFrom:
+          configMapKeyRef:
+            name: egov-config
+            key: state-schema-index-position-tenantid
+      - name: JAVA_ENABLE_DEBUG
+        value: "true"
         
   jaeger: |             
       - name: JAEGER_SERVICE_NAME

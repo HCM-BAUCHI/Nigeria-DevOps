@@ -1,0 +1,22 @@
+version: v1.0
+modules:
+  - name: m_backbone
+    services:
+      - kafka-kraft
+      - elasticsearch-master
+      - elasticsearch-data
+      - kibana
+      - redis
+  - name: authn-authz
+    services:
+      - redis
+      - ingress-nginx
+      - cert-manager
+      - zuul:v1.3.1-96b24b0d72-39
+  - name: core
+    dependencies:
+      - "backbone"
+      - "authn-authz"
+      - "frontend"
+    services:
+      - egovio/playground:1.0

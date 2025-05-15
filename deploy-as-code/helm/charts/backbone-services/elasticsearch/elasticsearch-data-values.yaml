@@ -1,15 +1,15 @@
 
-name: elasticsearch-master
+name: elasticsearch-data
+namespace: es-cluster-v8
 replicas: 3
 
 image:
   pullPolicy: IfNotPresent  
   repository: docker.elastic.co/elasticsearch/elasticsearch
-  tag: 8.11.3
+  tag: 8.11.1
 
 clusterName: "elasticsearch"
-nodeGroup: "master"
-namespace: backbone
+nodeGroup: "data"
 
 # The service that non master groups will try to connect to when joining the cluster
 # This should be set to clusterName + "-" + nodeGroup for your master group
@@ -18,7 +18,9 @@ masterService: "elasticsearch-master"
 # Elasticsearch roles that will be applied to this nodeGroup
 # These will be set as environment variables. E.g. node.master=true
 roles:
-  - master
+  - ingest
+  - data
+
 minimumMasterNodes: 2
 
 esMajorVersion: ""
@@ -80,13 +82,15 @@ podAnnotations: {}
 # additionals labels
 labels: {}
 
-esJavaOpts: "-Xmx448m -Xms448m"
+esJavaOpts: "-Xmx1g -Xms1g"
 
 resources:
   requests:
-    memory: "896Mi"
+    # cpu: "1000m"
+    memory: "6Gi"
   limits:
-    memory: "896Mi"  
+    # cpu: "1000m"
+    memory: "6Gi"
 
 initResources: {}
   # limits:
@@ -110,7 +114,7 @@ volumeClaimTemplate:
   accessModes: [ "ReadWriteOnce" ]
   resources:
     requests:
-      storage: 2Gi
+      storage: 200Gi
 
 rbac:
   create: false
@@ -136,7 +140,7 @@ podSecurityPolicy:
 
 persistence:
   enabled: true
-  dataDirSize: "2Gi"
+  dataDirSize: "200Gi"
   annotations: {}
 
 extraVolumes: []
@@ -184,7 +188,6 @@ transportPort: 9300
 
 secret:
   enabled: true
-  password: 8fwbD6HbJh6HU0oddsHm8TEI
 
 service:
   labels: {}
@@ -259,7 +262,7 @@ nameOverride: ""
 fullnameOverride: ""
 
 # https://github.com/elastic/helm-charts/issues/63
-masterTerminationFix: true
+masterTerminationFix: false
 
 lifecycle: {}
   # preStop:

@@ -413,11 +413,11 @@ elasticsearch-data:
   persistence:
     enabled: true
     aws:
-      - volumeId: "vol-068dd71b51b60bfcc" ## add your respective volume id eg. vol-0085073c65f76dre5
+      - volumeId: "vol-02e4dc71e0755a922" ## add your respective volume id eg. vol-0085073c65f76dre5
         zone: af-south-1b            ## add your respective zone eg. ap-south-1b
-      - volumeId: "vol-0e719fe1d5226c1f1" ## add your respective volume id eg. vol-0085073c65f76dre5
+      - volumeId: "vol-0d763a3b26a688633" ## add your respective volume id eg. vol-0085073c65f76dre5
         zone: af-south-1b            ## add your respective zone eg. ap-south-1b
-      - volumeId: "vol-0dc2d81a9022c84a1" ## add your respective volume id eg. vol-0085073c65f76dre5
+      - volumeId: "vol-02a0fc800895c2d89" ## add your respective volume id eg. vol-0085073c65f76dre5
         zone: af-south-1b            ## add your respective zone eg. ap-south-1b
 
   esJavaOpts: "-Xmx5g -Xms5g"
@@ -435,11 +435,11 @@ elasticsearch-master:
   persistence:
     enabled: true
     aws:
-      - volumeId: "vol-0882323975bf21906" ## add your respective volume id eg. vol-0085073c65f76dre5
+      - volumeId: "vol-0b70bde0e1db6baab" ## add your respective volume id eg. vol-0085073c65f76dre5
         zone: af-south-1b            ## add your respective zone eg. ap-south-1b
-      - volumeId: "vol-0bcdc0aa4258849ff" ## add your respective volume id eg. vol-0085073c65f76dre5
+      - volumeId: "vol-0c2db0e65adcf974f" ## add your respective volume id eg. vol-0085073c65f76dre5
         zone: af-south-1b            ## add your respective zone eg. ap-south-1b
-      - volumeId: "vol-0ee78075e5da764bb" ## add your respective volume id eg. vol-0085073c65f76dre5
+      - volumeId: "vol-059dcef831ab4e1e4" ## add your respective volume id eg. vol-0085073c65f76dre5
         zone: af-south-1b            ## add your respective zone eg. ap-south-1b
 
   esJavaOpts: "-Xmx448m -Xms448m"
