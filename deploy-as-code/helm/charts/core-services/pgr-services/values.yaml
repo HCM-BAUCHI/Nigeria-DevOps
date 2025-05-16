@@ -3,11 +3,8 @@ labels:
   app: "pgr-services"
   group: "rainmaker"
 
-namespace: urban
-
 # Ingress Configs
 ingress:
-  namespace: egov
   enabled: true
   zuul: true
   context: "pgr-services"
@@ -30,7 +27,7 @@ healthChecks:
   readinessProbePath: "/pgr-services/health"
 appType: "java-spring"
 tracing-enabled: true
-notification-sms-enabled: "true"
+notification-sms-enabled: "false"
 notification-email-enabled: "false"
 new-complaint-enabled: "true"
 reassign-complaint-enabled: "true"
@@ -55,6 +52,11 @@ env: |
       configMapKeyRef:
         name: egov-service-host
         key: egov-idgen
+  - name: EGOV_URL_SHORTNER_HOST
+    valueFrom:
+      configMapKeyRef:
+        name: egov-service-host
+        key: egov-url-shortening      
   - name: EGOV_WORKFLOW_HOST
     valueFrom:
       configMapKeyRef:
@@ -64,7 +66,7 @@ env: |
     valueFrom:
       configMapKeyRef:
         name: egov-service-host
-        key: egov-mdms-service
+        key: mdms-v2
   - name: EGOV_LOCALIZATION_HOST
     valueFrom:
       configMapKeyRef:
@@ -95,6 +97,22 @@ env: |
       configMapKeyRef:
         name: egov-service-host
         key: egov-user
+  - name: EGOV_MDMS_SEARCH_ENDPOINT
+    value: "/mdms-v2/v1/_search"
+  - name: PGR_KAFKA_CREATE_TOPIC
+    value: "save-pgr-request"
+  - name: PGR_KAFKA_UPDATE_TOPIC
+    value: "update-pgr-request"
+  - name: KAFKA_TOPICS_NOTIFICATION_SMS
+    value: "egov.core.notification.sms"
+  - name: PERSISTER_SAVE_TRANSITION_WF_TOPIC
+    value: "save-wf-transitions"
+  - name: PGR_KAFKA_MIGRATION_TOPIC
+    value: "pgr-migration"
+  - name: PGR_KAFKA_MIGRATION_PERSISTOR_TOPIC
+    value: "save-pgr-request-batch"
+  - name: PERSISTER_SAVE_TRANSITION_WF_MIGRATION_TOPIC
+    value: "save-wf-transitions-batch"
   - name: NOTIFICATION_SMS_ENABLED
     value: {{ index .Values "notification-sms-enabled" | quote }}
   - name: NOTIFICATION_EMAIL_ENABLED
@@ -128,7 +146,7 @@ env: |
   - name: JAVA_ARGS
     value: {{ index .Values "java-args" | quote }}
   - name: JAVA_ENABLE_DEBUG
-    value: {{ index .Values "java-enable-debug" | quote }}
+    value: "true"
   - name: SERVER_PORT
     value: "8080"
   - name: SECURITY_BASIC_ENABLED
@@ -141,7 +159,7 @@ env: |
         name: egov-service-host
         key: egov-location
   - name: EGOV_USR_EVENTS_NOTIFICATION_ENABLED
-    value: "true"
+    value: "false"
   - name: EGOV_USR_EVENTS_CREATE_TOPIC
     value: "persist-user-events-async"
   - name: EGOV_USR_EVENTS_RATE_LINK
@@ -152,6 +170,10 @@ env: |
     value: "RATE"
   - name: EGOV_USR_EVENTS_REOPEN_CODE
     value: "REOPEN" 
+  - name: ENABLE_STATE_LEVEL_SEARCH
+    value: "true"
+  - name: ENABLE_USERTYPE_EMPLOYEE
+    value: "true"
   - name: PGR_STATELEVEL_TENANTID
     valueFrom:
       configMapKeyRef:
