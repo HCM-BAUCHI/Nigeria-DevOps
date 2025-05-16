@@ -26,8 +26,7 @@ healthChecks:
   readinessProbePath: "/boundary-service/health"
 appType: "java-spring"
 tracing-enabled: true
-heap: "-Xmx256m -Xms256m"
-memory_limits: 512Mi
+heap: "-Xmx512m -Xms512m"
 java-args: "-Dspring.profiles.active=monitoring"
 kafka-topics-create-boundary: "create-boundary-entity"
 kafka-topics-update-boundary: "update-boundary-entity"
@@ -35,6 +34,8 @@ kafka-topics-create-boundary-hierarchy: "save-boundary-hierarchy-definition"
 kafka-topics-update-boundary-hierarchy: "update-boundary-hierarchy-definition"
 kafka-topics-create-boundary-relationship: "save-boundary-relationship"
 kafka-topics-update-boundary-relationship: "update-boundary-relationship"
+memory_limits: "512Mi"
+cpu_limits: "150m"
 
 # Additional Container Envs
 env: |

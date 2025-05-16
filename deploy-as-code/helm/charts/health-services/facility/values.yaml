@@ -3,11 +3,8 @@ labels:
   app: "facility"
   group: "health"
 
-namespace: health
-
 # Ingress Configs
 ingress:
-  namespace: egov
   enabled: true
   zuul: true
   context: "facility"
@@ -85,16 +82,28 @@ env: |
   - name: TRACER_OPENTRACING_ENABLED
     value: "true" 
   {{- end }}
+  - name: EGOV_BOUNDARY_HOST
+    valueFrom:
+      configMapKeyRef:
+        name: egov-service-host
+        key: boundary-service
+  - name: EGOV_BOUNDARY_SEARCH_URL
+    value: "/boundary-service/boundary/_search"
+  - name: EGOV_BOUNDARY_HIERARCHY_NAME
+    valueFrom:
+      configMapKeyRef:
+        name: egov-config
+        key: boundary-hierarchy
   
   - name: FACILITY.KAFKA.CREATE.TOPIC
-    value: "save-facility-health-topic"
+    value: "save-facility-topic"
   - name: FACILITY.KAFKA.UPDATE.TOPIC
-    value: "update-facility-health-topic"
+    value: "update-facility-topic"
   - name: FACILITY.KAFKA.DELETE.TOPIC
-    value: "delete-facility-health-topic"
+    value: "delete-facility-topic"
   - name: FACILITY.CONSUMER.BULK.DELETE.TOPIC
-    value: "delete-facility-bulk-health-topic"
+    value: "delete-facility-bulk-topic"
   - name: FACILITY.CONSUMER.BULK.CREATE.TOPIC
-    value: "create-facility-bulk-health-topic"
+    value: "create-facility-bulk-topic"
   - name: FACILITY.CONSUMER.BULK.UPDATE.TOPIC
-    value: "update-facility-bulk-health-topic"
+    value: "update-facility-bulk-topic"

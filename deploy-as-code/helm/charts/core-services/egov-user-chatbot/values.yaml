@@ -28,8 +28,7 @@ roles-state-level: "true"
 citizen-registration-withlogin: "true"
 citizen-otp-fixed: "123456"
 citizen-otp-fixed-enabled: "true"
-heap: "-Xmx256m -Xms256m"
-memory_limits: 512Mi
+heap: "-Xmx192m -Xms192m"
 java-args: ""
 
 # Additional Container Envs
@@ -37,7 +36,10 @@ env: |
   - name: SERVER_PORT
     value: "8080"
   - name: SPRING_REDIS_HOST
-    value: redis.backbone
+    valueFrom:
+      configMapKeyRef:
+        name: egov-config
+        key: redis-host
   - name: SPRING_REDIS_PORT
     value: "6379"
   - name: CITIZEN_LOGIN_PASSWORD_OTP_FIXED_VALUE

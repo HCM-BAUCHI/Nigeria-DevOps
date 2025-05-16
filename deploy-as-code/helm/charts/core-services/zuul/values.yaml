@@ -5,17 +5,17 @@ labels:
 
 serviceAccount: zuul
 namespace: egov  
-discovery_namespaces: egov,sanitation,works,health,staging,fsm,ifix
+
 # Init Containers Configs
 initContainers: 
   extraInitContainers: |
     - name: "zuul-kubernetes-discovery"
-      image: "{{ .Values.global.containerRegistry }}/zuul-kubernetes-discovery:zuul-discovery-multiple-ns-1b978047ee-1"      
+      image: "{{ .Values.global.containerRegistry }}/zuul-kubernetes-discovery:2-master-91c9795"      
       env: 
       - name: "OUTPUT_FILE_PATH"
         value: "/etc/zuul/routes.properties" 
       - name: "NAMESPACE"
-        value: {{ index .Values "discovery_namespaces" | quote }}        
+        value: "egov"         
       volumeMounts:
       - name: zuul-routes
         mountPath: /etc/zuul
@@ -39,20 +39,23 @@ healthChecks:
 custom-filter-property: "false"
 posthook-config: ""
 prehook-config: ""
-heap: "-Xmx256m -Xms256m"
-memory_limits: 512Mi
+heap: "-Xmx192m -Xms192m"
 appType: "java-spring"
 tracing-enabled: true
 server-tomcat-max-threads: "350"
 server-tomcat-max-connections: "1500"
+server-compression-enabled: true
+server-compression-mime-types: "text/html,text/xml,text/plain,text/css,text/javascript,application/javascript,application/json"
 java-args: ""
-egov-open-endpoints-whitelist: "/user/oauth/token,/user-otp/v1/_send,/otp/v1/_validate,/user/citizen/_create,/localization/messages,/localization/messages/v1/_search,/user/password/nologin/_update,/tenant/v1/tenant/_search,/egov-location/boundarys,/egov-location/boundarys/boundariesByBndryTypeNameAndHierarchyTypeName,/egov-location/boundarys/getLocationByLocationName,/egov-mdms-service/v1/_search,/egov-location/location/v11/geography/_search,/filestore/v1/files/url,/pt-calculator-v2/billing-slab/_search,/egov-searcher/property-services/propertyopensearch/_get,/edcr/rest/dcr/downloadfile"
+egov-open-endpoints-whitelist: "/user/oauth/token,/user-otp/v1/_send,/otp/v1/_validate,/user/citizen/_create,/localization/messages,/localization/messages/v1/_search,/user/password/nologin/_update,/tenant/v1/tenant/_search,/egov-location/boundarys,/egov-location/boundarys/boundariesByBndryTypeNameAndHierarchyTypeName,/egov-location/boundarys/getLocationByLocationName,/egov-mdms-service/v1/_search,/egov-location/location/v11/geography/_search,/filestore/v1/files/url,/pt-calculator-v2/billing-slab/_search,/egov-searcher/property-services/propertyopensearch/_get,/edcr/rest/dcr/downloadfile,/egov-mdms-service/schema/v1/_search,/egov-mdms-service/v2/_search,/egov-mdms-service/*,/mdms-v2/*,/mdms-v2/v1/_search,/mdms-v2/schema/v1/_search"
 egov-mixed-mode-endpoints-whitelist: "/filestore/v1/files/id,/filestore/v1/files,/filestore/v1/files/tag,/user/_search,/access/v1/actions/mdms/_get,/tl-services/v1/_search,/tl-services/v1/BPAREG/_search,/tl-services/v1/BPAREG/_create,/tl-services/v1/BPAREG/_update,/tl-calculator/v1/BPAREG/_getbill,/bpa-services/bpa/appl/_search,/edcr/rest/dcr/scrutinize,/edcr/rest/dcr/scrutinydetails"
 eventlog-enabled: "false"
 eventlog-topic: "zuul-event-log"
 eventlog-urls-whitelist: ""
 home-isolation-chatbot-router-enabled: false
-
+zuul-response-gzip-filter-enabled: true
+zuul-min-gzip-body-size: 860
+zuul.gzip.contenttypes: "text/html,application/x-javascript,text/css,application/javascript,text/javascript,text/plain,text/xml,application/json,application/vnd.ms-fontobject,application/x-font-opentype,application/x-font-truetype,application/x-font-ttf,application/xml,font/eot,font/opentype,font/otf,image/svg+xml,image/vnd.microsoft.icon"
 # Additional Container Envs
 env: |
   - name: URL_LISTS
@@ -111,17 +114,16 @@ env: |
   {{- end }}
   - name: SECURITY_BASIC_ENABLED
     value: "false"
+  - name: ZUUL_RESPONSE_GZIP_FILTER_ENABLED
+    value: "true"
+  - name: ZUUL_GZIP_CONTENTTYPES
+    value: "text/html,application/x-javascript,text/css,application/javascript,text/javascript,text/plain,text/xml,application/json,application/vnd.ms-fontobject,application/x-font-opentype,application/x-font-truetype,application/x-font-ttf,application/xml,font/eot,font/opentype,font/otf,image/svg+xml,image/vnd.microsoft.icon"
+  - name: ZUUL_MIN_GZIP_BODY_SIZE
+    value: "860"
   - name: MANAGEMENT_SECURITY_ENABLED
     value: "false"
   - name: JAVA_ARGS
     value: {{ index .Values "java-args" | quote }}
-  {{- if index .Values "java-debug" }}
-  - name: JAVA_ENABLE_DEBUG
-    value: {{ index .Values "java-debug" | quote }}
-  {{- else }}
-  - name: JAVA_ENABLE_DEBUG
-    value: "false"
-  {{- end }}
   - name: EGOV_STATELEVEL_TENANT
     valueFrom:
       configMapKeyRef:

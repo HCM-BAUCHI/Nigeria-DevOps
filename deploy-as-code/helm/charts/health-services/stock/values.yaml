@@ -3,11 +3,8 @@ labels:
   app: "stock"
   group: "health"
 
-namespace: health
-
 # Ingress Configs
 ingress:
-  namespace: egov
   enabled: true
   zuul: true
   context: "stock"
@@ -38,7 +35,7 @@ indexer-yml-path: "file:///work-dir/health-campaign-config/egov-indexer/stock-in
 # Additional Container Envs
 env: |
   - name: SPRING_KAFKA_CONSUMER_GROUP_ID
-    value: health-project
+    value: health-stock
   - name: SPRING_KAFKA_PRODUCER_KEY_SERIALIZER
     value: org.apache.kafka.common.serialization.StringSerializer
   {{- if index .Values "global" "tracer-errors-provideexceptionindetails" }}
@@ -48,6 +45,18 @@ env: |
         name: egov-config
         key: tracer-errors-provideexceptionindetails
   {{- end }}
+  - name: EGOV_BOUNDARY_HOST
+    valueFrom:
+      configMapKeyRef:
+        name: egov-service-host
+        key: boundary-service
+  - name: EGOV_BOUNDARY_SEARCH_URL
+    value: "/boundary-service/boundary/_search"
+  - name: EGOV_BOUNDARY_HIERARCHY_NAME
+    valueFrom:
+      configMapKeyRef:
+        name: egov-config
+        key: boundary-hierarchy
   - name: EGOV_IDGEN_HOST
     valueFrom:
       configMapKeyRef:
@@ -62,7 +71,10 @@ env: |
   - name: STOCK.RECONCILIATION.IDGEN.ID.FORMAT
     value: "stock.reconciliation.id"
   - name: SPRING_REDIS_HOST
-    value: redis.backbone
+    valueFrom:
+      configMapKeyRef:
+        name: egov-config
+        key: redis-host
   - name: SPRING_REDIS_PORT
     value: "6379"
   - name: SPRING_CACHE_TYPE
@@ -95,31 +107,31 @@ env: |
   - name: EGOV_SEARCH_PRODUCT_VARIANT_URL
     value: "/product/variant/v1/_search"
   - name: STOCK.KAFKA.CREATE.TOPIC
-    value: "save-stock-health-topic"
+    value: "save-stock-topic"
   - name: STOCK.KAFKA.UPDATE.TOPIC
-    value: "update-stock-health-topic"
+    value: "update-stock-topic"
   - name: STOCK.KAFKA.DELETE.TOPIC
-    value: "delete-stock-health-topic"
+    value: "delete-stock-topic"
   - name: STOCK.CONSUMER.BULK.DELETE.TOPIC
-    value: "delete-stock-bulk-health-topic"
+    value: "delete-stock-bulk-topic"
   - name: STOCK.CONSUMER.BULK.CREATE.TOPIC
-    value: "create-stock-bulk-health-topic"
+    value: "create-stock-bulk-topic"
   - name: STOCK.CONSUMER.BULK.UPDATE.TOPIC
-    value: "update-stock-bulk-health-topic"
+    value: "update-stock-bulk-topic"
   - name: SEARCH_API_LIMIT
     value: "1000"
   - name: STOCK.RECONCILIATION.KAFKA.CREATE.TOPIC
-    value: "save-stock-reconciliation-health-topic"
+    value: "save-stock-reconciliation-topic"
   - name: STOCK.RECONCILIATION.KAFKA.UPDATE.TOPIC
-    value: "update-stock-reconciliation-health-topic"
+    value: "update-stock-reconciliation-topic"
   - name: STOCK.RECONCILIATION.KAFKA.DELETE.TOPIC
-    value: "delete-stock-reconciliation-health-topic"
+    value: "delete-stock-reconciliation-topic"
   - name: STOCK.RECONCILIATION.CONSUMER.BULK.DELETE.TOPIC
-    value: "delete-stock-reconciliation-bulk-health-topic"
+    value: "delete-stock-reconciliation-bulk-topic"
   - name: STOCK.RECONCILIATION.CONSUMER.BULK.CREATE.TOPIC
-    value: "create-stock-reconciliation-bulk-health-topic"
+    value: "create-stock-reconciliation-bulk-topic"
   - name: STOCK.RECONCILIATION.CONSUMER.BULK.UPDATE.TOPIC
-    value: "update-stock-reconciliation-bulk-health-topic"
+    value: "update-stock-reconciliation-bulk-topic"
   - name: EGOV_FACILITY_HOST
     valueFrom:
       configMapKeyRef:
@@ -131,11 +143,9 @@ env: |
     valueFrom:
       configMapKeyRef:
         name: egov-service-host
-        key: health-project
+        key: project
   - name: EGOV_SEARCH_PROJECT_FACILITY_URL
-    value: "/health-project/facility/v1/_search"
-  - name: EGOV_USER_INTEGRATION_ENABLED
-    value: "true"
+    value: "/project/facility/v1/_search"
   - name: EGOV_USER_HOST
     valueFrom:
       configMapKeyRef:
@@ -149,16 +159,22 @@ env: |
     value: "/user/_search"
   - name: EGOV_UPDATE_USER_URL
     value: "/_updatenovalidate"
+  - name: EGOV.USER.INTEGRATION.ENABLED
+    value: "true"
   - name: EGOV_MDMS_HOST
     valueFrom:
       configMapKeyRef:
         name: egov-service-host
-        key: egov-mdms-service
+        key: mdms-v2
   - name: EGOV_MDMS_SEARCH_ENDPOINT
-    value: "/egov-mdms-service/v1/_search"
-  - name: EGOV_MDMS_MASTER_NAME
-    value: ""
-  - name: EGOV_MDMS_MODULE_NAME
-    value: ""
-  - name: EGOV_MDMS_INTEGRATION_ENABLED
+    value: "/mdms-v2/v1/_search"
+  - name: EGOV_MDMS_PATH_NAME
+    value: "/mdms-v2/v1/_search"
+  - name: EGOV_MDMS_PATH
+    value: "/mdms-v2/v1/_search"
+  - name: MDMS_PATH
+    value: "/mdms-v2/v1/_search"
+  - name: EGOV.MDMS.MASTER.NAME
+  - name: EGOV.MDMS.MASTER.NAME
+  - name: EGOV.MDMS.INTEGRATION.ENABLED
     value: "false"

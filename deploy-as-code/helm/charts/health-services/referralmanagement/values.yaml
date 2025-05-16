@@ -3,15 +3,11 @@ labels:
   app: "referralmanagement"
   group: "health"
 
-namespace: health
-
 # Ingress Configs
 ingress:
-  namespace: egov
   enabled: true
   zuul: true
-  context: "referralmanagement"
- 
+  context: "referralmanagement" 
 
 # Init Containers Configs
 initContainers:
@@ -33,8 +29,8 @@ appType: "java-spring"
 tracing-enabled: true
 heap: "-Xmx192m -Xms192m"
 java-args: ""
-persist-yml-path: "file:///work-dir/configs/egov-persister/referral-management-persister.yml"
-indexer-yml-path: "file:///work-dir/configs/egov-indexer/referral-management-indexer.yml"
+persist-yml-path: "file:///work-dir/health-campaign-config/egov-persister/referral-management-persister.yml"
+indexer-yml-path: "file:///work-dir/health-campaign-config/egov-indexer/referral-management-indexer.yml"
 
 # Additional Container Envs
 env: |
@@ -63,7 +59,10 @@ env: |
   - name: REFERRALMANAGEMENT.REFERRAL.IDGEN.ID.FORMAT
     value: "referralmanagement.referral.id"
   - name: SPRING_REDIS_HOST
-    value: redis.backbone
+    valueFrom:
+      configMapKeyRef:
+        name: egov-config
+        key: redis-host
   - name: SPRING_REDIS_PORT
     value: "6379"
   - name: SPRING_CACHE_TYPE
@@ -102,6 +101,18 @@ env: |
       configMapKeyRef:
         name: egov-service-host
         key: egov-location
+  - name: EGOV_BOUNDARY_HOST
+    valueFrom:
+      configMapKeyRef:
+        name: egov-service-host
+        key: boundary-service
+  - name: EGOV_BOUNDARY_SEARCH_URL
+    value: "/boundary-service/boundary/_search"
+  - name: EGOV_BOUNDARY_HIERARCHY_NAME
+    valueFrom:
+      configMapKeyRef:
+        name: egov-config
+        key: boundary-hierarchy
   - name: EGOV_LOCATION_CONTEXT_PATH
     value: "/egov-location/location/v11"
   - name: EGOV_LOCATION_ENDPOINT
@@ -110,9 +121,13 @@ env: |
     valueFrom:
       configMapKeyRef:
         name: egov-service-host
-        key: egov-mdms-service
+        key: mdms-v2
   - name: EGOV_MDMS_SEARCH_ENDPOINT
-    value: "/egov-mdms-service/v1/_search"
+    value: "/mdms-v2/v1/_search"
+  - name: EGOV_MDMS_PATH
+    value: "/mdms-v2/v1/_search"
+  - name: MDMS_PATH
+    value: "/mdms-v2/v1/_search"
   - name: EGOV_MDMS_INTEGRATION_ENABLED
     value: "true"
   - name: EGOV_MDMS_MASTER_NAME
@@ -132,9 +147,9 @@ env: |
     valueFrom:
       configMapKeyRef:
         name: egov-service-host
-        key: health-individual
+        key: individual
   - name: EGOV_SEARCH_INDIVIDUAL_URL
-    value: "/health-individual/v1/_search"
+    value: "/individual/v1/_search"
   - name: EGOV_PRODUCT_HOST
     valueFrom:
       configMapKeyRef:
@@ -146,50 +161,39 @@ env: |
     valueFrom:
       configMapKeyRef:
         name: egov-service-host
-        key: health-project
+        key: project
   - name: EGOV_SEARCH_PROJECT_TASK_URL
-    value: "/health-project/task/v1/_search"
+    value: "/project/task/v1/_search"
   - name: EGOV_SEARCH_PROJECT_BENEFICIARY_URL
-    value: "/health-project/beneficiary/v1/_search"
+    value: "/project/beneficiary/v1/_search"
   - name: EGOV_SEARCH_PROJECT_STAFF_URL
-    value: "/health-project/staff/v1/_search"
+    value: "/project/staff/v1/_search"
+  - name: EGOV_SEARCH_PROJECT_URL
+    value: "/project/v1/_search"
   - name: REFERRALMANAGEMENT.SIDEEFFECT.KAFKA.CREATE.TOPIC
-    value: "save-side-effect-health-topic"
+    value: "save-side-effect-topic"
   - name: REFERRALMANAGEMENT.SIDEEFFECT.KAFKA.UPDATE.TOPIC
-    value: "update-side-effect-health-topic"
+    value: "update-side-effect-topic"
   - name: REFERRALMANAGEMENT.SIDEEFFECT.KAFKA.DELETE.TOPIC
-    value: "delete-side-effect-health-topic"
+    value: "delete-side-effect-topic"
   - name: REFERRALMANAGEMENT.SIDEEFFECT.CONSUMER.BULK.CREATE.TOPIC
-    value: "save-side-effect-bulk-health-topic"
+    value: "save-side-effect-bulk-topic"
   - name: REFERRALMANAGEMENT.SIDEEFFECT.CONSUMER.BULK.UPDATE.TOPIC
-    value: "update-side-effect-bulk-health-topic"
+    value: "update-side-effect-bulk-topic"
   - name: REFERRALMANAGEMENT.SIDEEFFECT.CONSUMER.BULK.DELETE.TOPIC
-    value: "delete-side-effect-bulk-health-topic"
+    value: "delete-side-effect-bulk-topic"
   - name: REFERRALMANAGEMENT.REFERRAL.KAFKA.CREATE.TOPIC
-    value: "save-referral-health-topic"
+    value: "save-referral-topic"
   - name: REFERRALMANAGEMENT.REFERRAL.KAFKA.UPDATE.TOPIC
-    value: "update-referral-health-topic"
+    value: "update-referral-topic"
   - name: REFERRALMANAGEMENT.REFERRAL.KAFKA.DELETE.TOPIC
-    value: "delete-referral-health-topic"
+    value: "delete-referral-topic"
   - name: REFERRALMANAGEMENT.REFERRAL.CONSUMER.BULK.CREATE.TOPIC
-    value: "save-referral-bulk-health-topic"
+    value: "save-referral-bulk-topic"
   - name: REFERRALMANAGEMENT.REFERRAL.CONSUMER.BULK.UPDATE.TOPIC
-    value: "update-referral-bulk-health-topic"
+    value: "update-referral-bulk-topic"
   - name: REFERRALMANAGEMENT.REFERRAL.CONSUMER.BULK.DELETE.TOPIC
-    value: "delete-referral-bulk-health-topic"
-  - name: REFERRALMANAGEMENT.HFREFERRAL.KAFKA.CREATE.TOPIC
-    value: "save-hfreferral-health-topic"
-  - name: REFERRALMANAGEMENT.HFREFERRAL.KAFKA.UPDATE.TOPIC
-    value: "update-hfreferral-health-topic"
-  - name: REFERRALMANAGEMENT.HFREFERRAL.KAFKA.DELETE.TOPIC
-    value: "delete-hfreferral-health-topic"
-  - name: REFERRALMANAGEMENT.HFREFERRAL.CONSUMER.BULK.CREATE.TOPIC
-    value: "save-hfreferral-bulk-health-topic"
-  - name: REFERRALMANAGEMENT.HFREFERRAL.CONSUMER.BULK.UPDATE.TOPIC
-    value: "update-hfreferral-bulk-health-topic"
-  - name: REFERRALMANAGEMENT.HFREFERRAL.CONSUMER.BULK.DELETE.TOPIC
-    value: "delete-hfreferral-bulk-health-topic"
-  
+    value: "delete-referral-bulk-topic"
   - name: SEARCH_API_LIMIT
     value: "1000"
   - name: REFERRALMANAGEMENT.DOCUMENT.ID.VERIFICATION.REQUIRED
@@ -211,9 +215,13 @@ env: |
         key: facility
   - name: EGOV_SEARCH_FACILITY_URL
     value: "/facility/v1/_search"
+  - name: EGOV_SEARCH_PROJECT_FACILITY_URL
+    value: "/project/facility/v1/_search"
   - name: PROJECT_MDMS_MODULE
     value: "HCM-PROJECT-TYPES"
   - name: EGOV_LOCATION_HIERARCHY_TYPE
-    value: "ADMIN"
+    value: "IRS"
   - name: EGOV_LOCATION_CODE_QUERY_PARAM
     value: "code"
+  - name: EGOV_ENABLE_MATVIEW_SEARCH
+    value: "true"

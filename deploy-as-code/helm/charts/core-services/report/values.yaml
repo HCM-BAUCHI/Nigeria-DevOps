@@ -26,8 +26,7 @@ healthChecks:
   readinessProbePath: "/report/health"
 tracing-enabled: "true"
 report-locationsfile-path: "file:///work-dir/configs/reports/reportFileLocationsv1.txt"
-heap: "-Xmx256m -Xms256m"
-memory_limits: 512Mi
+heap: "-Xmx192m -Xms192m"
 spring-datasource-tomcat-max-active: "5"
 
 # Additional Container Envs
@@ -52,7 +51,7 @@ env: |
     valueFrom:
       configMapKeyRef:
         name: egov-service-host
-        key: egov-mdms-service
+        key: mdms-v2
   - name: EGOV_ENC_HOST
     valueFrom:
       configMapKeyRef:
