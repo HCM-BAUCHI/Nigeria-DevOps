@@ -18,7 +18,7 @@ cluster-configs:
     cert-issuer: letsencrypt-prod
   configmaps:
     egov-config:
-      namespace: [egov]
+      namespace: [egov, bauchi, oyo]
       data:
         db-host: "ng-central-prd-db.cpe4q0cycqi7.af-south-1.rds.amazonaws.com" ## Add db-host name eg: egov-demo.database.azure.com
         db-name: "ngcentralprd" ## Add db-name
@@ -58,7 +58,7 @@ cluster-configs:
         host-map: "{'ba':'https://bauchi-hcm.digit.org/','oy':'https://oyo-hcm.digit.org/'}"
 
     egov-service-host:
-      namespace: [egov, monitoring]
+      namespace: [egov, bauchi, oyo, monitoring]
       data:
         dashboard-analytics: "http://dashboard-analytics.egov:8080/"
         egov-enc-service: "http://egov-enc-service.egov:8080/"
@@ -539,6 +539,7 @@ product:
       memory: "768Mi"
 
 egov-localization:
+  namespace: "bauchi"
   heap: "-Xmx512m -Xms512m"
   memory_limits: "512Mi"
   resources:
