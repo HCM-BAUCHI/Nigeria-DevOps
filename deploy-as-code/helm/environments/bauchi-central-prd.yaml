@@ -142,6 +142,7 @@ egov-filestore:
   fixed-bucketname: ngcentralfilestore  ## Add filestore bucket name
 
 egov-idgen:
+  namespace: "bauchi"
   idformat-from-mdms: "true"
   java-args: -Dspring.profiles.active=monitoring
   autocreate-new-seq: "true"
@@ -172,7 +173,20 @@ pgr-services:
       memory: "512Mi"
     limits:
       memory: "512Mi"
-  
+
+egov-enc-service:
+  namespace: "bauchi"
+
+boundary-service:
+  namespace: "bauchi"
+  heap: "-Xmx512m -Xms512m"
+  memory_limits: "512Mi"
+  resources:
+    requests:
+      memory: "512Mi"
+    limits:
+      memory: "512Mi"
+
 egov-user:
   central-instance-build: true
   heap: "-Xmx1024m -Xms1024m"

@@ -20,3 +20,15 @@ boundary-service:
     limits:
       memory: "512Mi"
 
+egov-idgen:
+  namespace: "oyo"
+  heap: "-Xmx512m -Xms512m"
+  memory_limits: "512Mi"
+  resources:
+    requests:
+      memory: "512Mi"
+    limits:
+      memory: "512Mi"
+
+egov-enc-service:
+  namespace: "oyo"
