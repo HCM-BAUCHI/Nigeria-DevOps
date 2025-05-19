@@ -73,15 +73,9 @@ env: |
         name: egov-service-host
         key: egov-localization
   - name: EGOV_INFRA_SEARCHER_HOST
-    valueFrom:
-      configMapKeyRef:
-        name: egov-service-host
-        key: egov-searcher
+    value: ""
   - name: EGOV_COMMON_MASTERS_HOST
-    valueFrom:
-      configMapKeyRef:
-        name: egov-service-host
-        key: egov-common-masters
+    value: ""
   - name: EGOV_FILESTORE_HOST
     valueFrom:
       configMapKeyRef:
@@ -153,11 +147,6 @@ env: |
     value: "false"  
   - name: MANAGEMENT_SECURITY_ENABLED
     value: "false" 
-  - name: EGOV_LOCATION_HOST
-    valueFrom:
-      configMapKeyRef:
-        name: egov-service-host
-        key: egov-location
   - name: EGOV_USR_EVENTS_NOTIFICATION_ENABLED
     value: "false"
   - name: EGOV_USR_EVENTS_CREATE_TOPIC

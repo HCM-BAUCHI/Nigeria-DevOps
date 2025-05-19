@@ -64,10 +64,7 @@ env: |
         name: egov-service-host
         key: health-expense
   - name: EGOV_MDMS_HOST
-    valueFrom:
-      configMapKeyRef:
-        name: egov-service-host
-        key: egov-mdms-service
+    value: ""
   - name: EGOV_MDMS_SEARCH_ENDPOINT
     value: "egov-mdms-service/v1/_search"      
   - name: EGOV_IDGEN_HOST

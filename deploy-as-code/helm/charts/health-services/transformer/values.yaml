@@ -91,11 +91,6 @@ env: |
       configMapKeyRef:
         name: egov-service-host
         key: project
-  - name: EGOV_LOCATION_HOST
-    valueFrom:
-      configMapKeyRef:
-        name: egov-service-host
-        key: egov-location
   - name: EGOV_SEARCH_PROJECT_URL
     value: "/project/v1/_search"
   - name: EGOV_SEARCH_PROJECT_URL

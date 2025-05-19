@@ -48,10 +48,7 @@ env: |
   - name: SERVER_SERVLET_CONTEXT-PATH
     value: /health-expense
   - name: EGOV_MDMS_HOST
-    valueFrom:
-      configMapKeyRef:
-        name: egov-service-host
-        key: egov-mdms-service
+    value: ""
   - name: EGOV_IDGEN_HOST
     valueFrom:
       configMapKeyRef:
