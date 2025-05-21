@@ -46,7 +46,7 @@ modules:
       - "core"
     services:
       # - egovio/egov-hrms:HDDF-2588-db2470d2f7-41
-      - egovio/egov-hrms:HDDF-2588-impl-11d5f4c9ed-8
+      - egovio/egov-hrms:HDDF-2588-impl-abb72dc18a-9
   - name: "frontend"
     dependencies:
       - "business"
