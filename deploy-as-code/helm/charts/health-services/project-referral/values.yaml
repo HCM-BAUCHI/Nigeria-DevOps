@@ -267,9 +267,9 @@ env: |
     value: "egov-user"
   - name: EGOV_PERSISTER_BULK_PROCESSING_ENABLED
     value: "false"
-  - name: PROJECT_USER_ACTION_TASK_KAFKA_CREATE_TOPIC
+  - name: PROJECT_USER_ACTION_KAFKA_CREATE_TOPIC
     value: "save-user-action-project-task-topic"
-  - name: PROJECT_USER_ACTION_TASK_KAFKA_UPDATE_TOPIC
+  - name: PROJECT_USER_ACTION_KAFKA_UPDATE_TOPIC
     value: "update-user-action-project-task-topic"
   - name: PROJECT_USER_ACTION_TASK_CONSUMER_BULK_CREATE_TOPIC
     value: "save-user-action-project-task-bulk-health-topic"
