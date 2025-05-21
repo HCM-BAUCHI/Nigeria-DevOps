@@ -19,7 +19,7 @@ modules:
       - "authn-authz"
     services:
       - egovio/egov-accesscontrol:v2.9.0-063968adc7-17 # No-db connection
-      - egovio/egov-enc-service:v2.9.0-aad7536fde-23 # setup in common ns. Handles all requests
+      - egovio/egov-enc-service-db:HCMPRE-2741-encryption-570422f26e-25 # setup in common ns. Handles all requests
       - egovio/egov-filestore:DIGIT-2.9-LTS-237578ce80-14 # TODO:setup later
       - egovio/egov-localization:v2.9.0-063968adc7-23 # Setup in common ns. Handles all requests
       - egovio/egov-idgen:v2.9.0-063968adc7-18 # Setup in common ns. Handles all requests
@@ -28,7 +28,7 @@ modules:
       # - egovio/mdms-v2:MDMS-v2-2.9LTS-fc6b868dce-47
       - egovio/mdms-v2:HCMPRE-2741-mdms-d2526530f0-91
       # - egovio/egov-user:HDDF-2588-e98d24c8a5-56
-      - egovio/egov-user:HCMPRE-2741-user-b8127492d8-68
+      - egovio/egov-user:HDDF-2588-impl-296502d105-73
       # - egovio/egov-workflow-v2:2.9.1-80b58dc788-15
       - egovio/egov-workflow-v2:indexer-bpa-fix-vinoth-a9e8f0a5a0-29
       - egovio/egov-url-shortening:v1.1.2-1715164454-3 # Setup in common ns. Handles all requests
@@ -39,12 +39,14 @@ modules:
       - egovio/error-handler:master-impel-dump-5022b7acff-1 # Setup in common ns. Handles all requests
       - egovio/boundary-service:boundary-hierarchy-def-modified-2.9-lts-629baf086b-15 # Setup in common ns. Handles all requests
       - egovio/pdf-service:v1.1.6-96b24b0d72-22 # Setup in common ns. Handles all requests
+      - egovio/egov-otp:HCMPRE-2741-otp-0a3fd3a0f1-7
+      - egovio/user-otp:v2.9.0-063968adc7-25
   - name: business
     dependencies:
       - "core"
     services:
       # - egovio/egov-hrms:HDDF-2588-db2470d2f7-41
-      - egovio/egov-hrms:HCMPRE-2656-HCM-Services-dfe1106603-4
+      - egovio/egov-hrms:HDDF-2588-impl-11d5f4c9ed-8
   - name: "frontend"
     dependencies:
       - "business"
@@ -57,24 +59,24 @@ modules:
       - "core"
     services:
       # - egovio/facility:v1.1.2-3f860f8a31-23
-      - egovio/facility:HCMPRE-2657-e595d5b109-27
+      - egovio/facility:HCMPRE-2657-bauchi-impl-e595d5b109-28
       # - egovio/product:v1.1.0-00a7accbda-31
       - egovio/product:HCMPRE-2656-HCM-Services-759d80e83f-40
       # - egovio/individual:HDDF-2588-Individual-39e5741a15-30
-      - egovio/individual:HCMPRE-2656-HCM-Services-e319a044aa-60household:HCMPRE-2656-HCM-Services-bb1f78dc58-65
+      - egovio/individual:HDDF-2588-Individual-impl-cebbec271b-61
       - egovio/transformer:boundary-service-caching-8e8ac1412a-288 #TODO: deploy new bauchi image
       # - egovio/stock:v1.1.3-3f860f8a31-44
-      - egovio/stock:HCMPRE-2656-HCM-Services-6cb351ac5e-53
+      - egovio/stock:HCMPRE-2656-HCM-Services-bauchi-impl-7c6fd41d4a-57
       # - egovio/household:HCMPRE-1254-Comunity-household-8064857b8c-36
       - egovio/household:HCMPRE-2656-HCM-Services-bb1f78dc58-65
       # - egovio/project:HDDF-1638-55ba2879f5-26
-      - egovio/project:HCMPRE-2657-0850e78bc0-38
+      - egovio/project:HCMPRE-2657-bauchi-impl-f7659c6640-41
       # - egovio/referralmanagement:Downsync-for-CFL-demo-c1749cc0ec-66
       - egovio/referralmanagement:HCMPRE-2657-0850e78bc0-88
       # - egovio/health-attendance:v1.1.0-55e92c713-51
-      - egovio/health-attendance:HCMPRE-2656-HCM-Services-9d6496759-52 # TODO: check if this is built from works
+      - egovio/health-attendance-db:HCMPRE-2656-HCM-Services-22e8f5527-55 # TODO: check if this is built from works
       # - egovio/service-request:v1.0.1-a0e714254c-18
-      - egovio/service-request:HCMPRE-2736-service-request-cc6f3910de-1
+      - egovio/service-request-db:HCMPRE-2736-service-request-1319431e18-3
       - egovio/hcm-moz-impl:develop-burundi-91f4a9b2-435 # TODO: make changes to code. set ingestion tool specific db-url
   - name: m_payments
     dependencies:
