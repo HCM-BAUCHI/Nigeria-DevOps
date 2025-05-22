@@ -352,6 +352,19 @@ egov-hrms:
   employee-applink: "https://bauchi-hcm.digit.org/digit-ui/employee/login"
   java-enable-debug: true
 
+egov-otp:
+  heap: "-Xmx512m -Xms512m"
+  memory_limits: "512Mi"
+  resources:
+    requests:
+      memory: "512Mi"
+    limits:
+      memory: "512Mi"
+  central-instance-build: true
+  java-args: -Dspring.profiles.active=monitoring
+  employee-applink: "https://bauchi-hcm.digit.org/digit-ui/employee/login"
+  java-enable-debug: true
+
 # <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 
 kafka-config:

@@ -176,6 +176,8 @@ env: |
   - name: PGR_COMPLAIN_IDLE_TIME
     value: {{ index .Values "time-before-closing-complaint" | quote }} 
   {{- end }}
+  - name: PGR_KAFKA_TENANT_ID_PATTERN
+    value: "oy-|ba-"
 
 
   
