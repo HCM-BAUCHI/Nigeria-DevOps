@@ -22,7 +22,9 @@ cluster-configs:
       data:
         db-host: "ng-central-prd-db.cpe4q0cycqi7.af-south-1.rds.amazonaws.com" ## Add db-host name eg: egov-demo.database.azure.com
         db-name: "ngcentralprd" ## Add db-name
-        db-url: "jdbc:postgresql://ng-central-prd-db.cpe4q0cycqi7.af-south-1.rds.amazonaws.com:5432/ngcentralprd" ## example: jdbc:postgresql://egov-demo.postgres.database.azure.com:5432/egov_demo
+        db-url: "jdbc:postgresql://ng-central-prd-db.cpe4q0cycqi7.af-south-1.rds.amazonaws.com:5432/ngcentralprd"
+        ba-db-url: "jdbc:postgresql://ng-central-prd-db.cpe4q0cycqi7.af-south-1.rds.amazonaws.com:5432/ngcentralprd?currentSchema=ba"
+        oy-db-url: "jdbc:postgresql://ng-central-prd-db.cpe4q0cycqi7.af-south-1.rds.amazonaws.com:5432/ngcentralprd?currentSchema=oy"
         domain: "bauchi-hcm.digit.org" ## Add your Domain Name
         redis-host: "redis.backbone"
         redis-downsync-host: "redis.backbone"
@@ -142,7 +144,6 @@ egov-filestore:
   fixed-bucketname: ngcentralfilestore  ## Add filestore bucket name
 
 egov-idgen:
-  namespace: "bauchi"
   idformat-from-mdms: "true"
   java-args: -Dspring.profiles.active=monitoring
   autocreate-new-seq: "true"
@@ -175,10 +176,17 @@ pgr-services:
       memory: "512Mi"
 
 egov-enc-service:
-  namespace: "bauchi"
+  heap: "-Xmx512m -Xms512m"
+  memory_limits: "512Mi"
+  resources:
+    requests:
+      memory: "512Mi"
+    limits:
+      memory: "512Mi"
 
 boundary-service:
-  namespace: "bauchi"
+  # internal-routing: "true"
+  # db-url: "jdbc:postgresql://ng-central-prd-db.cpe4q0cycqi7.af-south-1.rds.amazonaws.com:5432/ngcentralprd?currentSchema=ba"
   heap: "-Xmx512m -Xms512m"
   memory_limits: "512Mi"
   resources:
@@ -232,7 +240,7 @@ egov-persister:
   replicas: 1
   images:
     - egovio/egov-persister
-  persist-yml-path: "file:///work-dir/health-campaign-config/egov-persister/ba/audit-service-persister.yml,file:///work-dir/health-campaign-config/egov-persister/ba/egov-user-event-persister.yml,file:///work-dir/health-campaign-config/egov-persister/ba/egov-workflow-v2-persister.yml,file:///work-dir/health-campaign-config/egov-persister/ba/hrms-employee-persister.yml,file:///work-dir/health-campaign-config/egov-persister/ba/pdf-generator.yml,file:///work-dir/health-campaign-config/egov-persister/ba/product-persister.yml,file:///work-dir/health-campaign-config/egov-persister/ba/project-persister.yml,file:///work-dir/health-campaign-config/egov-persister/ba/individual-persister.yml,file:///work-dir/health-campaign-config/egov-persister/ba/household-persister.yml,file:///work-dir/health-campaign-config/egov-persister/ba/project-task-persister.yml,file:///work-dir/health-campaign-config/egov-persister/ba/stock-persister.yml,file:///work-dir/health-campaign-config/egov-persister/ba/facility-persister.yml,file:///work-dir/health-campaign-config/egov-persister/ba/service-request-persister.yml,file:///work-dir/health-campaign-config/egov-persister/ba/pgr-services-persister.yml,file:///work-dir/health-campaign-config/egov-persister/ba/hcm-moz-impl-persister.yml,file:///work-dir/health-campaign-config/egov-persister/ba/mdms-persister.yml,file:///work-dir/health-campaign-config/egov-persister/ba/referral-management-persister.yml,file:///work-dir/health-campaign-config/egov-persister/ba/attendance-service-persister.yml,file:///work-dir/health-campaign-config/egov-persister/ba/boundary-persister.yml,file:///work-dir/health-campaign-config/egov-persister/ba/muster-service-persister.yml,file:///work-dir/health-campaign-config/egov-persister/ba/expense-bill-payment-persister.yaml,file:///work-dir/health-campaign-config/egov-persister/ba/irs-persister.yml,file:///work-dir/health-campaign-config/egov-persister/oy/audit-service-persister.yml,file:///work-dir/health-campaign-config/egov-persister/oy/egov-user-event-persister.yml,file:///work-dir/health-campaign-config/egov-persister/oy/egov-workflow-v2-persister.yml,file:///work-dir/health-campaign-config/egov-persister/oy/hrms-employee-persister.yml,file:///work-dir/health-campaign-config/egov-persister/oy/pdf-generator.yml,file:///work-dir/health-campaign-config/egov-persister/oy/product-persister.yml,file:///work-dir/health-campaign-config/egov-persister/oy/project-persister.yml,file:///work-dir/health-campaign-config/egov-persister/oy/individual-persister.yml,file:///work-dir/health-campaign-config/egov-persister/oy/household-persister.yml,file:///work-dir/health-campaign-config/egov-persister/oy/project-task-persister.yml,file:///work-dir/health-campaign-config/egov-persister/oy/stock-persister.yml,file:///work-dir/health-campaign-config/egov-persister/oy/facility-persister.yml,file:///work-dir/health-campaign-config/egov-persister/oy/service-request-persister.yml,file:///work-dir/health-campaign-config/egov-persister/oy/pgr-services-persister.yml,file:///work-dir/health-campaign-config/egov-persister/oy/hcm-moz-impl-persister.yml,file:///work-dir/health-campaign-config/egov-persister/oy/mdms-persister.yml,file:///work-dir/health-campaign-config/egov-persister/oy/referral-management-persister.yml,file:///work-dir/health-campaign-config/egov-persister/oy/attendance-service-persister.yml,file:///work-dir/health-campaign-config/egov-persister/oy/boundary-persister.yml,file:///work-dir/health-campaign-config/egov-persister/oy/muster-service-persister.yml,file:///work-dir/health-campaign-config/egov-persister/oy/expense-bill-payment-persister.yaml,file:///work-dir/health-campaign-config/egov-persister/oy/irs-persister.yml"
+  persist-yml-path: "file:///work-dir/health-campaign-config/egov-persister/ba/audit-service-persister.yml,file:///work-dir/health-campaign-config/egov-persister/ba/egov-user-event-persister.yml,file:///work-dir/health-campaign-config/egov-persister/ba/egov-workflow-v2-persister.yml,file:///work-dir/health-campaign-config/egov-persister/ba/hrms-employee-persister.yml,file:///work-dir/health-campaign-config/egov-persister/ba/pdf-generator.yml,file:///work-dir/health-campaign-config/egov-persister/ba/product-persister.yml,file:///work-dir/health-campaign-config/egov-persister/ba/project-persister.yml,file:///work-dir/health-campaign-config/egov-persister/ba/individual-persister.yml,file:///work-dir/health-campaign-config/egov-persister/ba/household-persister.yml,file:///work-dir/health-campaign-config/egov-persister/ba/project-task-persister.yml,file:///work-dir/health-campaign-config/egov-persister/ba/stock-persister.yml,file:///work-dir/health-campaign-config/egov-persister/ba/facility-persister.yml,file:///work-dir/health-campaign-config/egov-persister/ba/service-request-persister.yml,file:///work-dir/health-campaign-config/egov-persister/ba/pgr-services-persister.yml,file:///work-dir/health-campaign-config/egov-persister/ba/hcm-moz-impl-persister.yml,file:///work-dir/health-campaign-config/egov-persister/ba/mdms-persister.yml,file:///work-dir/health-campaign-config/egov-persister/ba/referral-management-persister.yml,file:///work-dir/health-campaign-config/egov-persister/ba/attendance-service-persister.yml,file:///work-dir/health-campaign-config/egov-persister/ba/boundary-persister.yml,file:///work-dir/health-campaign-config/egov-persister/ba/muster-service-persister.yml,file:///work-dir/health-campaign-config/egov-persister/ba/expense-bill-payment-persister.yaml,file:///work-dir/health-campaign-config/egov-persister/ba/irs-persister.yml,file:///work-dir/health-campaign-config/egov-persister/oy/audit-service-persister.yml,file:///work-dir/health-campaign-config/egov-persister/oy/egov-user-event-persister.yml,file:///work-dir/health-campaign-config/egov-persister/oy/egov-workflow-v2-persister.yml,file:///work-dir/health-campaign-config/egov-persister/oy/hrms-employee-persister.yml,file:///work-dir/health-campaign-config/egov-persister/oy/pdf-generator.yml,file:///work-dir/health-campaign-config/egov-persister/oy/product-persister.yml,file:///work-dir/health-campaign-config/egov-persister/oy/project-persister.yml,file:///work-dir/health-campaign-config/egov-persister/oy/individual-persister.yml,file:///work-dir/health-campaign-config/egov-persister/oy/household-persister.yml,file:///work-dir/health-campaign-config/egov-persister/oy/project-task-persister.yml,file:///work-dir/health-campaign-config/egov-persister/oy/stock-persister.yml,file:///work-dir/health-campaign-config/egov-persister/oy/facility-persister.yml,file:///work-dir/health-campaign-config/egov-persister/oy/service-request-persister.yml,file:///work-dir/health-campaign-config/egov-persister/oy/pgr-services-persister.yml,file:///work-dir/health-campaign-config/egov-persister/oy/hcm-moz-impl-persister.yml,file:///work-dir/health-campaign-config/egov-persister/oy/mdms-persister.yml,file:///work-dir/health-campaign-config/egov-persister/oy/referral-management-persister.yml,file:///work-dir/health-campaign-config/egov-persister/oy/attendance-service-persister.yml,file:///work-dir/health-campaign-config/egov-persister/oy/boundary-persister.yml,file:///work-dir/health-campaign-config/egov-persister/oy/muster-service-persister.yml,file:///work-dir/health-campaign-config/egov-persister/oy/expense-bill-payment-persister.yaml,file:///work-dir/health-campaign-config/egov-persister/oy/irs-persister.yml,file:///work-dir/health-campaign-config/egov-persister/boundary-persister.yml"
   initContainers:
     gitSync:
       repo: "git@github.com:HCM-BAUCHI/health-campaign-config"      ##### Change repo url with Your fork Repo url
@@ -267,10 +275,16 @@ cert-manager:
 
 
 zuul:
+  heap: "-Xmx1024m -Xms768m"
+  memory_limits: "1024Mi"
+  resources:
+    requests:
+      memory: "1Gi"
+    limits:
+      memory: "1Gi"
   replicas: 1
   custom-filter-property: "false"
   tracing-enabled: "true"
-  heap: "-Xmx704m -Xms512m"
   server-tomcat-max-threads: "350"
   server-tomcat-max-connections: "1500"
   egov-open-endpoints-whitelist: "/user/oauth/token,/user-otp/v1/_send,/otp/v1/_validate,/user/citizen/_create,/localization/messages,/localization/messages/v1/_search,/user/password/nologin/_update,/pgr/servicedefinition/v1/_search,/pgr/servicecategories/v1/_search,/pgr/v1/otp/_send,/pgr-master/receivingmode/v1/_search,/tenant/v1/tenant/_search,/egov-location/boundarys,/egov-location/boundarys/boundariesByBndryTypeNameAndHierarchyTypeName,/pgr-master/service/v1/_search,/egov-location/boundarys/getLocationByLocationName,/pgr-master/OTPConfig/_search,/pgr-master/serviceGroup/v1/_search,/egov-location/boundarys/isshapefileexist,/pgr/services/v1/_search,/hr-masters/hrconfigurations/_search,/collection-services/receipts/_view,/pgr-master/service/v2/_search,/pgr-master/servicedefinition/v1/_search,/citizen-services,/citizen-services/v1/requests/receipt/_create,/citizen-services/v1/pgresponse,/citizen-services/v1/requests/anonymous/_search,/egov-mdms-service/v1/_search,/egov-mdms-service/v1/_get,/egov-mdms-service/v1/_reload,/egov-mdms-service/v1/_reloadobj,/egov-location/boundarys/getshapefile,/egov-indexer/index-operations/_index,/egov-indexer/index-operations/_reload,/egov-mdms-service-test/v1/_search,/egov-mdms-create/v1/_update,/egov-mdms-create/v1/_create,/egov-mdms-service-test/v1/_reload,/filestore/v1/files/url,/egov-url-shortening,/whatsapp-webhook/messages,/edcr/rest/dcr/downloadfile,/dashboard-ingest/ingest/upload,/egov-searcher/water-services/wateropensearch/_get,/egov-searcher/sewerage-services/sewerageopensearch/_get,/xstate-chatbot/status,/xstate-chatbot/reminder,/nlp-engine/fuzzy/city,/nlp-engine/fuzzy/locality,/mdms-v2/schema/v1/_search,/mdms-v2/v2/_search,/mdms-v2/v2/_create,/mdms-v2/v1/_search,/mdms-v2/v2/_create/ACCESSCONTROL-ACTIONS-TEST.actions-test,/mdms-v2/v2/_create/ACCESSCONTROL-ROLES.roles,/mdms-v2/v2/_create/ACCESSCONTROL-ROLEACTIONS.roleactions,/mdms-v2/v2/_create,/boundary-service/boundary/_search"
@@ -566,7 +580,8 @@ product:
       memory: "768Mi"
 
 egov-localization:
-  namespace: "bauchi"
+  # internal-routing: "true"
+  # db-url: "jdbc:postgresql://ng-central-prd-db.cpe4q0cycqi7.af-south-1.rds.amazonaws.com:5432/ngcentralprd?currentSchema=ba"
   heap: "-Xmx512m -Xms512m"
   memory_limits: "512Mi"
   resources:

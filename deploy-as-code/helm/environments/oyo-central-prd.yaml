@@ -1,34 +1,41 @@
 
-egov-localization:
-  namespace: "oyo"
-  heap: "-Xmx512m -Xms512m"
-  memory_limits: "512Mi"
-  resources:
-    requests:
-      memory: "512Mi"
-    limits:
-      memory: "512Mi"
+# egov-localization:
+#   namespace: "oyo"
+#   heap: "-Xmx512m -Xms512m"
+#   memory_limits: "512Mi"
+#   resources:
+#     requests:
+#       memory: "512Mi"
+#     limits:
+#       memory: "512Mi"
 
 
-boundary-service:
-  namespace: "oyo"
-  heap: "-Xmx512m -Xms512m"
-  memory_limits: "512Mi"
-  resources:
-    requests:
-      memory: "512Mi"
-    limits:
-      memory: "512Mi"
+# boundary-service:
+#   namespace: "oyo"
+#   heap: "-Xmx512m -Xms512m"
+#   memory_limits: "512Mi"
+#   resources:
+#     requests:
+#       memory: "512Mi"
+#     limits:
+#       memory: "512Mi"
 
-egov-idgen:
-  namespace: "oyo"
-  heap: "-Xmx512m -Xms512m"
-  memory_limits: "512Mi"
-  resources:
-    requests:
-      memory: "512Mi"
-    limits:
-      memory: "512Mi"
+# egov-idgen:
+#   namespace: "oyo"
+#   heap: "-Xmx512m -Xms512m"
+#   memory_limits: "512Mi"
+#   resources:
+#     requests:
+#       memory: "512Mi"
+#     limits:
+#       memory: "512Mi"
 
-egov-enc-service:
-  namespace: "oyo"
+# egov-enc-service:
+#   namespace: "oyo"
+#   heap: "-Xmx512m -Xms512m"
+#   memory_limits: "512Mi"
+#   resources:
+#     requests:
+#       memory: "512Mi"
+#     limits:
+#       memory: "512Mi"

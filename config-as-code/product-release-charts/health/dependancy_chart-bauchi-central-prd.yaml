@@ -12,19 +12,20 @@ modules:
       - redis
       - ingress-nginx
       - cert-manager
+#      - internal-gateway-scg:DIGIT-2.9-LTS-b4fd517ebc-6
       - zuul:v1.3.1-96b24b0d72-39
   - name: core
     dependencies:
       - "backbone"
       - "authn-authz"
     services:
-      - egovio/egov-accesscontrol:v2.9.0-063968adc7-17 # No-db connection
-      - egovio/egov-enc-service-db:HCMPRE-2741-encryption-570422f26e-25 # setup in common ns. Handles all requests
+      - egovio/egov-accesscontrol:v2.9.0-063968adc7-17 # just consumer
+      - egovio/egov-enc-service:HCMPRE-2741-encryption-570422f26e-25 # deployed via internal gateway
       - egovio/egov-filestore:DIGIT-2.9-LTS-237578ce80-14 # TODO:setup later
-      - egovio/egov-localization:v2.9.0-063968adc7-23 # Setup in common ns. Handles all requests
-      - egovio/egov-idgen:v2.9.0-063968adc7-18 # Setup in common ns. Handles all requests
-      - egovio/egov-indexer:indexer-17-searchBody-1799f17903-57 # Setup in common ns. Handles all requests
-      - egovio/egov-persister:v1.1.5-3371bc2-5 # Setup in common ns. Handles all requests
+      - egovio/egov-localization:v2.9.0-063968adc7-23 # deployed via internal gateway
+      - egovio/egov-idgen:v2.9.0-063968adc7-18 # deployed via internal gateway
+      - egovio/egov-indexer:indexer-17-searchBody-1799f17903-57 # just consumer
+      - egovio/egov-persister:v1.1.5-3371bc2-5 # just consumer
       # - egovio/mdms-v2:MDMS-v2-2.9LTS-fc6b868dce-47
       - egovio/mdms-v2:HCMPRE-2741-mdms-d2526530f0-91
       # - egovio/egov-user:HDDF-2588-e98d24c8a5-56
@@ -34,7 +35,7 @@ modules:
       - egovio/egov-url-shortening:v1.1.2-1715164454-3 # Setup in common ns. Handles all requests
       - egovio/egov-document-uploader:v1.1.0-75d461a4d2-4 # Setup in common ns. Handles all requests
       # - egovio/pgr-services:v1.1.7-00a7accbda-19
-      - egovio/pgr-services-db:HCMPRE-2737-pgr-ef388c54f1-5
+      - egovio/pgr-services:HCMPRE-2737-pgr-ef388c54f1-5
       - egovio/audit-service:audit-heatlh-40b1a4018a-11 # TODO: not connecting with pg15.x Setup in common ns. Handles all requests.
       - egovio/error-handler:master-impel-dump-5022b7acff-1 # Setup in common ns. Handles all requests
       - egovio/boundary-service:boundary-hierarchy-def-modified-2.9-lts-629baf086b-15 # Setup in common ns. Handles all requests
@@ -76,7 +77,7 @@ modules:
       # - egovio/health-attendance:v1.1.0-55e92c713-51
       - egovio/health-attendance-db:HCMPRE-2656-HCM-Services-a5ce9731d-57 # TODO: check if this is built from works
       # - egovio/service-request:v1.0.1-a0e714254c-18
-      - egovio/service-request-db:HCMPRE-2736-service-request-1319431e18-3
+      - egovio/service-request:HCMPRE-2736-service-request-1319431e18-3
       - egovio/hcm-moz-impl:develop-burundi-91f4a9b2-435 # TODO: make changes to code. set ingestion tool specific db-url
   - name: m_payments
     dependencies:
