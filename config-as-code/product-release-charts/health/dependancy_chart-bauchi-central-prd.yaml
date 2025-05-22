@@ -29,7 +29,7 @@ modules:
       # - egovio/mdms-v2:MDMS-v2-2.9LTS-fc6b868dce-47
       - egovio/mdms-v2:HCMPRE-2741-mdms-d2526530f0-91
       # - egovio/egov-user:HDDF-2588-e98d24c8a5-56
-      - egovio/egov-user:HDDF-2588-impl-296502d105-73
+      - egovio/egov-user:HDDF-2588-impl-e08d960f04-75
       # - egovio/egov-workflow-v2:2.9.1-80b58dc788-15
       - egovio/egov-workflow-v2-db:indexer-bpa-fix-holash-d4a5474b94-37
       - egovio/egov-url-shortening:v1.1.2-1715164454-3 # Setup in common ns. Handles all requests
