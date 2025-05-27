@@ -166,6 +166,12 @@ ingress:
     - host: oyo-hcm.digit.org
       paths:
         - path: /kibana-upgrade
+    - host: kogi-hcm.digit.org
+      paths:
+        - path: /kibana-upgrade
+    - host: nasarawa-hcm.digit.org
+      paths:
+        - path: /kibana-upgrade
   tls: 
     - secretName: bauchi-hcm.digit.org-tls-certs
       hosts:
@@ -173,6 +179,12 @@ ingress:
     - secretName: oyo-hcm.digit.org-tls-certs
       hosts:
         - oyo-hcm.digit.org
+    - secretName: kogi-hcm.digit.org-tls-certs
+      hosts:
+        - kogi-hcm.digit.org
+    - secretName: nasarawa-hcm.digit.org-tls-certs
+      hosts:
+        - nasarawa-hcm.digit.org
 
 readinessProbe:
   failureThreshold: 3

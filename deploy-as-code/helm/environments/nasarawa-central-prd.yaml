@@ -1,0 +1,103 @@
+
+# egov-localization:
+#   namespace: "oyo"
+#   heap: "-Xmx512m -Xms512m"
+#   memory_limits: "512Mi"
+#   resources:
+#     requests:
+#       memory: "512Mi"
+#     limits:
+#       memory: "512Mi"
+
+
+# boundary-service:
+#   namespace: "oyo"
+#   heap: "-Xmx512m -Xms512m"
+#   memory_limits: "512Mi"
+#   resources:
+#     requests:
+#       memory: "512Mi"
+#     limits:
+#       memory: "512Mi"
+
+# egov-idgen:
+#   namespace: "oyo"
+#   heap: "-Xmx512m -Xms512m"
+#   memory_limits: "512Mi"
+#   resources:
+#     requests:
+#       memory: "512Mi"
+#     limits:
+#       memory: "512Mi"
+
+# egov-enc-service:
+#   namespace: "oyo"
+#   heap: "-Xmx512m -Xms512m"
+#   memory_limits: "512Mi"
+#   resources:
+#     requests:
+#       memory: "512Mi"
+#     limits:
+#       memory: "512Mi"
+
+
+
+
+transformer:
+  namespace: "nasarawa"
+  replicas: 1
+  heap: "-Xmx1536m -Xms1536m"
+  memory_limits: "2Gi"
+  resources:
+    requests:
+      memory: "2Gi"
+    limits:
+      memory: "2Gi"
+  java-enable-debug: true
+  save-project-task-topic: "na-save-project-task-topic"
+  update-project-task-topic: "na-update-project-task-topic"
+  transformer-producer-bulk-project-task-index-v1-topic: "na-transformer-producer-bulk-project-task-index-v1-topic"
+  save-project-staff-topic: "na-save-project-staff-topic"
+  update-project-staff-topic: "na-update-project-staff-topic"
+  transformer-producer-bulk-project-staff-index-v1-topic: "na-transformer-producer-bulk-project-staff-index-v1-topic"
+  transformer-producer-bulk-project-index-v1-topic: "na-transformer-producer-bulk-project-index-v1-topic"
+  save-project: "na-save-project"
+  update-project: "na-update-project"
+  save-household-member-topic: "na-save-household-member-topic"
+  transformer-producer-household-member-index-v1-topic: "na-transformer-producer-household-member-index-v1-topic"
+  save-household-topic: "na-save-household-topic"
+  update-household-topic: "na-update-household-topic"
+  transformer-producer-household-index-v1-topic: "na-transformer-producer-household-index-v1-topic"
+  transformer-producer-service-index-v2-topic: "na-transformer-producer-service-index-v2-topic"
+  save-stock-topic: "na-save-stock-topic"
+  update-stock-topic: "na-update-stock-topic"
+  transformer-producer-bulk-stock-index-v1-topic: "na-transformer-producer-bulk-stock-index-v1-topic"
+  save-facility-topic: "na-save-facility-topic"
+  update-facility-topic: "na-update-facility-topic"
+  save-service: "na-save-service"
+  transformer-producer-service-request-index-v1-topic: "na-transformer-producer-service-request-index-v1-topic"
+  save-referral-topic: "na-save-referral-topic"
+  transformer-producer-referral-index-v1-topic: "na-transformer-producer-referral-index-v1-topic"
+  update-referral-topic: "na-update-referral-topic"
+  save-side-effect-topic: "na-save-side-effect-topic"
+  update-side-effect-topic: "na-update-side-effect-topic"
+  transformer-producer-side-effect-index-v1-topic: "na-transformer-producer-side-effect-index-v1-topic"
+  save-pgr-request: "na-save-pgr-request"
+  transformer-save-pgr-request: "na-transformer-save-pgr-request"
+  update-pgr-request: "na-update-pgr-request"
+  save-hfreferral-topic: "na-save-hfreferral-topic"
+  update-hfreferral-topic: "na-update-hfreferral-topic"
+  transformer-producer-hfreferral-index-v1-topic: "na-transformer-producer-hfreferral-index-v1-topic"
+  transformer-producer-hfreferral-service-index-topic: "na-transformer-producer-hfreferral-service-index-topic"
+  transformer-producer-finance-checklist-index-v1-topic: "na-transformer-producer-finance-checklist-index-v1-topic"
+  transformer-producer-special-spraying-index-topic: "na-transformer-producer-special-spraying-index-topic"
+  save-attendance-log: "na-save-attendance-log"
+  update-attendance-log: "na-update-attendance-log"
+  transformer-save-attendance-log: "na-transformer-save-attendance-log"
+  transformer-save-attendance-register: "na-transformer-save-attendance-register"
+  transformer-producer-extra-transformed-checklist-index-topic: "na-transformer-producer-extra-transformed-checklist-index-topic"
+  update-household-member-topic: "na-update-household-member-topic"
+  save-stock-reconciliation-topic: "na-save-stock-reconciliation-topic"
+  update-stock-reconciliation-topic: "na-update-stock-reconciliation-topic"
+  transformer-producer-stock-recon-index-v1-topic: "na-transformer-producer-stock-recon-index-v1-topic"
+

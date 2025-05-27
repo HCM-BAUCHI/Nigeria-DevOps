@@ -84,7 +84,6 @@ transformer:
   transformer-producer-side-effect-index-v1-topic: "oy-transformer-producer-side-effect-index-v1-topic"
   save-pgr-request: "oy-save-pgr-request"
   transformer-save-pgr-request: "oy-transformer-save-pgr-request"
-  transformer-producer-household-index-v1-topic: "oy-transformer-producer-household-index-v1-topic"
   update-pgr-request: "oy-update-pgr-request"
   save-hfreferral-topic: "oy-save-hfreferral-topic"
   update-hfreferral-topic: "oy-update-hfreferral-topic"

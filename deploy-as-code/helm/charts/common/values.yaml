@@ -10,7 +10,7 @@ httpPort: 8080
 appType: ""
 
 central-instance-build: false
-db-schema-names: "ba,oy"
+db-schema-names: "ba,oy,ko,na"
 
 ingress:
   enabled: false

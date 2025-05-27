@@ -1,0 +1,103 @@
+
+# egov-localization:
+#   namespace: "oyo"
+#   heap: "-Xmx512m -Xms512m"
+#   memory_limits: "512Mi"
+#   resources:
+#     requests:
+#       memory: "512Mi"
+#     limits:
+#       memory: "512Mi"
+
+
+# boundary-service:
+#   namespace: "oyo"
+#   heap: "-Xmx512m -Xms512m"
+#   memory_limits: "512Mi"
+#   resources:
+#     requests:
+#       memory: "512Mi"
+#     limits:
+#       memory: "512Mi"
+
+# egov-idgen:
+#   namespace: "oyo"
+#   heap: "-Xmx512m -Xms512m"
+#   memory_limits: "512Mi"
+#   resources:
+#     requests:
+#       memory: "512Mi"
+#     limits:
+#       memory: "512Mi"
+
+# egov-enc-service:
+#   namespace: "oyo"
+#   heap: "-Xmx512m -Xms512m"
+#   memory_limits: "512Mi"
+#   resources:
+#     requests:
+#       memory: "512Mi"
+#     limits:
+#       memory: "512Mi"
+
+
+
+
+transformer:
+  namespace: "kogi"
+  replicas: 1
+  heap: "-Xmx1536m -Xms1536m"
+  memory_limits: "2Gi"
+  resources:
+    requests:
+      memory: "2Gi"
+    limits:
+      memory: "2Gi"
+  java-enable-debug: true
+  save-project-task-topic: "ko-save-project-task-topic"
+  update-project-task-topic: "ko-update-project-task-topic"
+  transformer-producer-bulk-project-task-index-v1-topic: "ko-transformer-producer-bulk-project-task-index-v1-topic"
+  save-project-staff-topic: "ko-save-project-staff-topic"
+  update-project-staff-topic: "ko-update-project-staff-topic"
+  transformer-producer-bulk-project-staff-index-v1-topic: "ko-transformer-producer-bulk-project-staff-index-v1-topic"
+  transformer-producer-bulk-project-index-v1-topic: "ko-transformer-producer-bulk-project-index-v1-topic"
+  save-project: "ko-save-project"
+  update-project: "ko-update-project"
+  save-household-member-topic: "ko-save-household-member-topic"
+  transformer-producer-household-member-index-v1-topic: "ko-transformer-producer-household-member-index-v1-topic"
+  save-household-topic: "ko-save-household-topic"
+  update-household-topic: "ko-update-household-topic"
+  transformer-producer-household-index-v1-topic: "ko-transformer-producer-household-index-v1-topic"
+  transformer-producer-service-index-v2-topic: "ko-transformer-producer-service-index-v2-topic"
+  save-stock-topic: "ko-save-stock-topic"
+  update-stock-topic: "ko-update-stock-topic"
+  transformer-producer-bulk-stock-index-v1-topic: "ko-transformer-producer-bulk-stock-index-v1-topic"
+  save-facility-topic: "ko-save-facility-topic"
+  update-facility-topic: "ko-update-facility-topic"
+  save-service: "ko-save-service"
+  transformer-producer-service-request-index-v1-topic: "ko-transformer-producer-service-request-index-v1-topic"
+  save-referral-topic: "ko-save-referral-topic"
+  transformer-producer-referral-index-v1-topic: "ko-transformer-producer-referral-index-v1-topic"
+  update-referral-topic: "ko-update-referral-topic"
+  save-side-effect-topic: "ko-save-side-effect-topic"
+  update-side-effect-topic: "ko-update-side-effect-topic"
+  transformer-producer-side-effect-index-v1-topic: "ko-transformer-producer-side-effect-index-v1-topic"
+  save-pgr-request: "ko-save-pgr-request"
+  transformer-save-pgr-request: "ko-transformer-save-pgr-request"
+  update-pgr-request: "ko-update-pgr-request"
+  save-hfreferral-topic: "ko-save-hfreferral-topic"
+  update-hfreferral-topic: "ko-update-hfreferral-topic"
+  transformer-producer-hfreferral-index-v1-topic: "ko-transformer-producer-hfreferral-index-v1-topic"
+  transformer-producer-hfreferral-service-index-topic: "ko-transformer-producer-hfreferral-service-index-topic"
+  transformer-producer-finance-checklist-index-v1-topic: "ko-transformer-producer-finance-checklist-index-v1-topic"
+  transformer-producer-special-spraying-index-topic: "ko-transformer-producer-special-spraying-index-topic"
+  save-attendance-log: "ko-save-attendance-log"
+  update-attendance-log: "ko-update-attendance-log"
+  transformer-save-attendance-log: "ko-transformer-save-attendance-log"
+  transformer-save-attendance-register: "ko-transformer-save-attendance-register"
+  transformer-producer-extra-transformed-checklist-index-topic: "ko-transformer-producer-extra-transformed-checklist-index-topic"
+  update-household-member-topic: "ko-update-household-member-topic"
+  save-stock-reconciliation-topic: "ko-save-stock-reconciliation-topic"
+  update-stock-reconciliation-topic: "ko-update-stock-reconciliation-topic"
+  transformer-producer-stock-recon-index-v1-topic: "ko-transformer-producer-stock-recon-index-v1-topic"
+
