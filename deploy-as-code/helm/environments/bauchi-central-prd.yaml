@@ -74,7 +74,7 @@ cluster-configs:
         mdms-v2: "http://mdms-v2.egov:8080/"
         egov-workflow-v2: "http://egov-workflow-v2.egov:8080/"
         egov-indexer: "http://egov-indexer:8080/"
-        egov-hrms: "http://egov-hrms:8080/"
+        egov-hrms: "http://egov-hrms.egov:8080/"
         es-client: "https://elasticsearch-data.es-cluster-v8:9200"
         pdf-service: "http://pdf-service.egov:8080/"
         user-otp: "http://user-otp.egov:8080/"
@@ -659,6 +659,7 @@ resource-generator:
   egov-mdms-service-v2-endpoint-key: "/mdms-v2/v2/_search"
 
 transformer:
+  namespace: "bauchi"
   replicas: 1
   heap: "-Xmx1536m -Xms1536m"
   memory_limits: "2Gi"
@@ -668,12 +669,70 @@ transformer:
     limits:
       memory: "2Gi"
   java-enable-debug: true
+  save-project-task-topic: "ba-save-project-task-topic"
+  update-project-task-topic: "ba-update-project-task-topic"
+  transformer-producer-bulk-project-task-index-v1-topic: "ba-transformer-producer-bulk-project-task-index-v1-topic"
+  save-project-staff-topic: "ba-save-project-staff-topic"
+  update-project-staff-topic: "ba-update-project-staff-topic"
+  transformer-producer-bulk-project-staff-index-v1-topic: "ba-transformer-producer-bulk-project-staff-index-v1-topic"
+  transformer-producer-bulk-project-index-v1-topic: "ba-transformer-producer-bulk-project-index-v1-topic"
+  save-project: "ba-save-project"
+  update-project: "ba-update-project"
+  save-household-member-topic: "ba-save-household-member-topic"
+  transformer-producer-household-member-index-v1-topic: "ba-transformer-producer-household-member-index-v1-topic"
+  save-household-topic: "ba-save-household-topic"
+  update-household-topic: "ba-update-household-topic"
+  transformer-producer-household-index-v1-topic: "ba-transformer-producer-household-index-v1-topic"
+  transformer-producer-service-index-v2-topic: "ba-transformer-producer-service-index-v2-topic"
+  save-stock-topic: "ba-save-stock-topic"
+  update-stock-topic: "ba-update-stock-topic"
+  transformer-producer-bulk-stock-index-v1-topic: "ba-transformer-producer-bulk-stock-index-v1-topic"
+  save-facility-topic: "ba-save-facility-topic"
+  update-facility-topic: "ba-update-facility-topic"
+  save-service: "ba-save-service"
+  transformer-producer-service-request-index-v1-topic: "ba-transformer-producer-service-request-index-v1-topic"
+  save-referral-topic: "ba-save-referral-topic"
+  transformer-producer-referral-index-v1-topic: "ba-transformer-producer-referral-index-v1-topic"
+  update-referral-topic: "ba-update-referral-topic"
+  save-side-effect-topic: "ba-save-side-effect-topic"
+  update-side-effect-topic: "ba-update-side-effect-topic"
+  transformer-producer-side-effect-index-v1-topic: "ba-transformer-producer-side-effect-index-v1-topic"
+  save-pgr-request: "ba-save-pgr-request"
+  transformer-save-pgr-request: "ba-transformer-save-pgr-request"
+  transformer-producer-household-index-v1-topic: "ba-transformer-producer-household-index-v1-topic"
+  update-pgr-request: "ba-update-pgr-request"
+  save-hfreferral-topic: "ba-save-hfreferral-topic"
+  update-hfreferral-topic: "ba-update-hfreferral-topic"
+  transformer-producer-hfreferral-index-v1-topic: "ba-transformer-producer-hfreferral-index-v1-topic"
+  transformer-producer-hfreferral-service-index-topic: "ba-transformer-producer-hfreferral-service-index-topic"
+  transformer-producer-finance-checklist-index-v1-topic: "ba-transformer-producer-finance-checklist-index-v1-topic"
+  transformer-producer-special-spraying-index-topic: "ba-transformer-producer-special-spraying-index-topic"
+  save-attendance-log: "ba-save-attendance-log"
+  update-attendance-log: "ba-update-attendance-log"
+  transformer-save-attendance-log: "ba-transformer-save-attendance-log"
+  transformer-save-attendance-register: "ba-transformer-save-attendance-register"
+  transformer-producer-extra-transformed-checklist-index-topic: "ba-transformer-producer-extra-transformed-checklist-index-topic"
+  update-household-member-topic: "ba-update-household-member-topic"
+  save-stock-reconciliation-topic: "ba-save-stock-reconciliation-topic"
+  update-stock-reconciliation-topic: "ba-update-stock-reconciliation-topic"
+  transformer-producer-stock-recon-index-v1-topic: "ba-transformer-producer-stock-recon-index-v1-topic"
+
+error-handler:
+  heap: "-Xmx512m -Xms512m"
+  memory_limits: "512Mi"
+  resources:
+    requests:
+      memory: "512Mi"
+    limits:
+      memory: "512Mi"
+  
 hcm-moz-impl:
+  namespace: oyo
   replicas: 1
   heap: "-Xmx2048m -Xms2048m"
   memory_limits: "2Gi"
-  startDate: "24/03/2025"
-  endDate: "10/04/2025"
+  startDate: "29/05/2025"
+  endDate: "02/06/2025"
   resources:
     requests:
       memory: "3Gi"
@@ -694,3 +753,4 @@ pdf-service:
       branch: "PROD"   
   data-config-urls: "file:///work-dir/health-campaign-config/pdf-service/data-config/health-bill-payment.json"
   format-config-urls: "file:///work-dir/health-campaign-config/pdf-service/format-config/health-bill-payment.json"
+

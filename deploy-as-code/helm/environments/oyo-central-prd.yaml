@@ -39,3 +39,66 @@
 #       memory: "512Mi"
 #     limits:
 #       memory: "512Mi"
+
+
+
+
+transformer:
+  namespace: "oyo"
+  replicas: 1
+  heap: "-Xmx1536m -Xms1536m"
+  memory_limits: "2Gi"
+  resources:
+    requests:
+      memory: "2Gi"
+    limits:
+      memory: "2Gi"
+  java-enable-debug: true
+  save-project-task-topic: "oy-save-project-task-topic"
+  update-project-task-topic: "oy-update-project-task-topic"
+  transformer-producer-bulk-project-task-index-v1-topic: "oy-transformer-producer-bulk-project-task-index-v1-topic"
+  save-project-staff-topic: "oy-save-project-staff-topic"
+  update-project-staff-topic: "oy-update-project-staff-topic"
+  transformer-producer-bulk-project-staff-index-v1-topic: "oy-transformer-producer-bulk-project-staff-index-v1-topic"
+  transformer-producer-bulk-project-index-v1-topic: "oy-transformer-producer-bulk-project-index-v1-topic"
+  save-project: "oy-save-project"
+  update-project: "oy-update-project"
+  save-household-member-topic: "oy-save-household-member-topic"
+  transformer-producer-household-member-index-v1-topic: "oy-transformer-producer-household-member-index-v1-topic"
+  save-household-topic: "oy-save-household-topic"
+  update-household-topic: "oy-update-household-topic"
+  transformer-producer-household-index-v1-topic: "oy-transformer-producer-household-index-v1-topic"
+  transformer-producer-service-index-v2-topic: "oy-transformer-producer-service-index-v2-topic"
+  save-stock-topic: "oy-save-stock-topic"
+  update-stock-topic: "oy-update-stock-topic"
+  transformer-producer-bulk-stock-index-v1-topic: "oy-transformer-producer-bulk-stock-index-v1-topic"
+  save-facility-topic: "oy-save-facility-topic"
+  update-facility-topic: "oy-update-facility-topic"
+  save-service: "oy-save-service"
+  transformer-producer-service-request-index-v1-topic: "oy-transformer-producer-service-request-index-v1-topic"
+  save-referral-topic: "oy-save-referral-topic"
+  transformer-producer-referral-index-v1-topic: "oy-transformer-producer-referral-index-v1-topic"
+  update-referral-topic: "oy-update-referral-topic"
+  save-side-effect-topic: "oy-save-side-effect-topic"
+  update-side-effect-topic: "oy-update-side-effect-topic"
+  transformer-producer-side-effect-index-v1-topic: "oy-transformer-producer-side-effect-index-v1-topic"
+  save-pgr-request: "oy-save-pgr-request"
+  transformer-save-pgr-request: "oy-transformer-save-pgr-request"
+  transformer-producer-household-index-v1-topic: "oy-transformer-producer-household-index-v1-topic"
+  update-pgr-request: "oy-update-pgr-request"
+  save-hfreferral-topic: "oy-save-hfreferral-topic"
+  update-hfreferral-topic: "oy-update-hfreferral-topic"
+  transformer-producer-hfreferral-index-v1-topic: "oy-transformer-producer-hfreferral-index-v1-topic"
+  transformer-producer-hfreferral-service-index-topic: "oy-transformer-producer-hfreferral-service-index-topic"
+  transformer-producer-finance-checklist-index-v1-topic: "oy-transformer-producer-finance-checklist-index-v1-topic"
+  transformer-producer-special-spraying-index-topic: "oy-transformer-producer-special-spraying-index-topic"
+  save-attendance-log: "oy-save-attendance-log"
+  update-attendance-log: "oy-update-attendance-log"
+  transformer-save-attendance-log: "oy-transformer-save-attendance-log"
+  transformer-save-attendance-register: "oy-transformer-save-attendance-register"
+  transformer-producer-extra-transformed-checklist-index-topic: "oy-transformer-producer-extra-transformed-checklist-index-topic"
+  update-household-member-topic: "oy-update-household-member-topic"
+  save-stock-reconciliation-topic: "oy-save-stock-reconciliation-topic"
+  update-stock-reconciliation-topic: "oy-update-stock-reconciliation-topic"
+  transformer-producer-stock-recon-index-v1-topic: "oy-transformer-producer-stock-recon-index-v1-topic"
+

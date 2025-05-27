@@ -30,6 +30,54 @@ tracing-enabled: true
 heap: "-Xmx1024m -Xms1024m"
 java-args: ""
 memory_limits: "1Gi"
+save-project-task-topic: "save-project-task-topic"
+update-project-task-topic: "update-project-task-topic"
+transformer-producer-bulk-project-task-index-v1-topic: "transformer-producer-bulk-project-task-index-v1-topic"
+save-project-staff-topic: "save-project-staff-topic"
+update-project-staff-topic: "update-project-staff-topic"
+transformer-producer-bulk-project-staff-index-v1-topic: "transformer-producer-bulk-project-staff-index-v1-topic"
+transformer-producer-bulk-project-index-v1-topic: "transformer-producer-bulk-project-index-v1-topic"
+save-project: "save-project"
+update-project: "update-project"
+save-household-member-topic: "save-household-member-topic"
+transformer-producer-household-member-index-v1-topic: "transformer-producer-household-member-index-v1-topic"
+save-household-topic: "save-household-topic"
+update-household-topic: "update-household-topic"
+transformer-producer-household-index-v1-topic: "transformer-producer-household-index-v1-topic"
+transformer-producer-service-index-v2-topic: "transformer-producer-service-index-v2-topic"
+save-stock-topic: "save-stock-topic"
+update-stock-topic: "update-stock-topic"
+transformer-producer-bulk-stock-index-v1-topic: "transformer-producer-bulk-stock-index-v1-topic"
+save-facility-topic: "save-facility-topic"
+update-facility-topic: "update-facility-topic"
+save-service: "save-service"
+transformer-producer-service-request-index-v1-topic: "transformer-producer-service-request-index-v1-topic"
+save-referral-topic: "save-referral-topic"
+transformer-producer-referral-index-v1-topic: "transformer-producer-referral-index-v1-topic"
+update-referral-topic: "update-referral-topic"
+save-side-effect-topic: "save-side-effect-topic"
+update-side-effect-topic: "update-side-effect-topic"
+transformer-producer-side-effect-index-v1-topic: "transformer-producer-side-effect-index-v1-topic"
+save-pgr-request: "save-pgr-request"
+transformer-save-pgr-request: "transformer-save-pgr-request"
+transformer-producer-household-index-v1-topic: "transformer-producer-household-index-v1-topic"
+update-pgr-request: "update-pgr-request"
+save-hfreferral-topic: "save-hfreferral-topic"
+update-hfreferral-topic: "update-hfreferral-topic"
+transformer-producer-hfreferral-index-v1-topic: "transformer-producer-hfreferral-index-v1-topic"
+transformer-producer-hfreferral-service-index-topic: "transformer-producer-hfreferral-service-index-topic"
+transformer-producer-finance-checklist-index-v1-topic: "transformer-producer-finance-checklist-index-v1-topic"
+transformer-producer-special-spraying-index-topic: "transformer-producer-special-spraying-index-topic"
+save-attendance-log: "save-attendance-log"
+update-attendance-log: "update-attendance-log"
+transformer-save-attendance-log: "transformer-save-attendance-log"
+transformer-save-attendance-register: "transformer-save-attendance-register"
+transformer-producer-extra-transformed-checklist-index-topic: "transformer-producer-extra-transformed-checklist-index-topic"
+update-household-member-topic: "update-household-member-topic"
+save-stock-reconciliation-topic: "save-stock-reconciliation-topic"
+update-stock-reconciliation-topic: "update-stock-reconciliation-topic"
+transformer-producer-stock-recon-index-v1-topic: "transformer-producer-stock-recon-index-v1-topic"
+
 # Additional Container Envs
 env: |
   - name: SPRING_KAFKA_CONSUMER_GROUP_ID
@@ -61,26 +109,26 @@ env: |
   {{- end }}
   
   - name: TRANSFORMER_CONSUMER_BULK_CREATE_PROJECT_TASK_TOPIC
-    value: "save-project-task-topic"
+    value: {{ index .Values "save-project-task-topic" | quote }}
   - name: TRANSFORMER_CONSUMER_BULK_UPDATE_PROJECT_TASK_TOPIC
-    value: "update-project-task-topic"
+    value: {{ index .Values "update-project-task-topic" | quote }}
   - name: TRANSFORMER_PRODUCER_BULK_PROJECT_TASK_INDEX_V1_TOPIC
-    value: "transformer-producer-bulk-project-task-index-v1-topic"
+    value: {{ index .Values "transformer-producer-bulk-project-task-index-v1-topic" | quote }}
   
   - name: TRANSFORMER_CONSUMER_BULK_CREATE_PROJECT_STAFF_TOPIC
-    value: "save-project-staff-topic"
+    value: {{ index .Values "save-project-staff-topic" | quote }}
   - name: TRANSFORMER_CONSUMER_BULK_UPDATE_PROJECT_STAFF_TOPIC
-    value: "update-project-staff-topic"
+    value: {{ index .Values "update-project-staff-topic" | quote }}
   - name: TRANSFORMER_PRODUCER_BULK_PROJECT_STAFF_INDEX_V1_TOPIC
-    value: "transformer-producer-bulk-project-staff-index-v1-topic"
+    value: {{ index .Values "transformer-producer-bulk-project-staff-index-v1-topic" | quote }}
   
   - name: TRANSFORMER_PRODUCER_BULK_PROJECT_INDEX_V1_TOPIC
-    value: "transformer-producer-bulk-project-index-v1-topic"
+    value: {{ index .Values "transformer-producer-bulk-project-index-v1-topic" | quote }}
   - name: TRANSFORMER_CONSUMER_CREATE_PROJECT_TOPIC
-    value: "save-project"
+    value: {{ index .Values "save-project" | quote }}
 
   - name: TRANSFORMER_CONSUMER_UPDATE_PROJECT_TOPIC
-    value: "update-project"
+    value: {{ index .Values "update-project" | quote }}
   - name: EGOV_SERVICEDEFINITION_HOST
     valueFrom:
       configMapKeyRef:
@@ -93,12 +141,8 @@ env: |
         key: project
   - name: EGOV_SEARCH_PROJECT_URL
     value: "/project/v1/_search"
-  - name: EGOV_SEARCH_PROJECT_URL
-    value: "/project/v1/_search"
-  - name: EGOV_SEARCH_PROJECT_URL
-    value: "/project/v1/_search"
-  - name: EGOV_SEARCH_PROJECT_URL
-    value: "/project/v1/_search"
+  - name: EGOV_LOCATION_HOST
+    value: ""
   - name: EGOV_MDMS_HOST
     valueFrom:
       configMapKeyRef:
@@ -115,8 +159,8 @@ env: |
   - name: EGOV_INDIVIDUAL_HOST
     valueFrom:
       configMapKeyRef:
-       name: egov-service-host
-       key: individual
+        name: egov-service-host
+        key: individual
   - name: EGOV_SEARCH_INDIVIDUAL_URL
     value: "/individual/v1/_search"
   - name: EGOV_PRODUCT_HOST
@@ -127,29 +171,29 @@ env: |
   - name: EGOV_SEARCH_PRODUCT_VARIANT_URL
     value: "/product/variant/v1/_search"
   - name: TRANSFORMER_CONSUMER_SAVE_HOUSEHOLD_MEMBER_TOPIC
-    value: "save-household-member-topic"
+    value: {{ index .Values "save-household-member-topic" | quote }}
   - name: TRANSFORMER_CONSUMER_UPDATE_HOUSEHOLD_MEMBER_TOPIC
-    value: "update-household-member-topic"
+    value: {{ index .Values "update-household-member-topic" | quote }}
   - name: TRANSFORMER_PRODUCER_HOUSEHOLD_MEMBER_INDEX_V1_TOPIC
-    value: "transformer-producer-household-member-index-v1-topic"
+    value: {{ index .Values "transformer-producer-household-member-index-v1-topic" | quote }}
   - name: TRANSFORMER_CONSUMER_CREATE_HOUSEHOLD_TOPIC
-    value: "save-household-topic"
+    value: {{ index .Values "save-household-topic" | quote }}
   - name: TRANSFORMER_CONSUMER_UPDATE_HOUSEHOLD_TOPIC
-    value: "update-household-topic"
+    value: {{ index .Values "update-household-topic" | quote }}
   - name: TRANSFORMER_PRODUCER_HOUSEHOLD_INDEX_V1_TOPIC
-    value: "transformer-producer-household-index-v1-topic"
+    value: {{ index .Values "transformer-producer-household-index-v1-topic" | quote }}
   - name: EGOV_LOCATION_ENDPOINT
     value: "/egov-location/location/v11/boundarys/_search"
   - name: TRANSFORMER_PRODUCER_SERVICE_INDEX_V2_TOPIC
-    value: "transformer-producer-service-index-v2-topic"
+    value: {{ index .Values "transformer-producer-service-index-v2-topic" | quote }}
   - name: REFERRAL_SERVICE_CHECKLIST_NAME
-    value: "SMCMozambique.REFERRAL.HEALTH_FACILITY_SUPERVISOR"
+    value: "SMCNigeria.REFERRAL.HEALTH_FACILITY_SUPERVISOR"
   - name: TRANSFORMER_CONSUMER_BULK_CREATE_STOCK_TOPIC
-    value: "save-stock-topic"
+    value: {{ index .Values "save-stock-topic" | quote }}
   - name: TRANSFORMER_CONSUMER_BULK_UPDATE_STOCK_TOPIC
-    value: "update-stock-topic"
+    value: {{ index .Values "update-stock-topic" | quote }}
   - name: TRANSFORMER_PRODUCER_BULK_STOCK_INDEX_V1_TOPIC
-    value: "transformer-producer-bulk-stock-index-v1-topic"
+    value: {{ index .Values "transformer-producer-bulk-stock-index-v1-topic" | quote }}
   - name: EGOV_FACILITY_HOST
     valueFrom:
       configMapKeyRef:
@@ -158,9 +202,9 @@ env: |
   - name: EGOV_SEARCH_FACILITY_URL
     value: "/facility/v1/_search"
   - name: TRANSFORMER_CONSUMER_CREATE_FACILITY_TOPIC
-    value: "save-facility-topic"
+    value: {{ index .Values "save-facility-topic" | quote }}
   - name: TRANSFORMER_CONSUMER_UPDATE_FACILITY_TOPIC
-    value: "update-facility-topic"
+    value: {{ index .Values "update-facility-topic" | quote }}
   - name: BOUNDARY_LABEL_NAME_PROVINCE
     value: "Provincia"
   - name: BOUNDARY_LABEL_NAME_DISTRICT
@@ -174,51 +218,65 @@ env: |
   - name: EGOV_SEARCH_SERVICEDEFINITION_URL
     value: "/service-request/service/definition/v1/_search"
   - name: TRANSFORMER_CONSUMER_CREATE_SERVICE_TOPIC
-    value: "save-service"
+    value: {{ index .Values "save-service" | quote }}
   - name: TRANSFORMER_PRODUCER_SERVICE_TASK_INDEX_V1_TOPIC
-    value: "transformer-producer-service-request-index-v1-topic"
+    value: {{ index .Values "transformer-producer-service-request-index-v1-topic" | quote }}
   - name: TRANSFORMER_CONSUMER_CREATE_REFERRAL_TOPIC
-    value: save-referral-topic
+    value: {{ index .Values "save-referral-topic" | quote }}
   - name: TRANSFORMER_CONSUMER_UPDATE_REFERRAL_TOPIC
-    value: update-referral-topic
+    value: {{ index .Values "update-referral-topic" | quote }}
   - name: TRANSFORMER_PRODUCER_REFERRAL_INDEX_V1_TOPIC
-    value: transformer-producer-referral-index-v1-topic
+    value: {{ index .Values "transformer-producer-referral-index-v1-topic" | quote }}
   - name: EGOV_SEARCH_PROJECT_TASK_URL
     value: /project/task/v1/_search
   - name: TRANSFORMER_CONSUMER_CREATE_SIDE_EFFECT_TOPIC
-    value: save-side-effect-topic
+    value: {{ index .Values "save-side-effect-topic" | quote }}
   - name: TRANSFORMER_CONSUMER_UPDATE_SIDE_EFFECT_TOPIC
-    value: update-side-effect-topic
+    value: {{ index .Values "update-side-effect-topic" | quote }}
   - name: TRANSFORMER_PRODUCER_SIDE_EFFECT_INDEX_V1_TOPIC
-    value: transformer-producer-side-effect-index-v1-topic
+    value: {{ index .Values "transformer-producer-side-effect-index-v1-topic" | quote }}
   - name: TRANSFORMER_CONSUMER_CREATE_PGR_TOPIC
-    value: save-pgr-request
+    value: {{ index .Values "save-pgr-request" | quote }}
   - name: TRANSFORMER_PRODUCER_CREATE_PGR_TOPIC
-    value: transformer-save-pgr-request
+    value: {{ index .Values "transformer-save-pgr-request" | quote }}
   - name: TRANSFORMER_PRODUCER_BULK_HOUSEHOLD_INDEX_V1_TOPIC
-    value: transformer-producer-household-index-v1-topic
+    value: {{ index .Values "transformer-producer-household-index-v1-topic" | quote }}
   - name: TRANSFORMER_LOCALIZATIONS_MDMS_MODULE
     value: HCM-TRANSFORMER-LOCALIZATIONS
   - name: TRANSFORMER_CONSUMER_UPDATE_PGR_TOPIC
-    value: update-pgr-request
+    value: {{ index .Values "update-pgr-request" | quote }}
   - name: TRANSFORMER_CONSUMER_CREATE_HFREFERRAL_TOPIC
-    value: save-hfreferral-topic
+    value: {{ index .Values "save-hfreferral-topic" | quote }}
   - name: TRANSFORMER_CONSUMER_UPDATE_HFREFERRAL_TOPIC
-    value: update-hfreferral-topic
+    value: {{ index .Values "update-hfreferral-topic" | quote }}
   - name: TRANSFORMER_PRODUCER_HFREFERRAL_INDEX_V1_TOPIC
-    value: transformer-producer-hfreferral-index-v1-topic
+    value: {{ index .Values "transformer-producer-hfreferral-index-v1-topic" | quote }}
   - name: TRANSFORMER_PRODUCER_HFREFERRAL_SERVICE_INDEX_TOPIC
-    value: transformer-producer-hfreferral-service-index-topic
+    value: {{ index .Values "transformer-producer-hfreferral-service-index-topic" | quote }}
   - name: HFREFERRAL_FEVER_SERVICE_CHECKLIST_NAME
-    value: SMCMozambique.HF_RF_FEVER.HEALTH_FACILITY_SUPERVISOR
+    value: SMCNigeria.HF_RF_FEVER.HEALTH_FACILITY_SUPERVISOR
   - name: TRANSFORMER_PRODUCER_FINANCE_CHECKLIST_INDEX_V1_TOPIC
-    value: "transformer-producer-finance-checklist-index-v1-topic"
+    value: {{ index .Values "transformer-producer-finance-checklist-index-v1-topic" | quote }}
   - name: FINANCE_CHECKLIST_INDEX_CHECKLIST_NAMES
     value: "CAMPAIGN_COSTS"
   - name: TRANSFORMER_PRODUCER_SPECIAL_SPRAYING_CHECKLIST_INDEX_V1_TOPIC
-    value: "transformer-producer-special-spraying-index-topic"
+    value: {{ index .Values "transformer-producer-special-spraying-index-topic" | quote }}
   - name: SPECIAL_SPRAYING_CHECKLIST_NAME
     value: "SPECIAL_SPRAYING"
+  - name: CHECKLIST_EXTRATRANSFORMATION_NAMES
+    value: ELIGIBLITY_ASSESSMENT,HF_RF_DRUG_SE,HF_RF_FEVER
+  - name: TRANSFORMER_CHECKLIST_INFO_MDMS_MASTER 
+    value: transformerChecklistInfo
+  - name: TRANSFORMER_CHECKLIST_INFO_MDMS_MODULE 
+    value: HCM-TRANSFORMER-CHECKLIST-INFO
+  - name: TRANSFORMER_PRODUCER_EXTRA_TRANSFORMED_CHECKLIST_INDEX_V1_TOPIC 
+    value: {{ index .Values "transformer-producer-extra-transformed-checklist-index-topic" | quote }}  
+  - name: TRANSFORMER_CONSUMER_STOCK_RECONCILIATION_CREATE_TOPIC
+    value: {{ index .Values "save-stock-reconciliation-topic" | quote }}
+  - name: TRANSFORMER_CONSUMER_STOCK_RECONCILIATION_UPDATE_TOPIC
+    value: {{ index .Values "update-stock-reconciliation-topic" | quote }}
+  - name: TRANSFORMER_PRODUCER_STOCK_RECONCILIATION_INDEX_V1_TOPIC
+    value: {{ index .Values "transformer-producer-stock-recon-index-v1-topic" | quote }}
   - name: EGOV_HOUSEHOLD_HOST
     valueFrom:
       configMapKeyRef:
@@ -241,13 +299,13 @@ env: |
         name: egov-service-host
         key: attendance-service
   - name: TRANSFORMER_CONSUMER_SAVE_ATTENDANCE_LOG_TOPIC
-    value: save-attendance-log
+    value: {{ index .Values "save-attendance-log" | quote }}
   - name: TRANSFORMER_CONSUMER_UPDATE_ATTENDANCE_LOG_TOPIC
-    value: update-attendance-log
+    value: {{ index .Values "update-attendance-log" | quote }}
   - name: TRANSFORMER_PRODUCER_ATTENDANCE_LOG_INDEX_V1_TOPIC
-    value: transformer-save-attendance-log
+    value: {{ index .Values "transformer-save-attendance-log" | quote }}
   - name: TRANSFORMER_PRODUCER_ATTENDANCE_REGISTER_INDEX_V1_TOPIC
-    value: transformer-save-attendance-register
+    value: {{ index .Values "transformer-save-attendance-register" | quote }}
   - name: EGOV_SEARCH_ATTENDANCE_REGISTER_URL
     value: /attendance/v1/_search
   - name: EGOV_USER_HOST
@@ -287,4 +345,6 @@ env: |
   - name: EGOV_PROGRAM_MANDATE_DIVIDING_FACTOR
     value: "1.8"
   - name: EGOV_LOCALIZATION_LOCALE_CODE
-    value: pt_MZ
+    value: en_NG
+  - name: EGOV_LOCALIZATION_MODULE_NAME
+    value: hcm-boundary-admin
