@@ -1,0 +1,14 @@
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: kogi-hcm.digit.org-tls-certs
+  namespace: egov
+spec:
+  secretName: kogi-hcm.digit.org-tls-certs
+  issuerRef:
+    name: letsencrypt-prod
+    kind: ClusterIssuer
+  commonName: kogi-hcm.digit.org
+  dnsNames:
+  - kogi-hcm.digit.org
+
