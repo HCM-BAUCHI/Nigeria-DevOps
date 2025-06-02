@@ -52,7 +52,7 @@ modules:
     dependencies:
       - "business"
     services:
-      - egovio/digit-ui:barchart-stack-ad8a3da5cf-231 # TODO: deploy bauchi digit ui image
+      - egovio/digit-ui:impel-central-instance-nigeria-a42b5a4671-352 # TODO: deploy bauchi digit ui image
   - name: m_health
     dependencies:
       - "backbone"

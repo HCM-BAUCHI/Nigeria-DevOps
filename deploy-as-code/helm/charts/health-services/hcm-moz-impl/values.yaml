@@ -31,8 +31,8 @@ heap: "-Xmx192m -Xms192m"
 java-args: ""
 java-enable-debug: true
 persist-yml-path: "file:///work-dir/health-campaign-config/egov-persister/hcm-moz-impl-persister.yml"
-startDate: "28/08/2023"
-endDate: "02/09/2023"
+startDate: "28/02/2025"
+endDate: "31/03/2025"
 
 # Additional Container Envs
 env: |
@@ -68,10 +68,7 @@ env: |
         name: egov-service-host
         key: egov-localization
   - name: EGOV_MDMS_HOST
-    valueFrom:
-      configMapKeyRef:
-        name: egov-service-host
-        key: egov-mdms-service
+    value: ""
   - name: EGOV_IDGEN_PATH
     value: "egov-idgen/id/_generate"
   - name: EGOV_IDGEN_INTEGRATION_ENABLED
@@ -87,15 +84,23 @@ env: |
   - name: SPRING_CACHE_AUTOEXPIRY
     value: "true"
   - name: DHIS2_RECORD_KAFKA_CREATE_TOPIC
-    value: create-dhis2-record
+    value: ko-create-dhis2-record
   - name: DHIS2_RECORD_KAFKA_UPDATE_TOPIC
-    value: update-dhis2-record
+    value: ko-update-dhis2-record
   - name: DHIS2_DIGIT_MAPPING_KAFKA_CREATE_TOPIC
-    value: create-dhis2-digit-mapping
+    value: ko-create-dhis2-digit-mapping
   - name: DHIS2_DIGIT_MAPPING_KAFKA_UPDATE_TOPIC
-    value: update-dhis2-digit-mapping
+    value: ko-update-dhis2-digit-mapping
+  - name: DIGIT_RECORD_KAFKA_CREATE_TOPIC
+    value: ko-create-digit-record
+  - name: DIGIT_RECORD_KAFKA_UPDATE_TOPIC
+    value: ko-update-digit-record
+  - name: DIGIT_DHIS2_MAPPING_KAFKA_CREATE_TOPIC
+    value: ko-create-digit-dhis2-mapping  
+  - name: DIGIT_DHIS2_MAPPING_KAFKA_UPDATE_TOPIC
+    value: ko-update-digit-dhis2-mapping
   - name: BOUNDARY_DATA_KAFKA_CREATE_TOPIC
-    value: create-boundary-data
+    value: ko-create-boundary-data
   - name: DHIS2_RECORD_DEFAULT_OFFSET
     value: "0"
   - name: DHIS2_RECORD_DEFAULT_LIMIT
@@ -103,9 +108,9 @@ env: |
   - name: DHIS2_RECORD_SEARCH_MAX_LIMIT
     value: "50"
   - name: DHIS2_JOB_KAFKA_CREATE_TOPIC
-    value: create-dhis2-job
+    value: ko-create-dhis2-job
   - name: DHIS2_JOB_KAFKA_UPDATE_TOPIC
-    value: update-dhis2-job
+    value: ko-update-dhis2-job
   - name: DHIS2_JOB_DEFAULT_OFFSET
     value: "0"
   - name: DHIS2_JOB_DEFAULT_LIMIT
@@ -115,20 +120,11 @@ env: |
   - name: DHIS2_DIGIT_SEARCH_MAX_RETRY
     value: "100"
   - name: EGOV_DHIS2_HOST_URL
-    valueFrom:
-      configMapKeyRef:
-        name: hcm-moz-impl
-        key: dhis2-host
+    value: ""
   - name: EGOV_DHIS2_HOST_USERNAME
-    valueFrom:
-      secretKeyRef:
-        name: hcm-moz-impl
-        key: dhis2user
+    value: ""
   - name: EGOV_DHIS2_HOST_PASSWORD
-    valueFrom:
-      secretKeyRef:
-        name: hcm-moz-impl
-        key: dhis2pass
+    value: ""
   - name: EGOV_DHIS2_PAGE_SIZE
     value: "1000"
   - name: EGOV_DIGIT_PAGE_SIZE
@@ -203,9 +199,9 @@ env: |
   - name: EGOV_DHIS2_ORGANISATION_UNIT_PROVINCES
     value: "SOFALA,NAMPULA"
   - name: EGOV_PROJECT_TYPE_ID
-    value: 644c4356-5214-11ee-be56-0242ac120002
+    value: eedc9db3-78a1-41ce-bf98-31577e224c94
   - name: EGOV_PROJECT_TYPE
-    value: MR-DN
+    value: SMC-Nig
   - name: EGOV_FACILITY_HOST
     valueFrom:
       configMapKeyRef:
@@ -259,7 +255,7 @@ env: |
   - name: EGOV_PROJECT_RESOURCE_UPDATE_PATH
     value: /project/resource/v1/bulk/_update
   - name: EGOV_SERVICE_REQUEST_PROJECTCODE
-    value: SMCMozambique
+    value: SMCNigeria
   - name: EGOV_HOUSEHOLD_HOST
     valueFrom:
       configMapKeyRef:
@@ -301,7 +297,7 @@ env: |
   - name: EGOV_HCM_INDIVIDUAL_CREATE_TOPIC
     value: save-individual-topic
   - name: BOUNDARY_DATA_KAFKA_CREATE_TOPIC_CSV
-    value: create-boundaryCSV-data
+    value: ko-create-boundaryCSV-data
   - name: EGOV_MDMS_PROJECT_MASTER_NAME
     value: projectTypes
   - name: EGOV_MDMS_PROJECT_MODULE_NAME
@@ -336,14 +332,11 @@ env: |
   - name: EGOV_STOCK_UPDATE_PATH
     value: /stock/v1/bulk/_update
   - name: EGOV_BOUNDARY_NAME
-    value: MOZAMBIQUE
+    value: Nigeria
   - name: EGOV_BOUNDARY_CODE
-    value: mz
+    value: ko
   - name: EGOV_MDMS_CREATE_HOST
-    valueFrom:
-      configMapKeyRef:
-        name: egov-service-host
-        key: egov-mdms-create
+    value: ""
   - name: EGOV_MDMS_CREATE_UPDATE_ENDPOINT
     value: /egov-mdms-create/v1/_update
   - name: EGOV_HRMS_CREATE_ENDPOINT
@@ -374,10 +367,7 @@ env: |
         name: egov-service-host
         key: product
   - name: EGOV_KUBE_CONFIG
-    valueFrom:
-      secretKeyRef:
-        name: hcm-moz-impl
-        key: kubeconfig
+    value: ""
   - name: EGOV_KUBE_NAMESPACE
     value: egov
   - name: EGOV_KUBE_MDMS_POD
@@ -395,15 +385,9 @@ env: |
         name: egov-config
         key: aws-region
   - name: EGOV_AWS_CREDENTIALS_ACCESS_KEY
-    valueFrom:
-      secretKeyRef:
-        name: egov-filestore
-        key: awskey
+    value: ""
   - name: EGOV_AWS_CREDENTIALS_SECRET_ACCESS_KEY
-    valueFrom:
-      secretKeyRef:
-        name: egov-filestore
-        key: awssecretkey
+    value: ""
   - name: EGOV_CLUSTER_ENDPOINT_URL
     valueFrom:
       configMapKeyRef:
@@ -431,7 +415,7 @@ env: |
   - name: EGOV_BOUNDARY_LOCALIZATION_MODULE
     value: rainmaker-boundary-admin
   - name: EGOV_BOUNDARY_LOCALIZATION_LOCALE
-    value: pt_MZ
+    value: en_NG
   - name: EGOV_LOCALIZATION_HOST
     valueFrom:
       configMapKeyRef:
@@ -445,10 +429,38 @@ env: |
         name: egov-service-host
         key: egov-localization
   - name: EGOV_ATTENDANCE_SESSIONS
-    value: 1
+    value: "1"
   - name: EGOV_ATTENDANCE_HOST
     valueFrom:
       configMapKeyRef:
         name: egov-service-host
         key: attendance-service        
-  
+  - name: EGOV_BOUNDARY_HIERARCHY_TYPE
+    valueFrom:
+      configMapKeyRef:
+        name: egov-config
+        key: boundary-hierarchy
+  - name: EGOV_BOUNDARYV2_HOST
+    valueFrom:
+      configMapKeyRef:
+        name: egov-service-host
+        key: boundary-service
+  - name: EGOV_MDMSV2_HOST
+    valueFrom:
+      configMapKeyRef:
+        name: egov-service-host
+        key: mdms-v2
+  - name: EGOV_BOUNDARY_LOCALIZATION_MODULE
+    value: hcm-boundary-admin
+  - name: EGOV_BOUNDARY_LOCALIZATION_LOCALE
+    value: en_NG
+  - name: EGOV_LOCALIZATION_HOST
+    valueFrom:
+      configMapKeyRef:
+        name: egov-service-host
+        key: egov-localization
+  - name: EGOV_BOUNDARY_LOCALIZATION_PREFIX
+  - name: EGOV_INGESTION_INTERVAL_MIN_DATE
+    value: "1748221071000"
+  - name: EGOV_INGESTION_INTERVAL_MAX_DATE
+    value: "1748480271000"
