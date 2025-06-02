@@ -33,7 +33,19 @@ java-enable-debug: true
 persist-yml-path: "file:///work-dir/health-campaign-config/egov-persister/hcm-moz-impl-persister.yml"
 startDate: "28/02/2025"
 endDate: "31/03/2025"
-
+boundary-code: "ko"
+create-boundaryCSV-data: "create-boundaryCSV-data"
+update-dhis2-job: "update-dhis2-job"
+create-dhis2-job: "create-dhis2-job"
+create-boundary-data: "create-boundary-data"
+update-digit-dhis2-mapping: "update-digit-dhis2-mapping"
+create-digit-dhis2-mapping: "create-digit-dhis2-mapping"
+update-digit-record: "update-digit-record"
+create-digit-record: "create-digit-record"
+update-dhis2-digit-mapping: "update-dhis2-digit-mapping"
+create-dhis2-digit-mapping: "create-dhis2-digit-mapping"
+update-dhis2-record: "update-dhis2-record"
+create-dhis2-record: "create-dhis2-record"
 # Additional Container Envs
 env: |
   - name: SPRING_KAFKA_CONSUMER_GROUP_ID
@@ -84,23 +96,23 @@ env: |
   - name: SPRING_CACHE_AUTOEXPIRY
     value: "true"
   - name: DHIS2_RECORD_KAFKA_CREATE_TOPIC
-    value: ko-create-dhis2-record
+    value: {{ index .Values "create-dhis2-record" | quote }}
   - name: DHIS2_RECORD_KAFKA_UPDATE_TOPIC
-    value: ko-update-dhis2-record
+    value: {{ index .Values "update-dhis2-record" | quote }}
   - name: DHIS2_DIGIT_MAPPING_KAFKA_CREATE_TOPIC
-    value: ko-create-dhis2-digit-mapping
+    value: {{ index .Values "create-dhis2-digit-mapping" | quote }}
   - name: DHIS2_DIGIT_MAPPING_KAFKA_UPDATE_TOPIC
-    value: ko-update-dhis2-digit-mapping
+    value: {{ index .Values "update-dhis2-digit-mapping" | quote }}
   - name: DIGIT_RECORD_KAFKA_CREATE_TOPIC
-    value: ko-create-digit-record
+    value: {{ index .Values "create-digit-record" | quote }}
   - name: DIGIT_RECORD_KAFKA_UPDATE_TOPIC
-    value: ko-update-digit-record
+    value: {{ index .Values "update-digit-record" | quote }}
   - name: DIGIT_DHIS2_MAPPING_KAFKA_CREATE_TOPIC
-    value: ko-create-digit-dhis2-mapping  
+    value: {{ index .Values "create-digit-dhis2-mapping" | quote }}
   - name: DIGIT_DHIS2_MAPPING_KAFKA_UPDATE_TOPIC
-    value: ko-update-digit-dhis2-mapping
+    value: {{ index .Values "update-digit-dhis2-mapping" | quote }}
   - name: BOUNDARY_DATA_KAFKA_CREATE_TOPIC
-    value: ko-create-boundary-data
+    value: {{ index .Values "create-boundary-data" | quote }}
   - name: DHIS2_RECORD_DEFAULT_OFFSET
     value: "0"
   - name: DHIS2_RECORD_DEFAULT_LIMIT
@@ -108,9 +120,9 @@ env: |
   - name: DHIS2_RECORD_SEARCH_MAX_LIMIT
     value: "50"
   - name: DHIS2_JOB_KAFKA_CREATE_TOPIC
-    value: ko-create-dhis2-job
+    value: {{ index .Values "create-dhis2-job" | quote }}
   - name: DHIS2_JOB_KAFKA_UPDATE_TOPIC
-    value: ko-update-dhis2-job
+    value: {{ index .Values "update-dhis2-job" | quote }}
   - name: DHIS2_JOB_DEFAULT_OFFSET
     value: "0"
   - name: DHIS2_JOB_DEFAULT_LIMIT
@@ -297,7 +309,7 @@ env: |
   - name: EGOV_HCM_INDIVIDUAL_CREATE_TOPIC
     value: save-individual-topic
   - name: BOUNDARY_DATA_KAFKA_CREATE_TOPIC_CSV
-    value: ko-create-boundaryCSV-data
+    value: {{ index .Values "create-boundaryCSV-data" | quote }}
   - name: EGOV_MDMS_PROJECT_MASTER_NAME
     value: projectTypes
   - name: EGOV_MDMS_PROJECT_MODULE_NAME
@@ -334,7 +346,7 @@ env: |
   - name: EGOV_BOUNDARY_NAME
     value: Nigeria
   - name: EGOV_BOUNDARY_CODE
-    value: ko
+    value: {{ index .Values "boundary-code" | quote }}
   - name: EGOV_MDMS_CREATE_HOST
     value: ""
   - name: EGOV_MDMS_CREATE_UPDATE_ENDPOINT

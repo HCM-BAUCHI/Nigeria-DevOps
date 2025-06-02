@@ -1,0 +1,139 @@
+global:
+  domain: fct-abuja-hcm.digit.org
+# egov-localization:
+#   namespace: "oyo"
+#   heap: "-Xmx512m -Xms512m"
+#   memory_limits: "512Mi"
+#   resources:
+#     requests:
+#       memory: "512Mi"
+#     limits:
+#       memory: "512Mi"
+
+
+# boundary-service:
+#   namespace: "oyo"
+#   heap: "-Xmx512m -Xms512m"
+#   memory_limits: "512Mi"
+#   resources:
+#     requests:
+#       memory: "512Mi"
+#     limits:
+#       memory: "512Mi"
+
+# egov-idgen:
+#   namespace: "oyo"
+#   heap: "-Xmx512m -Xms512m"
+#   memory_limits: "512Mi"
+#   resources:
+#     requests:
+#       memory: "512Mi"
+#     limits:
+#       memory: "512Mi"
+
+# egov-enc-service:
+#   namespace: "oyo"
+#   heap: "-Xmx512m -Xms512m"
+#   memory_limits: "512Mi"
+#   resources:
+#     requests:
+#       memory: "512Mi"
+#     limits:
+#       memory: "512Mi"
+
+
+
+
+transformer:
+  namespace: "abuja"
+  replicas: 1
+  heap: "-Xmx1536m -Xms1536m"
+  memory_limits: "2Gi"
+  resources:
+    requests:
+      memory: "2Gi"
+    limits:
+      memory: "2Gi"
+  java-enable-debug: true
+  save-project-task-topic: "ab-save-project-task-topic"
+  update-project-task-topic: "ab-update-project-task-topic"
+  transformer-producer-bulk-project-task-index-v1-topic: "ab-transformer-producer-bulk-project-task-index-v1-topic"
+  save-project-staff-topic: "ab-save-project-staff-topic"
+  update-project-staff-topic: "ab-update-project-staff-topic"
+  transformer-producer-bulk-project-staff-index-v1-topic: "ab-transformer-producer-bulk-project-staff-index-v1-topic"
+  transformer-producer-bulk-project-index-v1-topic: "ab-transformer-producer-bulk-project-index-v1-topic"
+  save-project: "ab-save-project"
+  update-project: "ab-update-project"
+  save-household-member-topic: "ab-save-household-member-topic"
+  transformer-producer-household-member-index-v1-topic: "ab-transformer-producer-household-member-index-v1-topic"
+  save-household-topic: "ab-save-household-topic"
+  update-household-topic: "ab-update-household-topic"
+  transformer-producer-household-index-v1-topic: "ab-transformer-producer-household-index-v1-topic"
+  transformer-producer-service-index-v2-topic: "ab-transformer-producer-service-index-v2-topic"
+  save-stock-topic: "ab-save-stock-topic"
+  update-stock-topic: "ab-update-stock-topic"
+  transformer-producer-bulk-stock-index-v1-topic: "ab-transformer-producer-bulk-stock-index-v1-topic"
+  save-facility-topic: "ab-save-facility-topic"
+  update-facility-topic: "ab-update-facility-topic"
+  save-service: "ab-save-service"
+  transformer-producer-service-request-index-v1-topic: "ab-transformer-producer-service-request-index-v1-topic"
+  save-referral-topic: "ab-save-referral-topic"
+  transformer-producer-referral-index-v1-topic: "ab-transformer-producer-referral-index-v1-topic"
+  update-referral-topic: "ab-update-referral-topic"
+  save-side-effect-topic: "ab-save-side-effect-topic"
+  update-side-effect-topic: "ab-update-side-effect-topic"
+  transformer-producer-side-effect-index-v1-topic: "ab-transformer-producer-side-effect-index-v1-topic"
+  save-pgr-request: "ab-save-pgr-request"
+  transformer-save-pgr-request: "ab-transformer-save-pgr-request"
+  update-pgr-request: "ab-update-pgr-request"
+  save-hfreferral-topic: "ab-save-hfreferral-topic"
+  update-hfreferral-topic: "ab-update-hfreferral-topic"
+  transformer-producer-hfreferral-index-v1-topic: "ab-transformer-producer-hfreferral-index-v1-topic"
+  transformer-producer-hfreferral-service-index-topic: "ab-transformer-producer-hfreferral-service-index-topic"
+  transformer-producer-finance-checklist-index-v1-topic: "ab-transformer-producer-finance-checklist-index-v1-topic"
+  transformer-producer-special-spraying-index-topic: "ab-transformer-producer-special-spraying-index-topic"
+  save-attendance-log: "ab-save-attendance-log"
+  update-attendance-log: "ab-update-attendance-log"
+  transformer-save-attendance-log: "ab-transformer-save-attendance-log"
+  transformer-save-attendance-register: "ab-transformer-save-attendance-register"
+  transformer-producer-extra-transformed-checklist-index-topic: "ab-transformer-producer-extra-transformed-checklist-index-topic"
+  update-household-member-topic: "ab-update-household-member-topic"
+  save-stock-reconciliation-topic: "ab-save-stock-reconciliation-topic"
+  update-stock-reconciliation-topic: "ab-update-stock-reconciliation-topic"
+  transformer-producer-stock-recon-index-v1-topic: "ab-transformer-producer-stock-recon-index-v1-topic"
+  health-transformer: "ab-health-transformer"
+
+hcm-moz-impl:
+  namespace: abuja
+  replicas: 1
+  heap: "-Xmx2048m -Xms2048m"
+  memory_limits: "2Gi"
+  startDate: "29/05/2025"
+  endDate: "02/06/2025"
+  boundary-code: "ab"
+  create-boundaryCSV-data: "ab-create-boundaryCSV-data"
+  update-dhis2-job: "ab-update-dhis2-job"
+  create-dhis2-job: "ab-create-dhis2-job"
+  create-boundary-data: "ab-create-boundary-data"
+  update-digit-dhis2-mapping: "ab-update-digit-dhis2-mapping"
+  create-digit-dhis2-mapping: "ab-create-digit-dhis2-mapping"
+  update-digit-record: "ab-update-digit-record"
+  create-digit-record: "ab-create-digit-record"
+  update-dhis2-digit-mapping: "ab-update-dhis2-digit-mapping"
+  create-dhis2-digit-mapping: "ab-create-dhis2-digit-mapping"
+  update-dhis2-record: "ab-update-dhis2-record"
+  create-dhis2-record: "ab-create-dhis2-record"
+  resources:
+    requests:
+      memory: "3Gi"
+    limits:
+      memory: "3Gi"
+
+
+digit-ui:
+  namespace: abuja
+  custom-js-injection: |
+    sub_filter.conf: "
+      sub_filter  '<head>' '<head>
+      <script src=https://central-instance-assets.s3.af-south-1.amazonaws.com/globalConfig-ab.js type=text/javascript></script>
+      ';"

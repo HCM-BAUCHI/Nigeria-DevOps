@@ -43,7 +43,6 @@ save-household-member-topic: "save-household-member-topic"
 transformer-producer-household-member-index-v1-topic: "transformer-producer-household-member-index-v1-topic"
 save-household-topic: "save-household-topic"
 update-household-topic: "update-household-topic"
-transformer-producer-household-index-v1-topic: "transformer-producer-household-index-v1-topic"
 transformer-producer-service-index-v2-topic: "transformer-producer-service-index-v2-topic"
 save-stock-topic: "save-stock-topic"
 update-stock-topic: "update-stock-topic"
@@ -77,11 +76,11 @@ update-household-member-topic: "update-household-member-topic"
 save-stock-reconciliation-topic: "save-stock-reconciliation-topic"
 update-stock-reconciliation-topic: "update-stock-reconciliation-topic"
 transformer-producer-stock-recon-index-v1-topic: "transformer-producer-stock-recon-index-v1-topic"
-
+health-transformer: "health-transformer"
 # Additional Container Envs
 env: |
   - name: SPRING_KAFKA_CONSUMER_GROUP_ID
-    value: health-transformer
+    value: {{ index .Values "health-transformer" | quote }}
   - name: SPRING_KAFKA_PRODUCER_KEY_SERIALIZER
     value: org.apache.kafka.common.serialization.StringSerializer
   {{- if index .Values "global" "tracer-errors-provideexceptionindetails" }}
