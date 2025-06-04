@@ -67,7 +67,7 @@ modules:
       - egovio/individual:HDDF-2588-Individual-impl-cebbec271b-61
       - egovio/transformer:bauchi-changes-468152a2f4-349 #TODO: deploy new bauchi image
       # - egovio/stock:v1.1.3-3f860f8a31-44
-      - egovio/stock:HCMPRE-2656-HCM-Services-bauchi-impl-82a84e5cbc-61
+      - egovio/stock:HCMPRE-2656-HCM-Services-bauchi-impl-2fc9d986ad-66
       # - egovio/household:HCMPRE-1254-Comunity-household-8064857b8c-36
       - egovio/household:HCMPRE-2656-HCM-Services-bb1f78dc58-65
       # - egovio/project:HDDF-1638-55ba2879f5-26
