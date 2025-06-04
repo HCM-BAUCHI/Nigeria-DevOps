@@ -36,7 +36,7 @@ cluster-configs:
         ab-db-url: "jdbc:postgresql://ng-central-prd-db.cpe4q0cycqi7.af-south-1.rds.amazonaws.com:5432/ngcentralprd?currentSchema=ab"
         domain: "bauchi-hcm.digit.org" ## Add your Domain Name
         redis-host: "redis.backbone"
-        redis-downsync-host: "redis.backbone"
+        redis-downsync-host: "ng-central-redis.nolaw2.ng.0001.afs1.cache.amazonaws.com"
         egov-services-fqdn-name: "https://bauchi-hcm-digit.org/" ## Add your Domain Name
         state-level-tenantid-length: "1"
         state-schema-index-position-tenantid: "0"
@@ -67,6 +67,7 @@ cluster-configs:
         boundary-hierarchy: "ADMIN"
         egov-internal-microservice-user-uuid: "e1f57dfe-35a0-494a-911d-22cd3f786612"
         host-map: "{'ba':'https://bauchi-hcm.digit.org/','oy':'https://oyo-hcm.digit.org/','ko':'https://kogi-hcm.digit.org/','na':'https://nasarawa-hcm.digit.org/','ab':'https://fct-abuja-hcm.digit.org/'}"
+        db-schema-names: "ba,oy,ko,na,ab"
 
     egov-service-host:
       namespace: [egov, bauchi, oyo, monitoring, kogi, nasarawa, abuja]
@@ -144,8 +145,8 @@ microplan-ui:
 egov-filestore:
   volume: /opt/eGov/filestore
   is-bucket-fixed: "true"
-  minio.url : "https://s3.amazonaws.com"
-  aws.s3.url : "https://s3.amazonaws.com"
+  minio.url: "https://s3.amazonaws.com"
+  aws.s3.url: "https://s3.amazonaws.com"
   is-s3-enabled: "true"
   minio-enabled: false
   allowed-file-formats-map: "{gz:{'application/gzip'},jpg:{'image/jpg','image/jpeg'},jpeg:{'image/jpeg','image/jpg'},png:{'image/png'},pdf:{'application/pdf'},odt:{'application/vnd.oasis.opendocument.text'},ods:{'application/vnd.oasis.opendocument.spreadsheet'},docx:{'application/x-tika-msoffice','application/x-tika-ooxml','application/vnd.oasis.opendocument.text','application/msword'},doc:{'application/x-tika-msoffice','application/x-tika-ooxml','application/vnd.oasis.opendocument.text','application/msword'},dxf:{'text/plain','application/dxf','application/octet-stream','image/vnd.dxf','image/vnd.dxf; format=ascii','image/vnd.dxf; format=binary','image/vnd.dxb'},csv:{'text/plain'},txt:{'text/plain'},xlsx:{'application/x-tika-ooxml','application/x-tika-msoffice','application/vnd.ms-excel','application/vnd.openxmlformats-officedocument.spreadsheetml.sheet','application/zip','multipart/form-data'},xls:{'application/x-tika-ooxml','application/x-tika-msoffice','application/vnd.ms-excel','multipart/form-data'}}"
@@ -174,6 +175,15 @@ mdms-v2:
       memory: "512Mi"
     limits:
       memory: "512Mi"
+
+egov-accesscontrol:
+  heap: "-Xmx768m -Xms512m"
+  memory_limits: "768Mi"
+  resources:
+    requests:
+      memory: "768Mi"
+    limits:
+      memory: "768Mi"
 
 pgr-services:
   central-instance-build: true
@@ -595,6 +605,7 @@ product:
       memory: "768Mi"
 
 egov-localization:
+  namespace: "bauchi"
   # internal-routing: "true"
   # db-url: "jdbc:postgresql://ng-central-prd-db.cpe4q0cycqi7.af-south-1.rds.amazonaws.com:5432/ngcentralprd?currentSchema=ba"
   heap: "-Xms3072m -Xms3072m"
@@ -755,19 +766,19 @@ hcm-moz-impl:
   memory_limits: "2Gi"
   startDate: "29/05/2025"
   endDate: "02/06/2025"
-  boundary-code: : "ba"
-  create-boundaryCSV-data: : "ba-create-boundaryCSV-data"
-  update-dhis2-job: : "ba-update-dhis2-job"
-  create-dhis2-job: : "ba-create-dhis2-job"
-  create-boundary-data: : "ba-create-boundary-data"
-  update-digit-dhis2-mapping: : "ba-update-digit-dhis2-mapping"
-  create-digit-dhis2-mapping: : "ba-create-digit-dhis2-mapping"
-  update-digit-record: : "ba-update-digit-record"
-  create-digit-record: : "ba-create-digit-record"
-  update-dhis2-digit-mapping: : "ba-update-dhis2-digit-mapping"
-  create-dhis2-digit-mapping: : "ba-create-dhis2-digit-mapping"
-  update-dhis2-record: : "ba-update-dhis2-record"
-  create-dhis2-record: : "ba-create-dhis2-record"
+  boundary-code: "ba"
+  create-boundaryCSV-data: "ba-create-boundaryCSV-data"
+  update-dhis2-job: "ba-update-dhis2-job"
+  create-dhis2-job: "ba-create-dhis2-job"
+  create-boundary-data: "ba-create-boundary-data"
+  update-digit-dhis2-mapping: "ba-update-digit-dhis2-mapping"
+  create-digit-dhis2-mapping: "ba-create-digit-dhis2-mapping"
+  update-digit-record: "ba-update-digit-record"
+  create-digit-record: "ba-create-digit-record"
+  update-dhis2-digit-mapping: "ba-update-dhis2-digit-mapping"
+  create-dhis2-digit-mapping: "ba-create-dhis2-digit-mapping"
+  update-dhis2-record: "ba-update-dhis2-record"
+  create-dhis2-record: "ba-create-dhis2-record"
   resources:
     requests:
       memory: "3Gi"

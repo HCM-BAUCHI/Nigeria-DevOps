@@ -60,7 +60,7 @@ env: |
     valueFrom:
       configMapKeyRef:
         name: egov-config
-        key: redis-host
+        key: redis-downsync-host
   - name: SPRING_REDIS_PORT
     value: "6379"
   - name: SPRING_CACHE_TYPE

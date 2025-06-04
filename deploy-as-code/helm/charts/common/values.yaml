@@ -10,7 +10,7 @@ httpPort: 8080
 appType: ""
 
 central-instance-build: false
-db-schema-names: "ba,oy,ko,na"
+db-schema-names: "ba,oy,ko,na,ab"
 
 ingress:
   enabled: false
@@ -47,7 +47,10 @@ initContainers:
               key: db-url
         - name: "SCHEMA_NAME"
           {{- if index .Values "central-instance-build" }}
-          value: {{ index .Values "db-schema-names" | quote }}
+          valueFrom:
+            configMapKeyRef:
+              name: egov-config
+              key: db-schema-names
           {{- else }}   
           value: "public"
           {{- end }}
