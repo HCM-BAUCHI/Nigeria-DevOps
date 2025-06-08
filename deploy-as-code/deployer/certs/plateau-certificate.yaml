@@ -1,0 +1,14 @@
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: plateau-hcm.digit.org-tls-certs
+  namespace: egov
+spec:
+  secretName: plateau-hcm.digit.org-tls-certs
+  issuerRef:
+    name: letsencrypt-prod
+    kind: ClusterIssuer
+  commonName: plateau-hcm.digit.org
+  dnsNames:
+    - plateau-hcm.digit.org
+
