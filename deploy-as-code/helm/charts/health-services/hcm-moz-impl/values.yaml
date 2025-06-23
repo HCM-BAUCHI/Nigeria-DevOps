@@ -46,6 +46,7 @@ update-dhis2-digit-mapping: "update-dhis2-digit-mapping"
 create-dhis2-digit-mapping: "create-dhis2-digit-mapping"
 update-dhis2-record: "update-dhis2-record"
 create-dhis2-record: "create-dhis2-record"
+additional-project-type-id: ""
 # Additional Container Envs
 env: |
   - name: SPRING_KAFKA_CONSUMER_GROUP_ID
@@ -212,6 +213,8 @@ env: |
     value: "SOFALA,NAMPULA"
   - name: EGOV_PROJECT_TYPE_ID
     value: eedc9db3-78a1-41ce-bf98-31577e224c94
+  - name: EGOV_ADDITIONAL_PROJECT_TYPE_ID
+    value: {{ index .Values "additional-project-type-id" | quote }}
   - name: EGOV_PROJECT_TYPE
     value: SMC-Nig
   - name: EGOV_FACILITY_HOST
@@ -425,7 +428,7 @@ env: |
         name: egov-service-host
         key: mdms-v2
   - name: EGOV_BOUNDARY_LOCALIZATION_MODULE
-    value: rainmaker-boundary-admin
+    value: hcm-boundary-admin
   - name: EGOV_BOUNDARY_LOCALIZATION_LOCALE
     value: en_NG
   - name: EGOV_LOCALIZATION_HOST
