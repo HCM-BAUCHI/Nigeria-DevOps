@@ -130,5 +130,3 @@ env: |
     value: "update-household-topic"
   - name: HOUSEHOLD.KAFKA.DELETE.TOPIC
     value: "delete-household-topic"
-  - name: EGOV_PERSISTER_BULK_PROCESSING_ENABLED
-    value: "false"

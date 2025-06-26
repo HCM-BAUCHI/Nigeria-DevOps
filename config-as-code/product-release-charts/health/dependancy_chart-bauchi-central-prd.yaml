@@ -71,7 +71,7 @@ modules:
       # - egovio/household:HCMPRE-1254-Comunity-household-8064857b8c-36
       - egovio/household:HCMPRE-2656-HCM-Services-bb1f78dc58-65
       # - egovio/project:HDDF-1638-55ba2879f5-26
-      - egovio/project:HCMPRE-2657-bauchi-impl-210e39086f-46
+      - egovio/project:HCMPRE-2657-bauchi-impl-hrms-04f70cd958-47
       # - egovio/referralmanagement:Downsync-for-CFL-demo-c1749cc0ec-66
       - egovio/referralmanagement:HCMPRE-2657-96154a1339-91
       # - egovio/health-attendance:v1.1.0-55e92c713-51

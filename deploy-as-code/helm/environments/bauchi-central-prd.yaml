@@ -31,6 +31,7 @@ cluster-configs:
         db-host: "ng-central-prd-db.cpe4q0cycqi7.af-south-1.rds.amazonaws.com" ## Add db-host name eg: egov-demo.database.azure.com
         db-name: "ngcentralprd" ## Add db-name
         db-url: "jdbc:postgresql://ng-central-prd-db.cpe4q0cycqi7.af-south-1.rds.amazonaws.com:5432/ngcentralprd"
+        db-read-url: "jdbc:postgresql://ng-central-prd-read-db.cpe4q0cycqi7.af-south-1.rds.amazonaws.com:5432/ngcentralprd"
         ba-db-url: "jdbc:postgresql://ng-central-prd-db.cpe4q0cycqi7.af-south-1.rds.amazonaws.com:5432/ngcentralprd?currentSchema=ba"
         oy-db-url: "jdbc:postgresql://ng-central-prd-db.cpe4q0cycqi7.af-south-1.rds.amazonaws.com:5432/ngcentralprd?currentSchema=oy"
         ko-db-url: "jdbc:postgresql://ng-central-prd-db.cpe4q0cycqi7.af-south-1.rds.amazonaws.com:5432/ngcentralprd?currentSchema=ko"
@@ -96,10 +97,13 @@ cluster-configs:
         egov-url-shortening: "http://egov-url-shortening.egov:8080/"
         pgr-services: "http://pgr-services.egov:8080/"
         project: "http://project.egov:8080/"
+        project-referral: "http://project-referral.egov:8080/"
         product: "http://product.egov:8080/"
         household: "http://household.egov:8080/"
+        household-referral: "http://household-referral.egov:8080/"
         boundary-service: "http://boundary-service.egov:8080/"
         individual: "http://individual.egov:8080/"
+        individual-referral: "http://individual-referral.egov:8080/"
         stock: "http://stock.egov:8080/"
         facility: "http://facility.egov:8080/"
         service-request: "http://service-request.egov:8080/"
@@ -629,6 +633,16 @@ individual:
     limits:
       memory: "1Gi"
 
+individual-referral:
+  central-instance-build: true
+  heap: "-Xmx768m -Xms768m"
+  memory_limits: "1Gi"
+  resources:
+    requests:
+      memory: "1Gi"
+    limits:
+      memory: "1Gi"
+
 stock:
   central-instance-build: true
   heap: "-Xmx512m -Xms512m"
@@ -649,7 +663,28 @@ household:
     limits:
       memory: "1Gi"
 
+household-referral:
+  central-instance-build: true
+  heap: "-Xmx1024m -Xms1024m"
+  memory_limits: "1Gi"
+  resources:
+    requests:
+      memory: "1Gi"
+    limits:
+      memory: "1Gi"
+
 project:
+  central-instance-build: true
+  replicas: 1
+  heap: "-Xmx2g -Xms2g"
+  memory_limits: "2Gi"
+  resources:
+    requests:
+      memory: "2Gi"
+    limits:
+      memory: "2Gi"
+
+project-referral:
   central-instance-build: true
   replicas: 1
   heap: "-Xmx2g -Xms2g"
