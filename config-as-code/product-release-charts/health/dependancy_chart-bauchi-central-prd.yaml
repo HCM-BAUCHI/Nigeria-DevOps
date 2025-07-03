@@ -52,7 +52,7 @@ modules:
     dependencies:
       - "business"
     services:
-      - egovio/digit-ui:impel-central-instance-nigeria-a42b5a4671-352 # TODO: deploy bauchi digit ui image
+      - egovio/digit-ui:impel-central-instance-nigeria-e5c1d67516-357 # TODO: deploy bauchi digit ui image
   - name: m_health
     dependencies:
       - "backbone"
@@ -73,7 +73,7 @@ modules:
       # - egovio/project:HDDF-1638-55ba2879f5-26
       - egovio/project:HCMPRE-2657-bauchi-impl-hrms-04f70cd958-47
       # - egovio/referralmanagement:Downsync-for-CFL-demo-c1749cc0ec-66
-      - egovio/referralmanagement:HCMPRE-2657-96154a1339-91
+      - egovio/referralmanagement:HCMPRE-2657-impel-483496b16f-97
       # - egovio/health-attendance:v1.1.0-55e92c713-51
       - egovio/health-attendance:HCMPRE-2656-HCM-Services-a5ce9731d-57
       # - egovio/service-request:v1.0.1-a0e714254c-18

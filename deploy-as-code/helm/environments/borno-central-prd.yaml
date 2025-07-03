@@ -47,13 +47,13 @@ global:
 transformer:
   namespace: "borno"
   replicas: 1
-  heap: "-Xmx1536m -Xms1536m"
-  memory_limits: "2Gi"
+  heap: "-Xmx3g -Xms3g"
+  memory_limits: "3Gi"
   resources:
     requests:
-      memory: "2Gi"
+      memory: "3Gi"
     limits:
-      memory: "2Gi"
+      memory: "3Gi"
   java-enable-debug: true
   save-project-task-topic: "bo-save-project-task-topic"
   update-project-task-topic: "bo-update-project-task-topic"
@@ -108,8 +108,8 @@ hcm-moz-impl:
   replicas: 1
   heap: "-Xmx2048m -Xms2048m"
   memory_limits: "2Gi"
-  startDate: "13/06/2025"
-  endDate: "17/06/2025"
+  startDate: "03/07/2025"
+  endDate: "07/07/2025"
   boundary-code: "bo"
   create-boundaryCSV-data: "bo-create-boundaryCSV-data"
   update-dhis2-job: "bo-update-dhis2-job"

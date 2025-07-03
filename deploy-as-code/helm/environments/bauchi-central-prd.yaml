@@ -57,7 +57,7 @@ cluster-configs:
         es-host: "elasticsearch-data.es-cluster-v8"
         es-indexer-host: "https://elasticsearch-data.es-cluster-v8:9200/"
         flyway-locations: "filesystem:/flyway/sql,filesystem:/flyway/seed,filesystem:/flyway/qa"
-        kafka-brokers: "b-1.ngcentralprdmsk.v1mjan.c2.kafka.af-south-1.amazonaws.com:9092,b-2.ngcentralprdmsk.v1mjan.c2.kafka.af-south-1.amazonaws.com:9092,b-3.ngcentralprdmsk.v1mjan.c2.kafka.af-south-1.amazonaws.com:9092"
+        kafka-brokers: "b-1.centralmsk.6jj53l.c2.kafka.af-south-1.amazonaws.com:9092,b-2.centralmsk.6jj53l.c2.kafka.af-south-1.amazonaws.com:9092,b-3.centralmsk.6jj53l.c2.kafka.af-south-1.amazonaws.com:9092"
         kafka-infra-brokers: "release-name-kafka-controller-headless.kafka-cluster:9092"
         logging-level-jdbc: "DEBUG"
         mobile-validation-workaround: "true"
@@ -628,13 +628,13 @@ egov-localization:
 
 individual:
   central-instance-build: true
-  heap: "-Xmx768m -Xms768m"
-  memory_limits: "1Gi"
+  heap: "-Xmx2g -Xms2g"
+  memory_limits: "2Gi"
   resources:
     requests:
-      memory: "1Gi"
+      memory: "2Gi"
     limits:
-      memory: "1Gi"
+      memory: "2Gi"
 
 individual-referral:
   central-instance-build: true
@@ -678,14 +678,13 @@ household-referral:
 
 project:
   central-instance-build: true
-  replicas: 1
-  heap: "-Xmx2g -Xms2g"
-  memory_limits: "2Gi"
+  heap: "-Xmx3g -Xms3g"
+  memory_limits: "3Gi"
   resources:
     requests:
-      memory: "2Gi"
+      memory: "3Gi"
     limits:
-      memory: "2Gi"
+      memory: "3Gi"
 
 project-referral:
   central-instance-build: true
