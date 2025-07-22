@@ -1,0 +1,14 @@
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: sokoto-hcm.digit.org-tls-certs
+  namespace: egov
+spec:
+  secretName: sokoto-hcm.digit.org-tls-certs
+  issuerRef:
+    name: letsencrypt-prod
+    kind: ClusterIssuer
+  commonName: sokoto-hcm.digit.org
+  dnsNames:
+    - sokoto-hcm.digit.org
+

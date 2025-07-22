@@ -27,6 +27,7 @@ healthChecks:
   readinessProbePath: "/referralmanagement/health"
 appType: "java-spring"
 tracing-enabled: true
+downsync-services-enabled: false
 heap: "-Xmx192m -Xms192m"
 java-args: ""
 persist-yml-path: "file:///work-dir/health-campaign-config/egov-persister/referral-management-persister.yml"
@@ -131,6 +132,61 @@ env: |
     value: "referralmanagement_master"
   - name: EGOV_MDMS_MODULE_NAME
     value: "referralmanagement"
+  - name: EGOV_PRODUCT_HOST
+    valueFrom:
+      configMapKeyRef:
+        name: egov-service-host
+        key: product
+  - name: EGOV_SEARCH_PRODUCT_VARIANT_URL
+    value: "/product/variant/v1/_search"
+  {{- if index .Values "downsync-services-enabled" }}
+  - name: EGOV_PROJECT_HOST
+    valueFrom:
+      configMapKeyRef:
+        name: egov-service-host
+        key: project-referral
+  - name: EGOV_SEARCH_PROJECT_TASK_URL
+    value: "/project-referral/task/v1/_search"
+  - name: EGOV_SEARCH_PROJECT_BENEFICIARY_URL
+    value: "/project-referral/beneficiary/v1/_search"
+  - name: EGOV_SEARCH_PROJECT_STAFF_URL
+    value: "/project-referral/staff/v1/_search"
+  - name: EGOV_SEARCH_PROJECT_URL
+    value: "/project-referral/v1/_search"
+  - name: EGOV_SEARCH_PROJECT_FACILITY_URL
+    value: "/project-referral/facility/v1/_search"
+  - name: EGOV_HOUSEHOLD_HOST
+    valueFrom:
+      configMapKeyRef:
+        name: egov-service-host
+        key: household-referral
+  - name: EGOV_SEARCH_HOUSEHOLD_URL
+    value: "/household-referral/v1/_search"
+  - name: EGOV_SEARCH_HOUSEHOLD_MEMBER_URL
+    value: "/household-referral/member/v1/_search"
+  - name: EGOV_INDIVIDUAL_HOST
+    valueFrom:
+      configMapKeyRef:
+        name: egov-service-host
+        key: individual-referral
+  - name: EGOV_SEARCH_INDIVIDUAL_URL
+    value: "/individual-referral/v1/_search"
+  {{- else }}
+  - name: EGOV_PROJECT_HOST
+    valueFrom:
+      configMapKeyRef:
+        name: egov-service-host
+        key: project
+  - name: EGOV_SEARCH_PROJECT_TASK_URL
+    value: "/project/task/v1/_search"
+  - name: EGOV_SEARCH_PROJECT_BENEFICIARY_URL
+    value: "/project/beneficiary/v1/_search"
+  - name: EGOV_SEARCH_PROJECT_STAFF_URL
+    value: "/project/staff/v1/_search"
+  - name: EGOV_SEARCH_PROJECT_URL
+    value: "/project/v1/_search"
+  - name: EGOV_SEARCH_PROJECT_FACILITY_URL
+    value: "/project/facility/v1/_search"
   - name: EGOV_HOUSEHOLD_HOST
     valueFrom:
       configMapKeyRef:
@@ -147,26 +203,7 @@ env: |
         key: individual
   - name: EGOV_SEARCH_INDIVIDUAL_URL
     value: "/individual/v1/_search"
-  - name: EGOV_PRODUCT_HOST
-    valueFrom:
-      configMapKeyRef:
-        name: egov-service-host
-        key: product
-  - name: EGOV_SEARCH_PRODUCT_VARIANT_URL
-    value: "/product/variant/v1/_search"
-  - name: EGOV_PROJECT_HOST
-    valueFrom:
-      configMapKeyRef:
-        name: egov-service-host
-        key: project
-  - name: EGOV_SEARCH_PROJECT_TASK_URL
-    value: "/project/task/v1/_search"
-  - name: EGOV_SEARCH_PROJECT_BENEFICIARY_URL
-    value: "/project/beneficiary/v1/_search"
-  - name: EGOV_SEARCH_PROJECT_STAFF_URL
-    value: "/project/staff/v1/_search"
-  - name: EGOV_SEARCH_PROJECT_URL
-    value: "/project/v1/_search"
+  {{- end }}
   - name: REFERRALMANAGEMENT.SIDEEFFECT.KAFKA.CREATE.TOPIC
     value: "save-side-effect-topic"
   - name: REFERRALMANAGEMENT.SIDEEFFECT.KAFKA.UPDATE.TOPIC
@@ -212,8 +249,6 @@ env: |
         key: facility
   - name: EGOV_SEARCH_FACILITY_URL
     value: "/facility/v1/_search"
-  - name: EGOV_SEARCH_PROJECT_FACILITY_URL
-    value: "/project/facility/v1/_search"
   - name: PROJECT_MDMS_MODULE
     value: "HCM-PROJECT-TYPES"
   - name: EGOV_LOCATION_HIERARCHY_TYPE
