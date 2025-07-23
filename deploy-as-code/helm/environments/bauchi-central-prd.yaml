@@ -10,7 +10,7 @@ global:
     - fct-abuja-hcm.digit.org
     - plateau-hcm.digit.org
     - borno-hcm.digit.org
-    - kebbi-hcm.digit.org
+    - kebbi-hcm-central.digit.org
     - sokoto-hcm.digit.org
   schema:
     - ba
@@ -79,7 +79,7 @@ cluster-configs:
         egov-env: "PROD"
         boundary-hierarchy: "ADMIN"
         egov-internal-microservice-user-uuid: "e1f57dfe-35a0-494a-911d-22cd3f786612"
-        host-map: "{'ba':'https://bauchi-hcm.digit.org/','oy':'https://oyo-hcm.digit.org/','ko':'https://kogi-hcm.digit.org/','na':'https://nasarawa-hcm.digit.org/','ab':'https://fct-abuja-hcm.digit.org/','pl':'https://plateau-hcm.digit.org/','bo':'https://borno-hcm.digit.org/','ke':'https://kebbi-hcm.digit.org/','so':'https://sokoto-hcm.digit.org/'}"
+        host-map: "{'ba':'https://bauchi-hcm.digit.org/','oy':'https://oyo-hcm.digit.org/','ko':'https://kogi-hcm.digit.org/','na':'https://nasarawa-hcm.digit.org/','ab':'https://fct-abuja-hcm.digit.org/','pl':'https://plateau-hcm.digit.org/','bo':'https://borno-hcm.digit.org/','ke':'https://kebbi-hcm-central.digit.org/','so':'https://sokoto-hcm.digit.org/'}"
         db-schema-names: "ba,oy,ko,na,ab,pl,bo,ke,so"
 
     egov-service-host:
@@ -225,6 +225,7 @@ boundary-service:
   # db-url: "jdbc:postgresql://ng-central-prd-db.cpe4q0cycqi7.af-south-1.rds.amazonaws.com:5432/ngcentralprd?currentSchema=ba"
   heap: "-Xmx2560m -Xms2560m"
   memory_limits: "3Gi"
+  replicas: 8
   resources:
     requests:
       memory: "3Gi"
@@ -706,13 +707,13 @@ project-referral:
 referralmanagement:
   downsync-services-enabled: true
   central-instance-build: true
-  heap: "-Xmx512m -Xms512m"
-  memory_limits: "512Mi"
+  heap: "-Xmx1024m -Xms1024m"
+  memory_limits: "1024Mi"
   resources:
     requests:
-      memory: "512Mi"
+      memory: "1024Mi"
     limits:
-      memory: "512Mi"
+      memory: "1024Mi"
 
 service-request:
   central-instance-build: true

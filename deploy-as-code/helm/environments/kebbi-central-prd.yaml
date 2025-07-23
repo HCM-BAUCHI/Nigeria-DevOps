@@ -1,5 +1,5 @@
 global:
-  domain: kebbi-hcm.digit.org
+  domain: kebbi-hcm-central.digit.org
 # egov-localization:
 #   namespace: "oyo"
 #   heap: "-Xmx512m -Xms512m"
