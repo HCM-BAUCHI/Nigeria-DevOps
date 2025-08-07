@@ -1,0 +1,14 @@
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: ondo-hcm.digit.org-tls-certs
+  namespace: egov
+spec:
+  secretName: ondo-hcm.digit.org-tls-certs
+  issuerRef:
+    name: letsencrypt-prod
+    kind: ClusterIssuer
+  commonName: ondo-hcm.digit.org
+  dnsNames:
+    - ondo-hcm.digit.org
+
