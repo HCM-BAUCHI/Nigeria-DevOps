@@ -28,13 +28,50 @@ global:
 cluster-configs:
   namespaces:
     create: true
-    values: [ backbone, cert-manager, egov, es-cluster, kafka-cluster, logging, monitoring, playground, zookeeper-cluster, es-cluster-v8, jupyter, jhub, bauchi, oyo, kogi, nasarawa, abuja, plateau, borno, kebbi, sokoto, ondo ]
+    values:
+      [
+        backbone,
+        cert-manager,
+        egov,
+        es-cluster,
+        kafka-cluster,
+        logging,
+        monitoring,
+        playground,
+        zookeeper-cluster,
+        es-cluster-v8,
+        jupyter,
+        jhub,
+        bauchi,
+        oyo,
+        kogi,
+        nasarawa,
+        abuja,
+        plateau,
+        borno,
+        kebbi,
+        sokoto,
+        ondo,
+      ]
 
   root-ingress:
     cert-issuer: letsencrypt-prod
   configmaps:
     egov-config:
-      namespace: [egov, bauchi, oyo, kogi, nasarawa, abuja, plateau, borno, kebbi, sokoto, ondo]
+      namespace:
+        [
+          egov,
+          bauchi,
+          oyo,
+          kogi,
+          nasarawa,
+          abuja,
+          plateau,
+          borno,
+          kebbi,
+          sokoto,
+          ondo,
+        ]
       data:
         db-host: "ng-central-prd-db.cpe4q0cycqi7.af-south-1.rds.amazonaws.com" ## Add db-host name eg: egov-demo.database.azure.com
         db-name: "ngcentralprd" ## Add db-name
@@ -86,7 +123,21 @@ cluster-configs:
         db-schema-names: "ba,oy,ko,na,ab,pl,bo,ke,so,od"
 
     egov-service-host:
-      namespace: [egov, bauchi, oyo, monitoring, kogi, nasarawa, abuja, plateau, borno, kebbi, sokoto, ondo]
+      namespace:
+        [
+          egov,
+          bauchi,
+          oyo,
+          monitoring,
+          kogi,
+          nasarawa,
+          abuja,
+          plateau,
+          borno,
+          kebbi,
+          sokoto,
+          ondo,
+        ]
       data:
         dashboard-analytics: "http://dashboard-analytics.egov:8080/"
         egov-enc-service: "http://egov-enc-service.egov:8080/"
@@ -121,12 +172,12 @@ cluster-configs:
         service-request: "http://service-request.egov:8080/"
         attendance-service: "http://health-attendance.egov:8080/"
         audit-service: "http://audit-service.egov:8080/"
-        project-factory: 'http://project-factory.egov:8080/'
-        plan-service: 'http://plan-service.egov:8080/'
-        census-service: 'http://census-service.egov:8080/'
-        health-muster-roll: 'http://health-muster-roll.egov:8080/'
-        health-expense-calculator: 'http://health-expense-calculator.egov:8080/'
-        health-expense: 'http://health-expense.egov:8080/'
+        project-factory: "http://project-factory.egov:8080/"
+        plan-service: "http://plan-service.egov:8080/"
+        census-service: "http://census-service.egov:8080/"
+        health-muster-roll: "http://health-muster-roll.egov:8080/"
+        health-expense-calculator: "http://health-expense-calculator.egov:8080/"
+        health-expense: "http://health-expense.egov:8080/"
 
     hcm-moz-impl:
       data:
@@ -144,7 +195,7 @@ workbench-ui:
   custom-js-injection: |
     sub_filter.conf: "
       sub_filter  '<head>' '<head>
-      <script src=https://ng-central.s3.af-south-1.amazonaws.com/globalConfigsWorkbench.js type=text/javascript></script>';" 
+      <script src=https://ng-central.s3.af-south-1.amazonaws.com/globalConfigsWorkbench.js type=text/javascript></script>';"
 
 digit-ui:
   namespace: bauchi
@@ -159,7 +210,7 @@ microplan-ui:
       sub_filter  '<head>' '<head>
       <script src=https://ng-central.s3.af-south-1.amazonaws.com/analytics.js type=text/javascript></script>       
       <script src=https://ng-central.s3.af-south-1.amazonaws.com/globalConfigsMicroplan.js type=text/javascript></script>
-      ';" 
+      ';"
 
 egov-filestore:
   volume: /opt/eGov/filestore
@@ -171,7 +222,7 @@ egov-filestore:
   allowed-file-formats-map: "{gz:{'application/gzip'},jpg:{'image/jpg','image/jpeg'},jpeg:{'image/jpeg','image/jpg'},png:{'image/png'},pdf:{'application/pdf'},odt:{'application/vnd.oasis.opendocument.text'},ods:{'application/vnd.oasis.opendocument.spreadsheet'},docx:{'application/x-tika-msoffice','application/x-tika-ooxml','application/vnd.oasis.opendocument.text','application/msword'},doc:{'application/x-tika-msoffice','application/x-tika-ooxml','application/vnd.oasis.opendocument.text','application/msword'},dxf:{'text/plain','application/dxf','application/octet-stream','image/vnd.dxf','image/vnd.dxf; format=ascii','image/vnd.dxf; format=binary','image/vnd.dxb'},csv:{'text/plain'},txt:{'text/plain'},xlsx:{'application/x-tika-ooxml','application/x-tika-msoffice','application/vnd.ms-excel','application/vnd.openxmlformats-officedocument.spreadsheetml.sheet','application/zip','multipart/form-data'},xls:{'application/x-tika-ooxml','application/x-tika-msoffice','application/vnd.ms-excel','multipart/form-data'}}"
   allowed-file-formats: "jpg,jpeg,png,doc,docx,pdf,odt,ods,text,dxf,xls,xlsx"
   filestore-url-validity: 3600
-  fixed-bucketname: ngcentralfilestore  ## Add filestore bucket name
+  fixed-bucketname: ngcentralfilestore ## Add filestore bucket name
 
 egov-idgen:
   idformat-from-mdms: "true"
@@ -276,8 +327,8 @@ egov-indexer:
       memory: "2Gi"
   initContainers:
     gitSync:
-      repo: "git@github.com:HCM-BAUCHI/health-campaign-config"        ##### Change repo url with Your fork Repo url
-      branch: "PROD"                                      ##### Change repo branch with Your fork Repo branch
+      repo: "git@github.com:HCM-BAUCHI/health-campaign-config" ##### Change repo url with Your fork Repo url
+      branch: "PROD" ##### Change repo branch with Your fork Repo branch
   egov-indexer-yaml-repo-path: "file:///work-dir/health-campaign-config/egov-indexer/so/transformer-pgr-services.yml,file:///work-dir/health-campaign-config/egov-indexer/error-queue.yml,file:///work-dir/health-campaign-config/egov-indexer/so/product-indexer.yml,file:///work-dir/health-campaign-config/egov-indexer/so/project-indexer.yml,file:///work-dir/health-campaign-config/egov-indexer/so/individual-indexer.yml,file:///work-dir/health-campaign-config/egov-indexer/so/household-indexer.yml,file:///work-dir/health-campaign-config/egov-indexer/so/project-task-indexer.yml,file:///work-dir/health-campaign-config/egov-indexer/so/stock-indexer.yml,file:///work-dir/health-campaign-config/egov-indexer/so/facility-indexer.yml,file:///work-dir/health-campaign-config/egov-indexer/so/project-staff-indexer.yml,file:///work-dir/health-campaign-config/egov-indexer/egov-error-queue-indexer.yml,file:///work-dir/health-campaign-config/egov-indexer/so/pgr-services.yml,file:///work-dir/health-campaign-config/egov-indexer/so/service-request-indexer.yml,file:///work-dir/health-campaign-config/egov-indexer/so/referral-management-indexer.yml,file:///work-dir/health-campaign-config/egov-indexer/so/attendance-service-indexer.yml,file:///work-dir/health-campaign-config/egov-indexer/so/muster-service-indexer.yml,file:///work-dir/health-campaign-config/egov-indexer/so/expense-bill-service-indexer.yml,file:///work-dir/health-campaign-config/egov-indexer/ab/transformer-pgr-services.yml,file:///work-dir/health-campaign-config/egov-indexer/error-queue.yml,file:///work-dir/health-campaign-config/egov-indexer/ab/product-indexer.yml,file:///work-dir/health-campaign-config/egov-indexer/ab/project-indexer.yml,file:///work-dir/health-campaign-config/egov-indexer/ab/individual-indexer.yml,file:///work-dir/health-campaign-config/egov-indexer/ab/household-indexer.yml,file:///work-dir/health-campaign-config/egov-indexer/ab/project-task-indexer.yml,file:///work-dir/health-campaign-config/egov-indexer/ab/stock-indexer.yml,file:///work-dir/health-campaign-config/egov-indexer/ab/facility-indexer.yml,file:///work-dir/health-campaign-config/egov-indexer/ab/project-staff-indexer.yml,file:///work-dir/health-campaign-config/egov-indexer/egov-error-queue-indexer.yml,file:///work-dir/health-campaign-config/egov-indexer/ab/pgr-services.yml,file:///work-dir/health-campaign-config/egov-indexer/ab/service-request-indexer.yml,file:///work-dir/health-campaign-config/egov-indexer/ab/referral-management-indexer.yml,file:///work-dir/health-campaign-config/egov-indexer/ab/attendance-service-indexer.yml,file:///work-dir/health-campaign-config/egov-indexer/ab/muster-service-indexer.yml,file:///work-dir/health-campaign-config/egov-indexer/ab/expense-bill-service-indexer.yml,file:///work-dir/health-campaign-config/egov-indexer/ba/transformer-pgr-services.yml,file:///work-dir/health-campaign-config/egov-indexer/error-queue.yml,file:///work-dir/health-campaign-config/egov-indexer/ba/product-indexer.yml,file:///work-dir/health-campaign-config/egov-indexer/ba/project-indexer.yml,file:///work-dir/health-campaign-config/egov-indexer/ba/individual-indexer.yml,file:///work-dir/health-campaign-config/egov-indexer/ba/household-indexer.yml,file:///work-dir/health-campaign-config/egov-indexer/ba/project-task-indexer.yml,file:///work-dir/health-campaign-config/egov-indexer/ba/stock-indexer.yml,file:///work-dir/health-campaign-config/egov-indexer/ba/facility-indexer.yml,file:///work-dir/health-campaign-config/egov-indexer/ba/project-staff-indexer.yml,file:///work-dir/health-campaign-config/egov-indexer/egov-error-queue-indexer.yml,file:///work-dir/health-campaign-config/egov-indexer/ba/pgr-services.yml,file:///work-dir/health-campaign-config/egov-indexer/ba/service-request-indexer.yml,file:///work-dir/health-campaign-config/egov-indexer/ba/referral-management-indexer.yml,file:///work-dir/health-campaign-config/egov-indexer/ba/attendance-service-indexer.yml,file:///work-dir/health-campaign-config/egov-indexer/ba/muster-service-indexer.yml,file:///work-dir/health-campaign-config/egov-indexer/ba/expense-bill-service-indexer.yml,file:///work-dir/health-campaign-config/egov-indexer/oy/transformer-pgr-services.yml,file:///work-dir/health-campaign-config/egov-indexer/oy/error-queue.yml,file:///work-dir/health-campaign-config/egov-indexer/oy/product-indexer.yml,file:///work-dir/health-campaign-config/egov-indexer/oy/project-indexer.yml,file:///work-dir/health-campaign-config/egov-indexer/oy/individual-indexer.yml,file:///work-dir/health-campaign-config/egov-indexer/oy/household-indexer.yml,file:///work-dir/health-campaign-config/egov-indexer/oy/project-task-indexer.yml,file:///work-dir/health-campaign-config/egov-indexer/oy/stock-indexer.yml,file:///work-dir/health-campaign-config/egov-indexer/oy/facility-indexer.yml,file:///work-dir/health-campaign-config/egov-indexer/oy/project-staff-indexer.yml,file:///work-dir/health-campaign-config/egov-indexer/oy/egov-error-queue-indexer.yml,file:///work-dir/health-campaign-config/egov-indexer/oy/pgr-services.yml,file:///work-dir/health-campaign-config/egov-indexer/oy/service-request-indexer.yml,file:///work-dir/health-campaign-config/egov-indexer/oy/referral-management-indexer.yml,file:///work-dir/health-campaign-config/egov-indexer/oy/attendance-service-indexer.yml,file:///work-dir/health-campaign-config/egov-indexer/oy/muster-service-indexer.yml,file:///work-dir/health-campaign-config/egov-indexer/oy/expense-bill-service-indexer.yml,file:///work-dir/health-campaign-config/egov-indexer/ko/transformer-pgr-services.yml,file:///work-dir/health-campaign-config/egov-indexer/ko/error-queue.yml,file:///work-dir/health-campaign-config/egov-indexer/ko/product-indexer.yml,file:///work-dir/health-campaign-config/egov-indexer/ko/project-indexer.yml,file:///work-dir/health-campaign-config/egov-indexer/ko/individual-indexer.yml,file:///work-dir/health-campaign-config/egov-indexer/ko/household-indexer.yml,file:///work-dir/health-campaign-config/egov-indexer/ko/project-task-indexer.yml,file:///work-dir/health-campaign-config/egov-indexer/ko/stock-indexer.yml,file:///work-dir/health-campaign-config/egov-indexer/ko/facility-indexer.yml,file:///work-dir/health-campaign-config/egov-indexer/ko/project-staff-indexer.yml,file:///work-dir/health-campaign-config/egov-indexer/ko/egov-error-queue-indexer.yml,file:///work-dir/health-campaign-config/egov-indexer/ko/pgr-services.yml,file:///work-dir/health-campaign-config/egov-indexer/ko/service-request-indexer.yml,file:///work-dir/health-campaign-config/egov-indexer/ko/referral-management-indexer.yml,file:///work-dir/health-campaign-config/egov-indexer/ko/attendance-service-indexer.yml,file:///work-dir/health-campaign-config/egov-indexer/ko/muster-service-indexer.yml,file:///work-dir/health-campaign-config/egov-indexer/ko/expense-bill-service-indexer.yml,file:///work-dir/health-campaign-config/egov-indexer/na/transformer-pgr-services.yml,file:///work-dir/health-campaign-config/egov-indexer/na/error-queue.yml,file:///work-dir/health-campaign-config/egov-indexer/na/product-indexer.yml,file:///work-dir/health-campaign-config/egov-indexer/na/project-indexer.yml,file:///work-dir/health-campaign-config/egov-indexer/na/individual-indexer.yml,file:///work-dir/health-campaign-config/egov-indexer/na/household-indexer.yml,file:///work-dir/health-campaign-config/egov-indexer/na/project-task-indexer.yml,file:///work-dir/health-campaign-config/egov-indexer/na/stock-indexer.yml,file:///work-dir/health-campaign-config/egov-indexer/na/facility-indexer.yml,file:///work-dir/health-campaign-config/egov-indexer/na/project-staff-indexer.yml,file:///work-dir/health-campaign-config/egov-indexer/na/egov-error-queue-indexer.yml,file:///work-dir/health-campaign-config/egov-indexer/na/pgr-services.yml,file:///work-dir/health-campaign-config/egov-indexer/na/service-request-indexer.yml,file:///work-dir/health-campaign-config/egov-indexer/na/referral-management-indexer.yml,file:///work-dir/health-campaign-config/egov-indexer/na/attendance-service-indexer.yml,file:///work-dir/health-campaign-config/egov-indexer/na/muster-service-indexer.yml,file:///work-dir/health-campaign-config/egov-indexer/na/expense-bill-service-indexer.yml,file:///work-dir/health-campaign-config/egov-indexer/pl/transformer-pgr-services.yml,file:///work-dir/health-campaign-config/egov-indexer/error-queue.yml,file:///work-dir/health-campaign-config/egov-indexer/pl/product-indexer.yml,file:///work-dir/health-campaign-config/egov-indexer/pl/project-indexer.yml,file:///work-dir/health-campaign-config/egov-indexer/pl/individual-indexer.yml,file:///work-dir/health-campaign-config/egov-indexer/pl/household-indexer.yml,file:///work-dir/health-campaign-config/egov-indexer/pl/project-task-indexer.yml,file:///work-dir/health-campaign-config/egov-indexer/pl/stock-indexer.yml,file:///work-dir/health-campaign-config/egov-indexer/pl/facility-indexer.yml,file:///work-dir/health-campaign-config/egov-indexer/pl/project-staff-indexer.yml,file:///work-dir/health-campaign-config/egov-indexer/egov-error-queue-indexer.yml,file:///work-dir/health-campaign-config/egov-indexer/pl/pgr-services.yml,file:///work-dir/health-campaign-config/egov-indexer/pl/service-request-indexer.yml,file:///work-dir/health-campaign-config/egov-indexer/pl/referral-management-indexer.yml,file:///work-dir/health-campaign-config/egov-indexer/pl/attendance-service-indexer.yml,file:///work-dir/health-campaign-config/egov-indexer/pl/muster-service-indexer.yml,file:///work-dir/health-campaign-config/egov-indexer/pl/expense-bill-service-indexer.yml,file:///work-dir/health-campaign-config/egov-indexer/bo/transformer-pgr-services.yml,file:///work-dir/health-campaign-config/egov-indexer/bo/error-queue.yml,file:///work-dir/health-campaign-config/egov-indexer/bo/product-indexer.yml,file:///work-dir/health-campaign-config/egov-indexer/bo/project-indexer.yml,file:///work-dir/health-campaign-config/egov-indexer/bo/individual-indexer.yml,file:///work-dir/health-campaign-config/egov-indexer/bo/household-indexer.yml,file:///work-dir/health-campaign-config/egov-indexer/bo/project-task-indexer.yml,file:///work-dir/health-campaign-config/egov-indexer/bo/stock-indexer.yml,file:///work-dir/health-campaign-config/egov-indexer/bo/facility-indexer.yml,file:///work-dir/health-campaign-config/egov-indexer/bo/project-staff-indexer.yml,file:///work-dir/health-campaign-config/egov-indexer/bo/egov-error-queue-indexer.yml,file:///work-dir/health-campaign-config/egov-indexer/bo/pgr-services.yml,file:///work-dir/health-campaign-config/egov-indexer/bo/service-request-indexer.yml,file:///work-dir/health-campaign-config/egov-indexer/bo/referral-management-indexer.yml,file:///work-dir/health-campaign-config/egov-indexer/bo/attendance-service-indexer.yml,file:///work-dir/health-campaign-config/egov-indexer/bo/muster-service-indexer.yml,file:///work-dir/health-campaign-config/egov-indexer/bo/expense-bill-service-indexer.yml,file:///work-dir/health-campaign-config/egov-indexer/ke/transformer-pgr-services.yml,file:///work-dir/health-campaign-config/egov-indexer/ke/error-queue.yml,file:///work-dir/health-campaign-config/egov-indexer/ke/product-indexer.yml,file:///work-dir/health-campaign-config/egov-indexer/ke/project-indexer.yml,file:///work-dir/health-campaign-config/egov-indexer/ke/individual-indexer.yml,file:///work-dir/health-campaign-config/egov-indexer/ke/household-indexer.yml,file:///work-dir/health-campaign-config/egov-indexer/ke/project-task-indexer.yml,file:///work-dir/health-campaign-config/egov-indexer/ke/stock-indexer.yml,file:///work-dir/health-campaign-config/egov-indexer/ke/facility-indexer.yml,file:///work-dir/health-campaign-config/egov-indexer/ke/project-staff-indexer.yml,file:///work-dir/health-campaign-config/egov-indexer/ke/egov-error-queue-indexer.yml,file:///work-dir/health-campaign-config/egov-indexer/ke/pgr-services.yml,file:///work-dir/health-campaign-config/egov-indexer/ke/service-request-indexer.yml,file:///work-dir/health-campaign-config/egov-indexer/ke/referral-management-indexer.yml,file:///work-dir/health-campaign-config/egov-indexer/ke/attendance-service-indexer.yml,file:///work-dir/health-campaign-config/egov-indexer/ke/muster-service-indexer.yml,file:///work-dir/health-campaign-config/egov-indexer/ke/expense-bill-service-indexer.yml,file:///work-dir/health-campaign-config/egov-indexer/od/transformer-pgr-services.yml,file:///work-dir/health-campaign-config/egov-indexer/od/error-queue.yml,file:///work-dir/health-campaign-config/egov-indexer/od/product-indexer.yml,file:///work-dir/health-campaign-config/egov-indexer/od/project-indexer.yml,file:///work-dir/health-campaign-config/egov-indexer/od/individual-indexer.yml,file:///work-dir/health-campaign-config/egov-indexer/od/household-indexer.yml,file:///work-dir/health-campaign-config/egov-indexer/od/project-task-indexer.yml,file:///work-dir/health-campaign-config/egov-indexer/od/stock-indexer.yml,file:///work-dir/health-campaign-config/egov-indexer/od/facility-indexer.yml,file:///work-dir/health-campaign-config/egov-indexer/od/project-staff-indexer.yml,file:///work-dir/health-campaign-config/egov-indexer/od/egov-error-queue-indexer.yml,file:///work-dir/health-campaign-config/egov-indexer/od/pgr-services.yml,file:///work-dir/health-campaign-config/egov-indexer/od/service-request-indexer.yml,file:///work-dir/health-campaign-config/egov-indexer/od/referral-management-indexer.yml,file:///work-dir/health-campaign-config/egov-indexer/od/attendance-service-indexer.yml,file:///work-dir/health-campaign-config/egov-indexer/od/muster-service-indexer.yml,file:///work-dir/health-campaign-config/egov-indexer/od/expense-bill-service-indexer.yml"
 
 egov-persister:
@@ -294,8 +345,8 @@ egov-persister:
   persist-yml-path: "file:///work-dir/health-campaign-config/egov-persister/so/audit-service-persister.yml,file:///work-dir/health-campaign-config/egov-persister/so/egov-user-event-persister.yml,file:///work-dir/health-campaign-config/egov-persister/so/egov-workflow-v2-persister.yml,file:///work-dir/health-campaign-config/egov-persister/so/hrms-employee-persister.yml,file:///work-dir/health-campaign-config/egov-persister/so/pdf-generator.yml,file:///work-dir/health-campaign-config/egov-persister/so/product-persister.yml,file:///work-dir/health-campaign-config/egov-persister/so/project-persister.yml,file:///work-dir/health-campaign-config/egov-persister/so/individual-persister.yml,file:///work-dir/health-campaign-config/egov-persister/so/household-persister.yml,file:///work-dir/health-campaign-config/egov-persister/so/project-task-persister.yml,file:///work-dir/health-campaign-config/egov-persister/so/stock-persister.yml,file:///work-dir/health-campaign-config/egov-persister/so/facility-persister.yml,file:///work-dir/health-campaign-config/egov-persister/so/service-request-persister.yml,file:///work-dir/health-campaign-config/egov-persister/so/pgr-services-persister.yml,file:///work-dir/health-campaign-config/egov-persister/so/hcm-moz-impl-persister.yml,file:///work-dir/health-campaign-config/egov-persister/so/mdms-persister.yml,file:///work-dir/health-campaign-config/egov-persister/so/referral-management-persister.yml,file:///work-dir/health-campaign-config/egov-persister/so/attendance-service-persister.yml,file:///work-dir/health-campaign-config/egov-persister/so/boundary-persister.yml,file:///work-dir/health-campaign-config/egov-persister/so/muster-service-persister.yml,file:///work-dir/health-campaign-config/egov-persister/so/expense-bill-payment-persister.yaml,file:///work-dir/health-campaign-config/egov-persister/so/irs-persister.yml,file:///work-dir/health-campaign-config/egov-persister/ab/audit-service-persister.yml,file:///work-dir/health-campaign-config/egov-persister/ab/egov-user-event-persister.yml,file:///work-dir/health-campaign-config/egov-persister/ab/egov-workflow-v2-persister.yml,file:///work-dir/health-campaign-config/egov-persister/ab/hrms-employee-persister.yml,file:///work-dir/health-campaign-config/egov-persister/ab/pdf-generator.yml,file:///work-dir/health-campaign-config/egov-persister/ab/product-persister.yml,file:///work-dir/health-campaign-config/egov-persister/ab/project-persister.yml,file:///work-dir/health-campaign-config/egov-persister/ab/individual-persister.yml,file:///work-dir/health-campaign-config/egov-persister/ab/household-persister.yml,file:///work-dir/health-campaign-config/egov-persister/ab/project-task-persister.yml,file:///work-dir/health-campaign-config/egov-persister/ab/stock-persister.yml,file:///work-dir/health-campaign-config/egov-persister/ab/facility-persister.yml,file:///work-dir/health-campaign-config/egov-persister/ab/service-request-persister.yml,file:///work-dir/health-campaign-config/egov-persister/ab/pgr-services-persister.yml,file:///work-dir/health-campaign-config/egov-persister/ab/hcm-moz-impl-persister.yml,file:///work-dir/health-campaign-config/egov-persister/ab/mdms-persister.yml,file:///work-dir/health-campaign-config/egov-persister/ab/referral-management-persister.yml,file:///work-dir/health-campaign-config/egov-persister/ab/attendance-service-persister.yml,file:///work-dir/health-campaign-config/egov-persister/ab/boundary-persister.yml,file:///work-dir/health-campaign-config/egov-persister/ab/muster-service-persister.yml,file:///work-dir/health-campaign-config/egov-persister/ab/expense-bill-payment-persister.yaml,file:///work-dir/health-campaign-config/egov-persister/ab/irs-persister.yml,file:///work-dir/health-campaign-config/egov-persister/ba/audit-service-persister.yml,file:///work-dir/health-campaign-config/egov-persister/ba/egov-user-event-persister.yml,file:///work-dir/health-campaign-config/egov-persister/ba/egov-workflow-v2-persister.yml,file:///work-dir/health-campaign-config/egov-persister/ba/hrms-employee-persister.yml,file:///work-dir/health-campaign-config/egov-persister/ba/pdf-generator.yml,file:///work-dir/health-campaign-config/egov-persister/ba/product-persister.yml,file:///work-dir/health-campaign-config/egov-persister/ba/project-persister.yml,file:///work-dir/health-campaign-config/egov-persister/ba/individual-persister.yml,file:///work-dir/health-campaign-config/egov-persister/ba/household-persister.yml,file:///work-dir/health-campaign-config/egov-persister/ba/project-task-persister.yml,file:///work-dir/health-campaign-config/egov-persister/ba/stock-persister.yml,file:///work-dir/health-campaign-config/egov-persister/ba/facility-persister.yml,file:///work-dir/health-campaign-config/egov-persister/ba/service-request-persister.yml,file:///work-dir/health-campaign-config/egov-persister/ba/pgr-services-persister.yml,file:///work-dir/health-campaign-config/egov-persister/ba/hcm-moz-impl-persister.yml,file:///work-dir/health-campaign-config/egov-persister/ba/mdms-persister.yml,file:///work-dir/health-campaign-config/egov-persister/ba/referral-management-persister.yml,file:///work-dir/health-campaign-config/egov-persister/ba/attendance-service-persister.yml,file:///work-dir/health-campaign-config/egov-persister/ba/boundary-persister.yml,file:///work-dir/health-campaign-config/egov-persister/ba/muster-service-persister.yml,file:///work-dir/health-campaign-config/egov-persister/ba/expense-bill-payment-persister.yaml,file:///work-dir/health-campaign-config/egov-persister/ba/irs-persister.yml,file:///work-dir/health-campaign-config/egov-persister/oy/audit-service-persister.yml,file:///work-dir/health-campaign-config/egov-persister/oy/egov-user-event-persister.yml,file:///work-dir/health-campaign-config/egov-persister/oy/egov-workflow-v2-persister.yml,file:///work-dir/health-campaign-config/egov-persister/oy/hrms-employee-persister.yml,file:///work-dir/health-campaign-config/egov-persister/oy/pdf-generator.yml,file:///work-dir/health-campaign-config/egov-persister/oy/product-persister.yml,file:///work-dir/health-campaign-config/egov-persister/oy/project-persister.yml,file:///work-dir/health-campaign-config/egov-persister/oy/individual-persister.yml,file:///work-dir/health-campaign-config/egov-persister/oy/household-persister.yml,file:///work-dir/health-campaign-config/egov-persister/oy/project-task-persister.yml,file:///work-dir/health-campaign-config/egov-persister/oy/stock-persister.yml,file:///work-dir/health-campaign-config/egov-persister/oy/facility-persister.yml,file:///work-dir/health-campaign-config/egov-persister/oy/service-request-persister.yml,file:///work-dir/health-campaign-config/egov-persister/oy/pgr-services-persister.yml,file:///work-dir/health-campaign-config/egov-persister/oy/hcm-moz-impl-persister.yml,file:///work-dir/health-campaign-config/egov-persister/oy/mdms-persister.yml,file:///work-dir/health-campaign-config/egov-persister/oy/referral-management-persister.yml,file:///work-dir/health-campaign-config/egov-persister/oy/attendance-service-persister.yml,file:///work-dir/health-campaign-config/egov-persister/oy/boundary-persister.yml,file:///work-dir/health-campaign-config/egov-persister/oy/muster-service-persister.yml,file:///work-dir/health-campaign-config/egov-persister/oy/expense-bill-payment-persister.yaml,file:///work-dir/health-campaign-config/egov-persister/oy/irs-persister.yml,file:///work-dir/health-campaign-config/egov-persister/boundary-persister.yml,file:///work-dir/health-campaign-config/egov-persister/ko/audit-service-persister.yml,file:///work-dir/health-campaign-config/egov-persister/ko/egov-user-event-persister.yml,file:///work-dir/health-campaign-config/egov-persister/ko/egov-workflow-v2-persister.yml,file:///work-dir/health-campaign-config/egov-persister/ko/hrms-employee-persister.yml,file:///work-dir/health-campaign-config/egov-persister/ko/pdf-generator.yml,file:///work-dir/health-campaign-config/egov-persister/ko/product-persister.yml,file:///work-dir/health-campaign-config/egov-persister/ko/project-persister.yml,file:///work-dir/health-campaign-config/egov-persister/ko/individual-persister.yml,file:///work-dir/health-campaign-config/egov-persister/ko/household-persister.yml,file:///work-dir/health-campaign-config/egov-persister/ko/project-task-persister.yml,file:///work-dir/health-campaign-config/egov-persister/ko/stock-persister.yml,file:///work-dir/health-campaign-config/egov-persister/ko/facility-persister.yml,file:///work-dir/health-campaign-config/egov-persister/ko/service-request-persister.yml,file:///work-dir/health-campaign-config/egov-persister/ko/pgr-services-persister.yml,file:///work-dir/health-campaign-config/egov-persister/ko/hcm-moz-impl-persister.yml,file:///work-dir/health-campaign-config/egov-persister/ko/mdms-persister.yml,file:///work-dir/health-campaign-config/egov-persister/ko/referral-management-persister.yml,file:///work-dir/health-campaign-config/egov-persister/ko/attendance-service-persister.yml,file:///work-dir/health-campaign-config/egov-persister/ko/boundary-persister.yml,file:///work-dir/health-campaign-config/egov-persister/ko/muster-service-persister.yml,file:///work-dir/health-campaign-config/egov-persister/ko/expense-bill-payment-persister.yaml,file:///work-dir/health-campaign-config/egov-persister/ko/irs-persister.yml,file:///work-dir/health-campaign-config/egov-persister/na/audit-service-persister.yml,file:///work-dir/health-campaign-config/egov-persister/na/egov-user-event-persister.yml,file:///work-dir/health-campaign-config/egov-persister/na/egov-workflow-v2-persister.yml,file:///work-dir/health-campaign-config/egov-persister/na/hrms-employee-persister.yml,file:///work-dir/health-campaign-config/egov-persister/na/pdf-generator.yml,file:///work-dir/health-campaign-config/egov-persister/na/product-persister.yml,file:///work-dir/health-campaign-config/egov-persister/na/project-persister.yml,file:///work-dir/health-campaign-config/egov-persister/na/individual-persister.yml,file:///work-dir/health-campaign-config/egov-persister/na/household-persister.yml,file:///work-dir/health-campaign-config/egov-persister/na/project-task-persister.yml,file:///work-dir/health-campaign-config/egov-persister/na/stock-persister.yml,file:///work-dir/health-campaign-config/egov-persister/na/facility-persister.yml,file:///work-dir/health-campaign-config/egov-persister/na/service-request-persister.yml,file:///work-dir/health-campaign-config/egov-persister/na/pgr-services-persister.yml,file:///work-dir/health-campaign-config/egov-persister/na/hcm-moz-impl-persister.yml,file:///work-dir/health-campaign-config/egov-persister/na/mdms-persister.yml,file:///work-dir/health-campaign-config/egov-persister/na/referral-management-persister.yml,file:///work-dir/health-campaign-config/egov-persister/na/attendance-service-persister.yml,file:///work-dir/health-campaign-config/egov-persister/na/boundary-persister.yml,file:///work-dir/health-campaign-config/egov-persister/na/muster-service-persister.yml,file:///work-dir/health-campaign-config/egov-persister/na/expense-bill-payment-persister.yaml,file:///work-dir/health-campaign-config/egov-persister/na/irs-persister.yml,file:///work-dir/health-campaign-config/egov-persister/pl/audit-service-persister.yml,file:///work-dir/health-campaign-config/egov-persister/pl/egov-user-event-persister.yml,file:///work-dir/health-campaign-config/egov-persister/pl/egov-workflow-v2-persister.yml,file:///work-dir/health-campaign-config/egov-persister/pl/hrms-employee-persister.yml,file:///work-dir/health-campaign-config/egov-persister/pl/pdf-generator.yml,file:///work-dir/health-campaign-config/egov-persister/pl/product-persister.yml,file:///work-dir/health-campaign-config/egov-persister/pl/project-persister.yml,file:///work-dir/health-campaign-config/egov-persister/pl/individual-persister.yml,file:///work-dir/health-campaign-config/egov-persister/pl/household-persister.yml,file:///work-dir/health-campaign-config/egov-persister/pl/project-task-persister.yml,file:///work-dir/health-campaign-config/egov-persister/pl/stock-persister.yml,file:///work-dir/health-campaign-config/egov-persister/pl/facility-persister.yml,file:///work-dir/health-campaign-config/egov-persister/pl/service-request-persister.yml,file:///work-dir/health-campaign-config/egov-persister/pl/pgr-services-persister.yml,file:///work-dir/health-campaign-config/egov-persister/pl/hcm-moz-impl-persister.yml,file:///work-dir/health-campaign-config/egov-persister/pl/mdms-persister.yml,file:///work-dir/health-campaign-config/egov-persister/pl/referral-management-persister.yml,file:///work-dir/health-campaign-config/egov-persister/pl/attendance-service-persister.yml,file:///work-dir/health-campaign-config/egov-persister/pl/boundary-persister.yml,file:///work-dir/health-campaign-config/egov-persister/pl/muster-service-persister.yml,file:///work-dir/health-campaign-config/egov-persister/pl/expense-bill-payment-persister.yaml,file:///work-dir/health-campaign-config/egov-persister/pl/irs-persister.yml,file:///work-dir/health-campaign-config/egov-persister/bo/audit-service-persister.yml,file:///work-dir/health-campaign-config/egov-persister/bo/egov-user-event-persister.yml,file:///work-dir/health-campaign-config/egov-persister/bo/egov-workflow-v2-persister.yml,file:///work-dir/health-campaign-config/egov-persister/bo/hrms-employee-persister.yml,file:///work-dir/health-campaign-config/egov-persister/bo/pdf-generator.yml,file:///work-dir/health-campaign-config/egov-persister/bo/product-persister.yml,file:///work-dir/health-campaign-config/egov-persister/bo/project-persister.yml,file:///work-dir/health-campaign-config/egov-persister/bo/individual-persister.yml,file:///work-dir/health-campaign-config/egov-persister/bo/household-persister.yml,file:///work-dir/health-campaign-config/egov-persister/bo/project-task-persister.yml,file:///work-dir/health-campaign-config/egov-persister/bo/stock-persister.yml,file:///work-dir/health-campaign-config/egov-persister/bo/facility-persister.yml,file:///work-dir/health-campaign-config/egov-persister/bo/service-request-persister.yml,file:///work-dir/health-campaign-config/egov-persister/bo/pgr-services-persister.yml,file:///work-dir/health-campaign-config/egov-persister/bo/hcm-moz-impl-persister.yml,file:///work-dir/health-campaign-config/egov-persister/bo/mdms-persister.yml,file:///work-dir/health-campaign-config/egov-persister/bo/referral-management-persister.yml,file:///work-dir/health-campaign-config/egov-persister/bo/attendance-service-persister.yml,file:///work-dir/health-campaign-config/egov-persister/bo/boundary-persister.yml,file:///work-dir/health-campaign-config/egov-persister/bo/muster-service-persister.yml,file:///work-dir/health-campaign-config/egov-persister/bo/expense-bill-payment-persister.yaml,file:///work-dir/health-campaign-config/egov-persister/bo/irs-persister.yml,file:///work-dir/health-campaign-config/egov-persister/ke/audit-service-persister.yml,file:///work-dir/health-campaign-config/egov-persister/ke/egov-user-event-persister.yml,file:///work-dir/health-campaign-config/egov-persister/ke/egov-workflow-v2-persister.yml,file:///work-dir/health-campaign-config/egov-persister/ke/hrms-employee-persister.yml,file:///work-dir/health-campaign-config/egov-persister/ke/pdf-generator.yml,file:///work-dir/health-campaign-config/egov-persister/ke/product-persister.yml,file:///work-dir/health-campaign-config/egov-persister/ke/project-persister.yml,file:///work-dir/health-campaign-config/egov-persister/ke/individual-persister.yml,file:///work-dir/health-campaign-config/egov-persister/ke/household-persister.yml,file:///work-dir/health-campaign-config/egov-persister/ke/project-task-persister.yml,file:///work-dir/health-campaign-config/egov-persister/ke/stock-persister.yml,file:///work-dir/health-campaign-config/egov-persister/ke/facility-persister.yml,file:///work-dir/health-campaign-config/egov-persister/ke/service-request-persister.yml,file:///work-dir/health-campaign-config/egov-persister/ke/pgr-services-persister.yml,file:///work-dir/health-campaign-config/egov-persister/ke/hcm-moz-impl-persister.yml,file:///work-dir/health-campaign-config/egov-persister/ke/mdms-persister.yml,file:///work-dir/health-campaign-config/egov-persister/ke/referral-management-persister.yml,file:///work-dir/health-campaign-config/egov-persister/ke/attendance-service-persister.yml,file:///work-dir/health-campaign-config/egov-persister/ke/boundary-persister.yml,file:///work-dir/health-campaign-config/egov-persister/ke/muster-service-persister.yml,file:///work-dir/health-campaign-config/egov-persister/ke/expense-bill-payment-persister.yaml,file:///work-dir/health-campaign-config/egov-persister/ke/irs-persister.yml,file:///work-dir/health-campaign-config/egov-persister/od/audit-service-persister.yml,file:///work-dir/health-campaign-config/egov-persister/od/egov-user-event-persister.yml,file:///work-dir/health-campaign-config/egov-persister/od/egov-workflow-v2-persister.yml,file:///work-dir/health-campaign-config/egov-persister/od/hrms-employee-persister.yml,file:///work-dir/health-campaign-config/egov-persister/od/pdf-generator.yml,file:///work-dir/health-campaign-config/egov-persister/od/product-persister.yml,file:///work-dir/health-campaign-config/egov-persister/od/project-persister.yml,file:///work-dir/health-campaign-config/egov-persister/od/individual-persister.yml,file:///work-dir/health-campaign-config/egov-persister/od/household-persister.yml,file:///work-dir/health-campaign-config/egov-persister/od/project-task-persister.yml,file:///work-dir/health-campaign-config/egov-persister/od/stock-persister.yml,file:///work-dir/health-campaign-config/egov-persister/od/facility-persister.yml,file:///work-dir/health-campaign-config/egov-persister/od/service-request-persister.yml,file:///work-dir/health-campaign-config/egov-persister/od/pgr-services-persister.yml,file:///work-dir/health-campaign-config/egov-persister/od/hcm-moz-impl-persister.yml,file:///work-dir/health-campaign-config/egov-persister/od/mdms-persister.yml,file:///work-dir/health-campaign-config/egov-persister/od/referral-management-persister.yml,file:///work-dir/health-campaign-config/egov-persister/od/attendance-service-persister.yml,file:///work-dir/health-campaign-config/egov-persister/od/boundary-persister.yml,file:///work-dir/health-campaign-config/egov-persister/od/muster-service-persister.yml,file:///work-dir/health-campaign-config/egov-persister/od/expense-bill-payment-persister.yaml,file:///work-dir/health-campaign-config/egov-persister/od/irs-persister.yml"
   initContainers:
     gitSync:
-      repo: "git@github.com:HCM-BAUCHI/health-campaign-config"      ##### Change repo url with Your fork Repo url
-      branch: "PROD"                                    ##### Change repo branch with Your fork Repo branch
+      repo: "git@github.com:HCM-BAUCHI/health-campaign-config" ##### Change repo url with Your fork Repo url
+      branch: "PROD" ##### Change repo branch with Your fork Repo branch
 
 # gateway >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
@@ -312,18 +363,17 @@ nginx-ingress:
   controller:
     image:
       repository: egovio/nginx-ingress-controller
-      tag: "0.26.1"     
-    metrics:            #To collect the matrics data from nginx-ingress.
+      tag: "0.26.1"
+    metrics: #To collect the matrics data from nginx-ingress.
       enabled: true
-    serviceMonitor:   #To enable the service monitoring of nginx-ingress
+    serviceMonitor: #To enable the service monitoring of nginx-ingress
       enabled: true
     service:
       prometheusRule:
         enabled: true
 
 cert-manager:
-  email: "devops@egovernments.org"     ### Add email-id which used by cert-manager for certificates validation.
-
+  email: "devops@egovernments.org" ### Add email-id which used by cert-manager for certificates validation.
 
 zuul:
   heap: "-Xmx1024m -Xms768m"
@@ -541,7 +591,6 @@ fluent-bit:
   egov-infra-log-topic: "egov-infra-logs"
 # <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 
-
 elasticsearch-data:
   namespace: es-cluster-v8
   image:
@@ -550,11 +599,11 @@ elasticsearch-data:
     enabled: true
     aws:
       - volumeId: "vol-02e4dc71e0755a922" ## add your respective volume id eg. vol-0085073c65f76dre5
-        zone: af-south-1b            ## add your respective zone eg. ap-south-1b
+        zone: af-south-1b ## add your respective zone eg. ap-south-1b
       - volumeId: "vol-0d763a3b26a688633" ## add your respective volume id eg. vol-0085073c65f76dre5
-        zone: af-south-1b            ## add your respective zone eg. ap-south-1b
+        zone: af-south-1b ## add your respective zone eg. ap-south-1b
       - volumeId: "vol-02a0fc800895c2d89" ## add your respective volume id eg. vol-0085073c65f76dre5
-        zone: af-south-1b            ## add your respective zone eg. ap-south-1b
+        zone: af-south-1b ## add your respective zone eg. ap-south-1b
 
   esJavaOpts: "-Xmx5g -Xms5g"
   resources:
@@ -572,11 +621,11 @@ elasticsearch-master:
     enabled: true
     aws:
       - volumeId: "vol-0b70bde0e1db6baab" ## add your respective volume id eg. vol-0085073c65f76dre5
-        zone: af-south-1b            ## add your respective zone eg. ap-south-1b
+        zone: af-south-1b ## add your respective zone eg. ap-south-1b
       - volumeId: "vol-0c2db0e65adcf974f" ## add your respective volume id eg. vol-0085073c65f76dre5
-        zone: af-south-1b            ## add your respective zone eg. ap-south-1b
+        zone: af-south-1b ## add your respective zone eg. ap-south-1b
       - volumeId: "vol-059dcef831ab4e1e4" ## add your respective volume id eg. vol-0085073c65f76dre5
-        zone: af-south-1b            ## add your respective zone eg. ap-south-1b
+        zone: af-south-1b ## add your respective zone eg. ap-south-1b
 
   esJavaOpts: "-Xmx448m -Xms448m"
   resources:
@@ -609,7 +658,7 @@ grafana:
       enabled: true
       repo: "git@github.com:HCM-BAUCHI/health-campaign-config" #REPLACE with your configs repo
       branch: "PROD" #REPLACE with config repo branch name
-  dashboardsFolder: /work-dir/health-campaign-config/monitoring-dashboards    
+  dashboardsFolder: /work-dir/health-campaign-config/monitoring-dashboards
 
 facility:
   central-instance-build: true
@@ -744,18 +793,30 @@ service-request:
       memory: "512Mi"
     limits:
       memory: "512Mi"
-  
+
 project-factory:
-  logLevel: 'debug'
-  maxDebugChar: '2000'
-  mdmsV2SearchEndpoint: 'mdms-v2/v2/_search'
-  mdmsV1SearchEndpoint: 'mdms-v2/v1/_search'
+  central-instance-name: egov
+  central-instance-build: true
+  central-instance-enabled: true
+  logLevel: "debug"
+  defaultLocale: "en_OD"
+  splitBoundariesOn: "CAMPAIGN_DISTRICT"
+  replicas: 3
+  maxDebugChar: "2000"
+  namespace: "egov"
+  egov-mdms-service-host-key: "mdms-v2"
+  mdmsV2SearchEndpoint: "mdms-v2/v2/_search"
+  mdmsV1SearchEndpoint: "mdms-v2/v1/_search"
+  mdmsV2CreateEndpoint: "mdms-v2/v2/_create"
+  mdmsV2UpdateEndpoint: "mdms-v2/v2/_update"
+  validateCampaignIdInMetadata: "false"
+  notCreateUserIfAlreadyThere: "false"
 plan-service:
-  egov-mdms-service-host-key: 'mdms-v2'
+  egov-mdms-service-host-key: "mdms-v2"
   egov-mdms-service-endpoint-key: "/mdms-v2/v1/_search"
   egov-mdms-service-v2-endpoint-key: "/mdms-v2/v2/_search"
 resource-generator:
-  egov-mdms-service-host-key: 'mdms-v2'
+  egov-mdms-service-host-key: "mdms-v2"
   egov-mdms-service-endpoint-key: "/mdms-v2/v1/_search"
   egov-mdms-service-v2-endpoint-key: "/mdms-v2/v2/_search"
 
@@ -826,7 +887,7 @@ error-handler:
       memory: "512Mi"
     limits:
       memory: "512Mi"
-  
+
 hcm-moz-impl:
   namespace: bauchi
   replicas: 1
@@ -853,20 +914,19 @@ hcm-moz-impl:
       memory: "3Gi"
     limits:
       memory: "3Gi"
-      
+
 health-attendance:
   central-instance-build: true
   java-enable-debug: true
   heap: "-Xmx256m -Xms256m"
   memory_limits: 512Mi
-  egov-mdms-service-host-key: 'mdms-v2'
+  egov-mdms-service-host-key: "mdms-v2"
   egov-mdms-service-endpoint-key: "/mdms-v2/v1/_search"
 
 pdf-service:
   initContainers:
     gitSync:
-      repo: "git@github.com:HCM-BAUCHI/health-campaign-config"    
-      branch: "PROD"   
+      repo: "git@github.com:HCM-BAUCHI/health-campaign-config"
+      branch: "PROD"
   data-config-urls: "file:///work-dir/health-campaign-config/pdf-service/data-config/health-bill-payment.json"
   format-config-urls: "file:///work-dir/health-campaign-config/pdf-service/format-config/health-bill-payment.json"
-
