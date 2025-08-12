@@ -38,12 +38,12 @@ env: |
   - name: KAFKA_UPDATE_CAMPAIGN_DETAILS_TOPIC
     value: update-campaign-details
   - name: DB_SCHEMA
-    value: public
+    value: "od"
   - name: EGOV_MDMS_HOST
     valueFrom:
       configMapKeyRef:
         name: egov-service-host
-        key: egov-mdms-service   
+        key: mdms-v2   
   - name: EGOV_MDMS_V2_HOST
     valueFrom:
       configMapKeyRef:
@@ -137,7 +137,7 @@ env: |
   - name: EGOV_IDGEN_PATH
     value: egov-idgen/id/_generate
   - name: EGOV_MDMS_SCHEMA_PATH
-    value: egov-mdms-service/schema/v1/_search
+    value: mdms-v2/schema/v1/_search
   - name: EGOV_BOUNDARY_RELATIONSHIP_SEARCHPATH
     value: boundary-service/boundary-relationships/_search
   - name: EGOV_BOUNDARY_SERVICE_SEARCHPATH
@@ -252,9 +252,6 @@ env: |
         key: password   
   - name: DB_PORT
     value: "5432"
-  - name: DB_SCHEMA
-    value: public
-
   - name: BOUNDARY_MAIN_SHEET_NAME
     value: "Boundary Data"
   - name: SPLIT_BOUNDARIES_ON
@@ -316,3 +313,41 @@ env: |
     value: {{ .Values.notCreateUserIfAlreadyThere | default "false" | quote }}
   - name: INCOMING_REQUEST_PAYLOAD_LIMIT
     value: 5mb
+  - name: KAFKA_SAVE_PROJECT_CAMPAIGN_DETAILS_TOPIC 
+    value: "od-save-project-campaign-details"
+  - name: KAFKA_UPDATE_PROJECT_CAMPAIGN_DETAILS_TOPIC 
+    value: "od-update-project-campaign-details"
+  - name: KAFKA_START_CAMPAIGN_MAPPING_TOPIC 
+    value: "od-start-campaign-mapping"
+  - name: KAFKA_CREATE_RESOURCE_DETAILS_TOPIC 
+    value: "od-create-resource-details"
+  - name: KAFKA_UPDATE_RESOURCE_DETAILS_TOPIC 
+    value: "od-update-resource-details"
+  - name: KAFKA_CREATE_RESOURCE_ACTIVITY_TOPIC 
+    value: "od-create-resource-activity"
+  - name: KAFKA_UPDATE_GENERATED_RESOURCE_DETAILS_TOPIC 
+    value: "od-update-generated-resource-details"
+  - name: KAFKA_CREATE_GENERATED_RESOURCE_DETAILS_TOPIC 
+    value: "od-create-generated-resource-details"
+  - name: KAFKA_SAVE_PLAN_FACILITY_TOPIC 
+    value: "od-project-factory-save-plan-facility"
+  - name: KAFKA_SAVE_SHEET_DATA_TOPIC 
+    value: "od-save-sheet-data"
+  - name: KAFKA_UPDATE_SHEET_DATA_TOPIC 
+    value: "od-update-sheet-data"
+  - name: KAFKA_SAVE_MAPPING_TOPIC 
+    value: "od-save-mapping-data"
+  - name: KAFKA_UPDATE_MAPPING_TOPIC 
+    value: "od-update-mapping-data"
+  - name: KAFKA_DELETE_MAPPING_TOPIC 
+    value: "od-delete-mapping-data"
+  - name: KAFKA_SAVE_PROCESS_TOPIC 
+    value: "od-save-process-data"
+  - name: KAFKA_UPDATE_PROCESS_TOPIC 
+    value: "od-update-process-data"
+  - name: KAFKA_START_TASK_TOPIC 
+    value: "od-start-admin-console-task"
+  - name: KAFKA_START_MAPPING_TASK_TOPIC 
+    value: "od-start-admin-console-mapping-task"
+  - name: KAFKA_NOTIFICATION_EMAIL_TOPIC 
+    value: "od-egov.core.notification.email"
