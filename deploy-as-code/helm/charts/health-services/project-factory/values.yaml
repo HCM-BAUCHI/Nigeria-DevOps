@@ -249,7 +249,12 @@ env: |
     valueFrom:
       secretKeyRef:
         name: db
-        key: password   
+        key: password
+  - name: BASE_SECRET
+    valueFrom:
+      secretKeyRef:
+          name: project-factory
+          key: base-secret
   - name: DB_PORT
     value: "5432"
   - name: BOUNDARY_MAIN_SHEET_NAME

@@ -154,3 +154,7 @@ cluster-configs:
     jupyter:
       namespace: jupyter
       name: jupyter
+
+    project-factory:
+      namespace: egov
+      name: project-factory

@@ -52,6 +52,10 @@ env: |
     value: "/tmp"
   - name: SPRING_SERVLET_MULTIPART_MAX_FILE_SIZE
     value: "6MB"
+  - name: MINIO_ENABLED
+    value: "false"
+  - name: FIXED_BUCKET_REGION
+    value: "af-south-1"
   - name: ISNFSSTORAGEENABLED
     value: {{ index .Values "is-nfs-enabled" | quote }}
   {{- if index .Values "is-nfs-enabled" }}
