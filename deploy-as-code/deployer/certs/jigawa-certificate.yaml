@@ -1,0 +1,14 @@
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: jigawa-hcm-central.digit.org-tls-certs
+  namespace: egov
+spec:
+  secretName: jigawa-hcm-central.digit.org-tls-certs
+  issuerRef:
+    name: letsencrypt-prod
+    kind: ClusterIssuer
+  commonName: jigawa-hcm-central.digit.org
+  dnsNames:
+  - jigawa-hcm-central.digit.org
+

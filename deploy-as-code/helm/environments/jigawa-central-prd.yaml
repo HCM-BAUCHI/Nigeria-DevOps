@@ -1,0 +1,139 @@
+global:
+  domain: jigawa-hcm-central.digit.org
+# egov-localization:
+#   namespace: "oyo"
+#   heap: "-Xmx512m -Xms512m"
+#   memory_limits: "512Mi"
+#   resources:
+#     requests:
+#       memory: "512Mi"
+#     limits:
+#       memory: "512Mi"
+
+
+# boundary-service:
+#   namespace: "oyo"
+#   heap: "-Xmx512m -Xms512m"
+#   memory_limits: "512Mi"
+#   resources:
+#     requests:
+#       memory: "512Mi"
+#     limits:
+#       memory: "512Mi"
+
+# egov-idgen:
+#   namespace: "oyo"
+#   heap: "-Xmx512m -Xms512m"
+#   memory_limits: "512Mi"
+#   resources:
+#     requests:
+#       memory: "512Mi"
+#     limits:
+#       memory: "512Mi"
+
+# egov-enc-service:
+#   namespace: "oyo"
+#   heap: "-Xmx512m -Xms512m"
+#   memory_limits: "512Mi"
+#   resources:
+#     requests:
+#       memory: "512Mi"
+#     limits:
+#       memory: "512Mi"
+
+
+
+
+transformer:
+  namespace: "jigawa"
+  replicas: 1
+  heap: "-Xmx1536m -Xms1536m"
+  memory_limits: "2Gi"
+  resources:
+    requests:
+      memory: "2Gi"
+    limits:
+      memory: "2Gi"
+  java-enable-debug: true
+  save-project-task-topic: "ji-save-project-task-topic"
+  update-project-task-topic: "ji-update-project-task-topic"
+  transformer-producer-bulk-project-task-index-v1-topic: "ji-transformer-producer-bulk-project-task-index-v1-topic"
+  save-project-staff-topic: "ji-save-project-staff-topic"
+  update-project-staff-topic: "ji-update-project-staff-topic"
+  transformer-producer-bulk-project-staff-index-v1-topic: "ji-transformer-producer-bulk-project-staff-index-v1-topic"
+  transformer-producer-bulk-project-index-v1-topic: "ji-transformer-producer-bulk-project-index-v1-topic"
+  save-project: "ji-save-project"
+  update-project: "ji-update-project"
+  save-household-member-topic: "ji-save-household-member-topic"
+  transformer-producer-household-member-index-v1-topic: "ji-transformer-producer-household-member-index-v1-topic"
+  save-household-topic: "ji-save-household-topic"
+  update-household-topic: "ji-update-household-topic"
+  transformer-producer-household-index-v1-topic: "ji-transformer-producer-household-index-v1-topic"
+  transformer-producer-service-index-v2-topic: "ji-transformer-producer-service-index-v2-topic"
+  save-stock-topic: "ji-save-stock-topic"
+  update-stock-topic: "ji-update-stock-topic"
+  transformer-producer-bulk-stock-index-v1-topic: "ji-transformer-producer-bulk-stock-index-v1-topic"
+  save-facility-topic: "ji-save-facility-topic"
+  update-facility-topic: "ji-update-facility-topic"
+  save-service: "ji-save-service"
+  transformer-producer-service-request-index-v1-topic: "ji-transformer-producer-service-request-index-v1-topic"
+  save-referral-topic: "ji-save-referral-topic"
+  transformer-producer-referral-index-v1-topic: "ji-transformer-producer-referral-index-v1-topic"
+  update-referral-topic: "ji-update-referral-topic"
+  save-side-effect-topic: "ji-save-side-effect-topic"
+  update-side-effect-topic: "ji-update-side-effect-topic"
+  transformer-producer-side-effect-index-v1-topic: "ji-transformer-producer-side-effect-index-v1-topic"
+  save-pgr-request: "ji-save-pgr-request"
+  transformer-save-pgr-request: "ji-transformer-save-pgr-request"
+  update-pgr-request: "ji-update-pgr-request"
+  save-hfreferral-topic: "ji-save-hfreferral-topic"
+  update-hfreferral-topic: "ji-update-hfreferral-topic"
+  transformer-producer-hfreferral-index-v1-topic: "ji-transformer-producer-hfreferral-index-v1-topic"
+  transformer-producer-hfreferral-service-index-topic: "ji-transformer-producer-hfreferral-service-index-topic"
+  transformer-producer-finance-checklist-index-v1-topic: "ji-transformer-producer-finance-checklist-index-v1-topic"
+  transformer-producer-special-spraying-index-topic: "ji-transformer-producer-special-spraying-index-topic"
+  save-attendance-log: "ji-save-attendance-log"
+  update-attendance-log: "ji-update-attendance-log"
+  transformer-save-attendance-log: "ji-transformer-save-attendance-log"
+  transformer-save-attendance-register: "ji-transformer-save-attendance-register"
+  transformer-producer-extra-transformed-checklist-index-topic: "ji-transformer-producer-extra-transformed-checklist-index-topic"
+  update-household-member-topic: "ji-update-household-member-topic"
+  save-stock-reconciliation-topic: "ji-save-stock-reconciliation-topic"
+  update-stock-reconciliation-topic: "ji-update-stock-reconciliation-topic"
+  transformer-producer-stock-recon-index-v1-topic: "ji-transformer-producer-stock-recon-index-v1-topic"
+  health-transformer: "ji-health-transformer"
+
+hcm-moz-impl:
+  namespace: jigawa
+  replicas: 1
+  heap: "-Xmx2048m -Xms2048m"
+  memory_limits: "2Gi"
+  startDate: "13/06/2025"
+  endDate: "17/06/2025"
+  boundary-code: "ab"
+  create-boundaryCSV-data: "ji-create-boundaryCSV-data"
+  update-dhis2-job: "ji-update-dhis2-job"
+  create-dhis2-job: "ji-create-dhis2-job"
+  create-boundary-data: "ji-create-boundary-data"
+  update-digit-dhis2-mapping: "ji-update-digit-dhis2-mapping"
+  create-digit-dhis2-mapping: "ji-create-digit-dhis2-mapping"
+  update-digit-record: "ji-update-digit-record"
+  create-digit-record: "ji-create-digit-record"
+  update-dhis2-digit-mapping: "ji-update-dhis2-digit-mapping"
+  create-dhis2-digit-mapping: "ji-create-dhis2-digit-mapping"
+  update-dhis2-record: "ji-update-dhis2-record"
+  create-dhis2-record: "ji-create-dhis2-record"
+  resources:
+    requests:
+      memory: "3Gi"
+    limits:
+      memory: "3Gi"
+
+
+digit-ui:
+  namespace: jigawa
+  custom-js-injection: |
+    sub_filter.conf: "
+      sub_filter  '<head>' '<head>
+      <script src=https://central-instance-assets.s3.af-south-1.amazonaws.com/globalConfig-ji.js type=text/javascript></script>
+      ';"
