@@ -147,6 +147,7 @@ cluster-configs:
         egov-filestore: "http://egov-filestore.ondo:8080/"
         egov-localization: "http://egov-localization.egov:8080/"
         egov-idgen: "http://egov-idgen.egov:8080/"
+        beneficiary-idgen: "http://egov-idgen.egov:8080/"
         egov-otp: "http://egov-otp.egov:8080/"
         mdms-v2: "http://mdms-v2.egov:8080/"
         egov-workflow-v2: "http://egov-workflow-v2.egov:8080/"
