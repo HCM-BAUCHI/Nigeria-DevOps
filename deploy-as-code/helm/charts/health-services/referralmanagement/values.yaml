@@ -257,3 +257,17 @@ env: |
     value: "code"
   - name: EGOV_ENABLE_MATVIEW_SEARCH
     value: "true"
+  - name: EGOV_SERVICE_REQUEST_SEARCH_BATCH_SIZE
+    value: "1000"
+  - name: EGOV_HOUSEHOLD_MEMBER_SEARCH_BATCH_SIZE
+    value: "1000"
+  - name: EGOV_INDIVIDUAL_SEARCH_BATCH_SIZE
+    value: "1000"
+  - name: EGOV_PROJECT_BENEFICIARY_SEARCH_BATCH_SIZE
+    value: "1000"
+  - name: EGOV_PROJECT_TASK_SEARCH_BATCH_SIZE
+    value: "1000"
+  - name: EGOV_SIDE_EFFECT_SEARCH_BATCH_SIZE
+    value: "1000"
+  - name: EGOV_REFERRAL_SEARCH_BATCH_SIZE
+    value: "1000"

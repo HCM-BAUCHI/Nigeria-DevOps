@@ -196,3 +196,5 @@ env: |
   - name: CONTRACTS_REVISION_TOPIC
     value: {{ index .Values "contracts-revision-topic" | quote }} 
   {{- end }}
+  - name: ATTENDANCE_KAFKA_TENANT_ID_PATTERN
+    value: "^(od-|ke-|ko-|so-|oy-|pl-)"

@@ -168,3 +168,18 @@ env: |
   - name: TRACER_OPENTRACING_ENABLED
     value: "true" 
   {{- end }}
+  - name: EGOV_BENEFICIARY_IDGEN_HOST
+    valueFrom:
+      configMapKeyRef:
+        name: egov-service-host
+        key: beneficiary-idgen
+  - name: EGOV_BENEFICIARY_IDGEN_IDPOOL_SEARCH_PATH
+    value: beneficiary-idgen/id/id_pool/_search
+  - name: EGOV_BENEFICIARY_IDGEN_IDPOOL_UPDATE_PATH
+    value: beneficiary-idgen/id/id_pool/_update
+  - name: EGOV_BENEFICIARY_IDGEN_INTEGRATION_ENABLED
+    value: "false"
+  - name: INDIVIDUAL_BENEFICIARY_ID_LENGTH
+    value: "12"
+  - name: INDIVIDUAL_BENEFICIARY_ID_VALIDATION_ENABLED
+    value: "false"
