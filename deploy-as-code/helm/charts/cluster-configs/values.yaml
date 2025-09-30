@@ -80,7 +80,7 @@ cluster-configs:
       name: home-isolation-notification-mail      
 
     git-sync: 
-      namespace: [ egov, oyo, bauchi, nasarawa, kogi, abuja, plateau, borno, kebbi, sokoto, ondo ]
+      namespace: [ egov, oyo, bauchi, nasarawa, kogi, abuja, plateau, borno, kebbi, sokoto, ondo, monitoring ]
       name: git-creds   
 
     kibana: 

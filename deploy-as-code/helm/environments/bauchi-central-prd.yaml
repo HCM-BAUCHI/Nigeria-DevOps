@@ -299,27 +299,51 @@ egov-persister:
 
 # gateway >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
-nginx-ingress:
-  images:
-    - quay.io/kubernetes-ingress-controller/nginx-ingress-controller:0.26.1
-  replicas: 1
+ingress-nginx:
   default-backend-service: "egov/nginx"
-  namespace: egov
   cert-issuer: "letsencrypt-prod"
   ssl-protocols: "TLSv1.2 TLSv1.3"
   ssl-ciphers: "EECDH+CHACHA20:EECDH+AES"
   ssl-ecdh-curve: "X25519:prime256v1:secp521r1:secp384r1"
   controller:
-    image:
-      repository: egovio/nginx-ingress-controller
-      tag: "0.26.1"     
-    metrics:            #To collect the matrics data from nginx-ingress.
+    replicas: 5
+    metrics:
       enabled: true
-    serviceMonitor:   #To enable the service monitoring of nginx-ingress
-      enabled: true
-    service:
+      serviceMonitor:
+        enabled: true
       prometheusRule:
         enabled: true
+    addHeaders:
+      X-Content-Type-Options: "nosniff"
+      X-Frame-Options: "SAMEORIGIN"
+      X-XSS-Protection: "1; mode=block"
+      Access-Control-Allow-Origin: "https://bauchi-hcm.digit.org, https://oyo-hcm.digit.org, https://kogi-hcm.digit.org, https://nasarawa-hcm.digit.org, https://fct-abuja-hcm.digit.org, https://plateau-hcm.digit.org, https://borno-hcm.digit.org, https://kebbi-hcm-central.digit.org, https://sokoto-hcm.digit.org, https://ondo-hcm.digit.org"
+      Access-Control-Allow-Methods: "GET, POST, OPTIONS"
+      Access-Control-Allow-Headers: "DNT,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type,Range"
+    # setSslTls: "gcp-test.digit.org-tls-certs"
+
+
+# nginx-ingress:
+#   images:
+#     - quay.io/kubernetes-ingress-controller/nginx-ingress-controller:0.26.1
+#   replicas: 1
+#   default-backend-service: "egov/nginx"
+#   namespace: egov
+#   cert-issuer: "letsencrypt-prod"
+#   ssl-protocols: "TLSv1.2 TLSv1.3"
+#   ssl-ciphers: "EECDH+CHACHA20:EECDH+AES"
+#   ssl-ecdh-curve: "X25519:prime256v1:secp521r1:secp384r1"
+#   controller:
+#     image:
+#       repository: egovio/nginx-ingress-controller
+#       tag: "0.26.1"     
+#     metrics:            #To collect the matrics data from nginx-ingress.
+#       enabled: true
+#     serviceMonitor:   #To enable the service monitoring of nginx-ingress
+#       enabled: true
+#     service:
+#       prometheusRule:
+#         enabled: true
 
 cert-manager:
   email: "devops@egovernments.org"     ### Add email-id which used by cert-manager for certificates validation.
@@ -870,3 +894,87 @@ pdf-service:
   data-config-urls: "file:///work-dir/health-campaign-config/pdf-service/data-config/health-bill-payment.json"
   format-config-urls: "file:///work-dir/health-campaign-config/pdf-service/format-config/health-bill-payment.json"
 
+### Grafana >>>>>>>>>>>>>>>>>>>>
+grafana:
+  # github:
+  #   allowed_organizations: ["HCM-BAUCHI"]
+  #   role_attribute_path: contains(groups[*], '@egovernments/bihar-devops') && 'Editor' || contains(groups[*], '@egovernments/bihar-mgramseva-uat') && 'Viewer'
+# <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+
+### Prometheus & Alertmanager >>>>>>>>>>>>>>>>>>>>
+prometheus:
+  retention: 90d
+  storageSpec:
+    volumeClaimTemplate:
+      spec:
+        storageClassName: gp3
+        accessModes: ["ReadWriteOnce"]
+        resources:
+          requests:
+            storage: 125Gi
+  alertmanager:
+    enabled: true
+  externalLabels:
+    cluster: ng-central-prd
+  additionalScrapeConfigs:
+    - job_name: 'nginx-ingress-metrics'
+      static_configs:
+        - targets: [ 'release-name-ingress-nginx-controller-metrics.backbone:10254' ]
+    - job_name: 'blackbox'
+      metrics_path: /probe
+      params:
+        module: [ http_2xx ]
+      static_configs:
+        - targets:
+            # - https://bauchi-hcm.digit.org/
+            # - https://www.peyjalbihar.org/mgramseva/
+            - https://bauchi-hcm.digit.org/jupyter/hub/
+            - https://bauchi-hcm.digit.org/kibana-upgrade/
+            - https://bauchi-hcm.digit.org/pgadmin/
+      relabel_configs:
+        - source_labels: [ __address__ ]
+          target_label: __param_target
+        - source_labels: [ __param_target ]
+          target_label: instance
+        - target_label: __address__
+          replacement: prometheus-blackbox-exporter:9115
+    - job_name: 'blackbox_exporter'
+      static_configs:
+        - targets: [ 'prometheus-blackbox-exporter:9115' ]
+# <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+
+loki:
+  persistence:
+    enabled: true
+    accessModes:
+      - ReadWriteOnce
+    size: 10Gi
+  serviceAccount:
+    annotations:
+      eks.amazonaws.com/role-arn: arn:aws:iam::022499048165:role/ng-central-prd-loki-role    ## AWS arn for s3 role 
+  additionalConfigs:
+    schema_config:
+      configs:
+        - from: 2020-10-24
+          store: boltdb-shipper
+          object_store: s3                         ## AWS s3 as storage
+          schema: v11
+          index:
+            prefix: index_
+            period: 24h
+    storage_config:
+      boltdb_shipper:
+        active_index_directory: /data/loki/index
+        cache_location: /data/loki/index_cache
+        shared_store: s3                           ## AWS s3 as storage
+        cache_ttl: 24h
+      aws:
+        s3: s3://af-south-1/ng-central-prd-loki-bucket              ## s3 region & bucket
+    compactor:
+      working_directory: /data/loki/boltdb-shipper-compactor
+      shared_store: s3                             ## AWS s3 as storage
+      retention_enabled: true
+      compaction_interval: 168h                    ## compaction in hours
+    table_manager:
+      retention_deletes_enabled: true
+      retention_period: 168h

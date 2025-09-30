@@ -652,11 +652,11 @@ prePuller:
 ingress:
   enabled: true
   hosts:
-    - salama.digit.org
+    - bauchi-hcm.digit.org
   tls:
     - hosts:
-        - salama.digit.org
-      secretName: salama.digit.org-tls-certs
+        - bauchi-hcm.digit.org
+      secretName: bauchi-hcm.digit.org-tls-certs
   annotations: {}
   ingressClassName: nginx
   pathSuffix: hub
