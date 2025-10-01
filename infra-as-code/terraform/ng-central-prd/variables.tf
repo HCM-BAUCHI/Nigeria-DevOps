@@ -26,28 +26,28 @@ variable "availability_zones" {
 
 variable "kubernetes_version" {
   description = "kubernetes version"
-  default = "1.30"
+  default = "1.31"
 }
 
 variable "instance_types" {
   description = "Arry of instance types for SPOT instances"
-  default = ["r6i.large", "r6i.xlarge"]
+  default = ["r6i.xlarge", "r6i.2xlarge"]
   
 }
 
 variable "min_worker_nodes" {
   description = "eGov recommended below worker node counts as default for min nodes"
-  default = "1" #REPLACE IF NEEDED
+  default = "2" #REPLACE IF NEEDED
 }
 
 variable "desired_worker_nodes" {
   description = "eGov recommended below worker node counts as default for desired nodes"
-  default = "3" #REPLACE IF NEEDED
+  default = "2" #REPLACE IF NEEDED
 }
 
 variable "max_worker_nodes" {
   description = "eGov recommended below worker node counts as default for max nodes"
-  default = "3" #REPLACE IF NEEDED
+  default = "2" #REPLACE IF NEEDED
 }
 
 variable "ssh_key_name" {
@@ -87,7 +87,7 @@ variable "ami_id" {
 variable "enable_karpenter" {
   description = "Enable the karpenter."
   type        = bool
-  default     = false
+  default     = true
 }
 
 #DO NOT fill in here. This will be asked at runtime
