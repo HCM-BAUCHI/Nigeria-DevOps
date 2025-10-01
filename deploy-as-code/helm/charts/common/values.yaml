@@ -127,8 +127,10 @@ memory_limits: "256Mi"
 resources: |
   {{- if eq .Values.appType "java-spring" -}}
   requests:
-    memory: {{ .Values.memory_limits | quote }}
+    cpu: {{ .Values.cpu_requests | quote }}
+    memory: {{ .Values.memory_requests | quote }}
   limits:
+    cpu: {{ .Values.cpu_limits | quote }}
     memory: {{ .Values.memory_limits | quote }}
   {{- end -}}
 ## Allows specification of additional environment variables
