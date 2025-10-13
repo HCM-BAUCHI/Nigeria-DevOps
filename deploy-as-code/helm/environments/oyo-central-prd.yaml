@@ -46,14 +46,15 @@ global:
 
 transformer:
   namespace: "oyo"
-  replicas: 1
   heap: "-Xmx1536m -Xms1536m"
-  memory_limits: "2Gi"
-  resources:
-    requests:
-      memory: "2Gi"
-    limits:
-      memory: "2Gi"
+  hpa:
+    enabled: true
+    minReplicas: 2
+    maxReplicas: 5
+  cpu_requests: 300m
+  memory_requests: 1.75Gi
+  cpu_limits: 400m
+  memory_limits: 2.25Gi
   java-enable-debug: true
   save-project-task-topic: "oy-save-project-task-topic"
   update-project-task-topic: "oy-update-project-task-topic"

@@ -46,14 +46,15 @@ global:
 
 transformer:
   namespace: "borno"
-  replicas: 1
   heap: "-Xmx3g -Xms3g"
-  memory_limits: "3Gi"
-  resources:
-    requests:
-      memory: "3Gi"
-    limits:
-      memory: "3Gi"
+  hpa:
+    enabled: true
+    minReplicas: 2
+    maxReplicas: 5
+  cpu_requests: 300m
+  memory_requests: 3.5Gi
+  cpu_limits: 400m
+  memory_limits: 4.5Gi
   java-enable-debug: true
   save-project-task-topic: "bo-save-project-task-topic"
   update-project-task-topic: "bo-update-project-task-topic"
