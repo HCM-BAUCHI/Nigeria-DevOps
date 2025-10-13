@@ -29,10 +29,10 @@ module "db" {
   subnet_ids                    = "${module.network.private_subnets}"
   vpc_security_group_ids        = ["${module.network.rds_db_sg_id}"]
   availability_zone             = "${element(var.availability_zones, 0)}"
-  instance_class                = "db.t4g.medium"  ## postgres db instance type
-  engine_version                = "15.8"   ## postgres version
+  instance_class                = "db.m6g.4xlarge"  ## postgres db instance type
+  engine_version                = "15.12"   ## postgres version
   storage_type                  = "gp3"
-  storage_gb                    = "20"     ## postgres disk size
+  storage_gb                    = "750"     ## postgres disk size
   backup_retention_days         = "7"
   administrator_login           = "${var.db_username}"
   administrator_login_password  = "${var.db_password}"
@@ -100,7 +100,8 @@ module "eks" {
 }
 
 module "eks_managed_node_group" {
-  depends_on = [module.eks]
+  # depends_on = [module.eks]
+  version         = "~> 20.0"
   source = "terraform-aws-modules/eks/aws//modules/eks-managed-node-group"
   name            = "${var.cluster_name}"
   cluster_name    = var.cluster_name
@@ -110,6 +111,9 @@ module "eks_managed_node_group" {
   cluster_service_cidr = module.eks.cluster_service_cidr
   use_custom_launch_template = true
   launch_template_name = "${var.cluster_name}-lt"
+  update_config = {
+    max_unavailable_percentage = 10
+  }
   block_device_mappings = {
     xvda = {
       device_name = "/dev/xvda"
@@ -120,7 +124,7 @@ module "eks_managed_node_group" {
       }
     }
   }
-  user_data_template_path = "user-data.yaml"
+  # user_data_template_path = "user-data.yaml"
   min_size     = var.min_worker_nodes
   max_size     = var.max_worker_nodes
   desired_size = var.desired_worker_nodes
@@ -183,9 +187,13 @@ resource "aws_eks_addon" "aws_ebs_csi_driver" {
 }
 
 provider "kubernetes" {
-  host                   = data.aws_eks_cluster.cluster.endpoint
-  cluster_ca_certificate = base64decode(data.aws_eks_cluster.cluster.certificate_authority[0].data)
-  token                  = data.aws_eks_cluster_auth.cluster.token
+  host                   = module.eks.cluster_endpoint
+  cluster_ca_certificate = base64decode(module.eks.cluster_certificate_authority_data)
+  exec {
+    api_version = "client.authentication.k8s.io/v1beta1"
+    args        = ["eks", "get-token", "--cluster-name", var.cluster_name]
+    command     = "aws"
+  }
 }
 
 resource "kubernetes_annotations" "gp2_default" {
@@ -225,7 +233,7 @@ resource "kubernetes_storage_class" "ebs_csi_encrypted_gp3_storage_class" {
 }
 
 provider "helm" {
-  kubernetes {
+  kubernetes = {
     host                   = data.aws_eks_cluster.cluster.endpoint
     cluster_ca_certificate = base64decode(data.aws_eks_cluster.cluster.certificate_authority[0].data)
     token                  = data.aws_eks_cluster_auth.cluster.token
@@ -233,10 +241,14 @@ provider "helm" {
 }
 
 provider "kubectl" {
-  host                   = data.aws_eks_cluster.cluster.endpoint
-  cluster_ca_certificate = base64decode(data.aws_eks_cluster.cluster.certificate_authority[0].data)
-  token                  = data.aws_eks_cluster_auth.cluster.token
+  host                   = module.eks.cluster_endpoint
+  cluster_ca_certificate = base64decode(module.eks.cluster_certificate_authority_data)
   load_config_file       = false
+  exec {
+    api_version = "client.authentication.k8s.io/v1beta1"
+    args        = ["eks", "get-token", "--cluster-name", var.cluster_name]
+    command     = "aws"
+  }
 }
 
 resource "aws_iam_role_policy" "karpenter_policy" {
@@ -260,11 +272,14 @@ resource "aws_iam_role_policy" "karpenter_policy" {
           "ec2:DescribeLaunchTemplates",
           "ec2:CreateLaunchTemplate",
           "iam:GetInstanceProfile",
+          "iam:TagInstanceProfile",
           "ec2:CreateTags",
           "ec2:CreateFleet",
           "ec2:RunInstances",
           "ec2:DeleteLaunchTemplate",
-          "ec2:TerminateInstances"
+          "ec2:TerminateInstances",
+          "iam:RemoveRoleFromInstanceProfile",
+          "iam:DeleteInstanceProfile"
         ],
         "Resource": "*"
       }
@@ -274,6 +289,7 @@ resource "aws_iam_role_policy" "karpenter_policy" {
 
 module "karpenter" {
   count = var.enable_karpenter ? 1 : 0
+  version         = "~> 20.0"
   source = "terraform-aws-modules/eks/aws//modules/karpenter"
   cluster_name = module.eks.cluster_name
 
@@ -296,7 +312,7 @@ resource "helm_release" "karpenter-crd" {
   name                = "karpenter-crd"
   repository          = "oci://public.ecr.aws/karpenter"
   chart               = "karpenter-crd"
-  version             = "1.0.8"
+  version             = "1.5.0"
   wait                = true
   values = []
 }
@@ -308,7 +324,7 @@ resource "helm_release" "karpenter" {
   name                = "karpenter"
   repository          = "oci://public.ecr.aws/karpenter"
   chart               = "karpenter"
-  version             = "1.0.8"
+  version             = "1.5.0"
   wait                = false
   skip_crds           = true
 
@@ -332,9 +348,9 @@ resource "kubectl_manifest" "karpenter_node_class" {
     metadata:
       name: default
     spec:
-      amiFamily: AL2023
+      amiFamily: AL2
       amiSelectorTerms:
-      - id: ami-0d1008f82aca87cb9
+      - id: ami-0d305d3f3101bc959
       role: ${module.eks_managed_node_group.iam_role_name}
       subnetSelectorTerms:
         - tags:
@@ -343,6 +359,7 @@ resource "kubectl_manifest" "karpenter_node_class" {
         - tags:
             karpenter.sh/discovery: ${module.eks.cluster_name}
       tags:
+        KubernetesCluster: ${var.cluster_name}
         karpenter.sh/discovery: ${module.eks.cluster_name}
     status:
   amis:
@@ -371,7 +388,7 @@ resource "kubectl_manifest" "karpenter_node_pool" {
       template:
         spec:
           kubelet:
-            maxPods: 40
+            maxPods: 40        
           nodeClassRef:
             name: default
             group: karpenter.k8s.aws  # Updated since only a single version will be served
@@ -379,35 +396,34 @@ resource "kubectl_manifest" "karpenter_node_pool" {
           requirements:
             - key: "karpenter.k8s.aws/instance-category"
               operator: In
-              values: ["c", "m", "r", "t", "a"]
+              values: ["r"]
             - key: "karpenter.k8s.aws/instance-cpu"
               operator: In
-              values: ["2", "4", "8", "16", "32"]
+              values: ["4"]
+            - key: "karpenter.k8s.aws/instance-family"
+              operator: In
+              values: ["r6i"]
+            - key: "node.kubernetes.io/instance-type"
+              operator: In
+              values: ["r6i.xlarge"]
             - key: "kubernetes.io/arch"
               operator: In
               values: ["amd64"]
-            - key: "karpenter.k8s.aws/instance-hypervisor"
-              operator: In
-              values: ["nitro"]
             - key: "karpenter.sh/capacity-type"
               operator: In
-              values: ["spot"]
-            - key: "karpenter.k8s.aws/instance-generation"
-              operator: Gt
-              values: ["2"]
+              values: ["on-demand"]
+            - key: "topology.kubernetes.io/zone"
+              operator: In
+              values: ["af-south-1b"]              
       disruption:
-        consolidationPolicy: WhenEmptyOrUnderutilized
+        consolidationPolicy: WhenEmpty
         consolidateAfter: 1m
         budgets:
-        - nodes: "80%"
+        - nodes: "1"
           reasons: 
           - "Empty"
           - "Drifted"
-        - nodes: "80%"
-          reasons: 
-          - "Underutilized"
   YAML
-
   depends_on = [
     kubectl_manifest.karpenter_node_class
   ]
