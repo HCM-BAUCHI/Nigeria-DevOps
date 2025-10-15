@@ -108,7 +108,6 @@ hcm-moz-impl:
   namespace: adamawa
   replicas: 1
   heap: "-Xmx2048m -Xms2048m"
-  memory_limits: "2Gi"
   startDate: "13/06/2025"
   endDate: "17/06/2025"
   boundary-code: "ad"
@@ -124,11 +123,10 @@ hcm-moz-impl:
   create-dhis2-digit-mapping: "ad-create-dhis2-digit-mapping"
   update-dhis2-record: "ad-update-dhis2-record"
   create-dhis2-record: "ad-create-dhis2-record"
-  resources:
-    requests:
-      memory: "3Gi"
-    limits:
-      memory: "3Gi"
+  memory_requests: "2.5Gi"
+  memory_limits: "3Gi"
+  cpu_requests: 200m
+  cpu_limits: 300m
 
 
 digit-ui:
