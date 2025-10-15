@@ -1,0 +1,14 @@
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: adamawa-hcm.digit.org-tls-certs
+  namespace: egov
+spec:
+  secretName: adamawa-hcm.digit.org-tls-certs
+  issuerRef:
+    name: letsencrypt-prod
+    kind: ClusterIssuer
+  commonName: adamawa-hcm.digit.org
+  dnsNames:
+  - adamawa-hcm.digit.org
+

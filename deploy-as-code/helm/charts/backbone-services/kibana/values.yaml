@@ -172,6 +172,9 @@ ingress:
     - host: nasarawa-hcm.digit.org
       paths:
         - path: /kibana-upgrade
+    - host: adamawa-hcm.digit.org
+      paths:
+        - path: /kibana-upgrade
   tls: 
     - secretName: bauchi-hcm.digit.org-tls-certs
       hosts:
@@ -185,6 +188,9 @@ ingress:
     - secretName: nasarawa-hcm.digit.org-tls-certs
       hosts:
         - nasarawa-hcm.digit.org
+    - secretName: adamawa-hcm.digit.org-tls-certs
+      hosts:
+        - adamawa-hcm.digit.org
 
 readinessProbe:
   failureThreshold: 3
