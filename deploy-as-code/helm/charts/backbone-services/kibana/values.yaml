@@ -175,6 +175,21 @@ ingress:
     - host: adamawa-hcm.digit.org
       paths:
         - path: /kibana-upgrade
+    - host: sokoto-hcm.digit.org
+      paths:
+        - path: /kibana-upgrade    
+    - host: borno-hcm.digit.org
+      paths:
+        - path: /kibana-upgrade
+    - host: kebbi-hcm-central.digit.org
+      paths:
+        - path: /kibana-upgrade
+    - host: fct-abuja-hcm.digit.org
+      paths:
+        - path: /kibana-upgrade
+    - host: plateau-hcm.digit.org
+      paths:
+        - path: /kibana-upgrade    
   tls: 
     - secretName: bauchi-hcm.digit.org-tls-certs
       hosts:
@@ -191,6 +206,21 @@ ingress:
     - secretName: adamawa-hcm.digit.org-tls-certs
       hosts:
         - adamawa-hcm.digit.org
+    - secretName: sokoto-hcm.digit.org-tls-certs
+      hosts:
+        - sokoto-hcm.digit.org
+    - secretName: borno-hcm.digit.org-tls-certs
+      hosts:
+        - borno-hcm.digit.org
+    - secretName: kebbi-hcm-central.digit.org-tls-certs
+      hosts:
+        - kebbi-hcm-central.digit.org      
+    - secretName: fct-abuja-hcm.digit.org-tls-certs
+      hosts:
+        - fct-abuja-hcm.digit.org
+    - secretName: plateau-hcm.digit.org-tls-certs
+      hosts:
+        - plateau-hcm.digit.org  
 
 readinessProbe:
   failureThreshold: 3
