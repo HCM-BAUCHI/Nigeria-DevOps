@@ -41,17 +41,26 @@ initContainers:
       tag: latest
     env: |
         - name: "DB_URL"
+          {{- if eq .Values.namespace "kaduna" }}
+          valueFrom:
+            configMapKeyRef:
+              name: egov-config
+              key: kd-db-url
+          {{- else }}
           valueFrom:
             configMapKeyRef:
               name: egov-config
               key: db-url
+          {{- end }}
         - name: "SCHEMA_NAME"
           {{- if index .Values "central-instance-build" }}
           valueFrom:
             configMapKeyRef:
               name: egov-config
               key: db-schema-names
-          {{- else }}   
+          {{- else if eq .Values.namespace "kaduna" }}
+          value: "kd"
+          {{- else }}
           value: "public"
           {{- end }}
         - name: "SCHEMA_TABLE"
@@ -142,6 +151,11 @@ extraEnv:
           configMapKeyRef:
             name: egov-config
             key: health-db-url
+      {{- else if eq .Values.namespace "kaduna" }}
+        valueFrom:
+          configMapKeyRef:
+            name: egov-config
+            key: kd-db-url
       {{- else }}
         valueFrom:
           configMapKeyRef:
@@ -165,6 +179,11 @@ extraEnv:
           configMapKeyRef:
             name: egov-config
             key: health-db-url
+      {{- else if eq .Values.namespace "kaduna" }}
+        valueFrom:
+          configMapKeyRef:
+            name: egov-config
+            key: kd-db-url
       {{- else }}
         valueFrom:
           configMapKeyRef:

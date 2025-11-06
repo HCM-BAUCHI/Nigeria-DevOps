@@ -1,0 +1,192 @@
+global:
+  domain: kaduna-central-hcm.digit.org
+# egov-localization:
+#   namespace: "oyo"
+#   heap: "-Xmx512m -Xms512m"
+#   memory_limits: "512Mi"
+#   resources:
+#     requests:
+#       memory: "512Mi"
+#     limits:
+#       memory: "512Mi"
+
+
+# boundary-service:
+#   namespace: "oyo"
+#   heap: "-Xmx512m -Xms512m"
+#   memory_limits: "512Mi"
+#   resources:
+#     requests:
+#       memory: "512Mi"
+#     limits:
+#       memory: "512Mi"
+
+# egov-idgen:
+#   namespace: "oyo"
+#   heap: "-Xmx512m -Xms512m"
+#   memory_limits: "512Mi"
+#   resources:
+#     requests:
+#       memory: "512Mi"
+#     limits:
+#       memory: "512Mi"
+
+egov-enc-service:
+  secret-name: "egov-enc-service"
+  namespace: "kaduna"
+  heap: "-Xmx512m -Xms512m"
+  hpa:
+    enabled: true
+    minReplicas: 1
+    maxReplicas: 4
+  cpu_requests: 100m
+  memory_requests: 768Mi
+  cpu_limits: 200m
+  memory_limits: 1Gi
+
+individual:
+  initContainers:
+    dbMigration:
+      enabled: false
+  ingress:
+    enabled: false
+    zuul: false
+  namespace: "kaduna"
+  central-instance-build: true
+  heap: "-Xmx768m -Xms512m"
+  hpa:
+    enabled: false
+    minReplicas: 1
+    maxReplicas: 1
+  cpu_requests: 300m
+  memory_requests: 768Mi
+  cpu_limits: 400m
+  memory_limits: 1Gi
+
+egov-user:
+  namespace: "kaduna"
+  central-instance-build: true
+  heap: "-Xmx1024m -Xms1024m"
+  initContainers:
+    dbMigration:
+      enabled: false
+  ingress:
+    enabled: false
+    zuul: false
+  hpa:
+    enabled: false
+    minReplicas: 1
+    maxReplicas: 1
+  cpu_requests: 500m
+  memory_requests: 1.5Gi
+  cpu_limits: 600m
+  memory_limits: 2Gi
+  otp-validation: "true"
+  citizen-otp-enabled: "true"
+  employee-otp-enabled: "false"
+  access-token-validity: 22000
+  refresh-token-validity: 20160
+  default-password-expiry: 90
+  mobile-number-validation: "false"
+  roles-state-level: "true"
+  citizen-registration-withlogin: "true"
+  citizen-otp-fixed: "123456"
+  citizen-otp-fixed-enabled: "true"
+  egov-state-level-tenant-id: "mz"
+  decryption-abac-enabled: "false"
+
+
+transformer:
+  namespace: "kaduna"
+  heap: "-Xmx1536m -Xms1536m"
+  hpa:
+    enabled: true
+    minReplicas: 2
+    maxReplicas: 5
+  cpu_requests: 300m
+  memory_requests: 1.75Gi
+  cpu_limits: 400m
+  memory_limits: 2.25Gi
+  java-enable-debug: true
+  save-project-task-topic: "kd-save-project-task-topic"
+  update-project-task-topic: "kd-update-project-task-topic"
+  transformer-producer-bulk-project-task-index-v1-topic: "kd-transformer-producer-bulk-project-task-index-v1-topic"
+  save-project-staff-topic: "kd-save-project-staff-topic"
+  update-project-staff-topic: "kd-update-project-staff-topic"
+  transformer-producer-bulk-project-staff-index-v1-topic: "kd-transformer-producer-bulk-project-staff-index-v1-topic"
+  transformer-producer-bulk-project-index-v1-topic: "kd-transformer-producer-bulk-project-index-v1-topic"
+  save-project: "kd-save-project"
+  update-project: "kd-update-project"
+  save-household-member-topic: "kd-save-household-member-topic"
+  transformer-producer-household-member-index-v1-topic: "kd-transformer-producer-household-member-index-v1-topic"
+  save-household-topic: "kd-save-household-topic"
+  update-household-topic: "kd-update-household-topic"
+  transformer-producer-household-index-v1-topic: "kd-transformer-producer-household-index-v1-topic"
+  transformer-producer-service-index-v2-topic: "kd-transformer-producer-service-index-v2-topic"
+  save-stock-topic: "kd-save-stock-topic"
+  update-stock-topic: "kd-update-stock-topic"
+  transformer-producer-bulk-stock-index-v1-topic: "kd-transformer-producer-bulk-stock-index-v1-topic"
+  save-facility-topic: "kd-save-facility-topic"
+  update-facility-topic: "kd-update-facility-topic"
+  save-service: "kd-save-service"
+  transformer-producer-service-request-index-v1-topic: "kd-transformer-producer-service-request-index-v1-topic"
+  save-referral-topic: "kd-save-referral-topic"
+  transformer-producer-referral-index-v1-topic: "kd-transformer-producer-referral-index-v1-topic"
+  update-referral-topic: "kd-update-referral-topic"
+  save-side-effect-topic: "kd-save-side-effect-topic"
+  update-side-effect-topic: "kd-update-side-effect-topic"
+  transformer-producer-side-effect-index-v1-topic: "kd-transformer-producer-side-effect-index-v1-topic"
+  save-pgr-request: "kd-save-pgr-request"
+  transformer-save-pgr-request: "kd-transformer-save-pgr-request"
+  update-pgr-request: "kd-update-pgr-request"
+  save-hfreferral-topic: "kd-save-hfreferral-topic"
+  update-hfreferral-topic: "kd-update-hfreferral-topic"
+  transformer-producer-hfreferral-index-v1-topic: "kd-transformer-producer-hfreferral-index-v1-topic"
+  transformer-producer-hfreferral-service-index-topic: "kd-transformer-producer-hfreferral-service-index-topic"
+  transformer-producer-finance-checklist-index-v1-topic: "kd-transformer-producer-finance-checklist-index-v1-topic"
+  transformer-producer-special-spraying-index-topic: "kd-transformer-producer-special-spraying-index-topic"
+  save-attendance-log: "kd-save-attendance-log"
+  update-attendance-log: "kd-update-attendance-log"
+  transformer-save-attendance-log: "kd-transformer-save-attendance-log"
+  transformer-save-attendance-register: "kd-transformer-save-attendance-register"
+  transformer-producer-extra-transformed-checklist-index-topic: "kd-transformer-producer-extra-transformed-checklist-index-topic"
+  update-household-member-topic: "kd-update-household-member-topic"
+  save-stock-reconciliation-topic: "kd-save-stock-reconciliation-topic"
+  update-stock-reconciliation-topic: "kd-update-stock-reconciliation-topic"
+  transformer-producer-stock-recon-index-v1-topic: "kd-transformer-producer-stock-recon-index-v1-topic"
+  health-transformer: "kd-health-transformer"
+
+hcm-moz-impl:
+  namespace: kaduna
+  replicas: 1
+  heap: "-Xmx2048m -Xms2048m"
+  memory_limits: "2Gi"
+  startDate: "29/05/2025"
+  endDate: "02/06/2025"
+  boundary-code: "kd"
+  create-boundaryCSV-data: "kd-create-boundaryCSV-data"
+  update-dhis2-job: "kd-update-dhis2-job"
+  create-dhis2-job: "kd-create-dhis2-job"
+  create-boundary-data: "kd-create-boundary-data"
+  update-digit-dhis2-mapping: "kd-update-digit-dhis2-mapping"
+  create-digit-dhis2-mapping: "kd-create-digit-dhis2-mapping"
+  update-digit-record: "kd-update-digit-record"
+  create-digit-record: "kd-create-digit-record"
+  update-dhis2-digit-mapping: "kd-update-dhis2-digit-mapping"
+  create-dhis2-digit-mapping: "kd-create-dhis2-digit-mapping"
+  update-dhis2-record: "kd-update-dhis2-record"
+  create-dhis2-record: "kd-create-dhis2-record"
+  resources:
+    requests:
+      memory: "3Gi"
+    limits:
+      memory: "3Gi"
+
+
+digit-ui:
+  namespace: kaduna
+  custom-js-injection: |
+    sub_filter.conf: "
+      sub_filter  '<head>' '<head>
+      <script src=https://central-instance-assets.s3.af-south-1.amazonaws.com/globalConfig-kd.js type=text/javascript></script>
+      ';"
