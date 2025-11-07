@@ -1,0 +1,14 @@
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: kebbi-azm-central-hcm.digit.org-tls-certs
+  namespace: egov
+spec:
+  secretName: kebbi-azm-central-hcm.digit.org-tls-certs
+  issuerRef:
+    name: letsencrypt-prod
+    kind: ClusterIssuer
+  commonName: kebbi-azm-central-hcm.digit.org
+  dnsNames:
+    - kebbi-azm-central-hcm.digit.org
+

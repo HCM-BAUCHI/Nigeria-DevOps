@@ -40,7 +40,7 @@ cluster-configs:
 
   secrets:
     db: 
-      namespace: [ egov, oyo, kogi, bauchi, nasarawa, abuja, plateau, borno, kebbi, sokoto, ondo, adamawa ]
+      namespace: [ egov, oyo, kogi, bauchi, nasarawa, abuja, plateau, borno, kebbi, sokoto, ondo, adamawa, kaduna, jigawa, kebbi-azm]
       name: db
 
     egov-notification-sms:
@@ -54,42 +54,42 @@ cluster-configs:
     hcm-moz-impl:
       namespace: egov
       name: hcm-moz-impl
-      
-    egov-location: 
+
+    egov-location:
       namespace: egov
       name: egov-location
 
-    egov-pg-service: 
+    egov-pg-service:
       namespace: egov
-      name: egov-pg-service                 
+      name: egov-pg-service
 
-    pgadmin: 
+    pgadmin:
       namespace: playground
-      name: pgadmin       
+      name: pgadmin
 
-    egov-enc-service: 
-      namespace: [ egov, oyo, bauchi, nasarawa, kogi, abuja, plateau, borno, kebbi, sokoto, ondo, adamawa ]
-      name: egov-enc-service       
+    egov-enc-service:
+      namespace: [ egov, oyo, bauchi, nasarawa, kogi, abuja, plateau, borno, kebbi, sokoto, ondo, adamawa, kaduna, jigawa, kebbi-azm ]
+      name: egov-enc-service
 
-    egov-notification-mail: 
+    egov-notification-mail:
       namespace: egov
       name: egov-notification-mail
 
-    home-isolation-notification-mail: 
+    home-isolation-notification-mail:
       namespace: egov
-      name: home-isolation-notification-mail      
+      name: home-isolation-notification-mail
 
-    git-sync: 
-      namespace: [ egov, oyo, bauchi, nasarawa, kogi, abuja, plateau, borno, kebbi, sokoto, ondo, monitoring, adamawa ]
-      name: git-creds   
+    git-sync:
+      namespace: [ egov, oyo, bauchi, nasarawa, kogi, abuja, plateau, borno, kebbi, sokoto, ondo, monitoring, adamawa, kaduna, jigawa, kebbi-azm ]
+      name: git-creds
 
-    kibana: 
+    kibana:
       namespace: egov
-      name: kibana-creds                       
+      name: kibana-creds
 
-    kibana-infra: 
+    kibana-infra:
       namespace: egov
-      name: kibana-infra-creds     
+      name: kibana-infra-creds
 
     egov-si-microservice:
       namespace: egov
@@ -97,7 +97,7 @@ cluster-configs:
 
     egov-edcr-notification:
       namespace: egov
-      name: egov-edcr-notification 
+      name: egov-edcr-notification
 
     egov-edcr-bank-gateway:
       namespace: egov
@@ -106,7 +106,7 @@ cluster-configs:
     chatbot:
       namespace: egov
       name: chatbot
-    
+
     covid-chatbot:
       namespace: egov
       name: covid-chatbot
@@ -117,28 +117,28 @@ cluster-configs:
 
     oauth2-proxy:
       namespace: egov
-      name: oauth2-proxy   
+      name: oauth2-proxy
 
     case-management:
       namespace: egov
-      name: case-management   
-  
+      name: case-management
+
     minio:
       namespace: backbone
       name: minio
 
     alertmanager:
       namespace: monitoring
-      name: alertmanager-main      
+      name: alertmanager-main
 
     jenkins:
       namespace: jenkins
-      name: jenkins 
-    
+      name: jenkins
+
     mysql:
       namespace: egov
       name: mysql
-    
+
     wordpress:
       namespace: egov
       name: wordpress
@@ -148,7 +148,7 @@ cluster-configs:
       name: postgres
 
     elastic:
-      namespace: [ egov, oyo, bauchi, nasarawa, kogi, abuja, plateau, borno, kebbi, sokoto, ondo, adamawa ]
+      namespace: [ egov, oyo, bauchi, nasarawa, kogi, abuja, plateau, borno, kebbi, sokoto, ondo, adamawa, kaduna, jigawa, kebbi-azm ]
       name: elastic
 
     jupyter:
