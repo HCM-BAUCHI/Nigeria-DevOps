@@ -1,0 +1,13 @@
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: egov_access_deploy_gombe_role_binding
+  namespace: egov
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: Role
+  name: egov_access_deploy_gombe_role
+subjects:
+  - kind: Group
+    name: egov_access_deploy_gombe_group
+    apiGroup: rbac.authorization.k8s.io
