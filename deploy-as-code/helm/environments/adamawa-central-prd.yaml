@@ -108,8 +108,8 @@ hcm-moz-impl:
   namespace: adamawa
   replicas: 1
   heap: "-Xmx2048m -Xms2048m"
-  startDate: "13/06/2025"
-  endDate: "17/06/2025"
+  startDate: "03/11/2025"
+  endDate: "15/11/2025"
   boundary-code: "ad"
   create-boundaryCSV-data: "ad-create-boundaryCSV-data"
   update-dhis2-job: "ad-update-dhis2-job"
