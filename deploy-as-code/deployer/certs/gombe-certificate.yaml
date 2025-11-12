@@ -1,0 +1,14 @@
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: gombe-hcm.digit.org-tls-certs
+  namespace: egov
+spec:
+  secretName: gombe-hcm.digit.org-tls-certs
+  issuerRef:
+    name: letsencrypt-prod
+    kind: ClusterIssuer
+  commonName: gombe-hcm.digit.org
+  dnsNames:
+  - gombe-hcm.digit.org
+
