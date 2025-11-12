@@ -52,13 +52,15 @@ env: |
     value: "/tmp"
   - name: SPRING_SERVLET_MULTIPART_MAX_FILE_SIZE
     value: "6MB"
-  - name: ISAZURESTORAGEENABLED
-    value: "true"
   - name: ISNFSSTORAGEENABLED
     value: {{ index .Values "is-nfs-enabled" | quote }}
   {{- if index .Values "is-nfs-enabled" }}
+  - name: MINIO_ENABLED
+    value: "false"
   - name: ISNFSSTORAGEENABLED
     value: "true"
+  - name: FIXED_BUCKET_REGION
+    value: "af-south-1"
   - name: DISK_STORAGE_HOST_URL
     valueFrom:
       configMapKeyRef:
@@ -83,19 +85,17 @@ env: |
         key: secretkey
         name: minio
   {{else}}
-  - name: AZURE_ACCOUNTNAME
+  - name: AWS_KEY
     valueFrom:
       secretKeyRef:
         name: egov-filestore
         key: awskey
-  - name: AZURE_ACCOUNTKEY
+  - name: AWS_SECRETKEY
     valueFrom:
       secretKeyRef:
         name: egov-filestore
         key: awssecretkey
   {{- end }}
-  - name: AZURE_DEFAULTENDPOINTSPROTOCOL
-    value: https
   {{- if index .Values "is-bucket-fixed" }}
   - name: IS_BUCKET_FIXED
     value: {{ index .Values "is-bucket-fixed" | quote }}
