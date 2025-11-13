@@ -189,11 +189,25 @@ env: |
   - name: EGOV_USER_PWD_PATTERN
     value: ((?=.*\d)(?=.*[a-z])(?=.*[@#$%])(?=\S+$).*$)
   - name: EGOV_ENC_STATE_LEVEL_TENANT_IDS
-    value: "ba,kd"
+    value: "ba,kd,kb"
   - name: tenant.state.level.tenant.id.mappings.kd
     value: "kd"
+  - name: tenant.state.level.tenant.id.mappings.kb
+    value: "kb"
+  - name: tenant.state.level.tenant.id.mappings.jg
+    value: "jg"
   - name: egov.enc.tenant.host.kd
     valueFrom:
       configMapKeyRef:
         name: egov-service-host
         key: egov-enc-service-kaduna
+  - name: egov.enc.tenant.host.kb
+    valueFrom:
+      configMapKeyRef:
+        name: egov-service-host
+        key: egov-enc-service-kebbi-azm
+  - name: egov.enc.tenant.host.jg
+    valueFrom:
+      configMapKeyRef:
+        name: egov-service-host
+        key: egov-enc-service-jigawa

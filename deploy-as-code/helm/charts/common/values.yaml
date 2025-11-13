@@ -60,6 +60,8 @@ initContainers:
               key: db-schema-names
           {{- else if eq .Values.namespace "kaduna" }}
           value: "kd"
+          {{- else if eq .Values.namespace "kebbi-azm" }}
+          value: "kb"
           {{- else }}
           value: "public"
           {{- end }}
@@ -156,6 +158,11 @@ extraEnv:
           configMapKeyRef:
             name: egov-config
             key: kd-db-url
+      {{- else if eq .Values.namespace "kebbi-azm" }}
+        valueFrom:
+          configMapKeyRef:
+            name: egov-config
+            key: kb-db-url
       {{- else }}
         valueFrom:
           configMapKeyRef:
@@ -184,6 +191,11 @@ extraEnv:
           configMapKeyRef:
             name: egov-config
             key: kd-db-url
+      {{- else if eq .Values.namespace "kebbi-azm" }}
+        valueFrom:
+          configMapKeyRef:
+            name: egov-config
+            key: kb-db-url
       {{- else }}
         valueFrom:
           configMapKeyRef:
