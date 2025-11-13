@@ -190,6 +190,9 @@ ingress:
     - host: plateau-hcm.digit.org
       paths:
         - path: /kibana-upgrade    
+    - host: gombe-hcm.digit.org
+      paths:
+        - path: /kibana-upgrade 
   tls: 
     - secretName: bauchi-hcm.digit.org-tls-certs
       hosts:
@@ -221,6 +224,9 @@ ingress:
     - secretName: plateau-hcm.digit.org-tls-certs
       hosts:
         - plateau-hcm.digit.org  
+    - secretName: gombe-hcm.digit.org-tls-certs
+      hosts:
+        - gombe-hcm.digit.org
 
 readinessProbe:
   failureThreshold: 3

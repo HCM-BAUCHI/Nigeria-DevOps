@@ -1,0 +1,138 @@
+global:
+  domain: gombe-hcm.digit.org
+# egov-localization:
+#   namespace: "gombe"
+#   heap: "-Xmx512m -Xms512m"
+#   memory_limits: "512Mi"
+#   resources:
+#     requests:
+#       memory: "512Mi"
+#     limits:
+#       memory: "512Mi"
+
+
+# boundary-service:
+#   namespace: "gombe"
+#   heap: "-Xmx512m -Xms512m"
+#   memory_limits: "512Mi"
+#   resources:
+#     requests:
+#       memory: "512Mi"
+#     limits:
+#       memory: "512Mi"
+
+# egov-idgen:
+#   namespace: "gombe"
+#   heap: "-Xmx512m -Xms512m"
+#   memory_limits: "512Mi"
+#   resources:
+#     requests:
+#       memory: "512Mi"
+#     limits:
+#       memory: "512Mi"
+
+# egov-enc-service:
+#   namespace: "gombe"
+#   heap: "-Xmx512m -Xms512m"
+#   memory_limits: "512Mi"
+#   resources:
+#     requests:
+#       memory: "512Mi"
+#     limits:
+#       memory: "512Mi"
+
+
+
+
+transformer:
+  namespace: "gombe"
+  heap: "-Xmx1536m -Xms1536m"
+  hpa:
+    enabled: true
+    minReplicas: 2
+    maxReplicas: 5
+  cpu_requests: 300m
+  memory_requests: 1.75Gi
+  cpu_limits: 400m
+  memory_limits: 2.25Gi
+  java-enable-debug: true
+  save-project-task-topic: "go-save-project-task-topic"
+  update-project-task-topic: "go-update-project-task-topic"
+  transformer-producer-bulk-project-task-index-v1-topic: "go-transformer-producer-bulk-project-task-index-v1-topic"
+  save-project-staff-topic: "go-save-project-staff-topic"
+  update-project-staff-topic: "go-update-project-staff-topic"
+  transformer-producer-bulk-project-staff-index-v1-topic: "go-transformer-producer-bulk-project-staff-index-v1-topic"
+  transformer-producer-bulk-project-index-v1-topic: "go-transformer-producer-bulk-project-index-v1-topic"
+  save-project: "go-save-project"
+  update-project: "go-update-project"
+  save-household-member-topic: "go-save-household-member-topic"
+  transformer-producer-household-member-index-v1-topic: "go-transformer-producer-household-member-index-v1-topic"
+  save-household-topic: "go-save-household-topic"
+  update-household-topic: "go-update-household-topic"
+  transformer-producer-household-index-v1-topic: "go-transformer-producer-household-index-v1-topic"
+  transformer-producer-service-index-v2-topic: "go-transformer-producer-service-index-v2-topic"
+  save-stock-topic: "go-save-stock-topic"
+  update-stock-topic: "go-update-stock-topic"
+  transformer-producer-bulk-stock-index-v1-topic: "go-transformer-producer-bulk-stock-index-v1-topic"
+  save-facility-topic: "go-save-facility-topic"
+  update-facility-topic: "go-update-facility-topic"
+  save-service: "go-save-service"
+  transformer-producer-service-request-index-v1-topic: "go-transformer-producer-service-request-index-v1-topic"
+  save-referral-topic: "go-save-referral-topic"
+  transformer-producer-referral-index-v1-topic: "go-transformer-producer-referral-index-v1-topic"
+  update-referral-topic: "go-update-referral-topic"
+  save-side-effect-topic: "go-save-side-effect-topic"
+  update-side-effect-topic: "go-update-side-effect-topic"
+  transformer-producer-side-effect-index-v1-topic: "go-transformer-producer-side-effect-index-v1-topic"
+  save-pgr-request: "go-save-pgr-request"
+  transformer-save-pgr-request: "go-transformer-save-pgr-request"
+  update-pgr-request: "go-update-pgr-request"
+  save-hfreferral-topic: "go-save-hfreferral-topic"
+  update-hfreferral-topic: "go-update-hfreferral-topic"
+  transformer-producer-hfreferral-index-v1-topic: "go-transformer-producer-hfreferral-index-v1-topic"
+  transformer-producer-hfreferral-service-index-topic: "go-transformer-producer-hfreferral-service-index-topic"
+  transformer-producer-finance-checklist-index-v1-topic: "go-transformer-producer-finance-checklist-index-v1-topic"
+  transformer-producer-special-spraying-index-topic: "go-transformer-producer-special-spraying-index-topic"
+  save-attendance-log: "go-save-attendance-log"
+  update-attendance-log: "go-update-attendance-log"
+  transformer-save-attendance-log: "go-transformer-save-attendance-log"
+  transformer-save-attendance-register: "go-transformer-save-attendance-register"
+  transformer-producer-extra-transformed-checklist-index-topic: "go-transformer-producer-extra-transformed-checklist-index-topic"
+  update-household-member-topic: "go-update-household-member-topic"
+  save-stock-reconciliation-topic: "go-save-stock-reconciliation-topic"
+  update-stock-reconciliation-topic: "go-update-stock-reconciliation-topic"
+  transformer-producer-stock-recon-index-v1-topic: "go-transformer-producer-stock-recon-index-v1-topic"
+  health-transformer: "go-health-transformer"
+
+hcm-moz-impl:
+  namespace: gombe
+  replicas: 1
+  heap: "-Xmx2048m -Xms2048m"
+  startDate: "20/11/2025"
+  endDate: "25/11/2025"
+  boundary-code: "go"
+  create-boundaryCSV-data: "go-create-boundaryCSV-data"
+  update-dhis2-job: "go-update-dhis2-job"
+  create-dhis2-job: "go-create-dhis2-job"
+  create-boundary-data: "go-create-boundary-data"
+  update-digit-dhis2-mapping: "go-update-digit-dhis2-mapping"
+  create-digit-dhis2-mapping: "go-create-digit-dhis2-mapping"
+  update-digit-record: "go-update-digit-record"
+  create-digit-record: "go-create-digit-record"
+  update-dhis2-digit-mapping: "go-update-dhis2-digit-mapping"
+  create-dhis2-digit-mapping: "go-create-dhis2-digit-mapping"
+  update-dhis2-record: "go-update-dhis2-record"
+  create-dhis2-record: "go-create-dhis2-record"
+  memory_requests: "2.5Gi"
+  memory_limits: "3Gi"
+  cpu_requests: 200m
+  cpu_limits: 300m
+
+
+digit-ui:
+  namespace: gombe
+  custom-js-injection: |
+    sub_filter.conf: "
+      sub_filter  '<head>' '<head>
+      <script src=https://central-instance-assets.s3.af-south-1.amazonaws.com/globalConfig-go.js type=text/javascript></script>
+      ';"
