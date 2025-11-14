@@ -192,7 +192,22 @@ ingress:
         - path: /kibana-upgrade    
     - host: gombe-hcm.digit.org
       paths:
-        - path: /kibana-upgrade 
+        - path: /kibana-upgrade
+    - host: ondo-hcm.digit.org
+      paths:
+        - path: /kibana-upgrade
+    - host: kaduna-central-hcm.digit.org
+      paths:
+        - path: /kibana-upgrade
+    - host: jigawa-central-hcm.digit.org
+      paths:
+        - path: /kibana-upgrade
+    - host: kebbi-central-hcm.digit.org
+      paths:
+        - path: /kibana-upgrade
+    - host: chad-hcm.digit.org
+      paths:
+        - path: /kibana-upgrade
   tls: 
     - secretName: bauchi-hcm.digit.org-tls-certs
       hosts:
@@ -217,16 +232,31 @@ ingress:
         - borno-hcm.digit.org
     - secretName: kebbi-hcm-central.digit.org-tls-certs
       hosts:
-        - kebbi-hcm-central.digit.org      
+        - kebbi-hcm-central.digit.org
     - secretName: fct-abuja-hcm.digit.org-tls-certs
       hosts:
         - fct-abuja-hcm.digit.org
     - secretName: plateau-hcm.digit.org-tls-certs
       hosts:
-        - plateau-hcm.digit.org  
+        - plateau-hcm.digit.org
     - secretName: gombe-hcm.digit.org-tls-certs
       hosts:
         - gombe-hcm.digit.org
+    - secretName: ondo-hcm.digit.org-tls-certs
+      hosts:
+        - ondo-hcm.digit.org
+    - secretName: kaduna-central-hcm.digit.org-tls-certs
+      hosts:
+        - kaduna-central-hcm.digit.org
+    - secretName: jigawa-central-hcm.digit.org-tls-certs
+      hosts:
+        - jigawa-central-hcm.digit.org
+    - secretName: kebbi-central-hcm.digit.org-tls-certs
+      hosts:
+        - kebbi-central-hcm.digit.org
+    - secretName: chad-hcm.digit.org-tls-certs
+      hosts:
+        - chad-hcm.digit.org
 
 readinessProbe:
   failureThreshold: 3
