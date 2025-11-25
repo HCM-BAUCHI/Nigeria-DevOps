@@ -1,0 +1,14 @@
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: chad-hcm-prod.digit.org-tls-certs
+  namespace: egov
+spec:
+  secretName: chad-hcm-prod.digit.org-tls-certs
+  issuerRef:
+    name: letsencrypt-prod
+    kind: ClusterIssuer
+  commonName: chad-hcm-prod.digit.org
+  dnsNames:
+    - chad-hcm-prod.digit.org
+
