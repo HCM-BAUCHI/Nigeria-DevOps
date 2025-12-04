@@ -1,0 +1,18 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: workbench-ui-js-injection
+  namespace: chad-prod
+  uid: 3cea84f0-36c5-48d2-a398-3ff106eb9372
+  resourceVersion: '47948484'
+  creationTimestamp: '2025-05-29T10:43:45Z'
+  annotations:
+    kubectl.kubernetes.io/last-applied-configuration: >
+      {"apiVersion":"v1","data":{"sub_filter.conf":" sub_filter 
+      '\u003chead\u003e' '\u003chead\u003e \u003cscript
+      src=https://central-instance-assets.s3.af-south-1.amazonaws.com/globalConfigsWorkbench-chad.js
+      type=text/javascript\u003e\u003c/script\u003e
+      ';"},"kind":"ConfigMap","metadata":{"annotations":{},"name":"workbench-ui-js-injection","namespace":"chad-prod"}}
+  selfLink: /api/v1/namespaces/chad-prod/configmaps/workbench-ui-js-injection
+data:
+  sub_filter.conf: ' sub_filter  ''<head>'' ''<head> <script src=https://central-instance-assets.s3.af-south-1.amazonaws.com/globalConfigsWorkbench-chad.js type=text/javascript></script> '';'

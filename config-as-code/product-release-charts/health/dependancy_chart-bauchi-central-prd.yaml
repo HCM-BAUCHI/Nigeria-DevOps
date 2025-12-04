@@ -67,6 +67,7 @@ modules:
       # - egovio/individual:HDDF-2588-Individual-39e5741a15-30
       - egovio/individual:master-cc431fb # individual:HDDF-2588-Individual-impl-cebbec271b-61
       - egovio/transformer:bauchi-transformer-fixes-14e6303cea-357 # ondo-> transformer:bauchi-transformer-fixes-bae67cccff-366
+#     - egovio/transformer:chad-bednet-0cc6aac119-381 CHAD
       # - egovio/stock:v1.1.3-3f860f8a31-44
       - egovio/stock:HCMPRE-2656-HCM-Services-bauchi-impl-2fc9d986ad-66
       # - egovio/household:HCMPRE-1254-Comunity-household-8064857b8c-36
@@ -80,6 +81,7 @@ modules:
       # - egovio/service-request:v1.0.1-a0e714254c-18
       - egovio/service-request:HCMPRE-2736-service-request-1319431e18-3
       - egovio/hcm-moz-impl:develop-mc-nigeria-75bf0c93-438
+      - egovio/project-factory:broker-fix-7ad0006329-580
   - name: m_payments
     dependencies:
       - "backbone"
