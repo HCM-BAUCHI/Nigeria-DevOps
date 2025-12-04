@@ -67,7 +67,7 @@ modules:
       # - egovio/individual:HDDF-2588-Individual-39e5741a15-30
       - egovio/individual:master-cc431fb # individual:HDDF-2588-Individual-impl-cebbec271b-61
       - egovio/transformer:bauchi-transformer-fixes-14e6303cea-357 # ondo-> transformer:bauchi-transformer-fixes-bae67cccff-366
-#     - egovio/transformer:chad-bednet-0cc6aac119-381 CHAD
+#     - egovio/transformer:chad-bednet-5c1e7f6585-384 CHAD
       # - egovio/stock:v1.1.3-3f860f8a31-44
       - egovio/stock:HCMPRE-2656-HCM-Services-bauchi-impl-2fc9d986ad-66
       # - egovio/household:HCMPRE-1254-Comunity-household-8064857b8c-36
