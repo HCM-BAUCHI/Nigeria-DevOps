@@ -46,15 +46,15 @@ global:
 
 transformer:
   namespace: "chad-prod"
-  heap: "-Xmx1280m -Xms1024m"
+  heap: "-Xmx768m -Xms512m"
   hpa:
     enabled: true
     minReplicas: 2
     maxReplicas: 5
-  cpu_requests: 200m
-  memory_requests: 1Gi
+  cpu_requests: 300m
+  memory_requests: 768Mi
   cpu_limits: 400m
-  memory_limits: 1.5Gi
+  memory_limits: 1Gi
   java-enable-debug: false
   save-project-task-topic: "chad-save-project-task-topic"
   update-project-task-topic: "chad-update-project-task-topic"
