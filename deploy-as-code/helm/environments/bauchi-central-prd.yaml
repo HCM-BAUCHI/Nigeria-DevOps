@@ -744,7 +744,7 @@ oauth2-proxy:
     configFile: |-
       email_domains = [ "*" ]
       github_org = "HCM-BAUCHI"
-      github_team = "hcm-moz-impl"
+      github_team = "central-oauth-access"
       upstreams = [ "file:///dev/null" ]
 
 grafana:
