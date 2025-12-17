@@ -54,6 +54,7 @@ modules:
       - "business"
     services:
       - egovio/digit-ui:impel-central-instance-nigeria-e5c1d67516-357 # TODO: deploy bauchi digit ui image
+#      - egovio/digit-ui:impel-central-instance-nigeria-e143ab5187-413 chad-prod
   - name: m_health
     dependencies:
       - "backbone"
@@ -65,9 +66,10 @@ modules:
       # - egovio/product:v1.1.0-00a7accbda-31
       - egovio/product:HCMPRE-2656-HCM-Services-759d80e83f-40
       # - egovio/individual:HDDF-2588-Individual-39e5741a15-30
-      - egovio/individual:master-cc431fb # individual:HDDF-2588-Individual-impl-cebbec271b-61
+      - egovio/individual-individual-enc-changes-41be3beb85-80 # individual:master-cc431fb # individual:HDDF-2588-Individual-impl-cebbec271b-61
       - egovio/transformer:bauchi-transformer-fixes-14e6303cea-357 # ondo-> transformer:bauchi-transformer-fixes-bae67cccff-366
-#     - egovio/transformer:chad-bednet-5c1e7f6585-384 CHAD
+#      - egovio/transformer:chad-bednet-5c1e7f6585-384 CHAD
+#      - egovio/transformer:bauchi-transformer-fixes-e21b023624-387 AZM camps
       # - egovio/stock:v1.1.3-3f860f8a31-44
       - egovio/stock:HCMPRE-2656-HCM-Services-bauchi-impl-2fc9d986ad-66
       # - egovio/household:HCMPRE-1254-Comunity-household-8064857b8c-36
