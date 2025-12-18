@@ -75,13 +75,13 @@ modules:
       # - egovio/household:HCMPRE-1254-Comunity-household-8064857b8c-36
       - egovio/household-db:HCMPRE-2656-HCM-Services-Household-62c1be7210-80
       # - egovio/project:HDDF-1638-55ba2879f5-26
-      - egovio/project:HCMPRE-2657-bauchi-impl-hrms-04f70cd958-47
+      - egovio/project:HCMPRE-2657-bauchi-impl-hrms-04f70cd958-85 # project:HCMPRE-2657-bauchi-impl-hrms-04f70cd958-47
       # - egovio/referralmanagement:Downsync-for-CFL-demo-c1749cc0ec-66
       - egovio/referralmanagement:master-impel-ref-395e4fa # referralmanagement:HCMPRE-2657-impel-483496b16f-97
       # - egovio/health-attendance:v1.1.0-55e92c713-51
       - egovio/health-attendance:HCMPRE-2656-HCM-Services-a5ce9731d-57
       # - egovio/service-request:v1.0.1-a0e714254c-18
-      - egovio/service-request:HCMPRE-2736-service-request-1319431e18-3
+      - egovio/service-request:service-request-number-validation-chad-1f38a5cc8f-6 # service-request:HCMPRE-2736-service-request-1319431e18-3
       - egovio/hcm-moz-impl:develop-mc-nigeria-75bf0c93-438
       - egovio/project-factory:broker-fix-7ad0006329-580
   - name: m_payments
