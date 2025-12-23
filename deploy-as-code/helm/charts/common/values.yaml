@@ -46,6 +46,16 @@ initContainers:
             configMapKeyRef:
               name: egov-config
               key: kd-db-url
+          {{- else if eq .Values.namespace "kebbi-azm" }}
+          valueFrom:
+            configMapKeyRef:
+              name: egov-config
+              key: kb-db-url
+          {{- else if eq .Values.namespace "jigawa" }}
+          valueFrom:
+            configMapKeyRef:
+              name: egov-config
+              key: jg-db-url
           {{- else }}
           valueFrom:
             configMapKeyRef:
@@ -62,6 +72,8 @@ initContainers:
           value: "kd"
           {{- else if eq .Values.namespace "kebbi-azm" }}
           value: "kb"
+          {{- else if eq .Values.namespace "jigawa" }}
+          value: "jg"
           {{- else }}
           value: "public"
           {{- end }}
@@ -163,6 +175,11 @@ extraEnv:
           configMapKeyRef:
             name: egov-config
             key: kb-db-url
+      {{- else if eq .Values.namespace "jigawa" }}
+        valueFrom:
+          configMapKeyRef:
+            name: egov-config
+            key: jg-db-url
       {{- else }}
         valueFrom:
           configMapKeyRef:
@@ -196,6 +213,11 @@ extraEnv:
           configMapKeyRef:
             name: egov-config
             key: kb-db-url
+      {{- else if eq .Values.namespace "jigawa" }}
+        valueFrom:
+          configMapKeyRef:
+            name: egov-config
+            key: jg-db-url
       {{- else }}
         valueFrom:
           configMapKeyRef:

@@ -56,6 +56,8 @@ env: |
     value: "egov-idgen/id/_generate"
   - name: EGOV_IDGEN_INTEGRATION_ENABLED
     value: "true"
+  - name: EGOV_BENEFICIARY_IDGEN_INTEGRATION_ENABLED
+    value: "false"
   - name: IDGEN.INDIVIDUAL.ID.FORMAT
     value: "individual.id"
   - name: SPRING_REDIS_HOST
@@ -169,7 +171,7 @@ env: |
     value: "true" 
   {{- end }}
   - name: EGOV_ENC_STATE_LEVEL_TENANT_IDS
-    value: "ba,kd,kb"
+    value: "ba,kd,kb,jg"
   - name: tenant.state.level.tenant.id.mappings.kd
     value: "kd"
   - name: tenant.state.level.tenant.id.mappings.kb

@@ -48,7 +48,7 @@ cluster-configs:
     cert-issuer: letsencrypt-prod
   configmaps:
     egov-config:
-      namespace: [egov, bauchi, oyo, kogi, nasarawa, abuja, plateau, borno, kebbi, sokoto, ondo, adamawa, kaduna, jigawa, kebbi-azm, chad, gombe, chad-prod]
+      namespace: [egov, bauchi, oyo, kogi, nasarawa, abuja, plateau, borno, kebbi, sokoto, ondo, adamawa, chad, gombe, chad-prod]
       data:
         db-host: "ng-central-prd-db.cpe4q0cycqi7.af-south-1.rds.amazonaws.com" ## Add db-host name eg: egov-demo.database.azure.com
         db-name: "ngcentralprd" ## Add db-name

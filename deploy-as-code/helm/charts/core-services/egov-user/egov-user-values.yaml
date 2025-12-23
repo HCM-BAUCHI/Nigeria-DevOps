@@ -189,7 +189,7 @@ env: |
   - name: EGOV_USER_PWD_PATTERN
     value: ((?=.*\d)(?=.*[a-z])(?=.*[@#$%])(?=\S+$).*$)
   - name: EGOV_ENC_STATE_LEVEL_TENANT_IDS
-    value: "ba,kd,kb"
+    value: "ba,kd,kb,jg"
   - name: tenant.state.level.tenant.id.mappings.kd
     value: "kd"
   - name: tenant.state.level.tenant.id.mappings.kb

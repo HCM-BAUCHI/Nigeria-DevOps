@@ -1,6 +1,57 @@
 global:
   domain: kebbi-azm-central-hcm.digit.org
 
+cluster-configs:
+  namespaces:
+    create: true
+    values: [ kebbi-azm ]
+
+  configmaps:
+    egov-config:
+      namespace: [ kebbi-azm ]
+      data:
+        db-host: "ng-central-prd-db.cpe4q0cycqi7.af-south-1.rds.amazonaws.com" ## Add db-host name eg: egov-demo.database.azure.com
+        db-name: "ngcentralprd" ## Add db-name
+        db-url: "jdbc:postgresql://ng-central-prd-db.cpe4q0cycqi7.af-south-1.rds.amazonaws.com:5432/ngcentralprd"
+        db-read-url: "jdbc:postgresql://ng-central-prd-read-db.cpe4q0cycqi7.af-south-1.rds.amazonaws.com:5432/ngcentralprd"
+        kd-db-url: "jdbc:postgresql://ng-central-prd-db.cpe4q0cycqi7.af-south-1.rds.amazonaws.com:5432/ngcentralprd?currentSchema=kd"
+        jg-db-url: "jdbc:postgresql://ng-central-prd-db.cpe4q0cycqi7.af-south-1.rds.amazonaws.com:5432/ngcentralprd?currentSchema=jg"
+        kb-db-url: "jdbc:postgresql://ng-central-prd-db.cpe4q0cycqi7.af-south-1.rds.amazonaws.com:5432/ngcentralprd?currentSchema=kb"
+        domain: "kebbi-azm-central-hcm.digit.org" ## Add your Domain Name
+        redis-host: "redis.backbone"
+        redis-downsync-host: "ng-central-redis.nolaw2.ng.0001.afs1.cache.amazonaws.com"
+        egov-services-fqdn-name: "https://kebbi-azm-central-hcm.digit.org/" ## Add your Domain Name
+        state-level-tenantid-length: "1"
+        state-schema-index-position-tenantid: "0"
+        is-environment-central-instance: "false"
+        aws-cluster-ip: "https://AD11FA377F3AEE4369833D9626BD7A83.gr7.af-south-1.eks.amazonaws.com"
+        aws-region: "af-south-1"
+        aws-cluster-name: "arn:aws:iam::022499048165:role/ng-central-prd-cluster-20250509110729607700000001"
+        egov-state-level-tenant-id: "kb"
+        state-level-tenant-id: "kb"
+        s3-assets-bucket: "(central-instance-assets)"
+        es-host: "elasticsearch-data.es-cluster-v8"
+        es-indexer-host: "https://elasticsearch-data.es-cluster-v8:9200/"
+        flyway-locations: "filesystem:/flyway/sql,filesystem:/flyway/seed,filesystem:/flyway/qa"
+        kafka-brokers: "b-1.centralmsk.6jj53l.c2.kafka.af-south-1.amazonaws.com:9092,b-2.centralmsk.6jj53l.c2.kafka.af-south-1.amazonaws.com:9092,b-3.centralmsk.6jj53l.c2.kafka.af-south-1.amazonaws.com:9092"
+        kafka-infra-brokers: "release-name-kafka-controller-headless.kafka-cluster:9092"
+        logging-level-jdbc: "DEBUG"
+        mobile-validation-workaround: "true"
+        serializers-timezone-in-ist: "true"
+        server-tomcat-max-connections: "500"
+        server-tomcat-max-threads: "10"
+        sms-enabled: "true"
+        spring-datasource-tomcat-initialSize: "1"
+        spring-datasource-tomcat-max-active: "2"
+        spring-jpa-show-sql: "true"
+        timezone: "UTC"
+        tracer-errors-provideexceptionindetails: "true"
+        egov-env: "PROD"
+        boundary-hierarchy: "ADMIN"
+        egov-internal-microservice-user-uuid: "e1f57dfe-35a0-494a-911d-22cd3f786612"
+        host-map: "{'kb':'https://kebbi-azm-central-hcm.digit.org/'}"
+        db-schema-names: "kb"
+
 egov-enc-service:
   secret-name: "egov-enc-service"
   namespace: "kebbi-azm"
@@ -32,39 +83,6 @@ individual:
   memory_requests: 768Mi
   cpu_limits: 400m
   memory_limits: 1Gi
-
-egov-user:
-  namespace: "kebbi-azm"
-  central-instance-build: true
-  heap: "-Xmx1024m -Xms1024m"
-  initContainers:
-    dbMigration:
-      enabled: false
-  ingress:
-    enabled: false
-    zuul: false
-  hpa:
-    enabled: false
-    minReplicas: 1
-    maxReplicas: 1
-  cpu_requests: 500m
-  memory_requests: 1.5Gi
-  cpu_limits: 600m
-  memory_limits: 2Gi
-  otp-validation: "true"
-  citizen-otp-enabled: "true"
-  employee-otp-enabled: "false"
-  access-token-validity: 22000
-  refresh-token-validity: 20160
-  default-password-expiry: 90
-  mobile-number-validation: "false"
-  roles-state-level: "true"
-  citizen-registration-withlogin: "true"
-  citizen-otp-fixed: "123456"
-  citizen-otp-fixed-enabled: "true"
-  egov-state-level-tenant-id: "mz"
-  decryption-abac-enabled: "false"
-
 
 transformer:
   namespace: "kebbi-azm"
