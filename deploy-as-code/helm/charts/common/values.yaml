@@ -297,6 +297,8 @@ extraEnv:
           configMapKeyRef:
             name: egov-config
             key: state-schema-index-position-tenantid
+      - name: SPRING_DATASOURCE_DRIVER_CLASS_NAME
+        value: org.postgresql.Driver
         
   jaeger: |             
       - name: JAEGER_SERVICE_NAME
