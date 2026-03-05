@@ -23,13 +23,13 @@ resource "tls_private_key" "rsa-4096-bastion" {
 }
 
 resource "aws_key_pair" "bastion_key_pair" {
-  key_name   = "bastion-key-pair"
+  key_name   = "${var.cluster_name}-bastion-key-pair"
   public_key = tls_private_key.rsa-4096-bastion.public_key_openssh
 }
 
 resource "local_file" "bastion_private_key" {
   content  = tls_private_key.rsa-4096-bastion.private_key_pem
-  filename = "${path.module}/bastion-key.pem"
+  filename = "${path.module}/${var.cluster_name}-bastion-key.pem"
   file_permission = "0600"
 }
 

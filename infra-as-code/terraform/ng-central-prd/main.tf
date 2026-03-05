@@ -36,7 +36,7 @@ module "db" {
   instance_class                = "db.m6g.4xlarge"  ## postgres db instance type
   engine_version                = "15.12"   ## postgres version
   storage_type                  = "gp3"
-  storage_gb                    = "1000"     ## postgres disk size
+  storage_gb                    = "1100"     ## postgres disk size
   backup_retention_days         = "7"
   administrator_login           = "${var.db_username}"
   administrator_login_password  = "${var.db_password}"
@@ -458,6 +458,96 @@ resource "kubectl_manifest" "karpenter_node_pool" {
           - "Empty"
           - "Drifted"
   YAML
+  depends_on = [
+    kubectl_manifest.karpenter_node_class
+  ]
+}
+
+resource "kubectl_manifest" "karpenter_arm64_node_class" {
+  count = var.enable_karpenter ? 1 : 0
+  yaml_body = <<-YAML
+    apiVersion: karpenter.k8s.aws/v1
+    kind: EC2NodeClass
+    metadata:
+      name: arm64-node-class
+    spec:
+      amiFamily: AL2023
+      amiSelectorTerms:
+      - id: ami-00803372c8c8abc8b
+      role: ${module.eks_managed_node_group.iam_role_name}
+      subnetSelectorTerms:
+        - tags:
+            karpenter.sh/discovery: ${module.eks.cluster_name}
+      securityGroupSelectorTerms:
+        - tags:
+            karpenter.sh/discovery: ${module.eks.cluster_name}
+      tags:
+        KubernetesCluster: ${var.cluster_name}
+        karpenter.sh/discovery: ${module.eks.cluster_name}
+  YAML
+
+  depends_on = [
+    helm_release.karpenter
+  ]
+}
+
+resource "kubectl_manifest" "karpenter_arm64_node_pool" {
+  count = var.enable_karpenter ? 1 : 0
+  yaml_body = <<-YAML
+    apiVersion: karpenter.sh/v1
+    kind: NodePool
+    metadata:
+      name: arm64-node-pool
+    spec:
+      template:
+        metadata:
+          labels:
+            "kubernetes.io/arch": "arm64"
+            "architecture": "arm64"
+        spec:
+          taints:
+          - key: "arm64-only"
+            value: "true"
+            effect: NoSchedule
+          nodeClassRef:
+            name: arm64-node-class
+            group: karpenter.k8s.aws  # Updated since only a single version will be served
+            kind: EC2NodeClass
+          requirements:
+            - key: "karpenter.k8s.aws/instance-category"
+              operator: In
+              values: ["r"]
+            - key: "karpenter.k8s.aws/instance-family"
+              operator: In
+              values: ["r6g"]
+            - key: "node.kubernetes.io/instance-type"
+              operator: Exists
+              values: ["r6g.xlarge"]
+            - key: "karpenter.k8s.aws/instance-cpu"
+              operator: In
+              values: ["4"]
+            - key: "kubernetes.io/arch"
+              operator: In
+              values: ["arm64"]
+            - key: "karpenter.sh/capacity-type"
+              operator: In
+              values: ["on-demand"]
+            - key: "karpenter.k8s.aws/instance-generation"
+              operator: In
+              values: ["6"]
+            - key: "topology.kubernetes.io/zone"
+              operator: In
+              values: ["af-south-1b"]
+      disruption:
+        consolidationPolicy: WhenEmpty
+        consolidateAfter: 1m
+        budgets:
+        - nodes: "1"
+          reasons: 
+          - "Empty"
+          - "Drifted"
+  YAML
+
   depends_on = [
     kubectl_manifest.karpenter_node_class
   ]
