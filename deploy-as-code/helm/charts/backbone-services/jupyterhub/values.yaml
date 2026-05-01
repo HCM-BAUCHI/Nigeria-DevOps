@@ -339,8 +339,14 @@ proxy:
 # pod, and its spawning of user pods such as jupyter-myusername.
 singleuser:
   podNameTemplate:
-  extraTolerations: []
-  nodeSelector: {}
+  extraTolerations:
+    - key: arm64-only
+      operator: Equal
+      value: "true"
+      effect: NoSchedule
+  nodeSelector:
+    architecture: arm64
+    kubernetes.io/arch: arm64
   extraNodeAffinity:
     required: []
     preferred: []
@@ -396,7 +402,7 @@ singleuser:
     static:
       pvcName:
       subPath: "{username}"
-    capacity: 25Gi
+    capacity: 35Gi
     homeMountPath: /home/jovyan
     dynamic:
       storageClass:
@@ -404,8 +410,8 @@ singleuser:
       volumeNameTemplate: volume-{username}{servername}
       storageAccessModes: [ReadWriteOnce]
   image:
-    name: docker.io/egovio/jhub-singleuser
-    tag: "20240403-debug"
+    name: jupyterhub/singleuser
+    tag: "5.4.3-8"
     pullPolicy:
     pullSecrets: []
   startTimeout: 300

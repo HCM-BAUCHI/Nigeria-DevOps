@@ -26,13 +26,12 @@ variable "availability_zones" {
 
 variable "kubernetes_version" {
   description = "kubernetes version"
-  default = "1.32"
+  default = "1.33"
 }
 
 variable "instance_types" {
   description = "Arry of instance types for SPOT instances"
-  default = ["r6i.xlarge", "r6i.2xlarge"]
-  
+  default = ["r6g.xlarge"]
 }
 
 variable "min_worker_nodes" {
@@ -79,8 +78,8 @@ variable "iam_user_arn" {
 variable "ami_id" {
   description = "Provide the AMI ID that supports your eks version"
   default = {
-    id   = "ami-00b4d3514b06fcfb6"
-    name = "amazon-eks-node-1.32-v20251103"
+    id   = "ami-09c1b8d4561f5973d"
+    name = "amazon-eks-node-al2023-arm64-standard-1.33-v20260318"
   }
 }
 

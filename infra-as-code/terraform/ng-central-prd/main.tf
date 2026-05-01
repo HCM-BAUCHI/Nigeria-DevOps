@@ -117,6 +117,7 @@ module "eks_managed_node_group" {
   kubernetes_version = var.kubernetes_version
   subnet_ids = slice(module.network.private_subnets, 0, length(var.availability_zones))
   vpc_security_group_ids  = [module.eks.node_security_group_id]
+  ami_type = "AL2023_ARM_64_STANDARD" 
   cluster_service_cidr = module.eks.cluster_service_cidr
   use_custom_launch_template = true
   launch_template_name = "${var.cluster_name}-lt"
@@ -147,6 +148,13 @@ module "eks_managed_node_group" {
   }  
   labels = {
     Environment = var.cluster_name
+  }
+  taints = {
+    arm64-only = {
+      key    = "arm64-only"
+      value  = "true"
+      effect = "NO_SCHEDULE"
+    }
   }
   tags = {
     "KubernetesCluster" = var.cluster_name
@@ -473,7 +481,7 @@ resource "kubectl_manifest" "karpenter_arm64_node_class" {
     spec:
       amiFamily: AL2023
       amiSelectorTerms:
-      - id: ami-00803372c8c8abc8b
+      - id: ami-09c1b8d4561f5973d
       role: ${module.eks_managed_node_group.iam_role_name}
       subnetSelectorTerms:
         - tags:
