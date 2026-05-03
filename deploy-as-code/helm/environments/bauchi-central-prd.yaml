@@ -48,7 +48,7 @@ cluster-configs:
     cert-issuer: letsencrypt-prod
   configmaps:
     egov-config:
-      namespace: [egov, bauchi, oyo, kogi, nasarawa, abuja, plateau, borno, kebbi, sokoto, ondo, adamawa, chad, gombe, chad-prod]
+      namespace: [egov, bauchi, oyo, kogi, nasarawa, abuja, plateau, borno, kebbi, sokoto, ondo, adamawa, chad, gombe]
       data:
         db-host: "ng-central-prd-db.cpe4q0cycqi7.af-south-1.rds.amazonaws.com" ## Add db-host name eg: egov-demo.database.azure.com
         db-name: "ngcentralprd" ## Add db-name
@@ -106,7 +106,7 @@ cluster-configs:
         host-map: "{'ba':'https://bauchi-hcm.digit.org/','oy':'https://oyo-hcm.digit.org/','ko':'https://kogi-hcm.digit.org/','na':'https://nasarawa-hcm.digit.org/','ab':'https://fct-abuja-hcm.digit.org/','pl':'https://plateau-hcm.digit.org/','bo':'https://borno-hcm.digit.org/','ke':'https://kebbi-hcm-central.digit.org/','so':'https://sokoto-hcm.digit.org/','od':'https://ondo-hcm.digit.org/','ad':'https://adamawa-hcm.digit.org/','kd':'https://kaduna-central-hcm.digit.org/','jg':'https://jigawa-central-hcm.digit.org/','kb':'https://kebbi-azm-central-hcm.digit.org/','go':'https://gombe-hcm.digit.org/','chad':'https://chad-hcm-prod.digit.org/'}"
         db-schema-names: "ba,oy,ko,na,ab,pl,bo,ke,so,od,ad,kd,jg,kb,ch,go,chad"
     egov-service-host:
-      namespace: [egov, bauchi, oyo, monitoring, kogi, nasarawa, abuja, plateau, borno, kebbi, sokoto, ondo, adamawa, kaduna, jigawa, kebbi-azm, chad, gombe, chad-prod ]
+      namespace: [egov, bauchi, oyo, monitoring, kogi, nasarawa, abuja, plateau, borno, kebbi, sokoto, ondo, adamawa, kaduna, jigawa, kebbi-azm, chad, gombe ]
       data:
         dashboard-analytics: "http://dashboard-analytics.egov:8080/"
         egov-enc-service: "http://egov-enc-service.egov:8080/"
