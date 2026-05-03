@@ -33,10 +33,24 @@ java-args: ""
 persist-yml-path: "file:///work-dir/health-campaign-config/egov-persister/referral-management-persister.yml"
 indexer-yml-path: "file:///work-dir/health-campaign-config/egov-indexer/referral-management-indexer.yml"
 
+kafka-consumer-group-id: health-referral-management
+referralmanagement-sideeffect-kafka-create-topic: save-side-effect-topic
+referralmanagement-sideeffect-kafka-update-topic: update-side-effect-topic
+referralmanagement-sideeffect-kafka-delete-topic: delete-side-effect-topic
+referralmanagement-sideeffect-consumer-bulk-create-topic: save-side-effect-bulk-topic
+referralmanagement-sideeffect-consumer-bulk-update-topic: update-side-effect-bulk-topic
+referralmanagement-sideeffect-consumer-bulk-delete-topic: delete-side-effect-bulk-topic
+referralmanagement-referral-kafka-create-topic: save-referral-topic
+referralmanagement-referral-kafka-update-topic: update-referral-topic
+referralmanagement-referral-kafka-delete-topic: delete-referral-topic
+referralmanagement-referral-consumer-bulk-create-topic: save-referral-bulk-topic
+referralmanagement-referral-consumer-bulk-update-topic: update-referral-bulk-topic
+referralmanagement-referral-consumer-bulk-delete-topic: delete-referral-bulk-topic
+
 # Additional Container Envs
 env: |
   - name: SPRING_KAFKA_CONSUMER_GROUP_ID
-    value: health-referral-management
+    value: {{ index .Values "kafka-consumer-group-id" | quote }}
   - name: SPRING_KAFKA_PRODUCER_KEY_SERIALIZER
     value: org.apache.kafka.common.serialization.StringSerializer
   {{- if index .Values "global" "tracer-errors-provideexceptionindetails" }}
@@ -205,29 +219,29 @@ env: |
     value: "/individual/v1/_search"
   {{- end }}
   - name: REFERRALMANAGEMENT.SIDEEFFECT.KAFKA.CREATE.TOPIC
-    value: "save-side-effect-topic"
+    value: {{ index .Values "referralmanagement-sideeffect-kafka-create-topic" | quote }}
   - name: REFERRALMANAGEMENT.SIDEEFFECT.KAFKA.UPDATE.TOPIC
-    value: "update-side-effect-topic"
+    value: {{ index .Values "referralmanagement-sideeffect-kafka-update-topic" | quote }}
   - name: REFERRALMANAGEMENT.SIDEEFFECT.KAFKA.DELETE.TOPIC
-    value: "delete-side-effect-topic"
+    value: {{ index .Values "referralmanagement-sideeffect-kafka-delete-topic" | quote }}
   - name: REFERRALMANAGEMENT.SIDEEFFECT.CONSUMER.BULK.CREATE.TOPIC
-    value: "save-side-effect-bulk-topic"
+    value: {{ index .Values "referralmanagement-sideeffect-consumer-bulk-create-topic" | quote }}
   - name: REFERRALMANAGEMENT.SIDEEFFECT.CONSUMER.BULK.UPDATE.TOPIC
-    value: "update-side-effect-bulk-topic"
+    value: {{ index .Values "referralmanagement-sideeffect-consumer-bulk-update-topic" | quote }}
   - name: REFERRALMANAGEMENT.SIDEEFFECT.CONSUMER.BULK.DELETE.TOPIC
-    value: "delete-side-effect-bulk-topic"
+    value: {{ index .Values "referralmanagement-sideeffect-consumer-bulk-delete-topic" | quote }}
   - name: REFERRALMANAGEMENT.REFERRAL.KAFKA.CREATE.TOPIC
-    value: "save-referral-topic"
+    value: {{ index .Values "referralmanagement-referral-kafka-create-topic" | quote }}
   - name: REFERRALMANAGEMENT.REFERRAL.KAFKA.UPDATE.TOPIC
-    value: "update-referral-topic"
+    value: {{ index .Values "referralmanagement-referral-kafka-update-topic" | quote }}
   - name: REFERRALMANAGEMENT.REFERRAL.KAFKA.DELETE.TOPIC
-    value: "delete-referral-topic"
+    value: {{ index .Values "referralmanagement-referral-kafka-delete-topic" | quote }}
   - name: REFERRALMANAGEMENT.REFERRAL.CONSUMER.BULK.CREATE.TOPIC
-    value: "save-referral-bulk-topic"
+    value: {{ index .Values "referralmanagement-referral-consumer-bulk-create-topic" | quote }}
   - name: REFERRALMANAGEMENT.REFERRAL.CONSUMER.BULK.UPDATE.TOPIC
-    value: "update-referral-bulk-topic"
+    value: {{ index .Values "referralmanagement-referral-consumer-bulk-update-topic" | quote }}
   - name: REFERRALMANAGEMENT.REFERRAL.CONSUMER.BULK.DELETE.TOPIC
-    value: "delete-referral-bulk-topic"
+    value: {{ index .Values "referralmanagement-referral-consumer-bulk-delete-topic" | quote }}
   - name: SEARCH_API_LIMIT
     value: "1000"
   - name: REFERRALMANAGEMENT.DOCUMENT.ID.VERIFICATION.REQUIRED

@@ -41,29 +41,32 @@ initContainers:
       tag: latest
     env: |
         - name: "DB_URL"
-          {{- if eq .Values.namespace "kaduna" }}
           valueFrom:
             configMapKeyRef:
               name: egov-config
+          {{- if index .Values "central-instance-build" }}
+              key: db-url
+          {{- else if eq .Values.namespace "kaduna" }}
               key: kd-db-url
           {{- else if eq .Values.namespace "kebbi-azm" }}
-          valueFrom:
-            configMapKeyRef:
-              name: egov-config
               key: kb-db-url
           {{- else if eq .Values.namespace "jigawa" }}
-          valueFrom:
-            configMapKeyRef:
-              name: egov-config
               key: jg-db-url
+          {{- else if eq .Values.namespace "chad-prod" }}
+              key: chad-db-url
           {{- else }}
-          valueFrom:
-            configMapKeyRef:
-              name: egov-config
               key: db-url
           {{- end }}
         - name: "SCHEMA_NAME"
-          {{- if index .Values "central-instance-build" }}
+          {{- if and .Values.schemaNameExclude .Values.global.schema }}
+          {{- $all := .Values.global.schema }}
+          {{- $exclude := .Values.schemaNameExclude }}
+          {{- $filtered := $all }}
+          {{- range $exclude }}
+            {{- $filtered = without $filtered . }}
+          {{- end }}
+          value: "{{ join "," $filtered }}"
+          {{- else if and (index .Values "central-instance-build" | default false) (index .Values "central-instance-enabled" | default false) }}
           valueFrom:
             configMapKeyRef:
               name: egov-config
@@ -74,6 +77,8 @@ initContainers:
           value: "kb"
           {{- else if eq .Values.namespace "jigawa" }}
           value: "jg"
+          {{- else if eq .Values.namespace "chad-prod" }}
+          value: "chad"
           {{- else }}
           value: "public"
           {{- end }}
@@ -160,32 +165,22 @@ resources: |
 extraEnv:
   java: |
       - name: SPRING_DATASOURCE_URL
-      {{- if eq .Values.namespace "health" }}
         valueFrom:
           configMapKeyRef:
             name: egov-config
+            {{- if eq .Values.namespace "health" }}
             key: health-db-url
-      {{- else if eq .Values.namespace "kaduna" }}
-        valueFrom:
-          configMapKeyRef:
-            name: egov-config
+            {{- else if eq .Values.namespace "kaduna" }}
             key: kd-db-url
-      {{- else if eq .Values.namespace "kebbi-azm" }}
-        valueFrom:
-          configMapKeyRef:
-            name: egov-config
+            {{- else if eq .Values.namespace "kebbi-azm" }}
             key: kb-db-url
-      {{- else if eq .Values.namespace "jigawa" }}
-        valueFrom:
-          configMapKeyRef:
-            name: egov-config
+            {{- else if eq .Values.namespace "jigawa" }}
             key: jg-db-url
-      {{- else }}
-        valueFrom:
-          configMapKeyRef:
-            name: egov-config
+            {{- else if eq .Values.namespace "chad-prod"}}
+            key: chad-db-url
+            {{- else }}
             key: db-url
-      {{- end }}
+            {{- end }}
       - name: FLYWAY_ENABLED
         value: "false"      
       - name: SPRING_FLYWAY_ENABLED
@@ -198,32 +193,22 @@ extraEnv:
             name: egov-config
             key: timezone              
       - name: FLYWAY_URL
-      {{- if eq .Values.namespace "health" }}
         valueFrom:
           configMapKeyRef:
             name: egov-config
+            {{- if eq .Values.namespace "health" }}
             key: health-db-url
-      {{- else if eq .Values.namespace "kaduna" }}
-        valueFrom:
-          configMapKeyRef:
-            name: egov-config
+            {{- else if eq .Values.namespace "kaduna" }}
             key: kd-db-url
-      {{- else if eq .Values.namespace "kebbi-azm" }}
-        valueFrom:
-          configMapKeyRef:
-            name: egov-config
+            {{- else if eq .Values.namespace "kebbi-azm" }}
             key: kb-db-url
-      {{- else if eq .Values.namespace "jigawa" }}
-        valueFrom:
-          configMapKeyRef:
-            name: egov-config
+            {{- else if eq .Values.namespace "jigawa" }}
             key: jg-db-url
-      {{- else }}
-        valueFrom:
-          configMapKeyRef:
-            name: egov-config
+            {{- else if eq .Values.namespace "chad-prod" }}
+            key: chad-db-url
+            {{- else }}
             key: db-url
-      {{- end }}
+            {{- end }}
       - name: SPRING_DATASOURCE_USERNAME
         valueFrom:
           secretKeyRef:
@@ -291,7 +276,11 @@ extraEnv:
             name: egov-config
             key: spring-jpa-show-sql     
       - name: IS_ENVIRONMENT_CENTRAL_INSTANCE
+      {{- if and (index .Values "central-instance-build" | default false) (index .Values "central-instance-enabled" | default false) }}
         value: "true"
+      {{- else }}
+        value: "false"
+      {{- end }}
       - name: STATE_SCHEMA_INDEX_POSITION_TENANTID
         valueFrom:
           configMapKeyRef:

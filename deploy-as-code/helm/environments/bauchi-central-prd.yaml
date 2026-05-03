@@ -627,9 +627,12 @@ egov-hrms:
   cpu_limits: 300m
   memory_limits: 1.5Gi
   central-instance-build: true
+  central-instance-enabled: true
   java-args: -Dspring.profiles.active=monitoring
   employee-applink: "https://bauchi-hcm.digit.org/digit-ui/employee/login"
   java-enable-debug: true
+  schemaNameExclude: [ "chad" ]
+  hostExclude: ["chad-hcm-prod.digit.org"]
 
 #egov-otp:
 #  heap: "-Xmx512m -Xms512m"
@@ -812,6 +815,7 @@ grafana:
 
 facility:
   central-instance-build: true
+  central-instance-enabled: true
   heap: "-Xmx512m -Xms256m"
   hpa:
     enabled: true
@@ -821,9 +825,12 @@ facility:
   memory_requests: 512Mi
   cpu_limits: 300m
   memory_limits: 768Mi
+  schemaNameExclude: [ "chad" ]
+  hostExclude: ["chad-hcm-prod.digit.org"]
 
 product:
   central-instance-build: true
+  central-instance-enabled: true
   heap: "-Xmx512m -Xms256m"
   hpa:
     enabled: true
@@ -833,6 +840,8 @@ product:
   memory_requests: 512Mi
   cpu_limits: 300m
   memory_limits: 768Mi
+  schemaNameExclude: [ "chad" ]
+  hostExclude: ["chad-hcm-prod.digit.org"]
 
 egov-localization:
   namespace: "egov"
@@ -850,6 +859,7 @@ egov-localization:
 
 individual:
   central-instance-build: true
+  central-instance-enabled: true
   heap: "-Xmx1g -Xms512m"
   hpa:
     enabled: true
@@ -859,9 +869,12 @@ individual:
   memory_requests: 1Gi
   cpu_limits: 400m
   memory_limits: 1.5Gi
+  schemaNameExclude: [ "chad" ]
+  hostExclude: ["chad-hcm-prod.digit.org"]
 
 individual-referral:
   central-instance-build: true
+  central-instance-enabled: true
   initContainers:
     dbMigration:
       enabled: false
@@ -874,9 +887,13 @@ individual-referral:
   memory_requests: 1.5Gi
   cpu_limits: 400m
   memory_limits: 2Gi
+  schemaNameExclude: [ "chad" ]
+  hostExclude: ["chad-hcm-prod.digit.org"]
+
 
 stock:
   central-instance-build: true
+  central-instance-enabled: true
   heap: "-Xmx512m -Xms256m"
   hpa:
     enabled: true
@@ -885,10 +902,13 @@ stock:
   cpu_requests: 200m
   memory_requests: 512Mi
   cpu_limits: 300m
-  memory_limits: 768Gi
+  memory_limits: 768Mi
+  schemaNameExclude: [ "chad" ]
+  hostExclude: ["chad-hcm-prod.digit.org"]
 
 household:
   central-instance-build: true
+  central-instance-enabled: true
   heap: "-Xmx1024m -Xms512m"
   hpa:
     enabled: true
@@ -898,9 +918,12 @@ household:
   memory_requests: 1Gi
   cpu_limits: 400m
   memory_limits: 1.5Gi
+  schemaNameExclude: [ "chad" ]
+  hostExclude: ["chad-hcm-prod.digit.org"]
 
 household-referral:
   central-instance-build: true
+  central-instance-enabled: true
   initContainers:
     dbMigration:
       enabled: false
@@ -913,9 +936,12 @@ household-referral:
   memory_requests: 1.5Gi
   cpu_limits: 400m
   memory_limits: 2Gi
+  schemaNameExclude: [ "chad" ]
+  hostExclude: ["chad-hcm-prod.digit.org"]
 
 project:
   central-instance-build: true
+  central-instance-enabled: true
   heap: "-Xmx1g -Xms512m"
   hpa:
     enabled: true
@@ -925,9 +951,12 @@ project:
   memory_requests: 1Gi
   cpu_limits: 400m
   memory_limits: 1.5Gi
+  schemaNameExclude: [ "chad" ]
+  hostExclude: ["chad-hcm-prod.digit.org"]
 
 project-referral:
   central-instance-build: true
+  central-instance-enabled: true
   initContainers:
     dbMigration:
       enabled: false
@@ -941,10 +970,13 @@ project-referral:
   memory_requests: 1.5Gi
   cpu_limits: 300m
   memory_limits: 2Gi
+  schemaNameExclude: [ "chad" ]
+  hostExclude: ["chad-hcm-prod.digit.org"]
 
 referralmanagement:
   downsync-services-enabled: true
   central-instance-build: true
+  central-instance-enabled: true
   replicas: 7
   heap: "-Xmx1536m -Xms768m"
   hpa:
@@ -955,6 +987,8 @@ referralmanagement:
   memory_requests: 1.5Gi
   cpu_limits: 400m
   memory_limits: 2Gi
+  schemaNameExclude: [ "chad" ]
+  hostExclude: ["chad-hcm-prod.digit.org"]
 
 service-request:
   central-instance-build: true

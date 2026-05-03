@@ -17,10 +17,17 @@ metadata:
   labels:
 {{ include "common.labels" . | nindent 4 }}
 spec:
+  ingressClassName: nginx
   rules:
   {{- if .Values.ingress.zuul }}
     {{- if .Values.global.hosts }}
-      {{- range .Values.global.hosts }}
+      {{- $hosts := .Values.global.hosts }}
+      {{- $exclude := .Values.hostExclude | default (list) }}
+      {{- $filtered := $hosts }}
+      {{- range $exclude }}
+        {{- $filtered = without $filtered . }}
+      {{- end }}
+      {{- range $filtered }}
   - host: {{ . }}
     http:
       paths:
@@ -28,9 +35,9 @@ spec:
         pathType: ImplementationSpecific
         backend:
           service:
-            name: gateway
+            name: {{ $.Values.ingress.gatewayService | default "gateway" }}
             port:
-              number: 8080
+              number: {{ $.Values.ingress.gatewayServicePort | default 8080 }}
       {{- end }}
     {{- else }}
   - host: {{ .Values.global.domain | default "example.com" }}
@@ -40,9 +47,9 @@ spec:
         pathType: ImplementationSpecific
         backend:
           service:
-            name: gateway
+            name: {{ .Values.ingress.gatewayService | default "gateway" }}
             port:
-              number: 8080
+              number: {{ .Values.ingress.gatewayServicePort | default 8080 }}
     {{- end }}
   {{- else }}
   - host: {{ .Values.global.domain }}
@@ -59,7 +66,13 @@ spec:
   tls:
   {{- if .Values.ingress.zuul }}
     {{- if .Values.global.hosts }}
-      {{- range .Values.global.hosts }}
+      {{- $hosts := .Values.global.hosts }}
+      {{- $exclude := .Values.hostExclude | default (list) }}
+      {{- $filtered := $hosts }}
+      {{- range $exclude }}
+        {{- $filtered = without $filtered . }}
+      {{- end }}
+      {{- range $filtered }}
   - hosts:
     - {{ . }}
     secretName: {{ . }}-tls-certs

@@ -32,10 +32,24 @@ java-args: ""
 persist-yml-path: "file:///work-dir/health-campaign-config/egov-persister/stock-persister.yml"
 indexer-yml-path: "file:///work-dir/health-campaign-config/egov-indexer/stock-indexer.yml"
 
+kafka-consumer-group-id: health-stock
+stock-kafka-create-topic: save-stock-topic
+stock-kafka-update-topic: update-stock-topic
+stock-kafka-delete-topic: delete-stock-topic
+stock-consumer-bulk-delete-topic: delete-stock-bulk-topic
+stock-consumer-bulk-create-topic: create-stock-bulk-topic
+stock-consumer-bulk-update-topic: update-stock-bulk-topic
+stock-reconciliation-kafka-create-topic: save-stock-reconciliation-topic
+stock-reconciliation-kafka-update-topic: update-stock-reconciliation-topic
+stock-reconciliation-kafka-delete-topic: delete-stock-reconciliation-topic
+stock-reconciliation-consumer-bulk-delete-topic: delete-stock-reconciliation-bulk-topic
+stock-reconciliation-consumer-bulk-create-topic: create-stock-reconciliation-bulk-topic
+stock-reconciliation-consumer-bulk-update-topic: update-stock-reconciliation-bulk-topic
+
 # Additional Container Envs
 env: |
   - name: SPRING_KAFKA_CONSUMER_GROUP_ID
-    value: health-stock
+    value: {{ index .Values "kafka-consumer-group-id" | quote }}
   - name: SPRING_KAFKA_PRODUCER_KEY_SERIALIZER
     value: org.apache.kafka.common.serialization.StringSerializer
   {{- if index .Values "global" "tracer-errors-provideexceptionindetails" }}
@@ -107,31 +121,31 @@ env: |
   - name: EGOV_SEARCH_PRODUCT_VARIANT_URL
     value: "/product/variant/v1/_search"
   - name: STOCK.KAFKA.CREATE.TOPIC
-    value: "save-stock-topic"
+    value: {{ index .Values "stock-kafka-create-topic" | quote }}
   - name: STOCK.KAFKA.UPDATE.TOPIC
-    value: "update-stock-topic"
+    value: {{ index .Values "stock-kafka-update-topic" | quote }}
   - name: STOCK.KAFKA.DELETE.TOPIC
-    value: "delete-stock-topic"
+    value: {{ index .Values "stock-kafka-delete-topic" | quote }}
   - name: STOCK.CONSUMER.BULK.DELETE.TOPIC
-    value: "delete-stock-bulk-topic"
+    value: {{ index .Values "stock-consumer-bulk-delete-topic" | quote }}
   - name: STOCK.CONSUMER.BULK.CREATE.TOPIC
-    value: "create-stock-bulk-topic"
+    value: {{ index .Values "stock-consumer-bulk-create-topic" | quote }}
   - name: STOCK.CONSUMER.BULK.UPDATE.TOPIC
-    value: "update-stock-bulk-topic"
+    value: {{ index .Values "stock-consumer-bulk-update-topic" | quote }}
   - name: SEARCH_API_LIMIT
     value: "1000"
   - name: STOCK.RECONCILIATION.KAFKA.CREATE.TOPIC
-    value: "save-stock-reconciliation-topic"
+    value: {{ index .Values "stock-reconciliation-kafka-create-topic" | quote }}
   - name: STOCK.RECONCILIATION.KAFKA.UPDATE.TOPIC
-    value: "update-stock-reconciliation-topic"
+    value: {{ index .Values "stock-reconciliation-kafka-update-topic" | quote }}
   - name: STOCK.RECONCILIATION.KAFKA.DELETE.TOPIC
-    value: "delete-stock-reconciliation-topic"
+    value: {{ index .Values "stock-reconciliation-kafka-delete-topic" | quote }}
   - name: STOCK.RECONCILIATION.CONSUMER.BULK.DELETE.TOPIC
-    value: "delete-stock-reconciliation-bulk-topic"
+    value: {{ index .Values "stock-reconciliation-consumer-bulk-delete-topic" | quote }}
   - name: STOCK.RECONCILIATION.CONSUMER.BULK.CREATE.TOPIC
-    value: "create-stock-reconciliation-bulk-topic"
+    value: {{ index .Values "stock-reconciliation-consumer-bulk-create-topic" | quote }}
   - name: STOCK.RECONCILIATION.CONSUMER.BULK.UPDATE.TOPIC
-    value: "update-stock-reconciliation-bulk-topic"
+    value: {{ index .Values "stock-reconciliation-consumer-bulk-update-topic" | quote }}
   - name: EGOV_FACILITY_HOST
     valueFrom:
       configMapKeyRef:
