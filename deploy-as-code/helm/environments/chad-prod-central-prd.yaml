@@ -234,7 +234,7 @@ individual:
 
 individual-referral:
   central-instance-build: true
-  central-instance-enabled: true
+  central-instance-enabled: false
   initContainers:
     dbMigration:
       enabled: false
