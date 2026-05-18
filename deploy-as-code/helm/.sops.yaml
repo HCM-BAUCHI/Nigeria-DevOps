@@ -1,3 +1,7 @@
 creation_rules:
   - path: environments/bauchi-central-prd-secrets.yaml
     kms: 'arn:aws:kms:af-south-1:022499048165:key/e88e5bd9-8616-40c1-9863-674dc9132cd2'
+  - path: environments/chad-prod-central-prd-secrets.yaml
+    kms: 'arn:aws:kms:af-south-1:022499048165:key/e88e5bd9-8616-40c1-9863-674dc9132cd2'
+  - path: environments/kebbi-azm-central-prd-secrets.yaml
+    kms: 'arn:aws:kms:af-south-1:022499048165:key/e88e5bd9-8616-40c1-9863-674dc9132cd2'

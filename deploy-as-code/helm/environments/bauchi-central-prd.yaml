@@ -106,7 +106,7 @@ cluster-configs:
         host-map: "{'ba':'https://bauchi-hcm.digit.org/','oy':'https://oyo-hcm.digit.org/','ko':'https://kogi-hcm.digit.org/','na':'https://nasarawa-hcm.digit.org/','ab':'https://fct-abuja-hcm.digit.org/','pl':'https://plateau-hcm.digit.org/','bo':'https://borno-hcm.digit.org/','ke':'https://kebbi-hcm-central.digit.org/','so':'https://sokoto-hcm.digit.org/','od':'https://ondo-hcm.digit.org/','ad':'https://adamawa-hcm.digit.org/','kd':'https://kaduna-central-hcm.digit.org/','jg':'https://jigawa-central-hcm.digit.org/','kb':'https://kebbi-azm-central-hcm.digit.org/','go':'https://gombe-hcm.digit.org/','chad':'https://chad-hcm-prod.digit.org/'}"
         db-schema-names: "ba,oy,ko,na,ab,pl,bo,ke,so,od,ad,kd,jg,kb,ch,go,chad"
     egov-service-host:
-      namespace: [egov, bauchi, oyo, monitoring, kogi, nasarawa, abuja, plateau, borno, kebbi, sokoto, ondo, adamawa, kaduna, jigawa, kebbi-azm, chad, gombe ]
+      namespace: [egov, bauchi, oyo, monitoring, kogi, nasarawa, abuja, plateau, borno, kebbi, sokoto, ondo, adamawa, kaduna, jigawa, chad, gombe ]
       data:
         dashboard-analytics: "http://dashboard-analytics.egov:8080/"
         egov-enc-service: "http://egov-enc-service.egov:8080/"
@@ -502,7 +502,7 @@ gateway:
 gateway-2:
   replicas: 1
   hpa:
-    enabled: false
+    enabled: true
     minReplicas: 2
     maxReplicas: 5
   custom-filter-property: "false"
@@ -631,8 +631,8 @@ egov-hrms:
   java-args: -Dspring.profiles.active=monitoring
   employee-applink: "https://bauchi-hcm.digit.org/digit-ui/employee/login"
   java-enable-debug: true
-  schemaNameExclude: [ "chad" ]
-  hostExclude: ["chad-hcm-prod.digit.org"]
+  schemaNameExclude: [ "chad", "kb" ]
+  hostExclude: ["chad-hcm-prod.digit.org", "kebbi-azm-central-hcm.digit.org"]
 
 #egov-otp:
 #  heap: "-Xmx512m -Xms512m"
@@ -825,8 +825,8 @@ facility:
   memory_requests: 512Mi
   cpu_limits: 300m
   memory_limits: 768Mi
-  schemaNameExclude: [ "chad" ]
-  hostExclude: ["chad-hcm-prod.digit.org"]
+  schemaNameExclude: [ "chad", "kb" ]
+  hostExclude: ["chad-hcm-prod.digit.org", "kebbi-azm-central-hcm.digit.org"]
 
 product:
   central-instance-build: true
@@ -840,8 +840,8 @@ product:
   memory_requests: 512Mi
   cpu_limits: 300m
   memory_limits: 768Mi
-  schemaNameExclude: [ "chad" ]
-  hostExclude: ["chad-hcm-prod.digit.org"]
+  schemaNameExclude: [ "chad", "kb" ]
+  hostExclude: ["chad-hcm-prod.digit.org", "kebbi-azm-central-hcm.digit.org"]
 
 egov-localization:
   namespace: "egov"
@@ -869,8 +869,8 @@ individual:
   memory_requests: 1Gi
   cpu_limits: 400m
   memory_limits: 1.5Gi
-  schemaNameExclude: [ "chad" ]
-  hostExclude: ["chad-hcm-prod.digit.org"]
+  schemaNameExclude: [ "chad", "kb" ]
+  hostExclude: ["chad-hcm-prod.digit.org", "kebbi-azm-central-hcm.digit.org"]
 
 individual-referral:
   central-instance-build: true
@@ -887,8 +887,8 @@ individual-referral:
   memory_requests: 1.5Gi
   cpu_limits: 400m
   memory_limits: 2Gi
-  schemaNameExclude: [ "chad" ]
-  hostExclude: ["chad-hcm-prod.digit.org"]
+  schemaNameExclude: [ "chad", "kb" ]
+  hostExclude: ["chad-hcm-prod.digit.org", "kebbi-azm-central-hcm.digit.org"]
 
 
 stock:
@@ -903,8 +903,8 @@ stock:
   memory_requests: 512Mi
   cpu_limits: 300m
   memory_limits: 768Mi
-  schemaNameExclude: [ "chad" ]
-  hostExclude: ["chad-hcm-prod.digit.org"]
+  schemaNameExclude: [ "chad", "kb" ]
+  hostExclude: ["chad-hcm-prod.digit.org", "kebbi-azm-central-hcm.digit.org"]
 
 household:
   central-instance-build: true
@@ -918,8 +918,8 @@ household:
   memory_requests: 1Gi
   cpu_limits: 400m
   memory_limits: 1.5Gi
-  schemaNameExclude: [ "chad" ]
-  hostExclude: ["chad-hcm-prod.digit.org"]
+  schemaNameExclude: [ "chad", "kb" ]
+  hostExclude: ["chad-hcm-prod.digit.org", "kebbi-azm-central-hcm.digit.org"]
 
 household-referral:
   central-instance-build: true
@@ -936,8 +936,8 @@ household-referral:
   memory_requests: 1.5Gi
   cpu_limits: 400m
   memory_limits: 2Gi
-  schemaNameExclude: [ "chad" ]
-  hostExclude: ["chad-hcm-prod.digit.org"]
+  schemaNameExclude: [ "chad", "kb" ]
+  hostExclude: ["chad-hcm-prod.digit.org", "kebbi-azm-central-hcm.digit.org"]
 
 project:
   central-instance-build: true
@@ -951,8 +951,8 @@ project:
   memory_requests: 1Gi
   cpu_limits: 400m
   memory_limits: 1.5Gi
-  schemaNameExclude: [ "chad" ]
-  hostExclude: ["chad-hcm-prod.digit.org"]
+  schemaNameExclude: [ "chad", "kb" ]
+  hostExclude: ["chad-hcm-prod.digit.org", "kebbi-azm-central-hcm.digit.org"]
 
 project-referral:
   central-instance-build: true
@@ -970,8 +970,8 @@ project-referral:
   memory_requests: 1.5Gi
   cpu_limits: 300m
   memory_limits: 2Gi
-  schemaNameExclude: [ "chad" ]
-  hostExclude: ["chad-hcm-prod.digit.org"]
+  schemaNameExclude: [ "chad", "kb" ]
+  hostExclude: ["chad-hcm-prod.digit.org", "kebbi-azm-central-hcm.digit.org"]
 
 referralmanagement:
   downsync-services-enabled: true
@@ -987,8 +987,8 @@ referralmanagement:
   memory_requests: 1.5Gi
   cpu_limits: 400m
   memory_limits: 2Gi
-  schemaNameExclude: [ "chad" ]
-  hostExclude: ["chad-hcm-prod.digit.org"]
+  schemaNameExclude: [ "chad", "kb" ]
+  hostExclude: ["chad-hcm-prod.digit.org", "kebbi-azm-central-hcm.digit.org"]
 
 service-request:
   central-instance-build: true
