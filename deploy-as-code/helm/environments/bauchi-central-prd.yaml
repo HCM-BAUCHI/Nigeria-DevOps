@@ -907,6 +907,14 @@ stock:
   hostExclude: ["chad-hcm-prod.digit.org", "kebbi-azm-central-hcm.digit.org"]
 
 household:
+  initContainers:
+    dbMigration:
+      image:
+        repository: egovio/household-db
+        tag: HCMPRE-2656-HCM-Services-Household-5717dde
+  image:
+    repository: egovio/household
+    tag: HCMPRE-2656-HCM-Services-Household-5717dde
   central-instance-build: true
   central-instance-enabled: true
   heap: "-Xmx1024m -Xms512m"
