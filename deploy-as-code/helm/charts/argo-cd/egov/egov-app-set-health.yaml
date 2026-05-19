@@ -7,7 +7,18 @@ spec:
   generators:
     - list:
         elements:
+          - name: facility
           - name: household
+          - name: household-referral
+          - name: individual
+          - name: individual-referral
+          - name: product
+          - name: project
+          - name: project-referral
+          - name: referralmanagement
+          - name: stock
+          - name: egov-hrms
+          - name: service-request
 
   template:
     metadata:

@@ -617,6 +617,13 @@ egov-workflow-v2:
   pdf-link: "/download/epass?tenantId={TENANTID}&ids={UUID}"
 
 egov-hrms:
+  dbMigration:
+    image:
+      repository: egovio/egov-hrms-db
+      tag: HDDF-2588-impl-multiarch-267d144
+  image:
+    repository: egovio/egov-hrms
+    tag: HDDF-2588-impl-multiarch-267d144
   heap: "-Xmx1024m -Xms512m"
   hpa:
     enabled: true
@@ -814,6 +821,14 @@ grafana:
   dashboardsFolder: /work-dir/health-campaign-config/monitoring-dashboards    
 
 facility:
+  initContainers:
+    dbMigration:
+      image:
+        repository: egovio/facility-db
+        tag: HCMPRE-2657-bauchi-impl-chad-0847266
+  image:
+    repository: egovio/facility
+    tag: HCMPRE-2657-bauchi-impl-chad-0847266
   central-instance-build: true
   central-instance-enabled: true
   heap: "-Xmx512m -Xms256m"
@@ -829,6 +844,14 @@ facility:
   hostExclude: ["chad-hcm-prod.digit.org", "kebbi-azm-central-hcm.digit.org"]
 
 product:
+  initContainers:
+    dbMigration:
+      image:
+        repository: egovio/product-db
+        tag: master-eb25d83
+  image:
+    repository: egovio/product
+    tag: master-eb25d83
   central-instance-build: true
   central-instance-enabled: true
   heap: "-Xmx512m -Xms256m"
@@ -858,6 +881,13 @@ egov-localization:
   memory_limits: 3Gi
 
 individual:
+  dbMigration:
+    image:
+      repository: egovio/individual-db
+      tag: individual-enc-changes-6e28d8c
+  image:
+    repository: egovio/individual
+    tag: individual-enc-changes-6e28d8c
   central-instance-build: true
   central-instance-enabled: true
   heap: "-Xmx1g -Xms512m"
@@ -873,6 +903,9 @@ individual:
   hostExclude: ["chad-hcm-prod.digit.org", "kebbi-azm-central-hcm.digit.org"]
 
 individual-referral:
+  image:
+    repository: egovio/individual
+    tag: individual-enc-changes-6e28d8c
   central-instance-build: true
   central-instance-enabled: true
   initContainers:
@@ -892,6 +925,14 @@ individual-referral:
 
 
 stock:
+  initContainers:
+    dbMigration:
+      image:
+        repository: egovio/stock-db
+        tag: HCMPRE-2656-HCM-Services-bauchi-impl-61a2c46
+  image:
+    repository: egovio/stock
+    tag: HCMPRE-2656-HCM-Services-bauchi-impl-61a2c46
   central-instance-build: true
   central-instance-enabled: true
   heap: "-Xmx512m -Xms256m"
@@ -930,6 +971,9 @@ household:
   hostExclude: ["chad-hcm-prod.digit.org", "kebbi-azm-central-hcm.digit.org"]
 
 household-referral:
+  image:
+    repository: egovio/household
+    tag: HCMPRE-2656-HCM-Services-Household-5717dde
   central-instance-build: true
   central-instance-enabled: true
   initContainers:
@@ -948,6 +992,14 @@ household-referral:
   hostExclude: ["chad-hcm-prod.digit.org", "kebbi-azm-central-hcm.digit.org"]
 
 project:
+  initContainers:
+    dbMigration:
+      image:
+        repository: egovio/project-db
+        tag: HCMPRE-2657-bauchi-impl-hrms-1955365
+  image:
+    repository: egovio/project
+    tag: HCMPRE-2657-bauchi-impl-hrms-1955365
   central-instance-build: true
   central-instance-enabled: true
   heap: "-Xmx1g -Xms512m"
@@ -963,6 +1015,9 @@ project:
   hostExclude: ["chad-hcm-prod.digit.org", "kebbi-azm-central-hcm.digit.org"]
 
 project-referral:
+  image:
+    repository: egovio/project
+    tag: HCMPRE-2657-bauchi-impl-hrms-1955365
   central-instance-build: true
   central-instance-enabled: true
   initContainers:
@@ -982,6 +1037,14 @@ project-referral:
   hostExclude: ["chad-hcm-prod.digit.org", "kebbi-azm-central-hcm.digit.org"]
 
 referralmanagement:
+  initContainers:
+    dbMigration:
+      image:
+        repository: egovio/referralmanagement-db
+        tag: master-impel-ref-b3af0c3
+  image:
+    repository: egovio/referralmanagement
+    tag: master-impel-ref-b3af0c3
   downsync-services-enabled: true
   central-instance-build: true
   central-instance-enabled: true
@@ -999,6 +1062,14 @@ referralmanagement:
   hostExclude: ["chad-hcm-prod.digit.org", "kebbi-azm-central-hcm.digit.org"]
 
 service-request:
+  initContainers:
+    dbMigration:
+      image:
+        repository: egovio/service-request-db
+        tag: service-request-number-validation-chad-a65311a
+  image:
+    repository: egovio/service-request
+    tag: service-request-number-validation-chad-a65311a
   central-instance-build: true
   central-instance-enabled: true
   heap: "-Xmx512m -Xms256m"
