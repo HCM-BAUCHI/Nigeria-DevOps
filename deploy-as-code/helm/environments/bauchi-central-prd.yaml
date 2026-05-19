@@ -155,6 +155,8 @@ cluster-configs:
       data:
         dhis2-host: "https://ccu.misau.gov.mz/ccu"
 
+disableAnnotationTimestamp: true
+
 egov-filestore:
   volume: /opt/eGov/filestore
   is-bucket-fixed: "true"
