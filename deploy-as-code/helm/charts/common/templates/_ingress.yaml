@@ -4,7 +4,7 @@
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: {{ template "common.name" . }}
+  name: {{ default (include "common.name" .) .Values.ingress.name }}
   namespace: {{ .Values.ingress.namespace | default .Values.namespace }}
   annotations:
 {{ toYaml .Values.ingress.annotations | nindent 4 }}

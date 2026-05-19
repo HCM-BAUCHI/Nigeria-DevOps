@@ -1000,6 +1000,7 @@ referralmanagement:
 
 service-request:
   central-instance-build: true
+  central-instance-enabled: true
   heap: "-Xmx512m -Xms256m"
   hpa:
     enabled: true
@@ -1009,6 +1010,8 @@ service-request:
   memory_requests: 512Mi
   cpu_limits: 300m
   memory_limits: 768Gi
+  schemaNameExclude: [ "chad", "kb" ]
+  hostExclude: ["chad-hcm-prod.digit.org", "kebbi-azm-central-hcm.digit.org"]
   
 project-factory:
   global:

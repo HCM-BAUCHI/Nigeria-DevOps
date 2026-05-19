@@ -91,7 +91,7 @@ cluster-configs:
         individual-referral: "http://individual-referral.kebbi-azm:8080/"
         stock: "http://stock.kebbi-azm:8080/"
         facility: "http://facility.kebbi-azm:8080/"
-        service-request: "http://service-request.egov:8080/"
+        service-request: "http://service-request.kebbi-azm:8080/"
         attendance-service: "http://health-attendance.egov:8080/"
         audit-service: "http://audit-service.egov:8080/"
         project-factory: 'http://project-factory.egov:8080/'
@@ -472,6 +472,31 @@ egov-hrms:
   kafka-consumer-group-id: kb-employee-group1
   kafka-topics-save-service: kb-save-hrms-employee
   kafka-topics-update-service: kb-update-hrms-employee
+  kafka-topics-hrms-update-data: kb-egov-hrms-update
+  kafka-topics-hrms-email-notification: kb-hrms-send-email-notification
+
+
+service-request:
+  central-instance-build: true
+  central-instance-enabled: false
+  heap: "-Xmx512m -Xms256m"
+  hpa:
+    enabled: true
+    minReplicas: 1
+    maxReplicas: 3
+  ingress:
+    name: kebbi-azm-service-request
+    namespace: egov
+    gatewayService: gateway-2
+  namespace: "kebbi-azm"
+  cpu_requests: 200m
+  memory_requests: 512Mi
+  cpu_limits: 300m
+  memory_limits: 768Gi
+  spring-kafka-consumer-group-id: "kb-service-request"
+  egov-service-definition-create-topic: "kb-save-service-definition"
+  egov-service-definition-update-topic: "kb-update-service-definition"
+  egov-service-create-topic: "kb-save-service"
 
 egov-enc-service:
   secret-name: "egov-enc-service"

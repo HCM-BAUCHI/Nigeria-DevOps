@@ -513,6 +513,31 @@ egov-hrms:
   kafka-consumer-group-id: chad-employee-group1
   kafka-topics-save-service: chad-save-hrms-employee
   kafka-topics-update-service: chad-update-hrms-employee
+  kafka-topics-hrms-update-data: chad-egov-hrms-update
+  kafka-topics-hrms-email-notification: chad-hrms-send-email-notification
+
+
+service-request:
+  central-instance-build: true
+  central-instance-enabled: false
+  heap: "-Xmx512m -Xms256m"
+  hpa:
+    enabled: true
+    minReplicas: 1
+    maxReplicas: 3
+  ingress:
+    name: chad-prod-service-request
+    namespace: egov
+    gatewayService: gateway-2
+  namespace: "chad-prod"
+  cpu_requests: 200m
+  memory_requests: 512Mi
+  cpu_limits: 300m
+  memory_limits: 768Gi
+  spring-kafka-consumer-group-id: "chad-service-request"
+  egov-service-definition-create-topic: "chad-save-service-definition"
+  egov-service-definition-update-topic: "chad-update-service-definition"
+  egov-service-create-topic: "chad-save-service"
 
 
 transformer:

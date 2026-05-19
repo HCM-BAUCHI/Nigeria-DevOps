@@ -35,6 +35,10 @@ java-args: "-Dspring.profiles.active=monitoring"
 kafka-consumer-group-id: employee-group1
 kafka-topics-save-service: save-hrms-employee
 kafka-topics-update-service: update-hrms-employee
+kafka-topics-notification-sms: egov.core.notification.sms
+kafka-topics-notification-email: egov.core.notification.email
+kafka-topics-hrms-update-data: egov-hrms-update
+kafka-topics-hrms-email-notification: hrms-send-email-notification
 
 # Additional Container Envs
 env: |
@@ -115,7 +119,13 @@ env: |
   - name: KAFKA_TOPICS_UPDATE_SERVICE
     value: {{ index .Values "kafka-topics-update-service" | quote }}
   - name: KAFKA_TOPICS_NOTIFICATION_SMS
-    value: egov.core.notification.sms
+    value: {{ index .Values "kafka-topics-notification-sms" | quote }}
+  - name: KAFKA_TOPICS_NOTIFICATION_EMAIL
+    value: {{ index .Values "kafka-topics-notification-email" | quote }}
+  - name: KAFKA_TOPICS_HRMS_UPDATEDATA
+    value: {{ index .Values "kafka-topics-hrms-update-data" | quote }}
+  - name: KAFKA_TOPICS_HRMS_EMAIL_NOTIFICATION
+    value: {{ index .Values "kafka-topics-hrms-email-notification" | quote }}
   - name: JAVA_OPTS
     value: {{ index .Values "heap" | quote }}
   - name: SERVER_PORT
