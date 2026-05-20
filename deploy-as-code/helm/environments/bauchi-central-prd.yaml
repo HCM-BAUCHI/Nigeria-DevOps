@@ -1068,10 +1068,10 @@ service-request:
     dbMigration:
       image:
         repository: egovio/service-request-db
-        tag: service-request-number-validation-chad-a65311a
+        tag: v1.2.0-01c2b65440-4
   image:
     repository: egovio/service-request
-    tag: service-request-number-validation-chad-a65311a
+    tag: v1.2.0-01c2b65440-4
   central-instance-build: true
   central-instance-enabled: true
   heap: "-Xmx512m -Xms256m"
