@@ -998,10 +998,10 @@ project:
     dbMigration:
       image:
         repository: egovio/project-db
-        tag: HCMPRE-2657-bauchi-impl-hrms-1955365
+        tag: featurefacilitysearch-task-status-7d6a332
   image:
     repository: egovio/project
-    tag: HCMPRE-2657-bauchi-impl-hrms-1955365
+    tag: featurefacilitysearch-task-status-7d6a332
   central-instance-build: true
   central-instance-enabled: true
   heap: "-Xmx1g -Xms512m"
