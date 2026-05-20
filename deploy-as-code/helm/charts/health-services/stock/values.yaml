@@ -26,7 +26,6 @@ healthChecks:
   livenessProbePath: "/stock/health"
   readinessProbePath: "/stock/health"
 appType: "java-spring"
-tracing-enabled: true
 heap: "-Xmx192m -Xms192m"
 java-args: ""
 persist-yml-path: "file:///work-dir/health-campaign-config/egov-persister/stock-persister.yml"
@@ -109,10 +108,6 @@ env: |
     value: "false"
   - name: MANAGEMENT_SECURITY_ENABLED
     value: "false"
-  {{- if index .Values "tracing-enabled" }}
-  - name: TRACER_OPENTRACING_ENABLED
-    value: "true" 
-  {{- end }}
   - name: EGOV_PRODUCT_HOST
     valueFrom:
       configMapKeyRef:
@@ -188,7 +183,6 @@ env: |
     value: "/mdms-v2/v1/_search"
   - name: MDMS_PATH
     value: "/mdms-v2/v1/_search"
-  - name: EGOV.MDMS.MASTER.NAME
   - name: EGOV.MDMS.MASTER.NAME
   - name: EGOV.MDMS.INTEGRATION.ENABLED
     value: "false"

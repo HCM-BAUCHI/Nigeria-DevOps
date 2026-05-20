@@ -931,10 +931,10 @@ stock:
     dbMigration:
       image:
         repository: egovio/stock-db
-        tag: HCMPRE-2656-HCM-Services-bauchi-impl-61a2c46
+        tag: featurefacilitysearch-task-campaign-number-e42fda5
   image:
     repository: egovio/stock
-    tag: HCMPRE-2656-HCM-Services-bauchi-impl-61a2c46
+    tag: featurefacilitysearch-task-campaign-number-e42fda5
   central-instance-build: true
   central-instance-enabled: true
   heap: "-Xmx512m -Xms256m"
