@@ -827,10 +827,10 @@ facility:
     dbMigration:
       image:
         repository: egovio/facility-db
-        tag: HCMPRE-2657-bauchi-impl-chad-0847266
+        tag: master-eb25d83
   image:
     repository: egovio/facility
-    tag: HCMPRE-2657-bauchi-impl-chad-0847266
+    tag: master-eb25d83
   central-instance-build: true
   central-instance-enabled: true
   heap: "-Xmx512m -Xms256m"
