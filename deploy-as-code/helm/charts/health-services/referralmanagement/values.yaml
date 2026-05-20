@@ -45,6 +45,12 @@ referralmanagement-referral-kafka-delete-topic: delete-referral-topic
 referralmanagement-referral-consumer-bulk-create-topic: save-referral-bulk-topic
 referralmanagement-referral-consumer-bulk-update-topic: update-referral-bulk-topic
 referralmanagement-referral-consumer-bulk-delete-topic: delete-referral-bulk-topic
+referralmanagement-hfreferral-kafka-create-topic: save-hfreferral-topic
+referralmanagement-hfreferral-kafka-update-topic: update-hfreferral-topic
+referralmanagement-hfreferral-kafka-delete-topic: delete-hfreferral-topic
+referralmanagement-hfreferral-consumer-bulk-create-topic: save-hfreferral-bulk-topic
+referralmanagement-hfreferral-consumer-bulk-update-topic: update-hfreferral-bulk-topic
+referralmanagement-hfreferral-consumer-bulk-delete-topic: delete-hfreferral-bulk-topic
 
 # Additional Container Envs
 env: |
@@ -68,9 +74,9 @@ env: |
     value: "egov-idgen/id/_generate"
   - name: EGOV_IDGEN_INTEGRATION_ENABLED
     value: "true"
-  - name: REFERRALMANAGEMENT.SIDEEFFECT.IDGEN.ID.FORMAT
+  - name: REFERRALMANAGEMENT_SIDEEFFECT_IDGEN_ID_FORMAT
     value: "referralmanagement.sideeffect.id"
-  - name: REFERRALMANAGEMENT.REFERRAL.IDGEN.ID.FORMAT
+  - name: REFERRALMANAGEMENT_REFERRAL_IDGEN_ID_FORMAT
     value: "referralmanagement.referral.id"
   - name: SPRING_REDIS_HOST
     valueFrom:
@@ -213,43 +219,55 @@ env: |
   - name: EGOV_SEARCH_INDIVIDUAL_URL
     value: "/individual/v1/_search"
   {{- end }}
-  - name: REFERRALMANAGEMENT.SIDEEFFECT.KAFKA.CREATE.TOPIC
+  - name: REFERRALMANAGEMENT_SIDEEFFECT_KAFKA_CREATE_TOPIC
     value: {{ index .Values "referralmanagement-sideeffect-kafka-create-topic" | quote }}
-  - name: REFERRALMANAGEMENT.SIDEEFFECT.KAFKA.UPDATE.TOPIC
+  - name: REFERRALMANAGEMENT_SIDEEFFECT_KAFKA_UPDATE_TOPIC
     value: {{ index .Values "referralmanagement-sideeffect-kafka-update-topic" | quote }}
-  - name: REFERRALMANAGEMENT.SIDEEFFECT.KAFKA.DELETE.TOPIC
+  - name: REFERRALMANAGEMENT_SIDEEFFECT_KAFKA_DELETE_TOPIC
     value: {{ index .Values "referralmanagement-sideeffect-kafka-delete-topic" | quote }}
-  - name: REFERRALMANAGEMENT.SIDEEFFECT.CONSUMER.BULK.CREATE.TOPIC
+  - name: REFERRALMANAGEMENT_SIDEEFFECT_CONSUMER_BULK_CREATE_TOPIC
     value: {{ index .Values "referralmanagement-sideeffect-consumer-bulk-create-topic" | quote }}
-  - name: REFERRALMANAGEMENT.SIDEEFFECT.CONSUMER.BULK.UPDATE.TOPIC
+  - name: REFERRALMANAGEMENT_SIDEEFFECT_CONSUMER_BULK_UPDATE_TOPIC
     value: {{ index .Values "referralmanagement-sideeffect-consumer-bulk-update-topic" | quote }}
-  - name: REFERRALMANAGEMENT.SIDEEFFECT.CONSUMER.BULK.DELETE.TOPIC
+  - name: REFERRALMANAGEMENT_SIDEEFFECT_CONSUMER_BULK_DELETE_TOPIC
     value: {{ index .Values "referralmanagement-sideeffect-consumer-bulk-delete-topic" | quote }}
-  - name: REFERRALMANAGEMENT.REFERRAL.KAFKA.CREATE.TOPIC
+  - name: REFERRALMANAGEMENT_REFERRAL_KAFKA_CREATE_TOPIC
     value: {{ index .Values "referralmanagement-referral-kafka-create-topic" | quote }}
-  - name: REFERRALMANAGEMENT.REFERRAL.KAFKA.UPDATE.TOPIC
+  - name: REFERRALMANAGEMENT_REFERRAL_KAFKA_UPDATE_TOPIC
     value: {{ index .Values "referralmanagement-referral-kafka-update-topic" | quote }}
-  - name: REFERRALMANAGEMENT.REFERRAL.KAFKA.DELETE.TOPIC
+  - name: REFERRALMANAGEMENT_REFERRAL_KAFKA_DELETE_TOPIC
     value: {{ index .Values "referralmanagement-referral-kafka-delete-topic" | quote }}
-  - name: REFERRALMANAGEMENT.REFERRAL.CONSUMER.BULK.CREATE.TOPIC
+  - name: REFERRALMANAGEMENT_REFERRAL_CONSUMER_BULK_CREATE_TOPIC
     value: {{ index .Values "referralmanagement-referral-consumer-bulk-create-topic" | quote }}
-  - name: REFERRALMANAGEMENT.REFERRAL.CONSUMER.BULK.UPDATE.TOPIC
+  - name: REFERRALMANAGEMENT_REFERRAL_CONSUMER_BULK_UPDATE_TOPIC
     value: {{ index .Values "referralmanagement-referral-consumer-bulk-update-topic" | quote }}
-  - name: REFERRALMANAGEMENT.REFERRAL.CONSUMER.BULK.DELETE.TOPIC
+  - name: REFERRALMANAGEMENT_REFERRAL_CONSUMER_BULK_DELETE_TOPIC
     value: {{ index .Values "referralmanagement-referral-consumer-bulk-delete-topic" | quote }}
+  - name: REFERRALMANAGEMENT_HFREFERRAL_KAFKA_CREATE_TOPIC
+    value: {{ index .Values "referralmanagement-hfreferral-kafka-create-topic" | quote }}
+  - name: REFERRALMANAGEMENT_HFREFERRAL_KAFKA_UPDATE_TOPIC
+    value: {{ index .Values "referralmanagement-hfreferral-kafka-update-topic" | quote }}
+  - name: REFERRALMANAGEMENT_HFREFERRAL_KAFKA_DELETE_TOPIC
+    value: {{ index .Values "referralmanagement-hfreferral-kafka-delete-topic" | quote }}
+  - name: REFERRALMANAGEMENT_HFREFERRAL_CONSUMER_BULK_CREATE_TOPIC
+    value: {{ index .Values "referralmanagement-hfreferral-consumer-bulk-create-topic" | quote }}
+  - name: REFERRALMANAGEMENT_HFREFERRAL_CONSUMER_BULK_UPDATE_TOPIC
+    value: {{ index .Values "referralmanagement-hfreferral-consumer-bulk-update-topic" | quote }}
+  - name: REFERRALMANAGEMENT_HFREFERRAL_CONSUMER_BULK_DELETE_TOPIC
+    value: {{ index .Values "referralmanagement-hfreferral-consumer-bulk-delete-topic" | quote }}
   - name: SEARCH_API_LIMIT
     value: "1000"
-  - name: REFERRALMANAGEMENT.DOCUMENT.ID.VERIFICATION.REQUIRED
+  - name: REFERRALMANAGEMENT_DOCUMENT_ID_VERIFICATION_REQUIRED
     value: "false"
-  - name: REFERRALMANAGEMENT.DEFAULT.OFFSET
+  - name: REFERRALMANAGEMENT_DEFAULT_OFFSET
     value: "0"
-  - name: REFERRALMANAGEMENT.DEFAULT.LIMIT
+  - name: REFERRALMANAGEMENT_DEFAULT_LIMIT
     value: "100"
-  - name: REFERRALMANAGEMENT.SEARCH.MAX.LIMIT
+  - name: REFERRALMANAGEMENT_SEARCH_MAX_LIMIT
     value: "200"
-  - name: EGOV.IDGEN.PROJECT.NUMBER.NAME
+  - name: EGOV_IDGEN_PROJECT_NUMBER_NAME
     value: "project.number"
-  - name: PROJECT.RESOURCE.IDGEN.ID.FORMAT
+  - name: PROJECT_RESOURCE_IDGEN_ID_FORMAT
     value: "project.resource.id"
   - name: EGOV_FACILITY_HOST
     valueFrom:

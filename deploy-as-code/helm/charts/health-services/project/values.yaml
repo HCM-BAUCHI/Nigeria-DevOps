@@ -52,6 +52,8 @@ project-staff-consumer-bulk-create-topic: create-project-staff-bulk-topic
 project-staff-consumer-bulk-update-topic: update-project-staff-bulk-topic
 project-management-system-kafka-create-topic: save-project
 project-management-system-kafka-update-topic: update-project
+project-management-system-kafka-update-date-topic: update-project-date
+project-staff-attendance-topic: project-staff-attendance-health-topic
 project-resource-kafka-create-topic: save-project-resource-topic
 project-resource-kafka-update-topic: update-project-resource-topic
 project-resource-kafka-delete-topic: delete-project-resource-topic
@@ -66,8 +68,8 @@ project-facility-consumer-bulk-create-topic: create-project-facility-bulk-topic
 project-facility-consumer-bulk-update-topic: update-project-facility-bulk-topic
 project-user-action-kafka-create-topic: save-user-action-project-task-topic
 project-user-action-kafka-update-topic: update-user-action-project-task-topic
-project-user-action-task-consumer-bulk-create-topic: save-user-action-project-task-bulk-health-topic
-project-user-action-task-consumer-bulk-update-topic: update-user-action-project-task-bulk-health-topic
+project-user-action-consumer-bulk-create-topic: save-user-action-project-bulk-topic
+project-user-action-consumer-bulk-update-topic: update-user-action-project-bulk-topic
 project-location-capture-kafka-create-topic: save-location-capture-project-topic
 project-location-capture-consumer-bulk-create-topic: save-location-capture-project-bulk-health-topic
 
@@ -93,13 +95,13 @@ env: |
     value: "egov-idgen/id/_generate"
   - name: EGOV_IDGEN_INTEGRATION_ENABLED
     value: "true"
-  - name: PROJECT.STAFF.IDGEN.ID.FORMAT
+  - name: PROJECT_STAFF_IDGEN_ID_FORMAT
     value: "project.staff.id"
-  - name: PROJECT.FACILITY.IDGEN.ID.FORMAT
+  - name: PROJECT_FACILITY_IDGEN_ID_FORMAT
     value: "project.facility.id"
-  - name: PROJECT.TASK.IDGEN.ID.FORMAT
+  - name: PROJECT_TASK_IDGEN_ID_FORMAT
     value: "project.task.id"
-  - name: IDGEN.PROJECT.BENEFICIARY.ID.FORMAT
+  - name: IDGEN_PROJECT_BENEFICIARY_ID_FORMAT
     value: "project.beneficiary.id"
   - name: SPRING_REDIS_HOST
     valueFrom:
@@ -181,85 +183,89 @@ env: |
         key: product
   - name: EGOV_SEARCH_PRODUCT_VARIANT_URL
     value: "/product/variant/v1/_search"
-  - name: PROJECT.TASK.KAFKA.CREATE.TOPIC
+  - name: PROJECT_TASK_KAFKA_CREATE_TOPIC
     value: {{ index .Values "project-task-kafka-create-topic" | quote }}
-  - name: PROJECT.TASK.CONSUMER.BULK.CREATE.TOPIC
+  - name: PROJECT_TASK_CONSUMER_BULK_CREATE_TOPIC
     value: {{ index .Values "project-task-consumer-bulk-create-topic" | quote }}
-  - name: PROJECT.TASK.KAFKA.UPDATE.TOPIC
+  - name: PROJECT_TASK_KAFKA_UPDATE_TOPIC
     value: {{ index .Values "project-task-kafka-update-topic" | quote }}
-  - name: PROJECT.TASK.CONSUMER.BULK.UPDATE.TOPIC
+  - name: PROJECT_TASK_CONSUMER_BULK_UPDATE_TOPIC
     value: {{ index .Values "project-task-consumer-bulk-update-topic" | quote }}
-  - name: PROJECT.TASK.KAFKA.DELETE.TOPIC
+  - name: PROJECT_TASK_KAFKA_DELETE_TOPIC
     value: {{ index .Values "project-task-kafka-delete-topic" | quote }}
-  - name: PROJECT.TASK.CONSUMER.BULK.DELETE.TOPIC
+  - name: PROJECT_TASK_CONSUMER_BULK_DELETE_TOPIC
     value: {{ index .Values "project-task-consumer-bulk-delete-topic" | quote }}
-  - name: PROJECT.BENEFICIARY.KAFKA.CREATE.TOPIC
+  - name: PROJECT_BENEFICIARY_KAFKA_CREATE_TOPIC
     value: {{ index .Values "project-beneficiary-kafka-create-topic" | quote }}
-  - name: PROJECT.BENEFICIARY.KAFKA.UPDATE.TOPIC
+  - name: PROJECT_BENEFICIARY_KAFKA_UPDATE_TOPIC
     value: {{ index .Values "project-beneficiary-kafka-update-topic" | quote }}
-  - name: PROJECT.BENEFICIARY.KAFKA.DELETE.TOPIC
+  - name: PROJECT_BENEFICIARY_KAFKA_DELETE_TOPIC
     value: {{ index .Values "project-beneficiary-kafka-delete-topic" | quote }}
-  - name: PROJECT.BENEFICIARY.CONSUMER.BULK.CREATE.TOPIC
+  - name: PROJECT_BENEFICIARY_CONSUMER_BULK_CREATE_TOPIC
     value: {{ index .Values "project-beneficiary-consumer-bulk-create-topic" | quote }}
-  - name: PROJECT.BENEFICIARY.CONSUMER.BULK.UPDATE.TOPIC
+  - name: PROJECT_BENEFICIARY_CONSUMER_BULK_UPDATE_TOPIC
     value: {{ index .Values "project-beneficiary-consumer-bulk-update-topic" | quote }}
-  - name: PROJECT.BENEFICIARY.CONSUMER.BULK.DELETE.TOPIC
+  - name: PROJECT_BENEFICIARY_CONSUMER_BULK_DELETE_TOPIC
     value: {{ index .Values "project-beneficiary-consumer-bulk-delete-topic" | quote }}
-  - name: PROJECT.STAFF.KAFKA.DELETE.TOPIC
+  - name: PROJECT_STAFF_KAFKA_DELETE_TOPIC
     value: {{ index .Values "project-staff-kafka-delete-topic" | quote }}
-  - name: PROJECT.STAFF.KAFKA.CREATE.TOPIC
+  - name: PROJECT_STAFF_KAFKA_CREATE_TOPIC
     value: {{ index .Values "project-staff-kafka-create-topic" | quote }}
-  - name: PROJECT.STAFF.KAFKA.UPDATE.TOPIC
+  - name: PROJECT_STAFF_KAFKA_UPDATE_TOPIC
     value: {{ index .Values "project-staff-kafka-update-topic" | quote }}
-  - name: PROJECT.STAFF.CONSUMER.BULK.DELETE.TOPIC
+  - name: PROJECT_STAFF_CONSUMER_BULK_DELETE_TOPIC
     value: {{ index .Values "project-staff-consumer-bulk-delete-topic" | quote }}
-  - name: PROJECT.STAFF.CONSUMER.BULK.CREATE.TOPIC
+  - name: PROJECT_STAFF_CONSUMER_BULK_CREATE_TOPIC
     value: {{ index .Values "project-staff-consumer-bulk-create-topic" | quote }}
-  - name: PROJECT.STAFF.CONSUMER.BULK.UPDATE.TOPIC
+  - name: PROJECT_STAFF_CONSUMER_BULK_UPDATE_TOPIC
     value: {{ index .Values "project-staff-consumer-bulk-update-topic" | quote }}
   - name: SEARCH_API_LIMIT
     value: "1000"
-  - name: PROJECT.DOCUMENT.ID.VERIFICATION.REQUIRED
+  - name: PROJECT_DOCUMENT_ID_VERIFICATION_REQUIRED
     value: "false"
-  - name: PROJECT.MANAGEMENT.SYSTEM.KAFKA.CREATE.TOPIC
+  - name: PROJECT_MANAGEMENT_SYSTEM_KAFKA_CREATE_TOPIC
     value: {{ index .Values "project-management-system-kafka-create-topic" | quote }}
-  - name: PROJECT.MANAGEMENT.SYSTEM.KAFKA.UPDATE.TOPIC
+  - name: PROJECT_MANAGEMENT_SYSTEM_KAFKA_UPDATE_TOPIC
     value: {{ index .Values "project-management-system-kafka-update-topic" | quote }}
-  - name: PROJECT.DEFAULT.OFFSET
+  - name: PROJECT_MANAGEMENT_SYSTEM_KAFKA_UPDATE_DATE_TOPIC
+    value: {{ index .Values "project-management-system-kafka-update-date-topic" | quote }}
+  - name: PROJECT_STAFF_ATTENDANCE_TOPIC
+    value: {{ index .Values "project-staff-attendance-topic" | quote }}
+  - name: PROJECT_DEFAULT_OFFSET
     value: "0"
-  - name: PROJECT.DEFAULT.LIMIT
+  - name: PROJECT_DEFAULT_LIMIT
     value: "100"
-  - name: PROJECT.SEARCH.MAX.LIMIT
+  - name: PROJECT_SEARCH_MAX_LIMIT
     value: "200"
-  - name: EGOV.IDGEN.PROJECT.NUMBER.NAME
+  - name: EGOV_IDGEN_PROJECT_NUMBER_NAME
     value: "project.number"
-  - name: PROJECT.RESOURCE.IDGEN.ID.FORMAT
+  - name: PROJECT_RESOURCE_IDGEN_ID_FORMAT
     value: "project.resource.id"
-  - name: PROJECT.RESOURCE.KAFKA.CREATE.TOPIC
+  - name: PROJECT_RESOURCE_KAFKA_CREATE_TOPIC
     value: {{ index .Values "project-resource-kafka-create-topic" | quote }}
-  - name: PROJECT.RESOURCE.KAFKA.UPDATE.TOPIC
+  - name: PROJECT_RESOURCE_KAFKA_UPDATE_TOPIC
     value: {{ index .Values "project-resource-kafka-update-topic" | quote }}
-  - name: PROJECT.RESOURCE.KAFKA.DELETE.TOPIC
+  - name: PROJECT_RESOURCE_KAFKA_DELETE_TOPIC
     value: {{ index .Values "project-resource-kafka-delete-topic" | quote }}
-  - name: PROJECT.RESOURCE.CONSUMER.BULK.CREATE.TOPIC
+  - name: PROJECT_RESOURCE_CONSUMER_BULK_CREATE_TOPIC
     value: {{ index .Values "project-resource-consumer-bulk-create-topic" | quote }}
-  - name: PROJECT.RESOURCE.CONSUMER.BULK.UPDATE.TOPIC
+  - name: PROJECT_RESOURCE_CONSUMER_BULK_UPDATE_TOPIC
     value: {{ index .Values "project-resource-consumer-bulk-update-topic" | quote }}
-  - name: PROJECT.RESOURCE.CONSUMER.BULK.DELETE.TOPIC
+  - name: PROJECT_RESOURCE_CONSUMER_BULK_DELETE_TOPIC
     value: {{ index .Values "project-resource-consumer-bulk-delete-topic" | quote }}
-  - name: PROJECT.FACILITY.KAFKA.DELETE.TOPIC
+  - name: PROJECT_FACILITY_KAFKA_DELETE_TOPIC
     value: {{ index .Values "project-facility-kafka-delete-topic" | quote }}
-  - name: PROJECT.FACILITY.KAFKA.CREATE.TOPIC
+  - name: PROJECT_FACILITY_KAFKA_CREATE_TOPIC
     value: {{ index .Values "project-facility-kafka-create-topic" | quote }}
-  - name: PROJECT.FACILITY.KAFKA.UPDATE.TOPIC
+  - name: PROJECT_FACILITY_KAFKA_UPDATE_TOPIC
     value: {{ index .Values "project-facility-kafka-update-topic" | quote }}
-  - name: PROJECT.FACILITY.CONSUMER.BULK.DELETE.TOPIC
+  - name: PROJECT_FACILITY_CONSUMER_BULK_DELETE_TOPIC
     value: {{ index .Values "project-facility-consumer-bulk-delete-topic" | quote }}
-  - name: PROJECT.FACILITY.CONSUMER.BULK.CREATE.TOPIC
+  - name: PROJECT_FACILITY_CONSUMER_BULK_CREATE_TOPIC
     value: {{ index .Values "project-facility-consumer-bulk-create-topic" | quote }}
-  - name: PROJECT.FACILITY.CONSUMER.BULK.UPDATE.TOPIC
+  - name: PROJECT_FACILITY_CONSUMER_BULK_UPDATE_TOPIC
     value: {{ index .Values "project-facility-consumer-bulk-update-topic" | quote }}
-  - name: EGOV.USER.ID.VALIDATOR
+  - name: EGOV_USER_ID_VALIDATOR
     value: egov-user
   - name: EGOV_FACILITY_HOST
     valueFrom:
@@ -299,10 +305,10 @@ env: |
     value: {{ index .Values "project-user-action-kafka-create-topic" | quote }}
   - name: PROJECT_USER_ACTION_KAFKA_UPDATE_TOPIC
     value: {{ index .Values "project-user-action-kafka-update-topic" | quote }}
-  - name: PROJECT_USER_ACTION_TASK_CONSUMER_BULK_CREATE_TOPIC
-    value: {{ index .Values "project-user-action-task-consumer-bulk-create-topic" | quote }}
-  - name: PROJECT_USER_ACTION_TASK_CONSUMER_BULK_UPDATE_TOPIC
-    value: {{ index .Values "project-user-action-task-consumer-bulk-update-topic" | quote }}
+  - name: PROJECT_USER_ACTION_CONSUMER_BULK_CREATE_TOPIC
+    value: {{ index .Values "project-user-action-consumer-bulk-create-topic" | quote }}
+  - name: PROJECT_USER_ACTION_CONSUMER_BULK_UPDATE_TOPIC
+    value: {{ index .Values "project-user-action-consumer-bulk-update-topic" | quote }}
   - name: PROJECT_LOCATION_CAPTURE_KAFKA_CREATE_TOPIC
     value: {{ index .Values "project-location-capture-kafka-create-topic" | quote }}
   - name: PROJECT_LOCATION_CAPTURE_CONSUMER_BULK_CREATE_TOPIC

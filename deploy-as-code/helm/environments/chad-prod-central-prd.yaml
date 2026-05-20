@@ -300,6 +300,8 @@ project:
   project-staff-consumer-bulk-update-topic: chad-update-project-staff-bulk-topic
   project-management-system-kafka-create-topic: chad-save-project
   project-management-system-kafka-update-topic: chad-update-project
+  project-management-system-kafka-update-date-topic: chad-update-project-date
+  project-staff-attendance-topic: chad-project-staff-attendance-health-topic
   project-resource-kafka-create-topic: chad-save-project-resource-topic
   project-resource-kafka-update-topic: chad-update-project-resource-topic
   project-resource-kafka-delete-topic: chad-delete-project-resource-topic
@@ -314,8 +316,8 @@ project:
   project-facility-consumer-bulk-update-topic: chad-update-project-facility-bulk-topic
   project-user-action-kafka-create-topic: chad-save-user-action-project-task-topic
   project-user-action-kafka-update-topic: chad-update-user-action-project-task-topic
-  project-user-action-task-consumer-bulk-create-topic: chad-save-user-action-project-task-bulk-health-topic
-  project-user-action-task-consumer-bulk-update-topic: chad-update-user-action-project-task-bulk-health-topic
+  project-user-action-consumer-bulk-create-topic: chad-save-user-action-project-bulk-topic
+  project-user-action-consumer-bulk-update-topic: chad-update-user-action-project-bulk-topic
   project-location-capture-kafka-create-topic: chad-save-location-capture-project-topic
   project-location-capture-consumer-bulk-create-topic: chad-save-location-capture-project-bulk-health-topic
 
@@ -360,6 +362,8 @@ project-referral:
   project-staff-consumer-bulk-update-topic: chad-update-project-staff-bulk-topic
   project-management-system-kafka-create-topic: chad-save-project
   project-management-system-kafka-update-topic: chad-update-project
+  project-management-system-kafka-update-date-topic: chad-update-project-date
+  project-staff-attendance-topic: chad-project-staff-attendance-health-topic
   project-resource-kafka-create-topic: chad-save-project-resource-topic
   project-resource-kafka-update-topic: chad-update-project-resource-topic
   project-resource-kafka-delete-topic: chad-delete-project-resource-topic
@@ -374,8 +378,8 @@ project-referral:
   project-facility-consumer-bulk-update-topic: chad-update-project-facility-bulk-topic
   project-user-action-kafka-create-topic: chad-save-user-action-project-task-topic
   project-user-action-kafka-update-topic: chad-update-user-action-project-task-topic
-  project-user-action-task-consumer-bulk-create-topic: chad-save-user-action-project-task-bulk-health-topic
-  project-user-action-task-consumer-bulk-update-topic: chad-update-user-action-project-task-bulk-health-topic
+  project-user-action-consumer-bulk-create-topic: chad-save-user-action-project-bulk-topic
+  project-user-action-consumer-bulk-update-topic: chad-update-user-action-project-bulk-topic
   project-location-capture-kafka-create-topic: chad-save-location-capture-project-topic
   project-location-capture-consumer-bulk-create-topic: chad-save-location-capture-project-bulk-health-topic
 
@@ -410,6 +414,12 @@ referralmanagement:
   referralmanagement-referral-consumer-bulk-create-topic: chad-save-referral-bulk-topic
   referralmanagement-referral-consumer-bulk-update-topic: chad-update-referral-bulk-topic
   referralmanagement-referral-consumer-bulk-delete-topic: chad-delete-referral-bulk-topic
+  referralmanagement-hfreferral-kafka-create-topic: chad-save-hfreferral-topic
+  referralmanagement-hfreferral-kafka-update-topic: chad-update-hfreferral-topic
+  referralmanagement-hfreferral-kafka-delete-topic: chad-delete-hfreferral-topic
+  referralmanagement-hfreferral-consumer-bulk-create-topic: chad-save-hfreferral-bulk-topic
+  referralmanagement-hfreferral-consumer-bulk-update-topic: chad-update-hfreferral-bulk-topic
+  referralmanagement-hfreferral-consumer-bulk-delete-topic: chad-delete-hfreferral-bulk-topic
 
 product:
   central-instance-build: true
