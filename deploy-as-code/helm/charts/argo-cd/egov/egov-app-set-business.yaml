@@ -42,3 +42,9 @@ spec:
             duration: 5s
             factor: 2
             maxDuration: 3m0s
+
+      ignoreDifferences:
+        - group: apps
+          kind: Deployment
+          jsonPointers:
+            - /spec/replicas
