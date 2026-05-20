@@ -1043,10 +1043,10 @@ referralmanagement:
     dbMigration:
       image:
         repository: egovio/referralmanagement-db
-        tag: master-impel-ref-b3af0c3
+        tag: downysnc-file-upgrade-nigeria-590ba04
   image:
     repository: egovio/referralmanagement
-    tag: master-impel-ref-b3af0c3
+    tag: downysnc-file-upgrade-nigeria-590ba04
   downsync-services-enabled: true
   central-instance-build: true
   central-instance-enabled: true
