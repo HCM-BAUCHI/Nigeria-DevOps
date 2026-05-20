@@ -26,7 +26,6 @@ healthChecks:
   livenessProbePath: "/facility/health"
   readinessProbePath: "/facility/health"
 appType: "java-spring"
-tracing-enabled: true
 heap: "-Xmx192m -Xms192m"
 java-args: ""
 persist-yml-path: "file:///work-dir/health-campaign-config/egov-persister/facility-persister.yml"
