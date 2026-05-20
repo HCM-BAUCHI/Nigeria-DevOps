@@ -1,22 +1,13 @@
 apiVersion: argoproj.io/v1alpha1
 kind: ApplicationSet
 metadata:
-  name: ng-central-prd-egov-appset-health
+  name: ng-central-prd-egov-appset-business
   namespace: argocd
 spec:
   generators:
     - list:
         elements:
-          - name: facility
-          - name: household
-          - name: household-referral
-          - name: individual
-          - name: individual-referral
-          - name: product
-          - name: project
-          - name: project-referral
-          - name: referralmanagement
-          - name: stock
+          - name: egov-hrms
 
   template:
     metadata:
@@ -28,7 +19,7 @@ spec:
       source:
         repoURL: git@github.com:HCM-BAUCHI/Nigeria-Devops.git
         targetRevision: ng-central-prd
-        path: deploy-as-code/helm/charts/health-services/{{name}}
+        path: deploy-as-code/helm/charts/business-services/{{name}}
         helm:
           valueFiles:
             - values.yaml
@@ -51,9 +42,3 @@ spec:
             duration: 5s
             factor: 2
             maxDuration: 3m0s
-
-      ignoreDifferences:
-        - group: apps
-          kind: Deployment
-          jsonPointers:
-            - /spec/replicas
