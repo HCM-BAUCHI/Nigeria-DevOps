@@ -622,7 +622,7 @@ egov-hrms:
   dbMigration:
     image:
       repository: egovio/egov-hrms-db
-      tag: sierraleone-changes-f01d8c0
+      tag: HDDF-2588-impl-multiarch-267d144
   image:
     repository: egovio/egov-hrms
     tag: HDDF-2588-impl-multiarch-267d144
@@ -1068,10 +1068,10 @@ service-request:
     dbMigration:
       image:
         repository: egovio/service-request-db
-        tag: v1.2.0-01c2b65440-4
+        tag: master-8ddfc8a
   image:
     repository: egovio/service-request
-    tag: v1.2.0-01c2b65440-4
+    tag: master-8ddfc8a
   central-instance-build: true
   central-instance-enabled: true
   heap: "-Xmx512m -Xms256m"
