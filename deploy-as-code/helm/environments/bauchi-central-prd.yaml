@@ -850,10 +850,10 @@ product:
     dbMigration:
       image:
         repository: egovio/product-db
-        tag: master-eb25d83
+        tag: v1.2.0-8900208f3e-1
   image:
     repository: egovio/product
-    tag: master-eb25d83
+    tag: v1.2.0-8900208f3e-1
   central-instance-build: true
   central-instance-enabled: true
   heap: "-Xmx512m -Xms256m"
