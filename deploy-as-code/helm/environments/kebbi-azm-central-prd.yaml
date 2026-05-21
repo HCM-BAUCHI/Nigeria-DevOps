@@ -259,6 +259,8 @@ project:
   project-staff-consumer-bulk-update-topic: kb-update-project-staff-bulk-topic
   project-management-system-kafka-create-topic: kb-save-project
   project-management-system-kafka-update-topic: kb-update-project
+  project-management-system-kafka-update-date-topic: kb-update-project-date
+  project-staff-attendance-topic: kb-project-staff-attendance-health-topic
   project-resource-kafka-create-topic: kb-save-project-resource-topic
   project-resource-kafka-update-topic: kb-update-project-resource-topic
   project-resource-kafka-delete-topic: kb-delete-project-resource-topic
@@ -273,8 +275,8 @@ project:
   project-facility-consumer-bulk-update-topic: kb-update-project-facility-bulk-topic
   project-user-action-kafka-create-topic: kb-save-user-action-project-task-topic
   project-user-action-kafka-update-topic: kb-update-user-action-project-task-topic
-  project-user-action-task-consumer-bulk-create-topic: kb-save-user-action-project-task-bulk-health-topic
-  project-user-action-task-consumer-bulk-update-topic: kb-update-user-action-project-task-bulk-health-topic
+  project-user-action-consumer-bulk-create-topic: kb-save-user-action-project-bulk-topic
+  project-user-action-consumer-bulk-update-topic: kb-update-user-action-project-bulk-topic
   project-location-capture-kafka-create-topic: kb-save-location-capture-project-topic
   project-location-capture-consumer-bulk-create-topic: kb-save-location-capture-project-bulk-health-topic
 
@@ -319,6 +321,8 @@ project-referral:
   project-staff-consumer-bulk-update-topic: kb-update-project-staff-bulk-topic
   project-management-system-kafka-create-topic: kb-save-project
   project-management-system-kafka-update-topic: kb-update-project
+  project-management-system-kafka-update-date-topic: kb-update-project-date
+  project-staff-attendance-topic: kb-project-staff-attendance-health-topic
   project-resource-kafka-create-topic: kb-save-project-resource-topic
   project-resource-kafka-update-topic: kb-update-project-resource-topic
   project-resource-kafka-delete-topic: kb-delete-project-resource-topic
@@ -333,8 +337,8 @@ project-referral:
   project-facility-consumer-bulk-update-topic: kb-update-project-facility-bulk-topic
   project-user-action-kafka-create-topic: kb-save-user-action-project-task-topic
   project-user-action-kafka-update-topic: kb-update-user-action-project-task-topic
-  project-user-action-task-consumer-bulk-create-topic: kb-save-user-action-project-task-bulk-health-topic
-  project-user-action-task-consumer-bulk-update-topic: kb-update-user-action-project-task-bulk-health-topic
+  project-user-action-consumer-bulk-create-topic: kb-save-user-action-project-bulk-topic
+  project-user-action-consumer-bulk-update-topic: kb-update-user-action-project-bulk-topic
   project-location-capture-kafka-create-topic: kb-save-location-capture-project-topic
   project-location-capture-consumer-bulk-create-topic: kb-save-location-capture-project-bulk-health-topic
 
@@ -369,6 +373,12 @@ referralmanagement:
   referralmanagement-referral-consumer-bulk-create-topic: kb-save-referral-bulk-topic
   referralmanagement-referral-consumer-bulk-update-topic: kb-update-referral-bulk-topic
   referralmanagement-referral-consumer-bulk-delete-topic: kb-delete-referral-bulk-topic
+  referralmanagement-hfreferral-kafka-create-topic: kb-save-hfreferral-topic
+  referralmanagement-hfreferral-kafka-update-topic: kb-update-hfreferral-topic
+  referralmanagement-hfreferral-kafka-delete-topic: kb-delete-hfreferral-topic
+  referralmanagement-hfreferral-consumer-bulk-create-topic: kb-save-hfreferral-bulk-topic
+  referralmanagement-hfreferral-consumer-bulk-update-topic: kb-update-hfreferral-bulk-topic
+  referralmanagement-hfreferral-consumer-bulk-delete-topic: kb-delete-hfreferral-bulk-topic
 
 product:
   central-instance-build: true
