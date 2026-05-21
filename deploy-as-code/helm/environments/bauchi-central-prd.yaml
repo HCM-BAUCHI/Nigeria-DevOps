@@ -622,7 +622,7 @@ egov-hrms:
   dbMigration:
     image:
       repository: egovio/egov-hrms-db
-      tag: HDDF-2588-impl-multiarch-267d144
+      tag: sierraleone-changes-f01d8c0
   image:
     repository: egovio/egov-hrms
     tag: HDDF-2588-impl-multiarch-267d144

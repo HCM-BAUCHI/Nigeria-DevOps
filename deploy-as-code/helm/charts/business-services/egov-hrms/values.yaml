@@ -26,7 +26,6 @@ healthChecks:
   livenessProbePath: "/egov-hrms/health"
   readinessProbePath: "/egov-hrms/health"
 appType: "java-spring"
-tracing-enabled: true
 java-enable-debug: true
 employee-applink: "https://egov-micro-dev.egovernments.org/employee/user/login"
 heap: "-Xmx192m -Xms192m"
@@ -167,10 +166,6 @@ env: |
         key: boundary-hierarchy
   - name: EGOV_HRMS_USER_SERVICE_QUALIFIER
     value: "individualService"
-  {{- if index .Values "tracing-enabled" }}
-  - name: TRACER_OPENTRACING_ENABLED
-    value: "true" 
-  {{- end }}
   - name: MANAGEMENT_HEALTH_REDIS_ENABLED
     value: "false"
   
