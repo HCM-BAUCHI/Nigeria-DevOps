@@ -619,10 +619,11 @@ egov-workflow-v2:
   pdf-link: "/download/epass?tenantId={TENANTID}&ids={UUID}"
 
 egov-hrms:
-  dbMigration:
-    image:
-      repository: egovio/egov-hrms-db
-      tag: HDDF-2588-impl-multiarch-267d144
+  initContainers:
+    dbMigration:
+      image:
+        repository: egovio/egov-hrms-db
+        tag: HDDF-2588-impl-multiarch-267d144
   image:
     repository: egovio/egov-hrms
     tag: HDDF-2588-impl-multiarch-267d144
