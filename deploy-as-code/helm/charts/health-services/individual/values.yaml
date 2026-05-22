@@ -41,6 +41,13 @@ individual-producer-update-topic: update-individual-topic
 individual-producer-delete-topic: delete-individual-topic
 individual-producer-update-user-id-topic: update-user-id-topic
 
+egov-beneficiary-idgen-integration-enabled: "false"
+egov-beneficiary-idgen-idpool-search-path: "beneficiary-idgen/id/id_pool/_search"
+egov-beneficiary-idgen-idpool-update-path: "beneficiary-idgen/id/id_pool/_update"
+individual-beneficiary-id-validation-enabled: "false"
+individual-beneficiary-id-length: "12"
+notification-sms-disabled-roles: "ORG_ADMIN"
+
 # Additional Container Envs
 env: |
   - name: SPRING_KAFKA_CONSUMER_GROUP_ID
@@ -64,7 +71,20 @@ env: |
   - name: EGOV_IDGEN_INTEGRATION_ENABLED
     value: "true"
   - name: EGOV_BENEFICIARY_IDGEN_INTEGRATION_ENABLED
-    value: "false"
+    value: {{ index .Values "egov-beneficiary-idgen-integration-enabled" | quote }}
+  - name: EGOV_BENEFICIARY_IDGEN_HOST
+    valueFrom:
+      configMapKeyRef:
+        name: egov-service-host
+        key: beneficiary-idgen
+  - name: EGOV_BENEFICIARY_IDGEN_IDPOOL_SEARCH_PATH
+    value: {{ index .Values "egov-beneficiary-idgen-idpool-search-path" | quote }}
+  - name: EGOV_BENEFICIARY_IDGEN_IDPOOL_UPDATE_PATH
+    value: {{ index .Values "egov-beneficiary-idgen-idpool-update-path" | quote }}
+  - name: INDIVIDUAL_BENEFICIARY_ID_VALIDATION_ENABLED
+    value: {{ index .Values "individual-beneficiary-id-validation-enabled" | quote }}
+  - name: INDIVIDUAL_BENEFICIARY_ID_LENGTH
+    value: {{ index .Values "individual-beneficiary-id-length" | quote }}
   - name: IDGEN.INDIVIDUAL.ID.FORMAT
     value: "individual.id"
   - name: SPRING_REDIS_HOST
@@ -173,6 +193,8 @@ env: |
     value: {{ index .Values "individual-producer-update-user-id-topic" | quote }}
   - name: NOTIFICATION_SMS_ENABLED
     value: "false"
+  - name: NOTIFICATION_SMS_DISABLED_ROLES
+    value: {{ index .Values "notification-sms-disabled-roles" | quote }}
   {{- if index .Values "tracing-enabled" }}
   - name: TRACER_OPENTRACING_ENABLED
     value: "true" 
