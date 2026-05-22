@@ -885,10 +885,11 @@ egov-localization:
   memory_limits: 3Gi
 
 individual:
-  dbMigration:
-    image:
-      repository: egovio/individual-db
-      tag: customize-2.0-individual-08fa309
+  initContainers:
+    dbMigration:
+      image:
+        repository: egovio/individual-db
+        tag: customize-2.0-individual-08fa309
   image:
     repository: egovio/individual
     tag: customize-2.0-individual-08fa309
