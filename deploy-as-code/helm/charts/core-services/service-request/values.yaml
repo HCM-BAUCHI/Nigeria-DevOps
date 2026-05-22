@@ -33,6 +33,7 @@ spring-kafka-consumer-group-id: "service-request"
 egov-service-definition-create-topic: "save-service-definition"
 egov-service-definition-update-topic: "update-service-definition"
 egov-service-create-topic: "save-service"
+egov-service-update-topic: "update-service"
 
 # Additional Container Envs
 env: |
@@ -48,6 +49,8 @@ env: |
     value: {{ index .Values "egov-service-definition-update-topic" | quote }}
   - name: EGOV_SERVICE_CREATE_TOPIC
     value: {{ index .Values "egov-service-create-topic" | quote }}
+  - name: EGOV_SERVICE_UPDATE_TOPIC
+    value: {{ index .Values "egov-service-update-topic" | quote }}
   - name: EGOV_SERVICE_REQUEST_DEFAULT_OFFSET
     value: "0"
   - name: EGOV_SERVICE_REQUEST_DEFAULT_LIMIT

@@ -548,6 +548,7 @@ service-request:
   egov-service-definition-create-topic: "chad-save-service-definition"
   egov-service-definition-update-topic: "chad-update-service-definition"
   egov-service-create-topic: "chad-save-service"
+  egov-service-update-topic: "chad-update-service"
 
 
 transformer:

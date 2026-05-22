@@ -507,6 +507,7 @@ service-request:
   egov-service-definition-create-topic: "kb-save-service-definition"
   egov-service-definition-update-topic: "kb-update-service-definition"
   egov-service-create-topic: "kb-save-service"
+  egov-service-update-topic: "kb-update-service"
 
 egov-enc-service:
   secret-name: "egov-enc-service"
