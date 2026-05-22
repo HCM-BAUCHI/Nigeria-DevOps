@@ -108,10 +108,6 @@ env: |
     value: "false"
   - name: MANAGEMENT_SECURITY_ENABLED
     value: "false"
-  {{- if index .Values "tracing-enabled" }}
-  - name: TRACER_OPENTRACING_ENABLED
-    value: "true" 
-  {{- end }}
   
   - name: TRANSFORMER_CONSUMER_BULK_CREATE_PROJECT_TASK_TOPIC
     value: {{ index .Values "save-project-task-topic" | quote }}
