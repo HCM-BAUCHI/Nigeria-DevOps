@@ -73,6 +73,13 @@ project-user-action-consumer-bulk-update-topic: update-user-action-project-bulk-
 project-location-capture-kafka-create-topic: save-location-capture-project-topic
 project-location-capture-consumer-bulk-create-topic: save-location-capture-project-bulk-health-topic
 
+egov-user-id-validator: "egov-user"
+task-mdms-module: "HCM-TASK-QUANTITY-VALIDATION"
+project-attendance-feature-enabled: "true"
+project-create-cache-key: "project-create-cache-"
+project-kafka-batch-size: "100"
+project-task-no-resource-validation-status: "ADMINISTRATION_FAILED,BENEFICIARY_REFUSED,CLOSED_HOUSEHOLD,NOT_ADMINISTERED,BENEFICIARY_REFERRED,BENEFICIARY_INELIGIBLE"
+
 # Additional Container Envs
 env: |
   - name: SPRING_KAFKA_CONSUMER_GROUP_ID
@@ -265,8 +272,6 @@ env: |
     value: {{ index .Values "project-facility-consumer-bulk-create-topic" | quote }}
   - name: PROJECT_FACILITY_CONSUMER_BULK_UPDATE_TOPIC
     value: {{ index .Values "project-facility-consumer-bulk-update-topic" | quote }}
-  - name: EGOV_USER_ID_VALIDATOR
-    value: egov-user
   - name: EGOV_FACILITY_HOST
     valueFrom:
       configMapKeyRef:
@@ -289,7 +294,7 @@ env: |
         name: egov-service-host
         key: boundary-service
   - name: PROJECT_TASK_NO_RESOURCE_VALIDATION_STATUS
-    value: ADMINISTRATION_FAILED,BENEFICIARY_REFUSED,CLOSED_HOUSEHOLD,NOT_ADMINISTERED,BENEFICIARY_REFERRED,BENEFICIARY_INELIGIBLE
+    value: {{ index .Values "project-task-no-resource-validation-status" | quote }}
   - name: EGOV_BOUNDARY_SEARCH_URL
     value: "/boundary-service/boundary/_search"
   - name: EGOV_BOUNDARY_HIERARCHY_NAME
@@ -297,6 +302,8 @@ env: |
       configMapKeyRef:
         name: egov-config
         key: boundary-hierarchy
+  - name: EGOV_USER_ID_VALIDATOR
+    value: {{ index .Values "egov-user-id-validator" | quote }}
   - name: EGOV_PERSISTER_BULK_PROCESSING_ENABLED
     value: "false"
   - name: PROJECT_USER_ACTION_KAFKA_CREATE_TOPIC
@@ -311,3 +318,11 @@ env: |
     value: {{ index .Values "project-location-capture-kafka-create-topic" | quote }}
   - name: PROJECT_LOCATION_CAPTURE_CONSUMER_BULK_CREATE_TOPIC
     value: {{ index .Values "project-location-capture-consumer-bulk-create-topic" | quote }}
+  - name: TASK_MDMS_MODULE
+    value: {{ index .Values "task-mdms-module" | quote }}
+  - name: PROJECT_ATTENDANCE_FEATURE_ENABLED
+    value: {{ index .Values "project-attendance-feature-enabled" | quote }}
+  - name: PROJECT_CREATE_CACHE_KEY
+    value: {{ index .Values "project-create-cache-key" | quote }}
+  - name: PROJECT_KAFKA_BATCH_SIZE
+    value: {{ index .Values "project-kafka-batch-size" | quote }}
