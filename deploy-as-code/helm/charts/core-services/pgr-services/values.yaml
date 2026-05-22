@@ -37,6 +37,15 @@ notification-allowed-status: "open,assigned,rejected,resolved"
 heap: "-Xmx192m -Xms192m"
 java-args: "-Dspring.profiles.active=monitoring"
 
+pgr-kafka-create-topic: "save-pgr-request"
+pgr-kafka-update-topic: "update-pgr-request"
+kafka-topics-notification-sms: "egov.core.notification.sms"
+persister-save-transition-wf-topic: "save-wf-transitions"
+pgr-kafka-migration-topic: "pgr-migration"
+pgr-kafka-migration-persister-topic: "save-pgr-request-batch"
+persister-save-transition-wf-migration-topic: "save-wf-transitions-batch"
+pgr-kafka-tenant-id-pattern: "ba-|oy-|ko-|na-|ab-|pl-|bo-|ke-|so-|od-|ad-|kd-|jg-|go-"
+
 # Additional Container Envs
 env: |
   - name: SPRING_KAFKA_CONSUMER_GROUP_ID
@@ -94,19 +103,19 @@ env: |
   - name: EGOV_MDMS_SEARCH_ENDPOINT
     value: "/mdms-v2/v1/_search"
   - name: PGR_KAFKA_CREATE_TOPIC
-    value: "save-pgr-request"
+    value: {{ index .Values "pgr-kafka-create-topic" | quote }}
   - name: PGR_KAFKA_UPDATE_TOPIC
-    value: "update-pgr-request"
+    value: {{ index .Values "pgr-kafka-update-topic" | quote }}
   - name: KAFKA_TOPICS_NOTIFICATION_SMS
-    value: "egov.core.notification.sms"
+    value: {{ index .Values "kafka-topics-notification-sms" | quote }}
   - name: PERSISTER_SAVE_TRANSITION_WF_TOPIC
-    value: "save-wf-transitions"
+    value: {{ index .Values "persister-save-transition-wf-topic" | quote }}
   - name: PGR_KAFKA_MIGRATION_TOPIC
-    value: "pgr-migration"
+    value: {{ index .Values "pgr-kafka-migration-topic" | quote }}
   - name: PGR_KAFKA_MIGRATION_PERSISTOR_TOPIC
-    value: "save-pgr-request-batch"
+    value: {{ index .Values "pgr-kafka-migration-persister-topic" | quote }}
   - name: PERSISTER_SAVE_TRANSITION_WF_MIGRATION_TOPIC
-    value: "save-wf-transitions-batch"
+    value: {{ index .Values "persister-save-transition-wf-migration-topic" | quote }}
   - name: NOTIFICATION_SMS_ENABLED
     value: {{ index .Values "notification-sms-enabled" | quote }}
   - name: NOTIFICATION_EMAIL_ENABLED
@@ -177,7 +186,7 @@ env: |
     value: {{ index .Values "time-before-closing-complaint" | quote }} 
   {{- end }}
   - name: PGR_KAFKA_TENANT_ID_PATTERN
-    value: "oy-|ba-"
+    value: {{ index .Values "pgr-kafka-tenant-id-pattern" | quote }}
 
 
   
