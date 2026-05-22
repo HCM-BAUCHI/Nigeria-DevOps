@@ -142,6 +142,7 @@ cluster-configs:
         stock: "http://stock.egov:8080/"
         facility: "http://facility.egov:8080/"
         service-request: "http://service-request.egov:8080/"
+        beneficiary-idgen: "http://beneficiary-idgen.egov:8080/"
         attendance-service: "http://health-attendance.egov:8080/"
         audit-service: "http://audit-service.egov:8080/"
         project-factory: 'http://project-factory.egov:8080/'
@@ -237,7 +238,7 @@ egov-enc-service:
   cpu_requests: 200m
   memory_requests: 384Mi
   cpu_limits: 300m
-  memory_limits: 768Gi
+  memory_limits: 768Mi
 
 boundary-service:
   # internal-routing: "true"
@@ -342,7 +343,7 @@ egov-persister-ht:
     minReplicas: 2
     maxReplicas: 12
   cpu_requests: 300m
-  memory_requests: 768Gi
+  memory_requests: 768Mi
   cpu_limits: 400m
   memory_limits: 1Gi
   images:
@@ -904,6 +905,8 @@ individual:
   memory_limits: 1.5Gi
   schemaNameExclude: [ "chad", "kb" ]
   hostExclude: ["chad-hcm-prod.digit.org", "kebbi-azm-central-hcm.digit.org"]
+  egov-beneficiary-idgen-integration-enabled: "true"
+  individual-beneficiary-id-validation-enabled: "true"
 
 individual-referral:
   image:
@@ -925,6 +928,7 @@ individual-referral:
   memory_limits: 2Gi
   schemaNameExclude: [ "chad", "kb" ]
   hostExclude: ["chad-hcm-prod.digit.org", "kebbi-azm-central-hcm.digit.org"]
+  egov-beneficiary-idgen-integration-enabled: "true"
 
 
 stock:
@@ -1016,6 +1020,7 @@ project:
   memory_limits: 1.5Gi
   schemaNameExclude: [ "chad", "kb" ]
   hostExclude: ["chad-hcm-prod.digit.org", "kebbi-azm-central-hcm.digit.org"]
+  project-task-no-resource-validation-status: "ADMINISTRATION_FAILED,BENEFICIARY_REFUSED,CLOSED_HOUSEHOLD,NOT_ADMINISTERED,BENEFICIARY_DIED,BENEFICIARY_MIGRATED,BENEFICIARY_ABSENT,BENEFICIARY_INELIGIBLE"
 
 project-referral:
   image:
@@ -1038,6 +1043,7 @@ project-referral:
   memory_limits: 2Gi
   schemaNameExclude: [ "chad", "kb" ]
   hostExclude: ["chad-hcm-prod.digit.org", "kebbi-azm-central-hcm.digit.org"]
+  project-task-no-resource-validation-status: "ADMINISTRATION_FAILED,BENEFICIARY_REFUSED,CLOSED_HOUSEHOLD,NOT_ADMINISTERED,BENEFICIARY_DIED,BENEFICIARY_MIGRATED,BENEFICIARY_ABSENT,BENEFICIARY_INELIGIBLE"
 
 referralmanagement:
   initContainers:
@@ -1061,8 +1067,9 @@ referralmanagement:
   memory_requests: 1.5Gi
   cpu_limits: 400m
   memory_limits: 2Gi
-  schemaNameExclude: [ "chad", "kb" ]
-  hostExclude: ["chad-hcm-prod.digit.org", "kebbi-azm-central-hcm.digit.org"]
+  schemaNameExclude: [ "chad", "kb", "kd", "jg" ]
+  hostExclude: ["chad-hcm-prod.digit.org", "kebbi-azm-central-hcm.digit.org", "kaduna-central-hcm.digit.org", "jigawa-central-hcm.digit.org"]
+  kafka-consumer-group-id: "health-referral-management"
 
 service-request:
   initContainers:
@@ -1083,7 +1090,7 @@ service-request:
   cpu_requests: 200m
   memory_requests: 512Mi
   cpu_limits: 300m
-  memory_limits: 768Gi
+  memory_limits: 768Mi
   schemaNameExclude: [ "chad", "kb" ]
   hostExclude: ["chad-hcm-prod.digit.org", "kebbi-azm-central-hcm.digit.org"]
   
