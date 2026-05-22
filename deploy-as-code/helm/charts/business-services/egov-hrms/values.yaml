@@ -39,6 +39,15 @@ kafka-topics-notification-email: egov.core.notification.email
 kafka-topics-hrms-update-data: egov-hrms-update
 kafka-topics-hrms-email-notification: hrms-send-email-notification
 
+egov-hrms-default-pagination-limit: "200"
+egov-hrms-default-pwd-length: "8"
+open-search-enabled-roles: "SUPERUSER"
+egov-pwd-allowed-special-characters: "@#$%"
+decryption-abac-enable: "false"
+notification-email-enabled: "true"
+parent-level-tenant-id: "pb"
+egov-hrms-auto-generate-password: "false"
+
 # Additional Container Envs
 env: |
   - name: EGOV_SERVICES_DATA_SYNC_EMPLOYEE_REQUIRED 
@@ -138,7 +147,7 @@ env: |
   - name: MANAGEMENT_SECURITY_ENABLED
     value: "false"
   - name: EGOV_HRMS_AUTO_GENERATE_PASSWORD
-    value: "false"
+    value: {{ index .Values "egov-hrms-auto-generate-password" | quote }}
   - name: EGOV_INDIVIDUAL_HOST
     valueFrom:
       configMapKeyRef:
@@ -168,4 +177,18 @@ env: |
     value: "individualService"
   - name: MANAGEMENT_HEALTH_REDIS_ENABLED
     value: "false"
-  
+  - name: EGOV_HRMS_DEFAULT_PAGINATION_LIMIT
+    value: {{ index .Values "egov-hrms-default-pagination-limit" | quote }}
+  - name: EGOV_HRMS_DEFAULT_PWD_LENGTH
+    value: {{ index .Values "egov-hrms-default-pwd-length" | quote }}
+  - name: OPEN_SEARCH_ENABLED_ROLES
+    value: {{ index .Values "open-search-enabled-roles" | quote }}
+  - name: EGOV_PWD_ALLOWED_SPECIAL_CHARACTERS
+    value: {{ index .Values "egov-pwd-allowed-special-characters" | quote }}
+  - name: DECRYPTION_ABAC_ENABLE
+    value: {{ index .Values "decryption-abac-enable" | quote }}
+  - name: NOTIFICATION_EMAIL_ENABLED
+    value: {{ index .Values "notification-email-enabled" | quote }}
+  - name: PARENT_LEVEL_TENANT_ID
+    value: {{ index .Values "parent-level-tenant-id" | quote }}
+
