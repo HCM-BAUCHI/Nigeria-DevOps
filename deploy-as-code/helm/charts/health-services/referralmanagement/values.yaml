@@ -52,6 +52,29 @@ referralmanagement-hfreferral-consumer-bulk-create-topic: save-hfreferral-bulk-t
 referralmanagement-hfreferral-consumer-bulk-update-topic: update-hfreferral-bulk-topic
 referralmanagement-hfreferral-consumer-bulk-delete-topic: delete-hfreferral-bulk-topic
 
+egov-user-id-validator: "egov-user"
+egov-enable-matview-search: "false"
+egov-location-code-query-param: "codes"
+egov-enc-service-configmap-key: "egov-enc-service"
+egov-enc-decrypt-endpoint: "/egov-enc-service/crypto/v1/_decrypt"
+egov-service-request-service-search-url: "service-request/service/v1/_search"
+egov-service-request-downsync-enabled: "false"
+egov-downsync-stale-threshold-hours: "8"
+egov-service-request-search-batch-size: "100"
+egov-household-member-search-batch-size: "200"
+egov-individual-search-batch-size: "200"
+egov-project-beneficiary-search-batch-size: "200"
+egov-project-task-search-batch-size: "200"
+egov-side-effect-search-batch-size: "200"
+egov-referral-search-batch-size: "200"
+egov-hf-referral-search-batch-size: "200"
+egov-s3-bucket: "downsynctest"
+egov-s3-region: "af-south-1"
+egov-s3-endpoint: ""
+egov-s3-presign-endpoint: ""
+egov-wardfilegen-ward-pool-size: "8"
+egov-wardfilegen-file-pool-size: "32"
+
 # Additional Container Envs
 env: |
   - name: SPRING_KAFKA_CONSUMER_GROUP_ID
@@ -219,6 +242,64 @@ env: |
   - name: EGOV_SEARCH_INDIVIDUAL_URL
     value: "/individual/v1/_search"
   {{- end }}
+  - name: EGOV_USER_ID_VALIDATOR
+    value: {{ index .Values "egov-user-id-validator" | quote }}
+  - name: EGOV_ENC_HOST
+    valueFrom:
+      configMapKeyRef:
+        name: egov-service-host
+        key: {{ index .Values "egov-enc-service-configmap-key" }}
+  - name: EGOV_ENC_DECRYPT_ENDPOINT
+    value: {{ index .Values "egov-enc-decrypt-endpoint" | quote }}
+  - name: EGOV_SERVICE_REQUEST_HOST
+    valueFrom:
+      configMapKeyRef:
+        name: egov-service-host
+        key: service-request
+  - name: EGOV_SERVICE_REQUEST_SERVICE_SEARCH_URL
+    value: {{ index .Values "egov-service-request-service-search-url" | quote }}
+  - name: EGOV_SERVICE_REQUEST_DOWNSYNC_ENABLED
+    value: {{ index .Values "egov-service-request-downsync-enabled" | quote }}
+  - name: EGOV_DOWNSYNC_STALE_THRESHOLD_HOURS
+    value: {{ index .Values "egov-downsync-stale-threshold-hours" | quote }}
+  - name: EGOV_SERVICE_REQUEST_SEARCH_BATCH_SIZE
+    value: {{ index .Values "egov-service-request-search-batch-size" | quote }}
+  - name: EGOV_HOUSEHOLD_MEMBER_SEARCH_BATCH_SIZE
+    value: {{ index .Values "egov-household-member-search-batch-size" | quote }}
+  - name: EGOV_INDIVIDUAL_SEARCH_BATCH_SIZE
+    value: {{ index .Values "egov-individual-search-batch-size" | quote }}
+  - name: EGOV_PROJECT_BENEFICIARY_SEARCH_BATCH_SIZE
+    value: {{ index .Values "egov-project-beneficiary-search-batch-size" | quote }}
+  - name: EGOV_PROJECT_TASK_SEARCH_BATCH_SIZE
+    value: {{ index .Values "egov-project-task-search-batch-size" | quote }}
+  - name: EGOV_SIDE_EFFECT_SEARCH_BATCH_SIZE
+    value: {{ index .Values "egov-side-effect-search-batch-size" | quote }}
+  - name: EGOV_REFERRAL_SEARCH_BATCH_SIZE
+    value: {{ index .Values "egov-referral-search-batch-size" | quote }}
+  - name: EGOV_HF_REFERRAL_SEARCH_BATCH_SIZE
+    value: {{ index .Values "egov-hf-referral-search-batch-size" | quote }}
+  - name: EGOV_S3_BUCKET
+    value: {{ index .Values "egov-s3-bucket" | quote }}
+  - name: EGOV_S3_REGION
+    value: {{ index .Values "egov-s3-region" | quote }}
+  - name: EGOV_S3_ENDPOINT
+    value: {{ index .Values "egov-s3-endpoint" | quote }}
+  - name: EGOV_S3_PRESIGN_ENDPOINT
+    value: {{ index .Values "egov-s3-presign-endpoint" | quote }}
+  - name: EGOV_S3_ACCESS_KEY
+    valueFrom:
+      secretKeyRef:
+        name: referralmanagement
+        key: s3-access-key
+  - name: EGOV_S3_SECRET_KEY
+    valueFrom:
+      secretKeyRef:
+        name: referralmanagement
+        key: s3-secret-key
+  - name: EGOV_WARDFILEGEN_WARD_POOL_SIZE
+    value: {{ index .Values "egov-wardfilegen-ward-pool-size" | quote }}
+  - name: EGOV_WARDFILEGEN_FILE_POOL_SIZE
+    value: {{ index .Values "egov-wardfilegen-file-pool-size" | quote }}
   - name: REFERRALMANAGEMENT_SIDEEFFECT_KAFKA_CREATE_TOPIC
     value: {{ index .Values "referralmanagement-sideeffect-kafka-create-topic" | quote }}
   - name: REFERRALMANAGEMENT_SIDEEFFECT_KAFKA_UPDATE_TOPIC
@@ -279,8 +360,11 @@ env: |
   - name: PROJECT_MDMS_MODULE
     value: "HCM-PROJECT-TYPES"
   - name: EGOV_LOCATION_HIERARCHY_TYPE
-    value: "IRS"
+    valueFrom:
+      configMapKeyRef:
+        name: egov-config
+        key: boundary-hierarchy
   - name: EGOV_LOCATION_CODE_QUERY_PARAM
-    value: "code"
+    value: {{ index .Values "egov-location-code-query-param" | quote }}
   - name: EGOV_ENABLE_MATVIEW_SEARCH
-    value: "true"
+    value: {{ index .Values "egov-enable-matview-search" | quote }}
