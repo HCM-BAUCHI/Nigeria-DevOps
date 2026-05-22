@@ -623,10 +623,10 @@ egov-hrms:
     dbMigration:
       image:
         repository: egovio/egov-hrms-db
-        tag: HDDF-2588-impl-multiarch-267d144
+        tag: customize-2.0-hrms-8b8c6e3
   image:
     repository: egovio/egov-hrms
-    tag: HDDF-2588-impl-multiarch-267d144
+    tag: customize-2.0-hrms-8b8c6e3
   heap: "-Xmx1024m -Xms512m"
   hpa:
     enabled: true
@@ -887,10 +887,10 @@ individual:
   dbMigration:
     image:
       repository: egovio/individual-db
-      tag: individual-enc-changes-6e28d8c
+      tag: customize-2.0-individual-08fa309
   image:
     repository: egovio/individual
-    tag: individual-enc-changes-6e28d8c
+    tag: customize-2.0-individual-08fa309
   central-instance-build: true
   central-instance-enabled: true
   heap: "-Xmx1g -Xms512m"
@@ -908,7 +908,7 @@ individual:
 individual-referral:
   image:
     repository: egovio/individual
-    tag: individual-enc-changes-6e28d8c
+    tag: customize-2.0-individual-08fa309
   central-instance-build: true
   central-instance-enabled: true
   initContainers:
@@ -932,10 +932,10 @@ stock:
     dbMigration:
       image:
         repository: egovio/stock-db
-        tag: featurefacilitysearch-task-campaign-number-e42fda5
+        tag: nigeria-go-deep-2-e0dbbd4
   image:
     repository: egovio/stock
-    tag: featurefacilitysearch-task-campaign-number-e42fda5
+    tag: nigeria-go-deep-2-e0dbbd4
   central-instance-build: true
   central-instance-enabled: true
   heap: "-Xmx512m -Xms256m"
@@ -1044,10 +1044,10 @@ referralmanagement:
     dbMigration:
       image:
         repository: egovio/referralmanagement-db
-        tag: downysnc-file-upgrade-nigeria-590ba04
+        tag: nigeria-go-deep-2-e0dbbd4
   image:
     repository: egovio/referralmanagement
-    tag: downysnc-file-upgrade-nigeria-590ba04
+    tag: nigeria-go-deep-2-e0dbbd4
   downsync-services-enabled: true
   central-instance-build: true
   central-instance-enabled: true
@@ -1088,6 +1088,8 @@ service-request:
   hostExclude: ["chad-hcm-prod.digit.org", "kebbi-azm-central-hcm.digit.org"]
   
 project-factory:
+  image:
+    tag: nigeria-go-deep-2-userRetryCampaign-0c3bb9b
   global:
     hosts:
       - chad-hcm.digit.org
