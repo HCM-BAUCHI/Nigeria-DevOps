@@ -297,8 +297,6 @@ env: |
       configMapKeyRef:
         name: egov-config
         key: boundary-hierarchy
-  - name: EGOV_USER_ID_VALIDATOR
-    value: "egov-user"
   - name: EGOV_PERSISTER_BULK_PROCESSING_ENABLED
     value: "false"
   - name: PROJECT_USER_ACTION_KAFKA_CREATE_TOPIC
