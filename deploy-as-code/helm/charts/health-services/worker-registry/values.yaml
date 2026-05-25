@@ -97,11 +97,6 @@ env: |
       configMapKeyRef:
         name: egov-config
         key: state-level-tenantid-length
-  - name: STATE_SCHEMA_INDEX_POSITION_TENANTID
-    valueFrom:
-      configMapKeyRef:
-        name: egov-config
-        key: state-schema-index-position-tenantid
   - name: SPRING_DATA_REDIS_HOST
     valueFrom:
       configMapKeyRef:
