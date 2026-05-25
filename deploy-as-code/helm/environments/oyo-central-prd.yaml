@@ -58,7 +58,6 @@ transformer:
   memory_requests: 1.75Gi
   cpu_limits: 400m
   memory_limits: 2.25Gi
-  java-enable-debug: true
   save-project-task-topic: "oy-save-project-task-topic"
   update-project-task-topic: "oy-update-project-task-topic"
   transformer-producer-bulk-project-task-index-v1-topic: "oy-transformer-producer-bulk-project-task-index-v1-topic"
