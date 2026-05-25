@@ -92,6 +92,7 @@ boundary-hierarchy-name: "boundary-hierarchy"
 transformer-producer-bulk-stock-index-updated-v1-topic: "transformer-producer-bulk-stock-index-updated-v1-topic"
 egov_localization_locale_code: "en_MZ"
 egov-localization-module-name: "hcm-boundary-nigeriauat"
+project-factory-host: "project-factory"
 # Additional Container Envs
 env: |
   - name: SPRING_KAFKA_CONSUMER_GROUP_ID
