@@ -1387,6 +1387,9 @@ pdf-service:
     tag: central-instance-pdf-2aad92c
   initContainers:
     gitSync:
+      image:
+        repository: registry.k8s.io/git-sync/git-sync
+        tag: v4.2.1
       repo: "git@github.com:HCM-BAUCHI/health-campaign-config"
       branch: "PROD"
   data-config-urls: "file:///work-dir/health-campaign-config/pdf-service/data-config/health-bill-payment.json"
