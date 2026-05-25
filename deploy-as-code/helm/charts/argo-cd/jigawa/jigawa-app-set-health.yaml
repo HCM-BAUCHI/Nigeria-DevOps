@@ -1,32 +1,17 @@
 apiVersion: argoproj.io/v1alpha1
 kind: ApplicationSet
 metadata:
-  name: ng-central-prd-egov-appset-health
+  name: jigawa-appset-health
   namespace: argocd
 spec:
   generators:
     - list:
         elements:
-          - name: beneficiary-idgen
-          - name: boundary-management
-          - name: excel-ingestion
-          - name: facility
-          - name: health-attendance
-          - name: health-expense
-          - name: health-muster-roll
-          - name: household
-          - name: household-referral
-          - name: individual
-          - name: individual-referral
-          - name: product
-          - name: project
-          - name: project-referral
-          - name: stock
-          - name: worker-registry
+          - name: referralmanagement
 
   template:
     metadata:
-      name: 'egov-{{name}}'
+      name: 'jigawa-{{name}}'
 
     spec:
       project: egov-project
@@ -38,11 +23,11 @@ spec:
         helm:
           valueFiles:
             - values.yaml
-            - ../../../environments/bauchi-central-prd.yaml
+            - ../../../environments/jigawa-central-prd.yaml
 
       destination:
         server: https://kubernetes.default.svc
-        namespace: '*'
+        namespace: jigawa
 
       syncPolicy:
         automated:
