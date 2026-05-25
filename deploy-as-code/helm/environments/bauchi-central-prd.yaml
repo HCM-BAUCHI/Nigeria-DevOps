@@ -1531,6 +1531,11 @@ dashboard-analytics:
 
 beneficiary-idgen:
   namespace: egov
+  initContainers:
+    dbMigration:
+      image:
+        repository: egovio/beneficiary-idgen-db
+        tag: master-b91815e
   image:
     repository: egovio/beneficiary-idgen
     tag: master-b91815e
