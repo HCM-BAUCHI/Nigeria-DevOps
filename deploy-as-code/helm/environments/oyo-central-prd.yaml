@@ -192,3 +192,4 @@ health-expense-calculator:
   register-batch-size: 15
   bill-generation-async-enabled: "true"
   bill-generation-async-topic: "oy-bill-generation-async-topic"
+  kafka-consumer-group-id: "oy-health-expense-calculator"
