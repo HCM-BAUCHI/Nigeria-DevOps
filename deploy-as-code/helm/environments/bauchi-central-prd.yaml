@@ -156,6 +156,7 @@ cluster-configs:
         health-expense-calculator: 'http://health-expense-calculator.egov:8080/'
         health-expense: 'http://health-expense.egov:8080/'
         pdf-service: 'http://pdf-service.egov:8080/'
+        egov-notification-push: 'http://egov-notification-push.egov:8080/'
 
     hcm-moz-impl:
       data:
