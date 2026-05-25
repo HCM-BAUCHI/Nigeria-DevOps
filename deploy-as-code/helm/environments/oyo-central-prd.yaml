@@ -163,3 +163,32 @@ workbench-ui:
       sub_filter  '<head>' '<head>
       <script src=https://central-instance-assets.s3.af-south-1.amazonaws.com/globalConfigWorkbench-oy.js type=text/javascript></script>
       ';"
+
+health-expense-calculator:
+  namespace: oyo
+  initContainers:
+    dbMigration:
+      image:
+        repository: egovio/health-expense-calculator-db
+        tag: nigeria-go-deep-3fa1c21
+  image:
+    repository: egovio/health-expense-calculator
+    tag: nigeria-go-deep-3fa1c21
+  heap: "-Xmx2048m -Xms1024m"
+  hpa:
+    enabled: true
+    minReplicas: 1
+    maxReplicas: 3
+  cpu_requests: 500m
+  memory_requests: 2Gi
+  cpu_limits: 600m
+  memory_limits: 2.5Gi
+  central-instance-build: true
+  tracing-enabled: true
+  java-enable-debug: true
+  egov-mdms-service-endpoint-key: "/mdms-v2/v1/_search"
+  report-header-title: "Health Campaign Payment Report"
+  is-attendance-approval-required: "true"
+  register-batch-size: 15
+  bill-generation-async-enabled: "true"
+  bill-generation-async-topic: "oy-bill-generation-async-topic"
