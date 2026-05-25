@@ -260,6 +260,11 @@ boundary-service:
 
 boundary-management:
   namespace: egov
+  initContainers:
+    dbMigration:
+      image:
+        repository: egovio/boundary-management-db
+        tag: master-aa57e79
   image:
     repository: egovio/boundary-management
     tag: master-aa57e79
