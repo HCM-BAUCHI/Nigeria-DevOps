@@ -46,6 +46,9 @@ global:
 
 transformer:
   namespace: "oyo"
+  image:
+    repository: egovio/transformer
+    tag: HDDF-5226-5989d1b6f8-416
   heap: "-Xmx1536m -Xms1536m"
   hpa:
     enabled: true
