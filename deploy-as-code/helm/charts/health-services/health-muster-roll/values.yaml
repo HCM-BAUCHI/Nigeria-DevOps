@@ -29,7 +29,6 @@ healthChecks:
   livenessProbePath: "/health-muster-roll/health"
   readinessProbePath: "/health-muster-roll/health"
 appType: "java-spring"
-tracing-enabled: true
 heap: "-Xmx256m -Xms256m"
 memory_limits: 512Mi
 java-args: ""
