@@ -7,6 +7,7 @@ spec:
   generators:
     - list:
         elements:
+          - name: pdf-service
           - name: service-request
 
   template:

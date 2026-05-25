@@ -153,6 +153,7 @@ cluster-configs:
         health-muster-roll: 'http://health-muster-roll.egov:8080/'
         health-expense-calculator: 'http://health-expense-calculator.egov:8080/'
         health-expense: 'http://health-expense.egov:8080/'
+        pdf-service: 'http://pdf-service.egov:8080/'
 
     hcm-moz-impl:
       data:
@@ -1312,6 +1313,93 @@ health-attendance:
   memory_limits: 768Mi
   egov-mdms-service-host-key: 'mdms-v2'
   egov-mdms-service-endpoint-key: "/mdms-v2/v1/_search"
+
+health-muster-roll:
+  namespace: egov
+  initContainers:
+    dbMigration:
+      image:
+        repository: egovio/health-muster-roll-db
+        tag: nigeria-go-deep-7fe8703
+  image:
+    repository: egovio/health-muster-roll
+    tag: nigeria-go-deep-7fe8703
+  central-instance-build: true
+  java-enable-debug: false
+  heap: "-Xmx512m -Xms256m"
+  hpa:
+    enabled: false
+    minReplicas: 1
+    maxReplicas: 3
+  cpu_requests: 200m
+  memory_requests: 512Mi
+  cpu_limits: 300m
+  memory_limits: 768Mi
+
+health-expense:
+  namespace: egov
+  initContainers:
+    dbMigration:
+      image:
+        repository: egovio/health-expense-db
+        tag: nigeria-go-deep-payments-expense-15b5a23
+  image:
+    repository: egovio/health-expense
+    tag: nigeria-go-deep-payments-expense-15b5a23
+  central-instance-build: true
+  java-enable-debug: false
+  heap: "-Xmx512m -Xms256m"
+  hpa:
+    enabled: false
+    minReplicas: 1
+    maxReplicas: 3
+  cpu_requests: 200m
+  memory_requests: 512Mi
+  cpu_limits: 300m
+  memory_limits: 768Mi
+
+health-expense-calculator:
+  namespace: egov
+  initContainers:
+    dbMigration:
+      image:
+        repository: egovio/health-expense-calculator-db
+        tag: v1.0.0-172f7e79e-55
+  image:
+    repository: egovio/health-expense-calculator
+    tag: v1.0.0-172f7e79e-55
+  central-instance-build: true
+  java-enable-debug: false
+  heap: "-Xmx512m -Xms256m"
+  hpa:
+    enabled: false
+    minReplicas: 1
+    maxReplicas: 3
+  cpu_requests: 200m
+  memory_requests: 512Mi
+  cpu_limits: 300m
+  memory_limits: 768Mi
+
+pdf-service:
+  namespace: egov
+  image:
+    repository: egovio/pdf-service
+    tag: central-instance-pdf-2aad92c
+  initContainers:
+    gitSync:
+      repo: "git@github.com:HCM-BAUCHI/health-campaign-config"
+      branch: "PROD"
+  data-config-urls: "file:///work-dir/health-campaign-config/pdf-service/data-config/health-bill-payment.json"
+  format-config-urls: "file:///work-dir/health-campaign-config/pdf-service/format-config/health-bill-payment.json"
+  heap: "-Xmx512m -Xms256m"
+  hpa:
+    enabled: false
+    minReplicas: 1
+    maxReplicas: 3
+  cpu_requests: 200m
+  memory_requests: 512Mi
+  cpu_limits: 300m
+  memory_limits: 768Mi
 
 #pdf-service:
 #  initContainers:

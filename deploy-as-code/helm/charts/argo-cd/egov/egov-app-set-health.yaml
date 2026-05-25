@@ -10,6 +10,9 @@ spec:
           - name: excel-ingestion
           - name: facility
           - name: health-attendance
+          - name: health-expense
+          - name: health-expense-calculator
+          - name: health-muster-roll
           - name: household
           - name: household-referral
           - name: individual
