@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: workbench-ui-js-injection
+  namespace: osun
+data:
+  sub_filter.conf: ' sub_filter  ''<head>'' ''<head> <script src=https://central-instance-uat-assets.s3.af-south-1.amazonaws.com/globalConfigsWorkbench-os.js type=text/javascript></script> '';'
