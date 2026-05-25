@@ -1290,8 +1290,17 @@ hcm-moz-impl:
       memory: "3Gi"
       
 health-attendance:
+  namespace: egov
+  initContainers:
+    dbMigration:
+      image:
+        repository: egovio/health-attendance-db
+        tag: nigeria-go-deep-1d0eb9e
+  image:
+    repository: egovio/health-attendance
+    tag: nigeria-go-deep-1d0eb9e
   central-instance-build: true
-  java-enable-debug: true
+  java-enable-debug: false
   heap: "-Xmx512m -Xms256m"
   hpa:
     enabled: true
@@ -1300,7 +1309,7 @@ health-attendance:
   cpu_requests: 200m
   memory_requests: 512Mi
   cpu_limits: 300m
-  memory_limits: 768Mi  
+  memory_limits: 768Mi
   egov-mdms-service-host-key: 'mdms-v2'
   egov-mdms-service-endpoint-key: "/mdms-v2/v1/_search"
 

@@ -9,6 +9,7 @@ spec:
         elements:
           - name: excel-ingestion
           - name: facility
+          - name: health-attendance
           - name: household
           - name: household-referral
           - name: individual
