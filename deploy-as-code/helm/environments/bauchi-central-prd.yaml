@@ -146,6 +146,7 @@ cluster-configs:
         attendance-service: "http://health-attendance.egov:8080/"
         audit-service: "http://audit-service.egov:8080/"
         project-factory: 'http://project-factory.egov:8080/'
+        excel-ingestion: 'http://excel-ingestion.egov:8080/'
         plan-service: 'http://plan-service.egov:8080/'
         census-service: 'http://census-service.egov:8080/'
         health-muster-roll: 'http://health-muster-roll.egov:8080/'
@@ -1106,6 +1107,24 @@ project-factory:
   mdmsV2SearchEndpoint: 'mdms-v2/v2/_search'
   mdmsV1SearchEndpoint: 'mdms-v2/v1/_search'
   replicas: 3
+
+excel-ingestion:
+  namespace: egov
+  initContainers:
+    dbMigration:
+      image:
+        repository: egovio/excel-ingestion-db
+        tag: nigeria-go-deep-2-8029c9a
+  image:
+    repository: egovio/excel-ingestion
+    tag: nigeria-go-deep-2-8029c9a
+  group-id: "excel-ingestion"
+  cpu_requests: 200m
+  memory_requests: 768Mi
+  egov-mdms-service-host-key: 'mdms-v2'
+  egov-mdms-service-endpoint-key: "mdms-v2/v2/_search"
+  defaultLocale: 'en_MZ'
+  project-factory-host: "project-factory"
 
 od-project-factory:
   global:
