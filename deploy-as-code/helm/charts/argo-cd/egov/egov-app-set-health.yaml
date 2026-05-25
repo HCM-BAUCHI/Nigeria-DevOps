@@ -7,6 +7,7 @@ spec:
   generators:
     - list:
         elements:
+          - name: boundary-management
           - name: excel-ingestion
           - name: facility
           - name: health-attendance

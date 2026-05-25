@@ -139,6 +139,7 @@ cluster-configs:
         household: "http://household.egov:8080/"
         household-referral: "http://household-referral.egov:8080/"
         boundary-service: "http://boundary-service.egov:8080/"
+        boundary-management: "http://boundary-management.egov:8080/"
         individual: "http://individual.egov:8080/"
         individual-referral: "http://individual-referral.egov:8080/"
         stock: "http://stock.egov:8080/"
@@ -256,7 +257,23 @@ boundary-service:
   memory_requests: 1Gi
   cpu_limits: 300m
   memory_limits: 1.5Gi
-      
+
+boundary-management:
+  namespace: egov
+  image:
+    repository: egovio/boundary-management
+    tag: master-aa57e79
+  central-instance-build: true
+  java-enable-debug: false
+  heap: "-Xmx512m -Xms256m"
+  hpa:
+    enabled: false
+    minReplicas: 1
+    maxReplicas: 3
+  cpu_requests: 200m
+  memory_requests: 512Mi
+  cpu_limits: 300m
+  memory_limits: 768Mi
 
 egov-user:
   central-instance-build: true
@@ -1075,6 +1092,8 @@ referralmanagement:
   schemaNameExclude: [ "chad", "kb", "kd", "jg" ]
   hostExclude: ["chad-hcm-prod.digit.org", "kebbi-azm-central-hcm.digit.org", "kaduna-central-hcm.digit.org", "jigawa-central-hcm.digit.org"]
   kafka-consumer-group-id: "health-referral-management"
+  s3-bucket-name: "downsync-ng-prod"
+  s3-region: "af-south-1"
 
 service-request:
   initContainers:
