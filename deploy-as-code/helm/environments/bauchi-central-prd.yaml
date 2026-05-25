@@ -124,6 +124,7 @@ cluster-configs:
         egov-workflow-v2: "http://egov-workflow-v2.egov:8080/"
         egov-indexer: "http://egov-indexer:8080/"
         egov-hrms: "http://egov-hrms.egov:8080/"
+        worker-registry-host: "http://worker-registry.egov:8080/"
         es-client: "https://elasticsearch-data.es-cluster-v8:9200"
         pdf-service: "http://pdf-service.egov:8080/"
         user-otp: "http://user-otp.egov:8080/"
@@ -1107,6 +1108,27 @@ project-factory:
   mdmsV2SearchEndpoint: 'mdms-v2/v2/_search'
   mdmsV1SearchEndpoint: 'mdms-v2/v1/_search'
   replicas: 3
+
+worker-registry:
+  namespace: egov
+  initContainers:
+    dbMigration:
+      image:
+        repository: egovio/worker-registry-db
+        tag: nigeria-go-deep-2-f07cd4f
+  image:
+    repository: egovio/worker-registry
+    tag: nigeria-go-deep-2-f07cd4f
+  central-instance-build: true
+  central-instance-enabled: true
+  central-instance-name: egov
+  heap: "-Xmx512m -Xms256m"
+  hpa:
+    enabled: false
+    minReplicas: 1
+    maxReplicas: 3
+  cpu_requests: 200m
+  memory_requests: 368Mi
 
 excel-ingestion:
   namespace: egov
