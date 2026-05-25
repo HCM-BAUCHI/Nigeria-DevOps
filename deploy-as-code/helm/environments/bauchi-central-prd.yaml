@@ -1521,3 +1521,16 @@ loki:
     table_manager:
       retention_deletes_enabled: true
       retention_period: 168h
+
+
+dashboard-analytics:
+  namespace: egov
+  image:
+    repository: egovio/dashboard-analytics
+    tag: analytics-raw-response-transform-dc60b55
+
+beneficiary-idgen:
+  namespace: egov
+  image:
+    repository: egovio/beneficiary-idgen
+    tag: master-b91815e
