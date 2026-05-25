@@ -37,9 +37,9 @@ env: |
   - name: KAFKA_UPDATE_CAMPAIGN_DETAILS_TOPIC
     value: update-campaign-details
   - name: DB_SCHEMA
-    value: "ch"
+    value: "public"
   - name: DEFAULT_TENANT_ID
-    value: ch
+    value: mz
   - name: EGOV_MDMS_HOST
     valueFrom:
       configMapKeyRef:
@@ -319,41 +319,41 @@ env: |
     value: {{ .Values.notCreateUserIfAlreadyThere | default "false" | quote }}
   - name: INCOMING_REQUEST_PAYLOAD_LIMIT
     value: 5mb
-  - name: KAFKA_SAVE_PROJECT_CAMPAIGN_DETAILS_TOPIC 
-    value: "ch-save-project-campaign-details"
-  - name: KAFKA_UPDATE_PROJECT_CAMPAIGN_DETAILS_TOPIC 
-    value: "ch-update-project-campaign-details"
-  - name: KAFKA_START_CAMPAIGN_MAPPING_TOPIC 
-    value: "ch-start-campaign-mapping"
-  - name: KAFKA_CREATE_RESOURCE_DETAILS_TOPIC 
-    value: "ch-create-resource-details"
-  - name: KAFKA_UPDATE_RESOURCE_DETAILS_TOPIC 
-    value: "ch-update-resource-details"
-  - name: KAFKA_CREATE_RESOURCE_ACTIVITY_TOPIC 
-    value: "ch-create-resource-activity"
-  - name: KAFKA_UPDATE_GENERATED_RESOURCE_DETAILS_TOPIC 
-    value: "ch-update-generated-resource-details"
-  - name: KAFKA_CREATE_GENERATED_RESOURCE_DETAILS_TOPIC 
-    value: "ch-create-generated-resource-details"
-  - name: KAFKA_SAVE_PLAN_FACILITY_TOPIC 
-    value: "ch-project-factory-save-plan-facility"
-  - name: KAFKA_SAVE_SHEET_DATA_TOPIC 
-    value: "ch-save-sheet-data"
-  - name: KAFKA_UPDATE_SHEET_DATA_TOPIC 
-    value: "ch-update-sheet-data"
-  - name: KAFKA_SAVE_MAPPING_TOPIC 
-    value: "ch-save-mapping-data"
-  - name: KAFKA_UPDATE_MAPPING_TOPIC 
-    value: "ch-update-mapping-data"
-  - name: KAFKA_DELETE_MAPPING_TOPIC 
-    value: "ch-delete-mapping-data"
-  - name: KAFKA_SAVE_PROCESS_TOPIC 
-    value: "ch-save-process-data"
-  - name: KAFKA_UPDATE_PROCESS_TOPIC 
-    value: "ch-update-process-data"
-  - name: KAFKA_START_TASK_TOPIC 
-    value: "ch-start-admin-console-task"
-  - name: KAFKA_START_MAPPING_TASK_TOPIC 
-    value: "ch-start-admin-console-mapping-task"
-  - name: KAFKA_NOTIFICATION_EMAIL_TOPIC 
-    value: "ch-egov.core.notification.email"
+  - name: KAFKA_SAVE_PROJECT_CAMPAIGN_DETAILS_TOPIC
+    value: "save-project-campaign-details"
+  - name: KAFKA_UPDATE_PROJECT_CAMPAIGN_DETAILS_TOPIC
+    value: "update-project-campaign-details"
+  - name: KAFKA_START_CAMPAIGN_MAPPING_TOPIC
+    value: "start-campaign-mapping"
+  - name: KAFKA_CREATE_RESOURCE_DETAILS_TOPIC
+    value: "create-resource-details"
+  - name: KAFKA_UPDATE_RESOURCE_DETAILS_TOPIC
+    value: "update-resource-details"
+  - name: KAFKA_CREATE_RESOURCE_ACTIVITY_TOPIC
+    value: "create-resource-activity"
+  - name: KAFKA_UPDATE_GENERATED_RESOURCE_DETAILS_TOPIC
+    value: "update-generated-resource-details"
+  - name: KAFKA_CREATE_GENERATED_RESOURCE_DETAILS_TOPIC
+    value: "create-generated-resource-details"
+  - name: KAFKA_SAVE_PLAN_FACILITY_TOPIC
+    value: "project-factory-save-plan-facility"
+  - name: KAFKA_SAVE_SHEET_DATA_TOPIC
+    value: "save-sheet-data"
+  - name: KAFKA_UPDATE_SHEET_DATA_TOPIC
+    value: "update-sheet-data"
+  - name: KAFKA_SAVE_MAPPING_TOPIC
+    value: "save-mapping-data"
+  - name: KAFKA_UPDATE_MAPPING_TOPIC
+    value: "update-mapping-data"
+  - name: KAFKA_DELETE_MAPPING_TOPIC
+    value: "delete-mapping-data"
+  - name: KAFKA_SAVE_PROCESS_TOPIC
+    value: "save-process-data"
+  - name: KAFKA_UPDATE_PROCESS_TOPIC
+    value: "update-process-data"
+  - name: KAFKA_START_TASK_TOPIC
+    value: "start-admin-console-task"
+  - name: KAFKA_START_MAPPING_TASK_TOPIC
+    value: "start-admin-console-mapping-task"
+  - name: KAFKA_NOTIFICATION_EMAIL_TOPIC
+    value: "egov.core.notification.email"
