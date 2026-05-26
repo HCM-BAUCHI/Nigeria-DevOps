@@ -272,6 +272,8 @@ boundary-management:
     tag: master-aa57e79
   central-instance-build: true
   central-instance-enabled: true
+  schemaNameExclude: [ "chad", "kb" ]
+  hostExclude: ["chad-hcm-prod.digit.org", "kebbi-azm-central-hcm.digit.org"]
   java-enable-debug: false
   heap: "-Xmx512m -Xms256m"
   hpa:
@@ -1174,6 +1176,8 @@ excel-ingestion:
   group-id: "excel-ingestion"
   central-instance-build: true
   central-instance-enabled: true
+  schemaNameExclude: [ "chad", "kb" ]
+  hostExclude: ["chad-hcm-prod.digit.org", "kebbi-azm-central-hcm.digit.org"]
   cpu_requests: 200m
   memory_requests: 768Mi
   egov-mdms-service-host-key: 'mdms-v2'
@@ -1334,6 +1338,8 @@ health-attendance:
     tag: nigeria-go-deep-1d0eb9e
   central-instance-build: true
   central-instance-enabled: true
+  schemaNameExclude: [ "chad", "kb" ]
+  hostExclude: ["chad-hcm-prod.digit.org", "kebbi-azm-central-hcm.digit.org"]
   java-enable-debug: false
   heap: "-Xmx512m -Xms256m"
   hpa:
@@ -1359,6 +1365,8 @@ health-muster-roll:
     tag: nigeria-go-deep-7fe8703
   central-instance-build: true
   central-instance-enabled: true
+  schemaNameExclude: [ "chad", "kb" ]
+  hostExclude: ["chad-hcm-prod.digit.org", "kebbi-azm-central-hcm.digit.org"]
   java-enable-debug: false
   heap: "-Xmx512m -Xms256m"
   hpa:
@@ -1382,6 +1390,8 @@ health-expense:
     tag: nigeria-go-deep-payments-expense-15b5a23
   central-instance-build: true
   central-instance-enabled: true
+  schemaNameExclude: [ "chad", "kb" ]
+  hostExclude: ["chad-hcm-prod.digit.org", "kebbi-azm-central-hcm.digit.org"]
   java-enable-debug: false
   heap: "-Xmx512m -Xms256m"
   hpa:
