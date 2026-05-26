@@ -1331,6 +1331,7 @@ health-attendance:
     repository: egovio/health-attendance
     tag: nigeria-go-deep-1d0eb9e
   central-instance-build: true
+  central-instance-enabled: true
   java-enable-debug: false
   heap: "-Xmx512m -Xms256m"
   hpa:
@@ -1355,6 +1356,7 @@ health-muster-roll:
     repository: egovio/health-muster-roll
     tag: nigeria-go-deep-7fe8703
   central-instance-build: true
+  central-instance-enabled: true
   java-enable-debug: false
   heap: "-Xmx512m -Xms256m"
   hpa:
@@ -1377,6 +1379,7 @@ health-expense:
     repository: egovio/health-expense
     tag: nigeria-go-deep-payments-expense-15b5a23
   central-instance-build: true
+  central-instance-enabled: true
   java-enable-debug: false
   heap: "-Xmx512m -Xms256m"
   hpa:
