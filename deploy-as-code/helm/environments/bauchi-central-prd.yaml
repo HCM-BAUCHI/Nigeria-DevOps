@@ -110,6 +110,7 @@ cluster-configs:
       namespace: [egov, bauchi, oyo, monitoring, kogi, nasarawa, abuja, plateau, borno, kebbi, sokoto, ondo, adamawa, kaduna, jigawa, chad, gombe ]
       data:
         dashboard-analytics: "http://dashboard-analytics.egov:8080/"
+        internal-gateway-scg: "http://internal-gateway-scg.egov:8080/"
         egov-enc-service: "http://egov-enc-service.egov:8080/"
         egov-enc-service-kaduna: "http://egov-enc-service.kaduna:8080/"
         egov-enc-service-jigawa: "http://egov-enc-service.jigawa:8080/"
