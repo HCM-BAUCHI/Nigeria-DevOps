@@ -76,7 +76,7 @@ env: |
     valueFrom:
       configMapKeyRef:
         name: egov-service-host
-        key: internal-gateway-scg
+        key: egov-enc-service
   - name: EGOV_ENC_ENCRYPT_ENDPOINT
     value: "/egov-enc-service/crypto/v1/_encrypt"
   - name: EGOV_ENC_DECRYPT_ENDPOINT
