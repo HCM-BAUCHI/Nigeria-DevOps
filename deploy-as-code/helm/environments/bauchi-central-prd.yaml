@@ -1169,6 +1169,7 @@ excel-ingestion:
     repository: egovio/excel-ingestion
     tag: nigeria-go-deep-2-8029c9a
   group-id: "excel-ingestion"
+  central-instance-build: true
   central-instance-enabled: true
   cpu_requests: 200m
   memory_requests: 768Mi
