@@ -1158,6 +1158,8 @@ worker-registry:
     maxReplicas: 3
   cpu_requests: 200m
   memory_requests: 368Mi
+  schemaNameExclude: [ "chad", "kb" ]
+  hostExclude: ["chad-hcm-prod.digit.org", "kebbi-azm-central-hcm.digit.org"]
 
 excel-ingestion:
   namespace: egov
