@@ -270,6 +270,7 @@ boundary-management:
     repository: egovio/boundary-management
     tag: master-aa57e79
   central-instance-build: true
+  central-instance-enabled: true
   java-enable-debug: false
   heap: "-Xmx512m -Xms256m"
   hpa:
