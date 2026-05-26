@@ -1393,6 +1393,7 @@ health-expense:
   schemaNameExclude: [ "chad", "kb" ]
   hostExclude: ["chad-hcm-prod.digit.org", "kebbi-azm-central-hcm.digit.org"]
   java-enable-debug: false
+  java-args: ""
   heap: "-Xmx512m -Xms256m"
   hpa:
     enabled: false
