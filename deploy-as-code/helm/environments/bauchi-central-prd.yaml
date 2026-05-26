@@ -1169,11 +1169,12 @@ excel-ingestion:
     repository: egovio/excel-ingestion
     tag: nigeria-go-deep-2-8029c9a
   group-id: "excel-ingestion"
+  central-instance-enabled: true
   cpu_requests: 200m
   memory_requests: 768Mi
   egov-mdms-service-host-key: 'mdms-v2'
   egov-mdms-service-endpoint-key: "mdms-v2/v2/_search"
-  defaultLocale: 'en_MZ'
+  defaultLocale: 'en_NG'
   project-factory-host: "project-factory"
 
 od-project-factory:
