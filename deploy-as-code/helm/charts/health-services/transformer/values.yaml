@@ -77,6 +77,26 @@ save-stock-reconciliation-topic: "save-stock-reconciliation-topic"
 update-stock-reconciliation-topic: "update-stock-reconciliation-topic"
 transformer-producer-stock-recon-index-v1-topic: "transformer-producer-stock-recon-index-v1-topic"
 health-transformer: "health-transformer"
+transformer-consumer-error-tracer-topic: "error-details-indexer-topic"
+transformer-producer-error-details-index-v1-topic: "oy-transformed-errors-topic"
+transformer-error-skip-error-messages: "UPLOAD_ERROR_FROM_APP"
+transformer-error-skip-error-codes: "DUPLICATE_ENTITY,INDIVIDUAL_ALREADY_MEMBER_OF_HOUSEHOLD,HOUSEHOLD_ALREADY_HAS_HEAD"
+transformer-error-skip-url-contains: "facility,resource"
+state-level-tenantid: "oy"
+expense-bill-create-health-topic: "oy-expense-bill-create-health"
+expense-bill-update-health-topic: "oy-expense-bill-update-health"
+transformer-bill-index-topic: "oy-transformer-bill-index-topic"
+transformer-billdetail-index-topic: "oy-transformer-billdetail-index-topic"
+expense-bill-report-save-topic: "oy-expense-bill-report-save"
+expense-bill-report-update-topic: "oy-expense-bill-report-update"
+transformer-billreport-index-topic: "oy-transformer-billreport-index-topic"
+save-musterroll-health-topic: "oy-save-musterroll-health"
+update-musterroll-health-topic: "oy-update-musterroll-health"
+transformer-producer-muster-roll-index-v1-topic: "oy-transformer-producer-muster-roll-index-v1-topic"
+expense-bill-detail-create-topic: "oy-expense-bill-detail-create"
+expense-bill-detail-update-topic: "oy-expense-bill-detail-update"
+egov_localization_locale_code: "en_NG"
+egov-localization-module-name: "hcm-boundary-nigeriauat"
 # Additional Container Envs
 env: |
   - name: SPRING_KAFKA_CONSUMER_GROUP_ID
@@ -349,3 +369,75 @@ env: |
     value: en_NG
   - name: EGOV_LOCALIZATION_MODULE_NAME
     value: hcm-boundary-admin
+  
+  - name: TRANSFORMER_CONSUMER_ERROR_TRACER_TOPIC
+    value: {{ index .Values "transformer-consumer-error-tracer-topic" | default "error-details-indexer-topic" | quote }}
+  - name: TRANSFORMER_PRODUCER_ERROR_DETAILS_INDEX_V1_TOPIC
+    value: {{ index .Values "transformer-producer-error-details-index-v1-topic" | default "transformed-errors-topic" | quote }}
+  - name: TRANSFORMER_ERROR_SKIP_ERROR_MESSAGES
+    value: {{ index .Values "transformer-error-skip-error-messages" | default "UPLOAD_ERROR_FROM_APP" | quote }}
+  - name: TRANSFORMER_ERROR_SKIP_ERROR_CODES
+    value: {{ index .Values "transformer-error-skip-error-codes" | default "" | quote }}
+  - name: TRANSFORMER_ERROR_SKIP_URL_CONTAINS
+    value: {{ index .Values "transformer-error-skip-url-contains" | default "facility,resource" | quote }}
+  - name: STATE_LEVEL_TENANTID
+    value: {{ index .Values "state-level-tenantid" | default "ng" | quote }}
+  - name: TRANSFORMER_CONSUMER_SAVE_BILL_TOPIC
+    value: {{ index .Values "expense-bill-create-health-topic" | default "expense-bill-create-health" | quote }}
+  - name: TRANSFORMER_CONSUMER_UPDATE_BILL_TOPIC
+    value: {{ index .Values "expense-bill-update-health-topic" | default "expense-bill-update-health" | quote }}
+  - name: TRANSFORMER_PRODUCER_BILL_INDEX_V1_TOPIC
+    value: {{ index .Values "transformer-bill-index-topic" | default "transformer-bill-index-topic" | quote }}
+  - name: TRANSFORMER_PRODUCER_BILLDETAIL_INDEX_V1_TOPIC
+    value: {{ index .Values "transformer-billdetail-index-topic" | default "transformer-billdetail-index-topic" | quote }}
+  - name: TRANSFORMER_CONSUMER_SAVE_BILL_REPORT_TOPIC
+    value: {{ index .Values "expense-bill-report-save-topic" | default "expense-bill-report-save" | quote }}
+  - name: TRANSFORMER_CONSUMER_UPDATE_BILL_REPORT_TOPIC
+    value: {{ index .Values "expense-bill-report-update-topic" | default "expense-bill-report-update" | quote }}
+  - name: TRANSFORMER_PRODUCER_BILLREPORT_INDEX_V1_TOPIC
+    value: {{ index .Values "transformer-billreport-index-topic" | default "transformer-billreport-index-topic" | quote }}
+  - name: TRANSFORMER_CONSUMER_SAVE_MUSTERROLL_TOPIC
+    value: {{ index .Values "save-musterroll-health-topic" | default "save-musterroll-health" | quote }}
+  - name: TRANSFORMER_CONSUMER_UPDATE_MUSTERROLL_TOPIC
+    value: {{ index .Values "update-musterroll-health-topic" | default "update-musterroll-health" | quote }}
+  - name: TRANSFORMER_PRODUCER_MUSTERROLL_INDEX_V1_TOPIC
+    value: {{ index .Values "transformer-producer-muster-roll-index-v1-topic" | default "transformer-producer-muster-roll-index-v1-topic" | quote }}
+  - name: TRANSFORMER_CONSUMER_SAVE_BILLDETAIL_TOPIC
+    value: {{ index .Values "expense-bill-detail-create-topic" | default "expense-bill-detail-create" | quote }}
+  - name: TRANSFORMER_CONSUMER_UPDATE_BILLDETAIL_TOPIC
+    value: {{ index .Values "expense-bill-detail-update-topic" | default "expense-bill-detail-update" | quote }}
+  - name: EGOV_LOCALIZATION_LOCALE_CODE
+    value: {{ index .Values "egov_localization_locale_code" | quote }}
+  - name: EGOV_LOCALIZATION_MODULE_NAME
+    value: {{ index .Values "egov-localization-module-name" | quote }}
+  
+  - name: EGOV_DEVICE_TOKEN_HOST
+    valueFrom:
+      configMapKeyRef:
+        name: egov-service-host
+        key: egov-notification-push
+  - name: EGOV_SEARCH_DEVICE_TOKEN_URL
+    value: "/egov-notification-push/device-token/v1/_search"
+  - name: TRANSFORMER_PRODUCER_BULK_STOCK_INDEX_UPDATED_V1_TOPIC
+    value: {{ index .Values "transformer-producer-bulk-stock-index-updated-v1-topic" | quote }}
+  - name: EGOV_WORKFLOW_HOST
+    valueFrom:
+      configMapKeyRef:
+        name: egov-service-host
+        key: egov-workflow-v2
+  - name: EGOV_WORKFLOW_PROCESS_SEARCH_URL
+    value: /egov-workflow-v2/egov-wf/process/_search
+  - name: EGOV_BILL_SERVICE_HOST
+    valueFrom:
+      configMapKeyRef:
+        name: egov-service-host
+        key: health-expense
+  - name: EGOV_BILL_SEARCH_URL
+    value: /health-expense/bill/v1/_search
+  - name: EGOV_PROJECT_FACTORY_HOST
+    valueFrom:
+      configMapKeyRef:
+        name: egov-service-host
+        key: project-factory
+  - name: EGOV_PROJECT_FACTORY_SEARCH_ENDPOINT
+    value: "project-factory/v1/project-type/search"
