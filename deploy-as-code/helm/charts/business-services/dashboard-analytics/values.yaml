@@ -26,7 +26,9 @@ healthChecks:
   readinessProbePath: "/dashboard-analytics/health"
 tracing-enabled: true
 config-schema-paths: "file:///work-dir/configs/egov-dss-dashboards/dashboard-analytics/*.json"
-
+is-central-instance: "false"
+central-instance-tenants: "oy"
+central-instance-base-path: "file:///work-dir/configs/egov-dss-dashboards"
 # Additional Container Envs
 env: |      
   - name: SERVER_SERVLET_CONTEXT_PATH

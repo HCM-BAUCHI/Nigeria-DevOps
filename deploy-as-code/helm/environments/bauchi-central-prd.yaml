@@ -1550,6 +1550,33 @@ dashboard-analytics:
   image:
     repository: egovio/dashboard-analytics
     tag: analytics-raw-response-transform-dc60b55
+  ingress:
+    name: dashboard-analytics
+    namespace: egov
+  healthChecks:
+    enabled: true
+    livenessProbePath: "/dashboard-analytics/health"
+    readinessProbePath: "/dashboard-analytics/health"
+  heap: "-Xmx512m -Xms256m"
+  replicas: 1
+  hpa:
+    enabled: false
+    minReplicas: 1
+    maxReplicas: 3
+  cpu_requests: 200m
+  memory_requests: 768Mi
+  cpu_limits: 300m
+  memory_limits: 1Gi
+  initContainers:
+    gitSync:
+      enabled: true
+      repo: "git@github.com:HCM-BAUCHI/health-campaign-config"
+      branch: "PROD"
+  config-schema-paths: "file:///work-dir/health-campaign-config/egov-dss-dashboards/oy/dashboard-analytics/*.json"
+is-central-instance: "true"
+central-instance-tenants: "oy"
+central-instance-base-path: "file:///work-dir/health-campaign-config/egov-dss-dashboards"
+
 
 beneficiary-idgen:
   namespace: egov
