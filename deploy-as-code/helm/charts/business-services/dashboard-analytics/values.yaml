@@ -90,3 +90,9 @@ env: |
     value: {{ index .Values "java-enable-debug" | quote }}
   - name: CACHE_EXPIRY_TIME_IN_MINUTES
     value: "1"
+  - name: IS_CENTRAL_INSTANCE
+    value: {{ index .Values "is-central-instance" | quote }}
+  - name: CENTRAL_INSTANCE_TENANTS
+    value: {{ index .Values "central-instance-tenants" | quote }}
+  - name: CENTRAL_INSTANCE_BASE_PATH
+    value: {{ index .Values "central-instance-base-path" | quote }}
