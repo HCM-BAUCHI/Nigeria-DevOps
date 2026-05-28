@@ -192,7 +192,7 @@ dashboard-ui:
   namespace: oyo
   image:
     repository: egovio/dashboard-ui
-    tag: HDDF-4931-6873013
+    tag: HDDF-4931-7794204
   custom-js-injection: |
     sub_filter.conf: "
       sub_filter  '<head>' '<head>
