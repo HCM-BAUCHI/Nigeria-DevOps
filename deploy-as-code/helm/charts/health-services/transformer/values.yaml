@@ -229,16 +229,6 @@ env: |
     value: {{ index .Values "save-facility-topic" | quote }}
   - name: TRANSFORMER_CONSUMER_UPDATE_FACILITY_TOPIC
     value: {{ index .Values "update-facility-topic" | quote }}
-  - name: BOUNDARY_LABEL_NAME_PROVINCE
-    value: "Provincia"
-  - name: BOUNDARY_LABEL_NAME_DISTRICT
-    value: "Distrito"
-  - name: BOUNDARY_LABEL_NAME_ADMINISTRATIVEPROVINCE
-    value: "Posto Administrativo"
-  - name: BOUNDARY_LABEL_NAME_LOCALITY
-    value: "Localidade"
-  - name: BOUNDARY_LABEL_NAME_VILLAGE
-    value: "Aldeia"
   - name: EGOV_SEARCH_SERVICEDEFINITION_URL
     value: "/service-request/service/definition/v1/_search"
   - name: TRANSFORMER_CONSUMER_CREATE_SERVICE_TOPIC
@@ -362,12 +352,6 @@ env: |
     value: "/household/v1/_search"
   - name: EGOV_SEARCH_PROJECT_BENEFICIARY_URL
     value: "/project/beneficiary/v1/_search"
-  - name: EGOV_PROGRAM_MANDATE_COMMENT
-    value: "Mais de 6 agregados familiares"
-  - name: EGOV_PROGRAM_MANDATE_LIMIT
-    value: "3"
-  - name: EGOV_PROGRAM_MANDATE_DIVIDING_FACTOR
-    value: "1.8"
   - name: EGOV_LOCALIZATION_LOCALE_CODE
     value: en_NG
   - name: EGOV_LOCALIZATION_MODULE_NAME

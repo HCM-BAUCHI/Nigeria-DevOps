@@ -357,3 +357,118 @@ env: |
     value: "start-admin-console-mapping-task"
   - name: KAFKA_NOTIFICATION_EMAIL_TOPIC
     value: "egov.core.notification.email"
+
+  - name: EXCEL_INGESTION_HOST
+    value: "http://excel-ingestion.egov:8080/"
+  - name: EXCEL_INGESTION_GENERATE_SEARCH
+    value: "excel-ingestion/v1/data/generate/_search"
+  - name: EXCEL_INGESTION_SHEET_SEARCH
+    value: "excel-ingestion/v1/data/sheet/_search"
+  - name: EXCEL_INGESTION_PROCESS
+    value: "excel-ingestion/v1/data/process/_create"
+  - name: EXCEL_INGESTION_GENERATE
+    value: "excel-ingestion/v1/data/generate/_init"
+  - name: FORM_CONFIG_TEMPLATE_NAME
+    value: "FormConfigTemplate"
+  - name: FORM_CONFIG_NAME
+    value: "FormConfig"
+  - name: EMAIL_NOTIFICATION_ID
+    value: "support@egov.org.in"
+  - name: EGOV_LOGO_LINK
+    value: "https://egov-dev-assets.s3.ap-south-1.amazonaws.com/digit.png"
+  - name: KAFKA_TEST_TOPIC
+    value: "test-topic-project-factory"
+  - name: KAFKA_HCM_PROCESSING_RESULT_TOPIC
+    value: "hcm-processing-result"
+  - name: KAFKA_FACILITY_CREATE_BATCH_TOPIC
+    value: "hcm-facility-create-batch"
+  - name: KAFKA_USER_CREATE_BATCH_TOPIC
+    value: "hcm-user-create-batch"
+  - name: KAFKA_MAPPING_BATCH_TOPIC
+    value: "hcm-mapping-batch"
+  - name: KAFKA_CAMPAIGN_MARK_FAILED_TOPIC
+    value: "hcm-campaign-mark-failed"
+  - name: USER_MAIN_BOUNDARY
+    value: "ADMIN"
+  - name: USER_MAIN_BOUNDARY_TYPE
+    value: "Country"
+  - name: MAX_RESOURCE_CREATION_ATTEMPTS
+    value: "10"
+  - name: WAIT_TIME_OF_EACH_ATTEMPT_MS
+    value: "20000"
+  - name: RETRY_TILL_RESOURCE_CREATION_COMPLETES
+    value: "5"
+  - name: KAFKAJS_GROUP_ID
+    value: "project-factory"
+  - name: EGOV_WORKER_REGISTRY_HOST
+    value: "http://worker-registry.egov:8080/"
+  - name: EGOV_WORKER_REGISTRY_BULK_CREATE
+    value: "worker/v1/bulk/_create"
+  - name: EGOV_WORKER_REGISTRY_BULK_UPDATE
+    value: "worker/v1/bulk/_update"
+  - name: EGOV_WORKER_REGISTRY_SEARCH
+    value: "worker/v1/_search"
+  - name: EGOV_ATTENDANCE_HOST
+    value: "http://health-attendance.egov:8080/"
+  - name: ATTENDANCE_REGISTER_CREATE_PATH
+    value: "attendance/v1/_create"
+  - name: ATTENDANCE_REGISTER_SEARCH_PATH
+    value: "attendance/v1/_search"
+  - name: ATTENDANCE_ATTENDEE_CREATE_PATH
+    value: "attendance/attendee/v1/_create"
+  - name: ATTENDANCE_ATTENDEE_DELETE_PATH
+    value: "attendance/attendee/v1/_delete"
+  - name: ATTENDANCE_ATTENDEE_UPDATE_TAG_PATH
+    value: "attendance/attendee/v1/_updateTag"
+  - name: ATTENDANCE_STAFF_CREATE_PATH
+    value: "attendance/staff/v1/_create"
+  - name: ATTENDANCE_STAFF_DELETE_PATH
+    value: "attendance/staff/v1/_delete"
+  - name: ATTENDANCE_REGISTER_UPDATE_PATH
+    value: "attendance/v1/_update"
+  - name: ATTENDANCE_ATTENDEE_UPDATE_PATH
+    value: "attendance/attendee/v1/_update"
+  - name: ATTENDANCE_STAFF_UPDATE_PATH
+    value: "attendance/staff/v1/_update"
+  - name: ATTENDANCE_REGISTER_DEFAULT_EVENT_TYPE
+    value: "Training"
+  - name: ATTENDANCE_REGISTER_DEFAULT_SESSIONS
+    value: "1"
+  - name: ATTENDANCE_BATCH_SIZE
+    value: "50"
+  - name: ATTENDANCE_SERVICE_CODE_PARALLEL_SEARCH_LIMIT
+    value: "50"
+  - name: ATTENDANCE_ATTENDEE_SEARCH_PAGE_SIZE
+    value: "100"
+  - name: ATTENDANCE_STAFF_SEARCH_PAGE_SIZE
+    value: "100"
+  - name: ATTENDANCE_ATTENDEE_SEARCH_PATH
+    value: "attendance/attendee/v1/_search"
+  - name: ATTENDANCE_STAFF_SEARCH_PATH
+    value: "attendance/staff/v1/_search"
+  - name: SERVER_TIMEZONE
+    value: "UTC"
+  - name: BOUNDARY_CODE_HEADER_NAME
+    value: "HCM_ADMIN_CONSOLE_BOUNDARY_CODE"
+  - name: BOUNDARY_CODE_HEADER_NAME_FACILITY_MICROPLAN
+    value: "HCM_ADMIN_CONSOLE_RESIDING_BOUNDARY_CODE_MICROPLAN"
+  - name: PHONE_NUMBER_LENGTH
+    value: "11"
+  - name: HRMS_PARALLEL_SEARCH_LIMIT
+    value: "100"
+  - name: APP_PORT
+    value: "8080"
+  - name: EGOV_LOCALIZATION_SEARCH
+    value: "localization/messages/v1/_search"
+  - name: CACHE_BURST
+    value: "localization/messages/cache-bust"
+  - name: EGOV_FACILITY_CREATE_PATH
+    value: "facility/v1/_create"
+  - name: SKIP_PARENT_PROJECT_CONFIRMATION
+    value: "false"
+  - name: UNFROZE_TILL_COLUMN
+    value: "26"
+  - name: MAX_HTTP_RETRIES
+    value: "4"
+  - name: LAT_LONG_SUBSTRINGS
+    value: "HCM_ADMIN_CONSOLE_FACILITY_LATITUDE_OPTIONAL_MICROPLAN,HCM_ADMIN_CONSOLE_FACILITY_LONGITUDE_OPTIONAL_MICROPLAN,HCM_ADMIN_CONSOLE_TARGET_LAT_OPT,HCM_ADMIN_CONSOLE_TARGET_LONG_OPT"
