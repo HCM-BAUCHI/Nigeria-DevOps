@@ -48,7 +48,7 @@ transformer:
   namespace: "oyo"
   image:
     repository: egovio/transformer
-    tag: HDDF-5226-d8504b1e40-419
+    tag: HDDF-5226-bb7e4cb2d3-420
   heap: "-Xmx1536m -Xms1536m"
   replicas: 2
   hpa:
