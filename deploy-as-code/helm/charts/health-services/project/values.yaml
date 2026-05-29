@@ -78,7 +78,7 @@ task-mdms-module: "HCM-TASK-QUANTITY-VALIDATION"
 project-attendance-feature-enabled: "true"
 project-create-cache-key: "project-create-cache-"
 project-kafka-batch-size: "100"
-project-task-no-resource-validation-status: "ADMINISTRATION_FAILED,BENEFICIARY_REFUSED,CLOSED_HOUSEHOLD,NOT_ADMINISTERED,BENEFICIARY_REFERRED,BENEFICIARY_INELIGIBLE"
+project-task-no-resource-validation-status: "ADMINISTRATION_FAILED,BENEFICIARY_REFUSED,CLOSED_HOUSEHOLD,NOT_ADMINISTERED,BENEFICIARY_REFERRED,BENEFICIARY_INELIGIBLE,INELIGIBLE"
 
 # Additional Container Envs
 env: |
