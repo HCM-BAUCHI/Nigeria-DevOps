@@ -1089,7 +1089,7 @@ referralmanagement:
   downsync-services-enabled: true
   central-instance-build: true
   central-instance-enabled: true
-  replicas: 7
+  replicas: 2
   heap: "-Xmx1536m -Xms768m"
   hpa:
     enabled: true

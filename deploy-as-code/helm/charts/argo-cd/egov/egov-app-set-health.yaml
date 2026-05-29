@@ -21,6 +21,7 @@ spec:
           - name: product
           - name: project
           - name: project-referral
+          - name: referralmanagement
           - name: stock
           - name: worker-registry
 
