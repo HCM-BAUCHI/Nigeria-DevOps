@@ -393,11 +393,11 @@ env: |
   - name: USER_MAIN_BOUNDARY_TYPE
     value: "Country"
   - name: MAX_RESOURCE_CREATION_ATTEMPTS
-    value: "10"
+    value: "100"
   - name: WAIT_TIME_OF_EACH_ATTEMPT_MS
     value: "20000"
   - name: RETRY_TILL_RESOURCE_CREATION_COMPLETES
-    value: "5"
+    value: "50"
   - name: KAFKAJS_GROUP_ID
     value: "project-factory"
   - name: EGOV_WORKER_REGISTRY_HOST
