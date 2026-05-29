@@ -1035,10 +1035,10 @@ project:
     dbMigration:
       image:
         repository: egovio/project-db
-        tag: featurefacilitysearch-task-status-7d6a332
+        tag: customize-nigeria-go-deep-2-project-38be8fb
   image:
     repository: egovio/project
-    tag: featurefacilitysearch-task-status-7d6a332
+    tag: customize-nigeria-go-deep-2-project-38be8fb
   central-instance-build: true
   central-instance-enabled: true
   heap: "-Xmx1g -Xms512m"
