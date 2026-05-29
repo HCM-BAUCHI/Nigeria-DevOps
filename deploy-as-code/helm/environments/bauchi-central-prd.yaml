@@ -1146,10 +1146,10 @@ worker-registry:
     dbMigration:
       image:
         repository: egovio/worker-registry-db
-        tag: nigeria-go-deep-2-f07cd4f
+        tag: customize-2.0-worker-registry-8fce267
   image:
     repository: egovio/worker-registry
-    tag: nigeria-go-deep-2-f07cd4f
+    tag: customize-2.0-worker-registry-8fce267
   central-instance-build: true
   central-instance-enabled: true
   central-instance-name: egov
