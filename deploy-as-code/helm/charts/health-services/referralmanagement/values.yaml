@@ -68,10 +68,10 @@ egov-project-task-search-batch-size: "200"
 egov-side-effect-search-batch-size: "200"
 egov-referral-search-batch-size: "200"
 egov-hf-referral-search-batch-size: "200"
-egov-s3-bucket: "downsynctest"
+egov-s3-bucket: "downsync-ng-prod"
 egov-s3-region: "af-south-1"
-egov-s3-endpoint: ""
-egov-s3-presign-endpoint: ""
+egov-s3-endpoint: "https://s3.af-south-1.amazonaws.com"
+egov-s3-presign-endpoint: "https://s3.af-south-1.amazonaws.com"
 egov-wardfilegen-ward-pool-size: "8"
 egov-wardfilegen-file-pool-size: "32"
 
@@ -289,13 +289,13 @@ env: |
   - name: EGOV_S3_ACCESS_KEY
     valueFrom:
       secretKeyRef:
-        name: referralmanagement
-        key: s3-access-key
+        name: egov-filestore
+        key: awskey
   - name: EGOV_S3_SECRET_KEY
     valueFrom:
       secretKeyRef:
-        name: referralmanagement
-        key: s3-secret-key
+        name: egov-filestore
+        key: awssecretkey
   - name: EGOV_WARDFILEGEN_WARD_POOL_SIZE
     value: {{ index .Values "egov-wardfilegen-ward-pool-size" | quote }}
   - name: EGOV_WARDFILEGEN_FILE_POOL_SIZE

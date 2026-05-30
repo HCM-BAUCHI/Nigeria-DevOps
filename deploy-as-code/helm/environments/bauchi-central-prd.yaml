@@ -1104,8 +1104,8 @@ referralmanagement:
   schemaNameExclude: [ "chad", "kb", "kd", "jg" ]
   hostExclude: ["chad-hcm-prod.digit.org", "kebbi-azm-central-hcm.digit.org", "kaduna-central-hcm.digit.org", "jigawa-central-hcm.digit.org"]
   kafka-consumer-group-id: "health-referral-management"
-  s3-bucket-name: "downsync-ng-prod"
-  s3-region: "af-south-1"
+  egov-s3-bucket: "downsync-ng-prod"
+  egov-s3-region: "af-south-1"
 
 service-request:
   initContainers:
