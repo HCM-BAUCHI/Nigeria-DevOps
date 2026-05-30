@@ -1451,6 +1451,52 @@ pdf-service:
   cpu_limits: 300m
   memory_limits: 768Mi
 
+egov-notification-mail:
+  namespace: egov
+  image:
+    repository: egovio/egov-notification-mail
+    tag: master-1e8d2bb
+  replicas: 1
+  heap: "-Xmx256m -Xms256m"
+  cpu_requests: 100m
+  memory_requests: 256Mi
+  cpu_limits: 200m
+  memory_limits: 512Mi
+
+egov-notification-push:
+  namespace: egov
+  initContainers:
+    dbMigration:
+      image:
+        repository: egovio/egov-notification-push-db
+        tag: nigeria-go-deep-push-notification-ca09919
+  image:
+    repository: egovio/egov-notification-push
+    tag: nigeria-go-deep-push-notification-ca09919
+  replicas: 1
+  heap: "-Xmx256m -Xms256m"
+  cpu_requests: 100m
+  memory_requests: 256Mi
+  cpu_limits: 200m
+  memory_limits: 512Mi
+
+health-notification-service:
+  namespace: egov
+  initContainers:
+    dbMigration:
+      image:
+        repository: egovio/health-notification-service-db
+        tag: health-notification-service-b83cc15
+  image:
+    repository: egovio/health-notification-service
+    tag: health-notification-service-b83cc15
+  replicas: 1
+  heap: "-Xmx256m -Xms256m"
+  cpu_requests: 100m
+  memory_requests: 256Mi
+  cpu_limits: 200m
+  memory_limits: 512Mi
+
 #pdf-service:
 #  initContainers:
 #    gitSync:

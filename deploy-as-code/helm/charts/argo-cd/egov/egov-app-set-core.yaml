@@ -9,6 +9,8 @@ spec:
         elements:
           - name: pdf-service
           - name: service-request
+          - name: egov-notification-mail
+          - name: egov-notification-push
 
   template:
     metadata:
