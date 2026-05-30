@@ -121,6 +121,8 @@ cluster-configs:
         egov-filestore: "http://egov-filestore.egov:8080/"
         egov-localization: "http://egov-localization.egov:8080/"
         egov-idgen: "http://egov-idgen.egov:8080/"
+        egov-notification-mail: "http://egov-notification-mail.egov:8080/"
+        egov-notification-push: "http://egov-notification-push.egov:8080/"
         egov-otp: "http://egov-otp.egov:8080/"
         mdms-v2: "http://mdms-v2.egov:8080/"
         egov-workflow-v2: "http://egov-workflow-v2.egov:8080/"
@@ -156,8 +158,8 @@ cluster-configs:
         health-muster-roll: 'http://health-muster-roll.egov:8080/'
         health-expense-calculator: 'http://health-expense-calculator.egov:8080/'
         health-expense: 'http://health-expense.egov:8080/'
+        health-notification-service: 'http://health-notification-service.egov:8080/'
         pdf-service: 'http://pdf-service.egov:8080/'
-        egov-notification-push: 'http://egov-notification-push.egov:8080/'
 
     hcm-moz-impl:
       data:
