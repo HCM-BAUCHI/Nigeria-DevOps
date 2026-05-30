@@ -369,3 +369,27 @@ env: |
     value: {{ index .Values "egov-location-code-query-param" | quote }}
   - name: EGOV_ENABLE_MATVIEW_SEARCH
     value: {{ index .Values "egov-enable-matview-search" | quote }}
+  {{- if index .Values "spring-datasource-hikari-maximum-pool-size" }}
+  - name: SPRING_DATASOURCE_HIKARI_MAXIMUM_POOL_SIZE
+    value: {{ index .Values "spring-datasource-hikari-maximum-pool-size" | quote }}
+  {{- end }}
+  {{- if index .Values "spring-datasource-hikari-minimum-idle" }}
+  - name: SPRING_DATASOURCE_HIKARI_MINIMUM_IDLE
+    value: {{ index .Values "spring-datasource-hikari-minimum-idle" | quote }}
+  {{- end }}
+  {{- if index .Values "spring-datasource-hikari-connection-timeout" }}
+  - name: SPRING_DATASOURCE_HIKARI_CONNECTION_TIMEOUT
+    value: {{ index .Values "spring-datasource-hikari-connection-timeout" | quote }}
+  {{- end }}
+  {{- if index .Values "spring-datasource-hikari-idle-timeout" }}
+  - name: SPRING_DATASOURCE_HIKARI_IDLE_TIMEOUT
+    value: {{ index .Values "spring-datasource-hikari-idle-timeout" | quote }}
+  {{- end }}
+  {{- if index .Values "spring-datasource-hikari-max-lifetime" }}
+  - name: SPRING_DATASOURCE_HIKARI_MAX_LIFETIME
+    value: {{ index .Values "spring-datasource-hikari-max-lifetime" | quote }}
+  {{- end }}
+  {{- if index .Values "spring-datasource-hikari-leak-detection-threshold" }}
+  - name: SPRING_DATASOURCE_HIKARI_LEAK_DETECTION_THRESHOLD
+    value: {{ index .Values "spring-datasource-hikari-leak-detection-threshold" | quote }}
+  {{- end }}
