@@ -1116,8 +1116,8 @@ referralmanagement:
     readinessProbeTimeoutSeconds: 30
     livenessProbePeriodSeconds: 120
     readinessProbePeriodSeconds: 60
-  spring-datasource-hikari-maximum-pool-size: "100"
-  spring-datasource-hikari-minimum-idle: "20"
+  spring-datasource-tomcat-max-active: "20"
+  spring-datasource-hikari-minimum-idle: "5"
   spring-datasource-hikari-connection-timeout: "45000"
   spring-datasource-hikari-idle-timeout: "300000"
   spring-datasource-hikari-max-lifetime: "900000"

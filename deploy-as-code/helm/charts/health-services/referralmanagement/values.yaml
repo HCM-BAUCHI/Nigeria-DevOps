@@ -72,7 +72,6 @@ egov-s3-bucket: "downsync-ng-prod"
 egov-s3-region: "af-south-1"
 egov-s3-endpoint: "https://s3.af-south-1.amazonaws.com"
 egov-s3-presign-endpoint: "https://s3.af-south-1.amazonaws.com"
-spring-datasource-tomcat-max-active: "10"
 egov-wardfilegen-ward-pool-size: "2"
 egov-wardfilegen-file-pool-size: "4"
 
@@ -369,10 +368,6 @@ env: |
     value: {{ index .Values "egov-location-code-query-param" | quote }}
   - name: EGOV_ENABLE_MATVIEW_SEARCH
     value: {{ index .Values "egov-enable-matview-search" | quote }}
-  {{- if index .Values "spring-datasource-hikari-maximum-pool-size" }}
-  - name: SPRING_DATASOURCE_HIKARI_MAXIMUM_POOL_SIZE
-    value: {{ index .Values "spring-datasource-hikari-maximum-pool-size" | quote }}
-  {{- end }}
   {{- if index .Values "spring-datasource-hikari-minimum-idle" }}
   - name: SPRING_DATASOURCE_HIKARI_MINIMUM_IDLE
     value: {{ index .Values "spring-datasource-hikari-minimum-idle" | quote }}
