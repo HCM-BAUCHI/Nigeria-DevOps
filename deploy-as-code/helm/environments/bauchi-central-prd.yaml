@@ -1122,8 +1122,8 @@ referralmanagement:
   spring-datasource-hikari-idle-timeout: "300000"
   spring-datasource-hikari-max-lifetime: "900000"
   spring-datasource-hikari-leak-detection-threshold: "60000"
-  egov-wardfilegen-ward-pool-size: "2"
-  egov-wardfilegen-file-pool-size: "4"
+  egov-wardfilegen-ward-pool-size: "8"
+  egov-wardfilegen-file-pool-size: "32"
 
 service-request:
   initContainers:
