@@ -1106,6 +1106,16 @@ referralmanagement:
   kafka-consumer-group-id: "health-referral-management"
   egov-s3-bucket: "downsync-ng-prod"
   egov-s3-region: "af-south-1"
+  healthChecks:
+    enabled: true
+    livenessProbePath: "/referralmanagement/health"
+    readinessProbePath: "/referralmanagement/health"
+    livenessProbeInitialDelaySeconds: 30
+    readinessProbeInitialDelaySeconds: 30
+    livenessProbeTimeoutSeconds: 30
+    readinessProbeTimeoutSeconds: 30
+    livenessProbePeriodSeconds: 120
+    readinessProbePeriodSeconds: 60
 
 service-request:
   initContainers:
