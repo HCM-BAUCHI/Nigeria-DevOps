@@ -289,13 +289,13 @@ env: |
   - name: EGOV_S3_ACCESS_KEY
     valueFrom:
       secretKeyRef:
-        name: egov-filestore
-        key: awskey
+        name: referralmanagement
+        key: s3-access-key
   - name: EGOV_S3_SECRET_KEY
     valueFrom:
       secretKeyRef:
-        name: egov-filestore
-        key: awssecretkey
+        name: referralmanagement
+        key: s3-secret-key
   - name: EGOV_WARDFILEGEN_WARD_POOL_SIZE
     value: {{ index .Values "egov-wardfilegen-ward-pool-size" | quote }}
   - name: EGOV_WARDFILEGEN_FILE_POOL_SIZE
