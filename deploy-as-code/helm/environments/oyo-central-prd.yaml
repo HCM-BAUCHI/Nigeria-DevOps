@@ -48,7 +48,7 @@ transformer:
   namespace: "oyo"
   image:
     repository: egovio/transformer
-    tag: HDDF-5226-bb7e4cb2d3-420
+    tag: HDDF-5226-5bc5f41
   heap: "-Xmx1536m -Xms1536m"
   replicas: 2
   hpa:
@@ -77,6 +77,7 @@ transformer:
   save-stock-topic: "oy-save-stock-topic"
   update-stock-topic: "oy-update-stock-topic"
   transformer-producer-bulk-stock-index-v1-topic: "oy-transformer-producer-bulk-stock-index-v1-topic"
+  transformer-producer-bulk-stock-index-updated-v1-topic: "oy-transformer-producer-bulk-stock-index-updated-v1-topic"
   save-facility-topic: "oy-save-facility-topic"
   update-facility-topic: "oy-update-facility-topic"
   save-service: "oy-save-service"

@@ -47,6 +47,7 @@ transformer-producer-service-index-v2-topic: "transformer-producer-service-index
 save-stock-topic: "save-stock-topic"
 update-stock-topic: "update-stock-topic"
 transformer-producer-bulk-stock-index-v1-topic: "transformer-producer-bulk-stock-index-v1-topic"
+transformer-producer-bulk-stock-index-updated-v1-topic: "transformer-producer-bulk-stock-index-updated-v1-topic"
 save-facility-topic: "save-facility-topic"
 update-facility-topic: "update-facility-topic"
 save-service: "save-service"
@@ -218,6 +219,8 @@ env: |
     value: {{ index .Values "update-stock-topic" | quote }}
   - name: TRANSFORMER_PRODUCER_BULK_STOCK_INDEX_V1_TOPIC
     value: {{ index .Values "transformer-producer-bulk-stock-index-v1-topic" | quote }}
+  - name: TRANSFORMER_PRODUCER_BULK_STOCK_INDEX_UPDATE_V1_TOPIC
+    value: {{ index .Values "transformer-producer-bulk-stock-index-updated-v1-topic" | quote }} 
   - name: EGOV_FACILITY_HOST
     valueFrom:
       configMapKeyRef:
