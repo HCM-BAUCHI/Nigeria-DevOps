@@ -22,6 +22,7 @@ spec:
         path: deploy-as-code/helm/charts/backbone-services/{{name}}
         helm:
           valueFiles:
+            - values_original.yaml
             - values.yaml
 
       destination:
