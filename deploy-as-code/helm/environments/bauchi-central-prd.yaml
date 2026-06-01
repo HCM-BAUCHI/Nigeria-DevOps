@@ -1502,6 +1502,8 @@ egov-notification-push:
     repository: egovio/egov-notification-push
     tag: nigeria-go-deep-push-notification-ca09919
   replicas: 1
+  central-instance-build: true
+  central-instance-enabled: true
   heap: "-Xmx256m -Xms256m"
   cpu_requests: 100m
   memory_requests: 256Mi
@@ -1519,6 +1521,8 @@ health-notification-service:
     repository: egovio/health-notification-service
     tag: health-notification-service-b83cc15
   replicas: 1
+  central-instance-build: true
+  central-instance-enabled: true
   heap: "-Xmx256m -Xms256m"
   cpu_requests: 100m
   memory_requests: 256Mi
