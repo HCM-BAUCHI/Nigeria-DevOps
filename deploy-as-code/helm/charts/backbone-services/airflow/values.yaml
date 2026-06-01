@@ -83,6 +83,9 @@ workers:
     requests:
       cpu: "100m"
       memory: "256Mi"
+  celery:
+    enableDefault: true
+    sets: []
 
 # =============================================================================
 # CRITICAL FOR ARGOCD: Disable Helm hooks for migration & user-creation jobs
