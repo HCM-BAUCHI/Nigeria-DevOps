@@ -1,0 +1,40 @@
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: ng-central-prd-egov-appset-airflow
+  namespace: argocd
+spec:
+  generators:
+    - list:
+        elements:
+          - name: airflow
+
+  template:
+    metadata:
+      name: 'egov-{{name}}'
+
+    spec:
+      project: egov-project
+
+      source:
+        repoURL: git@github.com:HCM-BAUCHI/Nigeria-Devops.git
+        targetRevision: ng-central-prd
+        path: deploy-as-code/helm/charts/backbone-services/{{name}}
+        helm:
+          valueFiles:
+            - values.yaml
+
+      destination:
+        server: https://kubernetes.default.svc
+        namespace: 'airflow'
+
+      syncPolicy:
+        syncOptions:
+          - ApplyOutOfSyncOnly=true
+          - ServerSideApply=true
+        retry:
+          limit: 10
+          backoff:
+            duration: 5s
+            factor: 2
+            maxDuration: 3m0s
