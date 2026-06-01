@@ -172,6 +172,32 @@ airflow-trigger:
     extraInitContainers: |
       - name: run-migration
         image: bhanuprakashmegov/airflow-custom-trigger:central3
+        command: [ "python", "migrate.py" ]
+        env:
+          - name: DB_HOST
+            valueFrom:
+              configMapKeyRef:
+                name: egov-config
+                key: db-host
+          - name: DB_PORT
+            value: "5432"
+          - name: DB_NAME
+            valueFrom:
+              configMapKeyRef:
+                name: egov-config
+                key: db-name
+          - name: DB_USERNAME
+            valueFrom:
+              secretKeyRef:
+                name: db
+                key: username
+          - name: DB_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: db
+                key: password
+          - name: DB_SCHEMAS
+            value: "oy,ko,na,jg"
   image:
     repository: "bhanuprakashmegov/airflow-custom-trigger"
     tag: "central3"
