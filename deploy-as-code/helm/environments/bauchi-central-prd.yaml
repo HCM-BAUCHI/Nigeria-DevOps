@@ -252,6 +252,14 @@ egov-enc-service:
 boundary-service:
   # internal-routing: "true"
   # db-url: "jdbc:postgresql://ng-central-prd-db.cpe4q0cycqi7.af-south-1.rds.amazonaws.com:5432/ngcentralprd?currentSchema=ba"
+  initContainers:
+    dbMigration:
+      image:
+        repository: "egovio/boundary-service-db"
+        tag: "boundary-hierarchy-def-modified-2.9-lts-8cde4b0"
+  image:
+    repository: "egovio/boundary-service"
+    tag: "boundary-hierarchy-def-modified-2.9-lts-8cde4b0"
   hpa:
     enabled: true
     minReplicas: 2

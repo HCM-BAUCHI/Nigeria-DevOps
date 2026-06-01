@@ -11,6 +11,7 @@ spec:
           - name: service-request
           - name: egov-notification-mail
           - name: egov-notification-push
+          - name: boundary-service
 
   template:
     metadata:
