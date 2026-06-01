@@ -84,27 +84,8 @@ workers:
       cpu: "100m"
       memory: "256Mi"
 
-# =============================================================================
-# CRITICAL FOR ARGOCD: Disable Helm hooks for migration & user-creation jobs
-# =============================================================================
-# By default these jobs run as Helm pre/post-install hooks. ArgoCD does not
-# handle Helm hooks reliably (it converts them to sync hooks but ordering and
-# cleanup behave differently). Setting useHelmHooks: false turns them into
-# regular Kubernetes Jobs that ArgoCD manages as normal resources.
-# The upstream chart explicitly recommends this for ArgoCD users.
-
-migrateDatabaseJob:
-  enabled: true
-  useHelmHooks: false
-  applyCustomEnv: false
-
 createUserJob:
   enabled: true
-  useHelmHooks: false
-  applyCustomEnv: false
-  # Initial admin user (moved here from the deprecated webserver.defaultUser).
-  # In Airflow 3.x, webserver.defaultUser is deprecated — createUserJob is the
-  # correct place for this configuration.
   defaultUser:
     role: Admin
     username: admin
@@ -168,16 +149,6 @@ env:
 
 # Extra env vars with valueFrom (secrets)
 extraEnv: |
-  - name: _AIRFLOW_WWW_USER_USERNAME
-    valueFrom:
-      secretKeyRef:
-        name: airflow-admin-credentials
-        key: username
-  - name: _AIRFLOW_WWW_USER_PASSWORD
-    valueFrom:
-      secretKeyRef:
-        name: airflow-admin-credentials
-        key: password
   - name: ELASTIC_PASSWORD
     valueFrom:
       secretKeyRef:
@@ -234,14 +205,6 @@ postgresql:
 #       userPasswordKey: "password"
 # Webserver admin - password from K8s secret "airflow-admin-credentials"
 webserver:
-  # defaultUser:
-  #   enabled: true
-  #   role: Admin
-  #   username: admin
-  #   password: admin
-  #   email: admin@example.com
-  #   firstName: Admin
-  #   lastName: User
   resources:
     requests:
       cpu: "100m"

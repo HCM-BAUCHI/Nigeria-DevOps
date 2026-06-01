@@ -167,6 +167,24 @@ cluster-configs:
 
 disableAnnotationTimestamp: true
 
+airflow-trigger:
+  initContainers:
+    extraInitContainers: |
+      - name: run-migration
+        image: bhanuprakashmegov/airflow-custom-trigger:central3
+  image:
+    repository: "bhanuprakashmegov/airflow-custom-trigger"
+    tag: "central3"
+  hpa:
+    enabled: true
+    minReplicas: 1
+    maxReplicas: 3
+  cpu_requests: 100m
+  memory_requests: 128Mi
+  cpu_limits: 150m
+  memory_limits: 256Mi
+
+
 egov-filestore:
   volume: /opt/eGov/filestore
   is-bucket-fixed: "true"

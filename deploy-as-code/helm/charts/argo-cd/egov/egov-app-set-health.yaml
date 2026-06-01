@@ -25,6 +25,7 @@ spec:
           - name: stock
           - name: worker-registry
           - name: health-notification-service
+          - name: airflow-trigger
 
   template:
     metadata:
