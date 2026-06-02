@@ -1,5 +1,6 @@
 global:
   domain: jigawa-central-hcm.digit.org
+  disableAnnotationTimestamp: true
 
 service:
   additionalAnnotations: |
