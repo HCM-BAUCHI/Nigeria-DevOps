@@ -81,6 +81,8 @@ env: |
     value: "/egov-enc-service/crypto/v1/_encrypt"
   - name: EGOV_ENC_DECRYPT_ENDPOINT
     value: "/egov-enc-service/crypto/v1/_decrypt"
+  - name: EGOV_ENC_STATE_LEVEL_TENANT_IDS
+    value: "ba,kd,kb,jg"
   - name: STATE_LEVEL_TENANT_ID
     value: "ba"
   - name: tenant.state.level.tenant.id.mappings.kd
