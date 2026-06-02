@@ -14,7 +14,7 @@ spec:
       name: 'oyo-{{name}}'
 
     spec:
-      project: egov-project
+      project: oyo-project
 
       source:
         repoURL: git@github.com:HCM-BAUCHI/Nigeria-Devops.git
