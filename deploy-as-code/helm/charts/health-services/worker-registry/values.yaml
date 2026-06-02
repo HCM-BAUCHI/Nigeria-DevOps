@@ -83,8 +83,6 @@ env: |
     value: "/egov-enc-service/crypto/v1/_decrypt"
   - name: EGOV_ENC_STATE_LEVEL_TENANT_IDS
     value: "ba,kd,kb,jg"
-  - name: STATE_LEVEL_TENANT_ID
-    value: "ba"
   - name: tenant.state.level.tenant.id.mappings.kd
     value: "kd"
   - name: tenant.state.level.tenant.id.mappings.kb
@@ -106,6 +104,27 @@ env: |
       configMapKeyRef:
         name: egov-service-host
         key: egov-enc-service-jigawa
+  - name: TENANT_STATE_LEVEL_TENANT_ID_MAPPINGS_kb
+    value: kb
+  - name: TENANT_STATE_LEVEL_TENANT_ID_MAPPINGS_jg
+    value: jg
+  - name: TENANT_STATE_LEVEL_TENANT_ID_MAPPINGS_kd
+    value: kd 
+  - name: EGOV_ENC_TENANT_HOST_jg
+    valueFrom:
+      configMapKeyRef:
+        name: egov-service-host
+        key: egov-enc-service-jigawa
+  - name: EGOV_ENC_TENANT_HOST_kd
+    valueFrom:
+      configMapKeyRef:
+        name: egov-service-host
+        key: egov-enc-service-kaduna
+  - name: EGOV_ENC_TENANT_HOST_kb
+    valueFrom:
+      configMapKeyRef:
+        name: egov-service-host
+        key: egov-enc-service-kebbi-azm
   - name: KAFKA_TOPIC_AUDIT
     value: "audit-logs"
   - name: EGOV_MDMS_HOST
