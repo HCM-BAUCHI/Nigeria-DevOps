@@ -59,4 +59,18 @@ env: |
   - name: EGOV_MDMS_SCHEMA_DEFINITION_SAVE_TOPIC
     value: {{ index .Values "egov-mdms-schema-definition-save-topic" | quote }}
   - name: EGOV_MDMS_DATA_SAVE_TOPIC
-    value: {{ index .Values "egov-mdms-data-save-topic" | quote }}  
+    value: {{ index .Values "egov-mdms-data-save-topic" | quote }}
+  - name: SPRING_DATA_REDIS_HOST
+    valueFrom:
+      configMapKeyRef:
+        name: egov-config
+        key: redis-host
+  - name: SPRING_REDIS_HOST
+    valueFrom:
+      configMapKeyRef:
+        name: egov-config
+        key: redis-host
+  - name: SPRING_DATA_REDIS_PORT
+    value: "6379"
+  - name: SPRING_REDIS_PORT
+    value: "6379"
