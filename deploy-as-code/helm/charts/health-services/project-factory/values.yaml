@@ -484,3 +484,5 @@ env: |
     value: {{ .Values.kafkaProducerCompressionEnabled | default "true" | quote }}
   - name: DB_SSL
     value: {{ .Values.dbSsl | default "true" | quote }}
+  - name: CENTRAL_INSTANCE_TENANT_IDS
+    value: {{ .Values.centralInstanceTenantIds | default "" }}
