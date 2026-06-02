@@ -760,6 +760,7 @@ egov-workflow-v2:
   cpu_limits: 300m
   memory_limits: 768Mi
   central-instance-build: true
+  central-instance-enabled: true
   logging-level: "DEBUG"
   java-args: -Dspring.profiles.active=monitoring
   workflow-statelevel: "false"
