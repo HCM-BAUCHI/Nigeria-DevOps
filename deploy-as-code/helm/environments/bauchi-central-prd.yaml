@@ -1415,7 +1415,7 @@ od-project-factory:
   mdmsV1SearchEndpoint: 'mdms-v2/v1/_search'
   cpu_requests: 100m
   cpu_limits: 200m
-  replicas: 3
+  replicas: 0
 
 
 #plan-service:
