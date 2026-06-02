@@ -3,7 +3,7 @@ labels:
   app: "chad-project-factory"
   group: "health"
 
-namespace: egov
+namespace: chad-prod
 
 # Ingress Configs
 ingress:
@@ -52,6 +52,10 @@ env: |
     value: "chad"
   - name: DEFAULT_TENANT_ID
     value: chad
+  - name: UNFROZE_TILL_ROW
+    value: "10000"
+  - name: IS_ENVIRONMENT_CENTRAL_INSTANCE
+    value: "false"
   - name: EGOV_MDMS_HOST
     valueFrom:
       configMapKeyRef:
@@ -303,7 +307,7 @@ env: |
   - name: USER_PASSWORD_AUTO_GENERATE
     value: "false"  
   - name: USER_DEFAULT_PASSWORD
-    value: "eGov@123"  
+    value: "Cdm@2026"
   - name: MAP_USER_VIA_COMMON_PARENT
     value: "true"
   - name: CACHE_ENABLED
