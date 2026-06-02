@@ -447,7 +447,11 @@ env: |
   - name: SERVER_TIMEZONE
     value: {{ .Values.serverTimezone | default "UTC" }}
   - name: KAFKA_CONSUMER_TOPIC_PREFIX
-    value: {{ .Values.tenantIdPattern | default "" | quote }}
+    valueFrom:
+      configMapKeyRef:
+        name: egov-config
+        key: kafka-tenant-id-pattern
+  - name: KAFKA_CONSUMER_GROUP_ID_PREFIX
   - name: BOUNDARY_CODE_HEADER_NAME
     value: {{ .Values.boundaryCodeHeaderName | default "HCM_ADMIN_CONSOLE_BOUNDARY_CODE" }}
   - name: BOUNDARY_CODE_HEADER_NAME_FACILITY_MICROPLAN
