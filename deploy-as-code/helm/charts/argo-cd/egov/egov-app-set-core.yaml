@@ -13,6 +13,26 @@ spec:
           - name: egov-notification-push
           - name: boundary-service
           - name: inbox
+          - name: egov-accesscontrol
+          - name: egov-enc-service
+          - name: egov-filestore
+          - name: egov-idgen
+          - name: egov-indexer
+          - name: egov-localization
+          # - name: egov-persister
+          # - name: egov-persister-azm
+          # - name: egov-persister-chad
+          # - name: egov-persister-go-ad
+          # - name: egov-persister-ht
+          # - name: egov-user
+          - name: egov-workflow-v2
+          - name: error-handler
+          - name: mdms-v2
+          - name: pgr-services
+          - name: egov-user
+          # - name: gateway
+          # - name: gateway-2
+          # - name: internal-gateway-scg
 
   template:
     metadata:
