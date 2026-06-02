@@ -104,31 +104,31 @@ transformer:
   transformer-producer-stock-recon-index-v1-topic: "na-transformer-producer-stock-recon-index-v1-topic"
   health-transformer: "na-health-transformer"
 
-hcm-moz-impl:
-  namespace: nasarawa
-  replicas: 1
-  heap: "-Xmx2048m -Xms2048m"
-  memory_limits: "2Gi"
-  startDate: "29/05/2025"
-  endDate: "02/06/2025"
-  boundary-code: : : "na"
-  create-boundaryCSV-data: : : "na-create-boundaryCSV-data"
-  update-dhis2-job: : : "na-update-dhis2-job"
-  create-dhis2-job: : : "na-create-dhis2-job"
-  create-boundary-data: : : "na-create-boundary-data"
-  update-digit-dhis2-mapping: : : "na-update-digit-dhis2-mapping"
-  create-digit-dhis2-mapping: : : "na-create-digit-dhis2-mapping"
-  update-digit-record: : : "na-update-digit-record"
-  create-digit-record: : : "na-create-digit-record"
-  update-dhis2-digit-mapping: : : "na-update-dhis2-digit-mapping"
-  create-dhis2-digit-mapping: : : "na-create-dhis2-digit-mapping"
-  update-dhis2-record: : : "na-update-dhis2-record"
-  create-dhis2-record: : : "na-create-dhis2-record"
-  resources:
-    requests:
-      memory: "3Gi"
-    limits:
-      memory: "3Gi"
+# hcm-moz-impl:
+#   namespace: nasarawa
+#   replicas: 1
+#   heap: "-Xmx2048m -Xms2048m"
+#   memory_limits: "2Gi"
+#   startDate: "29/05/2025"
+#   endDate: "02/06/2025"
+#   boundary-code: : : "na"
+#   create-boundaryCSV-data: : : "na-create-boundaryCSV-data"
+#   update-dhis2-job: : : "na-update-dhis2-job"
+#   create-dhis2-job: : : "na-create-dhis2-job"
+#   create-boundary-data: : : "na-create-boundary-data"
+#   update-digit-dhis2-mapping: : : "na-update-digit-dhis2-mapping"
+#   create-digit-dhis2-mapping: : : "na-create-digit-dhis2-mapping"
+#   update-digit-record: : : "na-update-digit-record"
+#   create-digit-record: : : "na-create-digit-record"
+#   update-dhis2-digit-mapping: : : "na-update-dhis2-digit-mapping"
+#   create-dhis2-digit-mapping: : : "na-create-dhis2-digit-mapping"
+#   update-dhis2-record: : : "na-update-dhis2-record"
+#   create-dhis2-record: : : "na-create-dhis2-record"
+#   resources:
+#     requests:
+#       memory: "3Gi"
+#     limits:
+#       memory: "3Gi"
 
 
 digit-ui:
