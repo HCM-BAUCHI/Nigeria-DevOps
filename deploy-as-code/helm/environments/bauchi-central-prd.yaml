@@ -1710,3 +1710,26 @@ beneficiary-idgen:
   image:
     repository: egovio/beneficiary-idgen
     tag: master-b91815e
+
+inbox:
+  namespace: egov
+  image:
+    repository: egovio/inbox
+    tag: v1.4.0-bd52511479-19
+  replicas: 1
+  hpa:
+    enabled: false
+    minReplicas: 1
+    maxReplicas: 3
+  cpu_requests: 200m
+  memory_requests: 512Mi
+  cpu_limits: 300m
+  memory_limits: 768Mi
+  healthChecks:
+    enabled: true
+    livenessProbePath: "/inbox/health"
+    readinessProbePath: "/inbox/health"
+  central-instance-build: true
+  central-instance-enabled: true
+  schemaNameExclude: [ "chad", "kb" ]
+  hostExclude: ["chad-hcm-prod.digit.org", "kebbi-azm-central-hcm.digit.org"]

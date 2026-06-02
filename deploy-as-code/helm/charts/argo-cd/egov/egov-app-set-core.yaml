@@ -12,6 +12,7 @@ spec:
           - name: egov-notification-mail
           - name: egov-notification-push
           - name: boundary-service
+          - name: inbox
 
   template:
     metadata:
