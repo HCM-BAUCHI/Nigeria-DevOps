@@ -303,6 +303,7 @@ pgr-services:
     repository: egovio/pgr-services
     tag: master-0590cb7
   central-instance-build: true
+  central-instance-enabled: true
   heap: "-Xmx512m -Xms128m"
   hpa:
     enabled: true
@@ -388,6 +389,7 @@ egov-user:
     repository: egovio/egov-user
     tag: central-instance-switch-device-changes-caba789
   central-instance-build: true
+  central-instance-enabled: true
   heap: "-Xmx1024m -Xms512m"
   hpa:
     enabled: true
