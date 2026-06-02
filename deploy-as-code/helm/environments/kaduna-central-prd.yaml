@@ -6,6 +6,8 @@ service:
   additionalAnnotations: |
     zuul/route-host: kaduna-central-hcm.digit.org
 
+disableAnnotationTimestamp: true
+
 cluster-configs:
   namespaces:
     create: true
@@ -197,6 +199,39 @@ transformer:
   transformer-consumer-create-user-action-topic: "kd-save-user-action-project-topic"
   transformer-consumer-update-user-action-topic: "kd-update-user-action-project-topic"
   transformer-producer-user-action-index-v1-topic: "kd-transformer-producer-user-action-index-v1-topic"
+
+payments-ui:
+  namespace: kaduna
+  image:
+    repository: egovio/payments-ui
+    tag: HDDF-4931-427abb8
+  custom-js-injection: |
+    sub_filter.conf: "
+      sub_filter  '<head>' '<head>
+      <script src=https://central-instance-assets.s3.af-south-1.amazonaws.com/globalConfigPayments-kd.js type=text/javascript></script>
+      ';"
+
+workbench-ui:
+  namespace: kaduna
+  image:
+    repository: egovio/workbench-ui
+    tag: HDDF-4931-611ba92
+  custom-js-injection: |
+    sub_filter.conf: "
+      sub_filter  '<head>' '<head>
+      <script src=https://central-instance-assets.s3.af-south-1.amazonaws.com/globalConfigWorkbench-kd.js type=text/javascript></script>
+      ';"
+
+dashboard-ui:
+  namespace: kaduna
+  image:
+    repository: egovio/dashboard-ui
+    tag: HDDF-4931-7794204
+  custom-js-injection: |
+    sub_filter.conf: "
+      sub_filter  '<head>' '<head>
+      <script src=https://central-instance-assets.s3.af-south-1.amazonaws.com/globalConfigDashboard-kd.js type=text/javascript></script>
+      ';"
 
 hcm-moz-impl:
   namespace: kaduna
