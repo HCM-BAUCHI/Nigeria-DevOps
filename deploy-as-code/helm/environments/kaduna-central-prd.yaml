@@ -1,5 +1,6 @@
 global:
   domain: kaduna-central-hcm.digit.org
+  tracing-enabled: false
 
 service:
   additionalAnnotations: |
