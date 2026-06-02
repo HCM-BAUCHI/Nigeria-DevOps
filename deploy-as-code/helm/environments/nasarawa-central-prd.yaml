@@ -1,5 +1,7 @@
 global:
   domain: nasarawa-hcm.digit.org
+  disableAnnotationTimestamp: true
+  tracing-enabled: false
 # egov-localization:
 #   namespace: "oyo"
 #   heap: "-Xmx512m -Xms512m"
@@ -46,6 +48,10 @@ disableAnnotationTimestamp: true
 
 transformer:
   namespace: "nasarawa"
+  image:
+    repository: egovio/transformer
+    tag: HDDF-5226-24f2875
+  replicas: 2
   heap: "-Xmx1536m -Xms1536m"
   hpa:
     enabled: true
@@ -55,7 +61,6 @@ transformer:
   memory_requests: 1.75Gi
   cpu_limits: 400m
   memory_limits: 2.25Gi
-  java-enable-debug: true
   save-project-task-topic: "na-save-project-task-topic"
   update-project-task-topic: "na-update-project-task-topic"
   transformer-producer-bulk-project-task-index-v1-topic: "na-transformer-producer-bulk-project-task-index-v1-topic"
@@ -74,6 +79,7 @@ transformer:
   save-stock-topic: "na-save-stock-topic"
   update-stock-topic: "na-update-stock-topic"
   transformer-producer-bulk-stock-index-v1-topic: "na-transformer-producer-bulk-stock-index-v1-topic"
+  transformer-producer-bulk-stock-index-updated-v1-topic: "na-transformer-producer-bulk-stock-index-updated-v1-topic"
   save-facility-topic: "na-save-facility-topic"
   update-facility-topic: "na-update-facility-topic"
   save-service: "na-save-service"
@@ -103,6 +109,29 @@ transformer:
   update-stock-reconciliation-topic: "na-update-stock-reconciliation-topic"
   transformer-producer-stock-recon-index-v1-topic: "na-transformer-producer-stock-recon-index-v1-topic"
   health-transformer: "na-health-transformer"
+  transformer-consumer-error-tracer-topic: "error-details-indexer-topic"
+  transformer-producer-error-details-index-v1-topic: "na-transformed-errors-topic"
+  transformer-error-skip-error-messages: "UPLOAD_ERROR_FROM_APP"
+  transformer-error-skip-error-codes: "DUPLICATE_ENTITY,INDIVIDUAL_ALREADY_MEMBER_OF_HOUSEHOLD,HOUSEHOLD_ALREADY_HAS_HEAD"
+  transformer-error-skip-url-contains: "facility,resource"
+  state-level-tenantid: "na"
+  expense-bill-create-health-topic: "na-expense-bill-create-health"
+  expense-bill-update-health-topic: "na-expense-bill-update-health"
+  transformer-bill-index-topic: "na-transformer-bill-index-topic"
+  transformer-billdetail-index-topic: "na-transformer-billdetail-index-topic"
+  expense-bill-report-save-topic: "na-expense-bill-report-save"
+  expense-bill-report-update-topic: "na-expense-bill-report-update"
+  transformer-billreport-index-topic: "na-transformer-billreport-index-topic"
+  save-musterroll-health-topic: "na-save-musterroll-health"
+  update-musterroll-health-topic: "na-update-musterroll-health"
+  transformer-producer-muster-roll-index-v1-topic: "na-transformer-producer-muster-roll-index-v1-topic"
+  expense-bill-detail-create-topic: "na-expense-bill-detail-create"
+  expense-bill-detail-update-topic: "na-expense-bill-detail-update"
+  egov_localization_locale_code: "en_NG"
+  egov-localization-module-name: "hcm-boundary-admin"
+  transformer-consumer-create-user-action-topic: "na-save-user-action-project-topic"
+  transformer-consumer-update-user-action-topic: "na-update-user-action-project-topic"
+  transformer-producer-user-action-index-v1-topic: "na-transformer-producer-user-action-index-v1-topic"
 
 # hcm-moz-impl:
 #   namespace: nasarawa

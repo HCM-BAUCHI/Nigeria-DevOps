@@ -1,0 +1,50 @@
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: nasarawa-appset-utilities
+  namespace: argocd
+spec:
+  generators:
+    - list:
+        elements:
+          - name: transformer
+
+  template:
+    metadata:
+      name: 'nasarawa-{{name}}'
+
+    spec:
+      project: nasarawa-project
+
+      source:
+        repoURL: git@github.com:HCM-BAUCHI/Nigeria-Devops.git
+        targetRevision: ng-central-prd
+        path: deploy-as-code/helm/charts/utilities/{{name}}
+        helm:
+          valueFiles:
+            - values.yaml
+            - ../../../environments/nasarawa-central-prd.yaml
+
+      destination:
+        server: https://kubernetes.default.svc
+        namespace: nasarawa
+
+      syncPolicy:
+        automated:
+          prune: false
+          selfHeal: true
+        syncOptions:
+          - ApplyOutOfSyncOnly=true
+          - ServerSideApply=true
+        retry:
+          limit: 10
+          backoff:
+            duration: 5s
+            factor: 2
+            maxDuration: 3m0s
+
+      ignoreDifferences:
+        - group: apps
+          kind: Deployment
+          jsonPointers:
+            - /spec/replicas

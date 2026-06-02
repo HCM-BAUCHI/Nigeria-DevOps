@@ -1,6 +1,7 @@
 global:
   domain: kogi-hcm.digit.org
   disableAnnotationTimestamp: true
+  tracing-enabled: false
 # egov-localization:
 #   namespace: "oyo"
 #   heap: "-Xmx512m -Xms512m"
@@ -60,7 +61,6 @@ transformer:
   memory_requests: 1.75Gi
   cpu_limits: 400m
   memory_limits: 2.25Gi
-  java-enable-debug: true
   save-project-task-topic: "ko-save-project-task-topic"
   update-project-task-topic: "ko-update-project-task-topic"
   transformer-producer-bulk-project-task-index-v1-topic: "ko-transformer-producer-bulk-project-task-index-v1-topic"
