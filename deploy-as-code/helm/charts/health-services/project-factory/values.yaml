@@ -24,7 +24,7 @@ initContainers:
 image:
   repository: "project-factory"
 replicas: "3"
-
+maxResourceCreationAttempts: "100"
 # Additional Container Envs
 env: |
   - name: KAFKA_BROKER_HOST
@@ -33,13 +33,14 @@ env: |
         name: egov-config
         key: kafka-brokers 
   - name: KAFKA_SAVE_CAMPAIGN_DETAILS_TOPIC
-    value: save-campaign-details
+    value: {{ .Values.saveCampaignDetails | default "save-campaign-details" }}
   - name: KAFKA_UPDATE_CAMPAIGN_DETAILS_TOPIC
-    value: update-campaign-details
-  - name: DB_SCHEMA
-    value: "public"
-  - name: DEFAULT_TENANT_ID
-    value: mz
+    value: {{ .Values.updateCampaignDetails | default "update-campaign-details" }}
+  - name: BASE_SECRET
+    valueFrom:
+      secretKeyRef:
+          name: project-factory
+          key: base-secret
   - name: EGOV_MDMS_HOST
     valueFrom:
       configMapKeyRef:
@@ -68,6 +69,11 @@ env: |
       configMapKeyRef:
         name: egov-service-host
         key: egov-idgen
+  - name: EXCEL_INGESTION_HOST
+    valueFrom:
+      configMapKeyRef:
+        name: egov-service-host
+        key: {{ index .Values "excel-ingestion-host" | default "excel-ingestion" | quote }}
   - name: EGOV_FACILITY_HOST
     valueFrom:
       configMapKeyRef:
@@ -117,14 +123,14 @@ env: |
     valueFrom:
       configMapKeyRef:
         name: egov-service-host
-        key: plan-service
+        key: {{ index .Values "plan-service" | quote }}
   - name: EGOV_CENSUS_HOST
     valueFrom:
       configMapKeyRef:
         name: egov-service-host
-        key: census-service
+        key: {{ index .Values "census-service" | quote }}
   - name: CONTEXT_PATH
-    value: "/project-factory"   
+    value: {{ .Values.context | default "/project-factory" }}
   - name: FILE_STORE_SERVICE_END_POINT
     value: filestore/v1/files 
   - name: EGOV_MDMS_V2_SEARCH_ENDPOINT
@@ -185,35 +191,38 @@ env: |
     value: plan-service/plan/facility/_search
   - name: EGOV_PLAN_FACILITY_CONFIG_SEARCH
     value: plan-service/config/_search
-
   - name: EGOV_CENSUS_SEARCH
     value: census-service/_search
   - name: EGOV_PLAN_SEARCH
     value: plan-service/plan/_search
-
   - name: CMP_IDGEN_FORMAT
     value: CMP-[cy:yyyy-MM-dd]-[SEQ_EG_CMP_ID]
   - name: CMP_IDGEN_IDNAME
     value: campaign.number
-  
+  - name: VALIDATE_CAMPAIGN_ID_IN_METADATA
+    value: {{ .Values.validateCampaignIdInMetadata | default "false" | quote }}
+  - name: NOT_CREATE_USER_IF_ALREADY_THERE
+    value: {{ .Values.notCreateUserIfAlreadyThere | default "false" | quote }}
+  - name: INCOMING_REQUEST_PAYLOAD_LIMIT
+    value: 5mb
+  - name: EXCEL_INGESTION_GENERATE_SEARCH
+    value: {{ .Values.excelIngestionGenerateSearch | default "excel-ingestion/v1/data/generate/_search" }}  
+  - name: EXCEL_INGESTION_SHEET_SEARCH
+    value: excel-ingestion/v1/data/sheet/_search
+  - name: EXCEL_INGESTION_PROCESS
+    value: {{ .Values.excelIngestionProcess | default "excel-ingestion/v1/data/process/_create" }} 
+  - name: EXCEL_INGESTION_GENERATE
+    value: {{ .Values.excelIngestionGenerate | default "excel-ingestion/v1/data/generate/_init" }}
   - name: EGOV_HOST
     valueFrom:
       configMapKeyRef:
         name: egov-config
         key: egov-services-fqdn-name
-  
   - name: "DB_URL"
-  {{- if eq .Values.namespace "health" }}
     valueFrom:
       configMapKeyRef:
         name: egov-config
         key: db-url
-  {{- else }}
-    valueFrom:
-      configMapKeyRef:
-        name: egov-config
-        key: db-url
-  {{- end }}
   - name: "SCHEMA_TABLE"
     value: {{ .Values.initContainers.dbMigration.schemaTable | quote }}
   - name: "FLYWAY_USER"
@@ -250,18 +259,15 @@ env: |
     valueFrom:
       secretKeyRef:
         name: db
-        key: password
-  - name: BASE_SECRET
-    valueFrom:
-      secretKeyRef:
-          name: project-factory
-          key: base-secret
+        key: password   
   - name: DB_PORT
     value: "5432"
+  - name: DB_SCHEMA
+    value: {{ index .Values "DB_SCHEMA" | quote }}
   - name: BOUNDARY_MAIN_SHEET_NAME
     value: "Boundary Data"
   - name: SPLIT_BOUNDARIES_ON
-    value: {{ .Values.splitBoundariesOn | default "Distrito" }} 
+    value: {{ .Values.splitBoundariesOn | default "Distrito" }}
   - name: SPLIT_BOUNDARIES_ON_LENGTH 
     value: "2"
   - name: FACILITY_TAB_NAME
@@ -271,11 +277,17 @@ env: |
   - name: USER_TAB_NAME
     value: "HCM_ADMIN_CONSOLE_USER_LIST"
   - name: LOCALE
-    value: {{ .Values.defaultLocale | default "en_IN" }} 
-  - name: LOCALIZATION_MODULE
-    value: "hcm-admin-schemas"
+    value: {{ .Values.defaultLocale | default "en_MZ" }}
   - name: MODULE_NAME
-    value: "HCM-ADMIN-CONSOLE" 
+    value: "HCM-ADMIN-CONSOLE"
+  - name: FORM_CONFIG_TEMPLATE_NAME
+    value: {{ .Values.formConfigTemplateName | default "FormConfigTemplate" }}
+  - name: FORM_CONFIG_NAME
+    value: {{ .Values.formConfigName | default "FormConfig" }}
+  - name: EMAIL_NOTIFICATION_ID
+    value: {{ .Values.emailNotificationId | default "support@egov.org.in" }}
+  - name: EGOV_LOGO_LINK
+    value: {{ .Values.egovLogoLink | default "https://egov-dev-assets.s3.ap-south-1.amazonaws.com/digit.png" }}
   - name: LOCALIZATION_WAIT_TIME_IN_BOUNDARY_CREATION
     value: "30000"
   - name: LOCALIZATION_CHUNK_SIZE_FOR_BOUNDARY_CREATION
@@ -288,10 +300,12 @@ env: |
     value: "{{ .Values.DEBUG | default "false" }}"
   - name: READ_ME_TAB
     value: "HCM_README_SHEETNAME"  
+  - name: DEFAULT_TENANT_ID
+    value: {{ .Values.defaultTenantId | default "mz" }}
   - name: USER_PASSWORD_AUTO_GENERATE
     value: "false"  
   - name: USER_DEFAULT_PASSWORD
-    value: "eGov@123"  
+    value: "eGov@123"
   - name: MAP_USER_VIA_COMMON_PARENT
     value: "true"
   - name: CACHE_ENABLED
@@ -302,7 +316,6 @@ env: |
     value: "6379"
   - name: REDIS_HOST
     value: "redis.backbone"
-
   - name: AUTO_RETRY_IF_HTTP_ERROR
     value: "socket hang up"
   - name: ENABLE_DYNAMIC_TEMPLATE_FOR
@@ -313,162 +326,157 @@ env: |
     value: {{ .Values.ExcludeHierarchyTypeFromBoundaryCodes | default "false" | quote }}
   - name: EXCLUDE_BOUNDARY_NAME_AT_LAST_FROM_BOUNDARY_CODES
     value: {{ .Values.ExcludeBoundaryTypeFromLastBoundaryCodes | default "false" | quote }}
-  - name: VALIDATE_CAMPAIGN_ID_IN_METADATA
-    value: {{ .Values.validateCampaignIdInMetadata | default "false" | quote }}
-  - name: NOT_CREATE_USER_IF_ALREADY_THERE
-    value: {{ .Values.notCreateUserIfAlreadyThere | default "false" | quote }}
-  - name: INCOMING_REQUEST_PAYLOAD_LIMIT
-    value: 5mb
-  - name: KAFKA_SAVE_PROJECT_CAMPAIGN_DETAILS_TOPIC
-    value: "save-project-campaign-details"
-  - name: KAFKA_UPDATE_PROJECT_CAMPAIGN_DETAILS_TOPIC
-    value: "update-project-campaign-details"
+  - name: IS_ENVIRONMENT_CENTRAL_INSTANCE
+    value: {{ .Values.IS_ENVIRONMENT_CENTRAL_INSTANCE | default "false" | quote }}
   - name: KAFKA_START_CAMPAIGN_MAPPING_TOPIC
-    value: "start-campaign-mapping"
+    value: {{ .Values.startCampaignMappingTopic | default "start-campaign-mapping" }}
   - name: KAFKA_CREATE_RESOURCE_DETAILS_TOPIC
-    value: "create-resource-details"
+    value: {{ .Values.createResourceDetailsTopic | default "create-resource-details" }}
   - name: KAFKA_UPDATE_RESOURCE_DETAILS_TOPIC
-    value: "update-resource-details"
+    value: {{ .Values.updateResourceDetailsTopic | default "update-resource-details" }}
   - name: KAFKA_CREATE_RESOURCE_ACTIVITY_TOPIC
-    value: "create-resource-activity"
+    value: {{ .Values.createResourceActivityTopic | default "create-resource-activity" }}
   - name: KAFKA_UPDATE_GENERATED_RESOURCE_DETAILS_TOPIC
-    value: "update-generated-resource-details"
+    value: {{ .Values.updateGeneratedResourceDetailsTopic | default "update-generated-resource-details" }}
   - name: KAFKA_CREATE_GENERATED_RESOURCE_DETAILS_TOPIC
-    value: "create-generated-resource-details"
+    value: {{ .Values.createGeneratedResourceDetailsTopic | default "create-generated-resource-details" }}
   - name: KAFKA_SAVE_PLAN_FACILITY_TOPIC
-    value: "project-factory-save-plan-facility"
+    value: {{ .Values.savePlanFacilityTopic | default "project-factory-save-plan-facility" }}
   - name: KAFKA_SAVE_SHEET_DATA_TOPIC
-    value: "save-sheet-data"
+    value: {{ .Values.saveSheetDataTopic | default "save-sheet-data" }}
   - name: KAFKA_UPDATE_SHEET_DATA_TOPIC
-    value: "update-sheet-data"
+    value: {{ .Values.updateSheetDataTopic | default "update-sheet-data" }}
   - name: KAFKA_SAVE_MAPPING_TOPIC
-    value: "save-mapping-data"
+    value: {{ .Values.saveMappingDataTopic | default "save-mapping-data" }}
   - name: KAFKA_UPDATE_MAPPING_TOPIC
-    value: "update-mapping-data"
+    value: {{ .Values.updateMappingDataTopic | default "update-mapping-data" }}
   - name: KAFKA_DELETE_MAPPING_TOPIC
-    value: "delete-mapping-data"
+    value: {{ .Values.deleteMappingDataTopic | default "delete-mapping-data" }}
   - name: KAFKA_SAVE_PROCESS_TOPIC
-    value: "save-process-data"
+    value: {{ .Values.saveProcessDataTopic | default "save-process-data" }}
   - name: KAFKA_UPDATE_PROCESS_TOPIC
-    value: "update-process-data"
+    value: {{ .Values.updateProcessDataTopic | default "update-process-data" }}
   - name: KAFKA_START_TASK_TOPIC
-    value: "start-admin-console-task"
+    value: {{ .Values.startAdminConsoleTaskTopic | default "start-admin-console-task" }}
   - name: KAFKA_START_MAPPING_TASK_TOPIC
-    value: "start-admin-console-mapping-task"
+    value: {{ .Values.startAdminConsoleMappingTaskTopic | default "start-admin-console-mapping-task" }}
   - name: KAFKA_NOTIFICATION_EMAIL_TOPIC
-    value: "egov.core.notification.email"
-
-  - name: EXCEL_INGESTION_HOST
-    value: "http://excel-ingestion.egov:8080/"
-  - name: EXCEL_INGESTION_GENERATE_SEARCH
-    value: "excel-ingestion/v1/data/generate/_search"
-  - name: EXCEL_INGESTION_SHEET_SEARCH
-    value: "excel-ingestion/v1/data/sheet/_search"
-  - name: EXCEL_INGESTION_PROCESS
-    value: "excel-ingestion/v1/data/process/_create"
-  - name: EXCEL_INGESTION_GENERATE
-    value: "excel-ingestion/v1/data/generate/_init"
-  - name: FORM_CONFIG_TEMPLATE_NAME
-    value: "FormConfigTemplate"
-  - name: FORM_CONFIG_NAME
-    value: "FormConfig"
-  - name: EMAIL_NOTIFICATION_ID
-    value: "support@egov.org.in"
-  - name: EGOV_LOGO_LINK
-    value: "https://egov-dev-assets.s3.ap-south-1.amazonaws.com/digit.png"
+    value: {{ .Values.notificationEmailTopic | default "egov.core.notification.email" }}
+  - name: KAFKA_SAVE_PROJECT_CAMPAIGN_DETAILS_TOPIC
+    value: {{ .Values.saveProjectCampaignDetailsTopic | default "save-project-campaign-details" }}
+  - name: KAFKA_UPDATE_PROJECT_CAMPAIGN_DETAILS_TOPIC
+    value: {{ .Values.updateProjectCampaignDetailsTopic | default "update-project-campaign-details" }}
   - name: KAFKA_TEST_TOPIC
-    value: "test-topic-project-factory"
+    value: {{ .Values.testTopic | default "test-topic-project-factory" }}
   - name: KAFKA_HCM_PROCESSING_RESULT_TOPIC
-    value: "hcm-processing-result"
+    value: {{ .Values.hcmProcessingResultTopic | default "hcm-processing-result" }}
   - name: KAFKA_FACILITY_CREATE_BATCH_TOPIC
-    value: "hcm-facility-create-batch"
+    value: {{ .Values.facilityCreateBatchTopic | default "hcm-facility-create-batch" }}
   - name: KAFKA_USER_CREATE_BATCH_TOPIC
-    value: "hcm-user-create-batch"
+    value: {{ .Values.userCreateBatchTopic | default "hcm-user-create-batch" }}
   - name: KAFKA_MAPPING_BATCH_TOPIC
-    value: "hcm-mapping-batch"
+    value: {{ .Values.mappingBatchTopic | default "hcm-mapping-batch" }}
   - name: KAFKA_CAMPAIGN_MARK_FAILED_TOPIC
-    value: "hcm-campaign-mark-failed"
+    value: {{ .Values.campaignMarkFailedTopic | default "hcm-campaign-mark-failed" }}
   - name: USER_MAIN_BOUNDARY
-    value: "ADMIN"
+    value: {{ .Values.userMainBoundary | default "mz" }}
   - name: USER_MAIN_BOUNDARY_TYPE
-    value: "Country"
+    value: {{ .Values.userMainBoundaryType | default "Country" }}
   - name: MAX_RESOURCE_CREATION_ATTEMPTS
-    value: "100"
+    value: {{ .Values.maxResourceCreationAttempts | default "200" | quote }}
   - name: WAIT_TIME_OF_EACH_ATTEMPT_MS
-    value: "20000"
+    value: {{ .Values.waitTimeOfEachAttemptMs | default "40000" | quote }}
   - name: RETRY_TILL_RESOURCE_CREATION_COMPLETES
-    value: "50"
+    value: {{ .Values.retryTillResourceCreationCompletes | default "100" | quote }}
+  - name: LOCALIZATION_MODULE
+    value: {{ .Values.localizationModule | default "hcm-admin-schemas" }}
+  - name: KAFKA_CONSUMER_GROUP_ID
+    value: {{ .Values.groupId | default "project-factory" }}
   - name: KAFKAJS_GROUP_ID
-    value: "project-factory"
+    value: {{ .Values.groupId | default "project-factory" }}
   - name: EGOV_WORKER_REGISTRY_HOST
-    value: "http://worker-registry.egov:8080/"
+    valueFrom:
+      configMapKeyRef:
+          name: egov-service-host
+          key: worker-registry-host
   - name: EGOV_WORKER_REGISTRY_BULK_CREATE
-    value: "worker/v1/bulk/_create"
+    value: {{ .Values.workerRegistryBulkCreate | default "worker/v1/bulk/_create" }}
   - name: EGOV_WORKER_REGISTRY_BULK_UPDATE
-    value: "worker/v1/bulk/_update"
+    value: {{ .Values.workerRegistryBulkUpdate | default "worker/v1/bulk/_update" }}
   - name: EGOV_WORKER_REGISTRY_SEARCH
-    value: "worker/v1/_search"
+    value: {{ .Values.workerRegistrySearch | default "worker/v1/_search" }}
   - name: EGOV_ATTENDANCE_HOST
-    value: "http://health-attendance.egov:8080/"
+    valueFrom:
+      configMapKeyRef:
+          name: egov-service-host
+          key: attendance-service
   - name: ATTENDANCE_REGISTER_CREATE_PATH
-    value: "attendance/v1/_create"
+    value: attendance/v1/_create
   - name: ATTENDANCE_REGISTER_SEARCH_PATH
-    value: "attendance/v1/_search"
+    value: attendance/v1/_search
   - name: ATTENDANCE_ATTENDEE_CREATE_PATH
-    value: "attendance/attendee/v1/_create"
+    value: {{ .Values.attendanceAttendeeCreatePath | default "attendance/attendee/v1/_create" }}
   - name: ATTENDANCE_ATTENDEE_DELETE_PATH
-    value: "attendance/attendee/v1/_delete"
+    value: {{ .Values.attendanceAttendeeDeletePath | default "attendance/attendee/v1/_delete" }}
   - name: ATTENDANCE_ATTENDEE_UPDATE_TAG_PATH
-    value: "attendance/attendee/v1/_updateTag"
+    value: {{ .Values.attendanceAttendeeUpdateTagPath | default "attendance/attendee/v1/_updateTag" }}
   - name: ATTENDANCE_STAFF_CREATE_PATH
-    value: "attendance/staff/v1/_create"
+    value: {{ .Values.attendanceStaffCreatePath | default "attendance/staff/v1/_create" }}
   - name: ATTENDANCE_STAFF_DELETE_PATH
-    value: "attendance/staff/v1/_delete"
+    value: {{ .Values.attendanceStaffDeletePath | default "attendance/staff/v1/_delete" }}
   - name: ATTENDANCE_REGISTER_UPDATE_PATH
-    value: "attendance/v1/_update"
+    value: {{ .Values.attendanceRegisterUpdatePath | default "attendance/v1/_update" }}
   - name: ATTENDANCE_ATTENDEE_UPDATE_PATH
-    value: "attendance/attendee/v1/_update"
+    value: {{ .Values.attendanceAttendeeUpdatePath | default "attendance/attendee/v1/_update" }}
   - name: ATTENDANCE_STAFF_UPDATE_PATH
-    value: "attendance/staff/v1/_update"
+    value: {{ .Values.attendanceStaffUpdatePath | default "attendance/staff/v1/_update" }}
   - name: ATTENDANCE_REGISTER_DEFAULT_EVENT_TYPE
-    value: "Training"
+    value: {{ .Values.attendanceRegisterDefaultEventType | default "Training" }}
   - name: ATTENDANCE_REGISTER_DEFAULT_SESSIONS
-    value: "1"
+    value: {{ .Values.attendanceRegisterDefaultSessions | default "1" | quote }}
   - name: ATTENDANCE_BATCH_SIZE
-    value: "50"
+    value: {{ .Values.attendanceBatchSize | default "50" | quote }}
   - name: ATTENDANCE_SERVICE_CODE_PARALLEL_SEARCH_LIMIT
-    value: "50"
+    value: {{ .Values.attendanceServiceCodeParallelSearchLimit | default "50" | quote }}
   - name: ATTENDANCE_ATTENDEE_SEARCH_PAGE_SIZE
-    value: "100"
+    value: {{ .Values.attendanceAttendeeSearchPageSize | default "100" | quote }}
   - name: ATTENDANCE_STAFF_SEARCH_PAGE_SIZE
-    value: "100"
+    value: {{ .Values.attendanceStaffSearchPageSize | default "100" | quote }}
   - name: ATTENDANCE_ATTENDEE_SEARCH_PATH
-    value: "attendance/attendee/v1/_search"
+    value: {{ .Values.attendanceAttendeeSearchPath | default "attendance/attendee/v1/_search" }}
   - name: ATTENDANCE_STAFF_SEARCH_PATH
-    value: "attendance/staff/v1/_search"
+    value: {{ .Values.attendanceStaffSearchPath | default "attendance/staff/v1/_search" }}
   - name: SERVER_TIMEZONE
-    value: "UTC"
+    value: {{ .Values.serverTimezone | default "UTC" }}
+  - name: KAFKA_CONSUMER_TOPIC_PREFIX
+    value: {{ .Values.tenantIdPattern | default "" | quote }}
   - name: BOUNDARY_CODE_HEADER_NAME
-    value: "HCM_ADMIN_CONSOLE_BOUNDARY_CODE"
+    value: {{ .Values.boundaryCodeHeaderName | default "HCM_ADMIN_CONSOLE_BOUNDARY_CODE" }}
   - name: BOUNDARY_CODE_HEADER_NAME_FACILITY_MICROPLAN
-    value: "HCM_ADMIN_CONSOLE_RESIDING_BOUNDARY_CODE_MICROPLAN"
+    value: {{ .Values.boundaryCodeHeaderNameFacilityMicroplan | default "HCM_ADMIN_CONSOLE_RESIDING_BOUNDARY_CODE_MICROPLAN" }}
   - name: PHONE_NUMBER_LENGTH
-    value: "11"
+    value: {{ .Values.phoneNumberLength | default "11" | quote }}
   - name: HRMS_PARALLEL_SEARCH_LIMIT
-    value: "100"
+    value: {{ .Values.hrmsParallelSearchLimit | default "100" | quote }}
   - name: APP_PORT
-    value: "8080"
+    value: {{ .Values.appPort | default "8080" | quote }}
   - name: EGOV_LOCALIZATION_SEARCH
-    value: "localization/messages/v1/_search"
+    value: {{ .Values.egovLocalizationSearch | default "localization/messages/v1/_search" }}
   - name: CACHE_BURST
-    value: "localization/messages/cache-bust"
+    value: {{ .Values.cacheBurst | default "localization/messages/cache-bust" }}
   - name: EGOV_FACILITY_CREATE_PATH
-    value: "facility/v1/_create"
+    value: {{ .Values.egovFacilityCreatePath | default "facility/v1/_create" }}
   - name: SKIP_PARENT_PROJECT_CONFIRMATION
-    value: "false"
+    value: {{ .Values.skipParentProjectConfirmation | default "false" | quote }}
+  - name: UNFROZE_TILL_ROW
+    value: {{ .Values.unfrozeTillRow | default "5010" | quote }}
   - name: UNFROZE_TILL_COLUMN
-    value: "26"
+    value: {{ .Values.unfrozeTillColumn | default "26" | quote }}
   - name: MAX_HTTP_RETRIES
-    value: "4"
+    value: {{ .Values.maxHttpRetries | default "4" | quote }}
   - name: LAT_LONG_SUBSTRINGS
-    value: "HCM_ADMIN_CONSOLE_FACILITY_LATITUDE_OPTIONAL_MICROPLAN,HCM_ADMIN_CONSOLE_FACILITY_LONGITUDE_OPTIONAL_MICROPLAN,HCM_ADMIN_CONSOLE_TARGET_LAT_OPT,HCM_ADMIN_CONSOLE_TARGET_LONG_OPT"
+    value: {{ .Values.latLongSubstrings | default "HCM_ADMIN_CONSOLE_FACILITY_LATITUDE_OPTIONAL_MICROPLAN,HCM_ADMIN_CONSOLE_FACILITY_LONGITUDE_OPTIONAL_MICROPLAN,HCM_ADMIN_CONSOLE_TARGET_LAT_OPT,HCM_ADMIN_CONSOLE_TARGET_LONG_OPT" }}
+  - name: KAFKA_CONSUMER_MAX_BYTES_PER_PARTITION
+    value: {{ .Values.kafkaConsumerMaxBytesPerPartition | default "5242880" | quote }}
+  - name: KAFKA_PRODUCER_COMPRESSION_ENABLED
+    value: {{ .Values.kafkaProducerCompressionEnabled | default "true" | quote }}
