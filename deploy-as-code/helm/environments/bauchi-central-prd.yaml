@@ -76,7 +76,7 @@ cluster-configs:
         redis-downsync-host: "ng-central-redis.nolaw2.ng.0001.afs1.cache.amazonaws.com"
         egov-services-fqdn-name: "https://bauchi-hcm-digit.org/" ## Add your Domain Name
         state-level-tenantid-length: "1"
-        kafka-tenant-id-pattern: "ba-|oy-|ko-|na-|ab-|pl-|bo-|ke-|so-|od-|ad-|kd-|jg-|ch-|go-"
+        kafka-tenant-id-pattern: "(ba|oy|ko|na|ab|pl|bo|ke|so|od|ad|kd|jg|ch|go)-"
         state-schema-index-position-tenantid: "0"
         is-environment-central-instance: "true"
         aws-cluster-ip: "https://AD11FA377F3AEE4369833D9626BD7A83.gr7.af-south-1.eks.amazonaws.com"
