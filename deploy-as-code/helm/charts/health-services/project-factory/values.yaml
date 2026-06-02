@@ -482,3 +482,5 @@ env: |
     value: {{ .Values.kafkaConsumerMaxBytesPerPartition | default "5242880" | quote }}
   - name: KAFKA_PRODUCER_COMPRESSION_ENABLED
     value: {{ .Values.kafkaProducerCompressionEnabled | default "true" | quote }}
+  - name: DB_SSL
+    value: {{ .Values.dbSsl | default "true" | quote }}
