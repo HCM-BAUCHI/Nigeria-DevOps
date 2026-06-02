@@ -273,6 +273,7 @@ mdms-v2:
     repository: egovio/mdms-v2
     tag: HCMPRE-2741-mdms-6cfe790
   central-instance-build: true
+  central-instance-enabled: true
   hpa:
     enabled: true
     minReplicas: 2
