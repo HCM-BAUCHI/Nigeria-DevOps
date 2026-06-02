@@ -168,7 +168,9 @@ extraEnv:
         valueFrom:
           configMapKeyRef:
             name: egov-config
-            {{- if eq .Values.namespace "health" }}
+            {{- if index .Values "db-read-url-enabled" }}
+            key: db-read-url
+            {{- else if eq .Values.namespace "health" }}
             key: health-db-url
             {{- else if eq .Values.namespace "kaduna" }}
             key: kd-db-url
@@ -196,7 +198,9 @@ extraEnv:
         valueFrom:
           configMapKeyRef:
             name: egov-config
-            {{- if eq .Values.namespace "health" }}
+            {{- if index .Values "db-read-url-enabled" }}
+            key: db-read-url
+            {{- else if eq .Values.namespace "health" }}
             key: health-db-url
             {{- else if eq .Values.namespace "kaduna" }}
             key: kd-db-url
