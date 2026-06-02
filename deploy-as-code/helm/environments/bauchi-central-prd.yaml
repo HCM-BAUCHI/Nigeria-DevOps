@@ -1202,7 +1202,7 @@ service-request:
   
 project-factory:
   image:
-    tag: nigeria-go-deep-2-userRetryCampaign-0c3bb9b
+    tag: nigeria-go-deep-2-0f1e09e
   global:
     hosts:
       - chad-hcm.digit.org
@@ -1241,10 +1241,10 @@ excel-ingestion:
     dbMigration:
       image:
         repository: egovio/excel-ingestion-db
-        tag: nigeria-go-deep-2-8029c9a
+        tag: nigeria-go-deep-2-ee76944
   image:
     repository: egovio/excel-ingestion
-    tag: nigeria-go-deep-2-8029c9a
+    tag: nigeria-go-deep-2-ee76944
   group-id: "excel-ingestion"
   central-instance-build: true
   central-instance-enabled: true
