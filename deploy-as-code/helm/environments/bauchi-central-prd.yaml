@@ -1729,6 +1729,12 @@ inbox:
     enabled: true
     livenessProbePath: "/inbox/health"
     readinessProbePath: "/inbox/health"
+  heap: "-Xmx368m -Xms256m"
+  tracing-enabled: true
+  service-map: '{}'
+  bs-service-map: '{}'
+  dashboard-analytics-host: "dashboard-analytics"
+  egov-internal-microservice-user-uuid: "egov-internal-microservice-user-uuid"
   central-instance-build: true
   central-instance-enabled: true
   schemaNameExclude: [ "chad", "kb" ]
