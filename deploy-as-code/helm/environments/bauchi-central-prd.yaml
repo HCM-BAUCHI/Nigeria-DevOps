@@ -1278,10 +1278,10 @@ project-factory:
     dbMigration:
       image:
         repository: "project-factory-db"
-        tag: nigeria-go-deep-2-0f1e09e
+        tag: nigeria-go-deep-2-8396f5e
   image:
     repository: egovio/project-factory
-    tag: nigeria-go-deep-2-0f1e09e
+    tag: nigeria-go-deep-2-8396f5e
   central-instance-enabled: false
   central-instance-build: true
   schemaNameExclude: [ "chad", "kb" ]
@@ -1347,6 +1347,7 @@ project-factory:
   serverTimezone: "UTC"
   attendanceAttendeeSearchPageSize: "100"
   attendanceStaffSearchPageSize: "100"
+  centralInstanceTenantIds: "ba,oy,ko,na,ab,pl,bo,ke,so,od,ad,kd,jg,ch,go"
   command: |
     - sh
     - -c
