@@ -230,12 +230,6 @@ egov-filestore:
   allowed-file-formats: "jpg,jpeg,png,doc,docx,pdf,odt,ods,text,dxf,xls,xlsx"
   filestore-url-validity: 3600
   fixed-bucketname: ng-central-filestore  ## Add filestore bucket name
-  global:
-    hosts:
-      - ondo-hcm.digit.org
-      - chad-hcm.digit.org
-      - chad-hcm-prod.digit.org
-      - oyo-hcm.digit.org
   heap: "-Xmx256m -Xms128m"
   cpu_requests: 200m
   memory_requests: 256Mi
