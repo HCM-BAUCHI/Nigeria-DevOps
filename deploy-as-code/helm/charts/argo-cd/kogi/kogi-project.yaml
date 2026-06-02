@@ -1,0 +1,51 @@
+apiVersion: argoproj.io/v1alpha1
+kind: AppProject
+metadata:
+  name: kogi-project
+  namespace: argocd
+spec:
+  description: Kogi project for ArgoCD applications
+  sourceRepos:
+    - 'git@github.com:HCM-BAUCHI/Nigeria-Devops.git'
+    - 'https://github.com/HCM-BAUCHI/Nigeria-Devops.git'
+  destinations:
+    - namespace: kogi
+      server: https://kubernetes.default.svc
+    - namespace: egov
+      server: https://kubernetes.default.svc
+  clusterResourceWhitelist:
+    - group: ''
+      kind: Namespace
+    - group: ''
+      kind: ConfigMap
+    - group: ''
+      kind: Secret
+    - group: ''
+      kind: Service
+    - group: ''
+      kind: ServiceAccount
+    - group: 'apps'
+      kind: Deployment
+    - group: 'apps'
+      kind: ReplicaSet
+    - group: 'apps'
+      kind: StatefulSet
+    - group: 'batch'
+      kind: Job
+    - group: 'batch'
+      kind: CronJob
+    - group: 'networking.k8s.io'
+      kind: Ingress
+    - group: 'autoscaling'
+      kind: HorizontalPodAutoscaler
+    - group: 'policy'
+      kind: PodDisruptionBudget
+  namespaceResourceWhitelist:
+    - group: '*'
+      kind: '*'
+  roles:
+    - name: admin
+      policies:
+        - p, proj:kogi-project:admin, applications, *, kogi-project/*, allow
+      groups:
+        - argocd-admins
