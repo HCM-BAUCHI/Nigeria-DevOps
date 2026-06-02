@@ -49,6 +49,7 @@ transformer-producer-bulk-stock-index-v1-topic: "transformer-producer-bulk-stock
 save-facility-topic: "save-facility-topic"
 update-facility-topic: "update-facility-topic"
 save-service: "save-service"
+save-service-topic: "save-service-topic"
 transformer-producer-service-request-index-v1-topic: "transformer-producer-service-request-index-v1-topic"
 save-referral-topic: "save-referral-topic"
 transformer-producer-referral-index-v1-topic: "transformer-producer-referral-index-v1-topic"
@@ -100,9 +101,7 @@ transformer-producer-stock-index-v1-topic: "transformer-producer-stock-index-v1-
 transformer-producer-stock-reconciliation-index-v1-topic: "transformer-producer-stock-reconciliation-index-v1-topic"
 transformer-producer-facility-index-v1-topic: "transformer-producer-facility-index-v1-topic"
 transformer-producer-resource-index-v1-topic: "transformer-producer-resource-index-v1-topic"
-save-service-topic: "save-service-topic"
 update-service-topic: "update-service-topic"
-create-side-effect-topic: "create-side-effect-topic"
 transformer-producer-project-beneficiary-downsync-index-v1-topic: "transformer-producer-project-beneficiary-downsync-index-v1-topic"
 save-product-topic: "save-product-topic"
 update-product-topic: "update-product-topic"
@@ -264,7 +263,7 @@ env: |
   - name: EGOV_SEARCH_SERVICEDEFINITION_URL
     value: "/service-request/service/definition/v1/_search"
   - name: TRANSFORMER_CONSUMER_CREATE_SERVICE_TOPIC
-    value: {{ index .Values "save-service" | quote }}
+    value: {{ index .Values "save-service-topic" | quote }}
   - name: TRANSFORMER_PRODUCER_SERVICE_TASK_INDEX_V1_TOPIC
     value: {{ index .Values "transformer-producer-service-request-index-v1-topic" | quote }}
   - name: TRANSFORMER_CONSUMER_CREATE_REFERRAL_TOPIC
@@ -463,18 +462,12 @@ env: |
     value: {{ index .Values "transformer-producer-individual-index-v1-topic" | quote }}
   - name: TRANSFORMER_PRODUCER_STOCK_INDEX_V1_TOPIC
     value: {{ index .Values "transformer-producer-stock-index-v1-topic" | quote }}
-  - name: TRANSFORMER_PRODUCER_STOCK_RECONCILIATION_INDEX_V1_TOPIC
-    value: {{ index .Values "transformer-producer-stock-reconciliation-index-v1-topic" | quote }}
   - name: TRANSFORMER_PRODUCER_FACILITY_INDEX_V1_TOPIC
     value: {{ index .Values "transformer-producer-facility-index-v1-topic" | quote }}
   - name: TRANSFORMER_PRODUCER_RESOURCE_INDEX_V1_TOPIC
     value: {{ index .Values "transformer-producer-resource-index-v1-topic" | quote }}
-  - name: TRANSFORMER_CONSUMER_CREATE_SERVICE_TOPIC
-    value: {{ index .Values "save-service-topic" | quote }}
   - name: TRANSFORMER_CONSUMER_UPDATE_SERVICE_TOPIC
     value: {{ index .Values "update-service-topic" | quote }}
-  - name: TRANSFORMER_CONSUMER_CREATE_SIDE_EFFECT_TOPIC
-    value: {{ index .Values "create-side-effect-topic" | quote }}
   - name: TRANSFORMER_PRODUCER_PROJECT_BENEFICIARY_DOWNSYNC_INDEX_V1_TOPIC
     value: {{ index .Values "transformer-producer-project-beneficiary-downsync-index-v1-topic" | quote }}
   - name: TRANSFORMER_CONSUMER_CREATE_PRODUCT_TOPIC
