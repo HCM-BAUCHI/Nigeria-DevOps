@@ -1286,6 +1286,8 @@ project-factory:
     tag: nigeria-go-deep-2-0f1e09e
   central-instance-enabled: false
   central-instance-build: true
+  schemaNameExclude: [ "chad", "kb" ]
+  hostExclude: [ "chad-hcm-prod.digit.org", "kebbi-azm-central-hcm.digit.org" ]
   namespace: egov
   heap: "-Xmx2048m -Xms512m"
   replicas: 3
@@ -1389,17 +1391,28 @@ excel-ingestion:
   image:
     repository: egovio/excel-ingestion
     tag: nigeria-go-deep-2-ee76944
-  group-id: "excel-ingestion"
+  group-id: "egov-excel-ingestion"
   central-instance-build: true
   central-instance-enabled: true
   schemaNameExclude: [ "chad", "kb" ]
   hostExclude: ["chad-hcm-prod.digit.org", "kebbi-azm-central-hcm.digit.org"]
   cpu_requests: 200m
   memory_requests: 768Mi
+  replicas: 3
   egov-mdms-service-host-key: 'mdms-v2'
   egov-mdms-service-endpoint-key: "mdms-v2/v2/_search"
   defaultLocale: 'en_NG'
-  project-factory-host: "project-factory"
+  excel-row-limit: "20000"
+  central-instance-name: egov
+  project-factory-host: project-factory
+  excel-ingestion-generation-save-topic: "save-generated-file"
+  excel-ingestion-generation-update-topic: "update-generated-file"
+  excel-ingestion-processing-save-topic: "save-processing-file"
+  excel-ingestion-processing-update-topic: "update-processing-file"
+  excel-ingestion-sheet-data-save-topic: "save-sheet-data-temp"
+  excel-ingestion-sheet-data-delete-topic: "delete-sheet-data-temp"
+  excel-ingestion-processing-result-topic: "hcm-processing-result"
+  java-enable-debug: true
 
 od-project-factory:
   global:
