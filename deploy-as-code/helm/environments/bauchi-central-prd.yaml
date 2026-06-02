@@ -1418,23 +1418,6 @@ od-project-factory:
   replicas: 3
 
 
-chad-project-factory:
-  global:
-    hosts:
-      - chad-hcm-prod.digit.org
-  ingress:
-    additionalAnnotations: |
-      nginx.ingress.kubernetes.io/rewrite-target: /chad-project-factory/$2
-    specificRoute: "project-factory(/|$)(.*)"
-  #    context: "project-factory(/|$)(.*)"
-  logLevel: 'debug'
-  maxDebugChar: '2000'
-  mdmsV2SearchEndpoint: 'mdms-v2/v2/_search'
-  mdmsV1SearchEndpoint: 'mdms-v2/v1/_search'
-  cpu_requests: 100m
-  cpu_limits: 200m
-  replicas: 3
-
 #plan-service:
 #  egov-mdms-service-host-key: 'mdms-v2'
 #  egov-mdms-service-endpoint-key: "/mdms-v2/v1/_search"
