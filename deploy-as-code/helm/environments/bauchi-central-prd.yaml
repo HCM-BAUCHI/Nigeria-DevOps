@@ -1184,7 +1184,7 @@ project:
 project-referral:
   image:
     repository: egovio/project
-    tag: HCMPRE-2657-bauchi-impl-hrms-1955365
+    tag: customize-nigeria-go-deep-2-project-38be8fb
   central-instance-build: true
   central-instance-enabled: true
   initContainers:
