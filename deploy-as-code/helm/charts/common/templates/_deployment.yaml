@@ -121,7 +121,11 @@ spec:
       {{- end }}      
         - name: {{ template "common.name" . }}
           image: {{ template "common.image" (dict "Values" $.Values "repository" .Values.image.repository "tag" .Values.image.tag) }}
-          imagePullPolicy: {{ .Values.image.pullPolicy }}  
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+      {{- if .Values.command }}
+          command:
+          {{- tpl  .Values.command . | nindent 12 }}
+      {{- end }}
       {{- if .Values.args }}              
           args:  
           {{- tpl  .Values.args . | nindent 12 }}          
