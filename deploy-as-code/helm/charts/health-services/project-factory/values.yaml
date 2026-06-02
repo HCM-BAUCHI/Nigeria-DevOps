@@ -24,7 +24,7 @@ initContainers:
 image:
   repository: "project-factory"
 replicas: "3"
-maxResourceCreationAttempts: "100"
+maxResourceCreationAttempts: "200"
 # Additional Container Envs
 env: |
   - name: KAFKA_BROKER_HOST
