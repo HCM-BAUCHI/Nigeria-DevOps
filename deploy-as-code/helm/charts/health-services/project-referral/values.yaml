@@ -3,6 +3,8 @@ labels:
   app: "project-referral"
   group: "health"
 
+db-read-url-enabled: true
+
 # Ingress Configs
 ingress:
   enabled: true
