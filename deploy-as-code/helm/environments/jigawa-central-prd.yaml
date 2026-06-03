@@ -92,6 +92,9 @@ individual:
   memory_limits: 1Gi
 
 transformer:
+  image:
+    repository: egovio/transformer
+    tag: HDDF-5226-24f2875
   namespace: "jigawa"
   heap: "-Xmx1536m -Xms1536m"
   hpa:
