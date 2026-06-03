@@ -488,3 +488,10 @@ env: |
     value: {{ .Values.centralInstanceTenantIds | default "" }}
   - name: EXCEL_INGESTION_PERSISTENCE_STALL_TIMEOUT_MS
     value: "600000"
+  - name: USER_KAFKA_CREATE_BATCH_SIZE
+    value: "10"
+  - name: USER_CREATION_BATCH_SIZE
+    value: "10"
+  - name: USER_PERSIST_BATCH_SIZE
+    value: "10"
+  
