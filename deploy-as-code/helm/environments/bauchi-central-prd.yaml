@@ -1491,10 +1491,10 @@ excel-ingestion:
   schemaNameExclude: [ "chad", "kb" ]
   hostExclude: ["chad-hcm-prod.digit.org", "kebbi-azm-central-hcm.digit.org"]
   cpu_requests: 1
-  memory_requests: 768Mi
-  memory_limits: "3072Mi"
-  cpu_limits: "2"
-  heap: -Xms2560m -Xmx2560m
+  memory_requests: 4072Mi
+  memory_limits: "4072Mi"
+  cpu_limits: "3"
+  heap: -Xms3560m -Xmx3560m
   replicas: 2
   egov-mdms-service-host-key: 'mdms-v2'
   egov-mdms-service-endpoint-key: "mdms-v2/v2/_search"
