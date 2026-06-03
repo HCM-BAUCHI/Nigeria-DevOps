@@ -1373,10 +1373,10 @@ project-factory:
     dbMigration:
       image:
         repository: "project-factory-db"
-        tag: nigeria-go-deep-2-8396f5e
+        tag: nigeria-go-deep-2-dfea1e1
   image:
     repository: egovio/project-factory
-    tag: nigeria-go-deep-2-8396f5e
+    tag: nigeria-go-deep-2-dfea1e1
   central-instance-enabled: false
   central-instance-build: true
   schemaNameExclude: [ "chad", "kb" ]
@@ -1436,7 +1436,7 @@ project-factory:
   campaignMarkFailedTopic: "hcm-campaign-mark-failed"
   userMainBoundary: "ADMIN"
   userMainBoundaryType: "Country"
-  maxResourceCreationAttempts: "200"
+  maxResourceCreationAttempts: "400"
   waitTimeOfEachAttemptMs: "20000"
   retryTillResourceCreationCompletes: "50"
   serverTimezone: "UTC"
