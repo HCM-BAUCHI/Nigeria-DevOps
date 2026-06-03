@@ -129,8 +129,8 @@ transformer:
   expense-bill-detail-update-topic: "na-expense-bill-detail-update"
   egov_localization_locale_code: "en_NG"
   egov-localization-module-name: "hcm-boundary-admin"
-  transformer-consumer-create-user-action-topic: "na-save-user-action-project-topic"
-  transformer-consumer-update-user-action-topic: "na-update-user-action-project-topic"
+  transformer-consumer-create-user-action-topic: "na-save-user-action-project-task-topic"
+  transformer-consumer-update-user-action-topic: "na-update-user-action-project-task-topic"
   transformer-producer-user-action-index-v1-topic: "na-transformer-producer-user-action-index-v1-topic"
 
 # hcm-moz-impl:

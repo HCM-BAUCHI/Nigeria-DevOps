@@ -1822,11 +1822,11 @@ dashboard-analytics:
     livenessProbePath: "/dashboard-analytics/health"
     readinessProbePath: "/dashboard-analytics/health"
   heap: "-Xmx512m -Xms256m"
-  replicas: 1
+  replicas: 3
   hpa:
     enabled: false
-    minReplicas: 1
-    maxReplicas: 3
+    minReplicas: 3
+    maxReplicas: 5
   cpu_requests: 200m
   memory_requests: 768Mi
   cpu_limits: 300m
