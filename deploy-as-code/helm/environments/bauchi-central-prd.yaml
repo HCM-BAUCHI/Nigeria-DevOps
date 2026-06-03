@@ -1911,7 +1911,7 @@ dashboard-analytics:
   namespace: egov
   image:
     repository: egovio/dashboard-analytics
-    tag: analytics-raw-response-transform-dc60b55
+    tag: analytics-raw-response-transform-5f98d99
   ingress:
     name: dashboard-analytics
     namespace: egov
