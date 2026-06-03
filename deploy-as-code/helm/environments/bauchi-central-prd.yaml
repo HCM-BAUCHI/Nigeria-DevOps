@@ -1436,7 +1436,7 @@ project-factory:
   campaignMarkFailedTopic: "hcm-campaign-mark-failed"
   userMainBoundary: "ADMIN"
   userMainBoundaryType: "Country"
-  maxResourceCreationAttempts: "400"
+  maxResourceCreationAttempts: "200"
   waitTimeOfEachAttemptMs: "20000"
   retryTillResourceCreationCompletes: "50"
   serverTimezone: "UTC"
