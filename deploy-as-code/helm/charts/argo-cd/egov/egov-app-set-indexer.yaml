@@ -26,7 +26,7 @@ spec:
         helm:
           valueFiles:
             - values.yaml
-            - ../../../../environments/bauchi-central-prd.yaml
+            - ../../../environments/bauchi-central-prd.yaml
 
       destination:
         server: https://kubernetes.default.svc
