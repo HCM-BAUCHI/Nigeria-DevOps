@@ -55,7 +55,7 @@ referralmanagement-hfreferral-consumer-bulk-update-topic: update-hfreferral-bulk
 referralmanagement-hfreferral-consumer-bulk-delete-topic: delete-hfreferral-bulk-topic
 
 egov-user-id-validator: "egov-user"
-egov-enable-matview-search: "false"
+egov-enable-matview-search: "true"
 egov-location-code-query-param: "codes"
 egov-enc-service-configmap-key: "egov-enc-service"
 egov-enc-decrypt-endpoint: "/egov-enc-service/crypto/v1/_decrypt"
