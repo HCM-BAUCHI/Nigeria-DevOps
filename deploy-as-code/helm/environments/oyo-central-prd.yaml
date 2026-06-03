@@ -42,7 +42,7 @@ global:
 #       memory: "512Mi"
 
 
-
+disableAnnotationTimestamp: true
 
 transformer:
   namespace: "oyo"
@@ -216,8 +216,8 @@ health-expense-calculator:
   heap: "-Xmx2048m -Xms1024m"
   hpa:
     enabled: true
-    minReplicas: 1
-    maxReplicas: 3
+    minReplicas: 2
+    maxReplicas: 5
   cpu_requests: 500m
   memory_requests: 2Gi
   cpu_limits: 600m

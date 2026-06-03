@@ -1,6 +1,5 @@
 global:
   domain: nasarawa-hcm.digit.org
-  disableAnnotationTimestamp: true
   tracing-enabled: false
 # egov-localization:
 #   namespace: "oyo"

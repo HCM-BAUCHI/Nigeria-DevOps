@@ -1,6 +1,5 @@
 global:
   domain: jigawa-central-hcm.digit.org
-  disableAnnotationTimestamp: true
 
 service:
   additionalAnnotations: |
@@ -63,8 +62,8 @@ egov-enc-service:
   heap: "-Xmx512m -Xms512m"
   hpa:
     enabled: true
-    minReplicas: 1
-    maxReplicas: 4
+    minReplicas: 2
+    maxReplicas: 5
   ingress:
     enabled: false
     zuul: false
@@ -84,9 +83,9 @@ individual:
   central-instance-build: true
   heap: "-Xmx768m -Xms512m"
   hpa:
-    enabled: false
-    minReplicas: 1
-    maxReplicas: 1
+    enabled: true
+    minReplicas: 2
+    maxReplicas: 5
   cpu_requests: 300m
   memory_requests: 768Mi
   cpu_limits: 400m
@@ -203,8 +202,8 @@ referralmanagement:
   heap: "-Xmx1536m -Xms768m"
   hpa:
     enabled: true
-    minReplicas: 1
-    maxReplicas: 4
+    minReplicas: 2
+    maxReplicas: 5
   cpu_requests: 300m
   memory_requests: 1.5Gi
   cpu_limits: 400m

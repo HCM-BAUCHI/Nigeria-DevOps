@@ -1,6 +1,5 @@
 global:
   domain: kogi-hcm.digit.org
-  disableAnnotationTimestamp: true
   tracing-enabled: false
 # egov-localization:
 #   namespace: "oyo"
@@ -44,7 +43,7 @@ global:
 #       memory: "512Mi"
 
 
-
+disableAnnotationTimestamp: true
 
 transformer:
   namespace: "kogi"
