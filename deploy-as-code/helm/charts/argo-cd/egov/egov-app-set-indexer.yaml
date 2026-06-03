@@ -1,0 +1,53 @@
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: ng-central-prd-egov-appset-indexer
+  namespace: argocd
+spec:
+  generators:
+    - git:
+        repoURL: git@github.com:HCM-BAUCHI/Nigeria-Devops.git
+        revision: ng-central-prd
+        directories:
+          - path: deploy-as-code/helm/charts/indexer-tenant-charts/*
+
+  template:
+    metadata:
+      name: 'egov-{{path.basename}}'
+
+    spec:
+      project: egov-project
+
+      source:
+        repoURL: git@github.com:HCM-BAUCHI/Nigeria-Devops.git
+        targetRevision: ng-central-prd
+        path: '{{path}}'
+
+        helm:
+          valueFiles:
+            - values.yaml
+            - ../../../../environments/bauchi-central-prd.yaml
+
+      destination:
+        server: https://kubernetes.default.svc
+        namespace: egov
+
+      syncPolicy:
+        automated:
+          prune: false
+          selfHeal: true
+        syncOptions:
+          - ApplyOutOfSyncOnly=true
+          - ServerSideApply=true
+        retry:
+          limit: 10
+          backoff:
+            duration: 5s
+            factor: 2
+            maxDuration: 3m0s
+
+      ignoreDifferences:
+        - group: apps
+          kind: Deployment
+          jsonPointers:
+            - /spec/replicas
