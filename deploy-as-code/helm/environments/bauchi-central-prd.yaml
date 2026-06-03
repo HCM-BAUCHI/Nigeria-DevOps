@@ -494,7 +494,7 @@ egov-indexer-na-oy-ko-jg:
   hpa:
     enabled: true
     minReplicas: 4
-    maxReplicas: 12
+    maxReplicas: 8
   cpu_requests: 300m
   memory_requests: 1.5Gi
   cpu_limits: 400m
@@ -536,7 +536,7 @@ egov-persister-ht:
   heap: "-Xmx768m -Xms256m"
   hpa:
     enabled: true
-    minReplicas: 4
+    minReplicas: 6
     maxReplicas: 12
   cpu_requests: 300m
   memory_requests: 768Mi
@@ -599,8 +599,8 @@ egov-persister-chad-kb-kd:
   heap: "-Xmx1536m -Xms1024m"
   hpa:
     enabled: true
-    minReplicas: 4
-    maxReplicas: 8
+    minReplicas: 2
+    maxReplicas: 5
   cpu_requests: 300m
   memory_requests: 1.5Gi
   cpu_limits: 400m
@@ -620,7 +620,7 @@ egov-persister-na-oy-ko-jg:
   hpa:
     enabled: true
     minReplicas: 4
-    maxReplicas: 12
+    maxReplicas: 8
   cpu_requests: 300m
   memory_requests: 1.5Gi
   cpu_limits: 400m
