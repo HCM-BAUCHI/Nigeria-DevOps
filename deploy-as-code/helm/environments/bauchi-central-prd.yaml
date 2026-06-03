@@ -876,8 +876,8 @@ egov-hrms:
   heap: "-Xmx1024m -Xms512m"
   hpa:
     enabled: true
-    minReplicas: 2
-    maxReplicas: 5
+    minReplicas: 4
+    maxReplicas: 8
   cpu_requests: 200m
   memory_requests: 1Gi
   cpu_limits: 300m
