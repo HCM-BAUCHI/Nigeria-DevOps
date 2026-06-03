@@ -7,7 +7,7 @@ labels:
 ingress:
   enabled: true
   zuul: true
-  context: "egov-indexer"
+  context: "egov-indexer-na-oy-ko-jg"
 
 # Init Containers Configs
 initContainers:
