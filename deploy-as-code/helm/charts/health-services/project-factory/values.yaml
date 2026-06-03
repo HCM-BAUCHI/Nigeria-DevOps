@@ -486,3 +486,5 @@ env: |
     value: {{ .Values.dbSsl | default "true" | quote }}
   - name: CENTRAL_INSTANCE_TENANT_IDS
     value: {{ .Values.centralInstanceTenantIds | default "" }}
+  - name: EXCEL_INGESTION_PERSISTENCE_STALL_TIMEOUT_MS
+    value: "600000"
