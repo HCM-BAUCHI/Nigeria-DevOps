@@ -1257,10 +1257,10 @@ project:
     dbMigration:
       image:
         repository: egovio/project-db
-        tag: customize-nigeria-go-deep-2-project-38be8fb
+        tag: customize-nigeria-go-deep-2-project-bb6bfd6
   image:
     repository: egovio/project
-    tag: customize-nigeria-go-deep-2-project-38be8fb
+    tag: customize-nigeria-go-deep-2-project-bb6bfd6
   central-instance-build: true
   central-instance-enabled: true
   heap: "-Xmx1g -Xms512m"
@@ -1279,7 +1279,7 @@ project:
 project-referral:
   image:
     repository: egovio/project
-    tag: customize-nigeria-go-deep-2-project-38be8fb
+    tag: customize-nigeria-go-deep-2-project-bb6bfd6
   central-instance-build: true
   central-instance-enabled: true
   initContainers:
