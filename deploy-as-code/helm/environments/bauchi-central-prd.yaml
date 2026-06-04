@@ -1120,14 +1120,14 @@ egov-localization:
     dbMigration:
       image:
         repository: egovio/egov-localization-db
-        tag: v2.9.2-4a60f20
+        tag: redis-localization-key-5c0a4c4
   image:
     repository: egovio/egov-localization
-    tag: v2.9.2-4a60f20
+    tag: redis-localization-key-5c0a4c4
   namespace: "egov"
   # internal-routing: "true"
   # db-url: "jdbc:postgresql://ng-central-prd-db.cpe4q0cycqi7.af-south-1.rds.amazonaws.com:5432/ngcentralprd?currentSchema=ba"
-  heap: "-Xms3072m -Xms3072m"
+  heap: "-Xmx3072m -Xms1500m"
   hpa:
     enabled: true
     minReplicas: 4
@@ -1135,7 +1135,7 @@ egov-localization:
   cpu_requests: 200m
   memory_requests: 2Gi
   cpu_limits: 300m
-  memory_limits: 3Gi
+  memory_limits: 3.5Gi
 
 individual:
   initContainers:
