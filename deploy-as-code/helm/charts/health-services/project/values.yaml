@@ -243,7 +243,7 @@ env: |
   - name: PROJECT_DEFAULT_LIMIT
     value: "100"
   - name: PROJECT_SEARCH_MAX_LIMIT
-    value: "200"
+    value: "1000"
   - name: EGOV_IDGEN_PROJECT_NUMBER_NAME
     value: "project.number"
   - name: PROJECT_RESOURCE_IDGEN_ID_FORMAT
