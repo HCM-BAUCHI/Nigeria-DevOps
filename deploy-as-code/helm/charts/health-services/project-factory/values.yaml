@@ -489,9 +489,11 @@ env: |
   - name: EXCEL_INGESTION_PERSISTENCE_STALL_TIMEOUT_MS
     value: "600000"
   - name: USER_KAFKA_CREATE_BATCH_SIZE
-    value: "10"
+    value: "3"
   - name: USER_CREATION_BATCH_SIZE
-    value: "10"
+    value: "3"
   - name: USER_PERSIST_BATCH_SIZE
-    value: "10"
+    value: "3"
+  - name: PROJECT_CREATION_BATCH_SIZE
+    value: "40"
   
