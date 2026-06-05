@@ -127,6 +127,7 @@ transformer:
   save-stock-topic: "jg-save-stock-topic"
   update-stock-topic: "jg-update-stock-topic"
   transformer-producer-bulk-stock-index-v1-topic: "jg-transformer-producer-bulk-stock-index-v1-topic"
+  transformer-producer-bulk-stock-index-updated-v1-topic: "ko-transformer-producer-bulk-stock-index-updated-v1-topic"
   save-facility-topic: "jg-save-facility-topic"
   update-facility-topic: "jg-update-facility-topic"
   save-service: "jg-save-service"
