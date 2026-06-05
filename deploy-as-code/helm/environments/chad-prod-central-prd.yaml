@@ -561,7 +561,7 @@ service-request:
   cpu_requests: 200m
   memory_requests: 512Mi
   cpu_limits: 300m
-  memory_limits: 768Gi
+  memory_limits: 768Mi
   spring-kafka-consumer-group-id: "chad-service-request"
   egov-service-definition-create-topic: "chad-save-service-definition"
   egov-service-definition-update-topic: "chad-update-service-definition"
