@@ -1083,8 +1083,8 @@ facility:
   heap: "-Xmx512m -Xms256m"
   hpa:
     enabled: true
-    minReplicas: 2
-    maxReplicas: 5
+    minReplicas: 6
+    maxReplicas: 10
   cpu_requests: 200m
   memory_requests: 512Mi
   cpu_limits: 300m
