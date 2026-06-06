@@ -355,10 +355,6 @@ env: |
     value: "/household/v1/_search"
   - name: EGOV_SEARCH_PROJECT_BENEFICIARY_URL
     value: "/project/beneficiary/v1/_search"
-  - name: EGOV_LOCALIZATION_LOCALE_CODE
-    value: en_NG
-  - name: EGOV_LOCALIZATION_MODULE_NAME
-    value: hcm-boundary-admin
   
   - name: TRANSFORMER_CONSUMER_ERROR_TRACER_TOPIC
     value: {{ index .Values "transformer-consumer-error-tracer-topic" | default "error-details-indexer-topic" | quote }}
