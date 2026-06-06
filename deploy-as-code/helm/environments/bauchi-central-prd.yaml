@@ -1074,10 +1074,10 @@ facility:
     dbMigration:
       image:
         repository: egovio/facility-db
-        tag: master-eb25d83
+        tag: facility-search-limit-fix-554bc07
   image:
     repository: egovio/facility
-    tag: master-eb25d83
+    tag: facility-search-limit-fix-554bc07
   central-instance-build: true
   central-instance-enabled: true
   heap: "-Xmx512m -Xms256m"
