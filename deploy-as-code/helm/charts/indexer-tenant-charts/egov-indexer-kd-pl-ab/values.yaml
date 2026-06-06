@@ -1,13 +1,13 @@
 # Common Labels
 labels:
-  app: "egov-indexer-chad-kb-kd"
+  app: "egov-indexer-kd-pl-ab"
   group: "core"
 
 # Ingress Configs
 ingress:
   enabled: true
   zuul: true
-  context: "egov-indexer-chad-kb-kd"
+  context: "egov-indexer-kd-pl-ab"
 
 # Init Containers Configs
 initContainers:
