@@ -384,10 +384,10 @@ egov-user:
     dbMigration:
       image:
         repository: egovio/egov-user-db
-        tag: central-instance-switch-device-changes-caba789
+        tag: central-instance-switch-device-changes-7eec928
   image:
     repository: egovio/egov-user
-    tag: central-instance-switch-device-changes-caba789
+    tag: central-instance-switch-device-changes-7eec928
   central-instance-build: true
   central-instance-enabled: true
   heap: "-Xmx1024m -Xms512m"
