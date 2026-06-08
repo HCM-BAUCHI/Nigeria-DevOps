@@ -1,21 +1,20 @@
 apiVersion: argoproj.io/v1alpha1
 kind: ApplicationSet
 metadata:
-  name: kaduna-appset-health
+  name: plateau-appset-health
   namespace: argocd
 spec:
   generators:
     - list:
         elements:
-          - name: referralmanagement
           - name: transformer
 
   template:
     metadata:
-      name: 'kaduna-{{name}}'
+      name: 'plateau-{{name}}'
 
     spec:
-      project: kaduna-project
+      project: plateau-project
 
       source:
         repoURL: git@github.com:HCM-BAUCHI/Nigeria-Devops.git
@@ -24,11 +23,11 @@ spec:
         helm:
           valueFiles:
             - values.yaml
-            - ../../../environments/kaduna-central-prd.yaml
+            - ../../../environments/plateau-central-prd.yaml
 
       destination:
         server: https://kubernetes.default.svc
-        namespace: kaduna
+        namespace: plateau
 
       syncPolicy:
         automated:

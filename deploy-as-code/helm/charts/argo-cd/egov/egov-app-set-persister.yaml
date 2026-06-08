@@ -1,34 +1,36 @@
 apiVersion: argoproj.io/v1alpha1
 kind: ApplicationSet
 metadata:
-  name: kaduna-appset-health
+  name: ng-central-prd-egov-appset-persister
   namespace: argocd
 spec:
   generators:
-    - list:
-        elements:
-          - name: referralmanagement
-          - name: transformer
+    - git:
+        repoURL: git@github.com:HCM-BAUCHI/Nigeria-Devops.git
+        revision: ng-central-prd
+        directories:
+          - path: deploy-as-code/helm/charts/persister-tenant-charts/*
 
   template:
     metadata:
-      name: 'kaduna-{{name}}'
+      name: 'egov-{{path.basename}}'
 
     spec:
-      project: kaduna-project
+      project: egov-project
 
       source:
         repoURL: git@github.com:HCM-BAUCHI/Nigeria-Devops.git
         targetRevision: ng-central-prd
-        path: deploy-as-code/helm/charts/health-services/{{name}}
+        path: '{{path}}'
+
         helm:
           valueFiles:
             - values.yaml
-            - ../../../environments/kaduna-central-prd.yaml
+            - ../../../environments/bauchi-central-prd.yaml
 
       destination:
         server: https://kubernetes.default.svc
-        namespace: kaduna
+        namespace: egov
 
       syncPolicy:
         automated:
