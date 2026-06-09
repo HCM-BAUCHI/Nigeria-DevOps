@@ -1423,10 +1423,10 @@ project-factory:
     dbMigration:
       image:
         repository: "project-factory-db"
-        tag: nigeria-go-deep-2-dfea1e1
+        tag: nigeria-go-deep-2-97ed978
   image:
     repository: egovio/project-factory
-    tag: nigeria-go-deep-2-dfea1e1
+    tag: nigeria-go-deep-2-97ed978
   central-instance-enabled: false
   central-instance-build: true
   schemaNameExclude: [ "chad", "kb" ]
@@ -1531,10 +1531,10 @@ excel-ingestion:
     dbMigration:
       image:
         repository: egovio/excel-ingestion-db
-        tag: nigeria-go-deep-2-65af66b
+        tag: nigeria-go-deep-2-97ed978
   image:
     repository: egovio/excel-ingestion
-    tag: nigeria-go-deep-2-65af66b
+    tag: nigeria-go-deep-2-97ed978
   group-id: "egov-excel-ingestion"
   central-instance-build: true
   central-instance-enabled: true
