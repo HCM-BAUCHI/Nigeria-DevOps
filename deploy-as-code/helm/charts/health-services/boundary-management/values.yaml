@@ -30,7 +30,7 @@ appType: "java-spring"
 heap: '-Xmx768m -Xms512m'
 memory_limits: '1Gi'
 cpu_limits: '300m'
-
+defaultLocale: 'en_NG'
 # Additional Container Envs
 env: |
   - name: KAFKA_BROKER_HOST
