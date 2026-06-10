@@ -250,7 +250,7 @@ egov-idgen:
   autocreate-new-seq: "true"
   hpa:
     enabled: true
-    minReplicas: 2
+    minReplicas: 4
     maxReplicas: 5
   heap: "-Xmx768m -Xms256m"
   cpu_requests: 200m
@@ -326,7 +326,7 @@ egov-enc-service:
   heap: "-Xmx384m -Xms128m"
   hpa:
     enabled: true
-    minReplicas: 2
+    minReplicas: 4
     maxReplicas: 5
   cpu_requests: 200m
   memory_requests: 384Mi
