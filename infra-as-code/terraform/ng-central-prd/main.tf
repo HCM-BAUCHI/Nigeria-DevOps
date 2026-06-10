@@ -36,7 +36,7 @@ module "db" {
   instance_class                = "db.m6g.4xlarge"  ## postgres db instance type
   engine_version                = "15.12"   ## postgres version
   storage_type                  = "gp3"
-  storage_gb                    = "1100"     ## postgres disk size
+  storage_gb                    = "1600"     ## postgres disk size
   backup_retention_days         = "7"
   administrator_login           = "${var.db_username}"
   administrator_login_password  = "${var.db_password}"
@@ -392,9 +392,9 @@ resource "kubectl_manifest" "karpenter_node_class" {
     metadata:
       name: default
     spec:
-      amiFamily: AL2
+      amiFamily: AL2023
       amiSelectorTerms:
-      - id: ami-00b4d3514b06fcfb6
+      - id: ami-0455db9e579052e57
       role: ${module.eks_managed_node_group.iam_role_name}
       subnetSelectorTerms:
         - tags:
@@ -402,18 +402,15 @@ resource "kubectl_manifest" "karpenter_node_class" {
       securityGroupSelectorTerms:
         - tags:
             karpenter.sh/discovery: ${module.eks.cluster_name}
+      blockDeviceMappings:
+        - deviceName: /dev/xvda
+          ebs:
+            volumeSize: 50Gi
+            volumeType: gp3
+            deleteOnTermination: true
       tags:
         KubernetesCluster: ${var.cluster_name}
         karpenter.sh/discovery: ${module.eks.cluster_name}
-    status:
-  amis:
-  - id: var.ami_id.id
-    name: var.ami_id.name
-    requirements:
-    - key: kubernetes.io/arch
-      operator: In
-      values:
-      - amd64
   YAML
 
   depends_on = [
@@ -481,7 +478,7 @@ resource "kubectl_manifest" "karpenter_arm64_node_class" {
     spec:
       amiFamily: AL2023
       amiSelectorTerms:
-      - id: ami-09c1b8d4561f5973d
+      - id: ami-04042c4b78242f86b
       role: ${module.eks_managed_node_group.iam_role_name}
       subnetSelectorTerms:
         - tags:
@@ -489,6 +486,12 @@ resource "kubectl_manifest" "karpenter_arm64_node_class" {
       securityGroupSelectorTerms:
         - tags:
             karpenter.sh/discovery: ${module.eks.cluster_name}
+      blockDeviceMappings:
+        - deviceName: /dev/xvda
+          ebs:
+            volumeSize: 50Gi
+            volumeType: gp3
+            deleteOnTermination: true
       tags:
         KubernetesCluster: ${var.cluster_name}
         karpenter.sh/discovery: ${module.eks.cluster_name}

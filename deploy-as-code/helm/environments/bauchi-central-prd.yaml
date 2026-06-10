@@ -72,7 +72,7 @@ cluster-configs:
         go-db-url: "jdbc:postgresql://ng-central-prd-db.cpe4q0cycqi7.af-south-1.rds.amazonaws.com:5432/ngcentralprd?currentSchema=go"
         chad-db-url: "jdbc:postgresql://ng-central-prd-db.cpe4q0cycqi7.af-south-1.rds.amazonaws.com:5432/ngcentralprd?currentSchema=chad"
         domain: "bauchi-hcm.digit.org" ## Add your Domain Name
-        redis-host: "redis.backbone"
+        redis-host: "ng-central-redis.nolaw2.ng.0001.afs1.cache.amazonaws.com"
         redis-downsync-host: "ng-central-redis.nolaw2.ng.0001.afs1.cache.amazonaws.com"
         egov-services-fqdn-name: "https://bauchi-hcm-digit.org/" ## Add your Domain Name
         state-level-tenantid-length: "1"
