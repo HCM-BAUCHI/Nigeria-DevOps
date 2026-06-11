@@ -1379,10 +1379,10 @@ referralmanagement:
     dbMigration:
       image:
         repository: egovio/referralmanagement-db
-        tag: master-impel-ref-b3af0c3
+        tag: master-impel-ref-9736ced
   image:
     repository: egovio/referralmanagement
-    tag: master-impel-ref-b3af0c3
+    tag: master-impel-ref-9736ced
   downsync-services-enabled: true
   central-instance-build: true
   central-instance-enabled: true
