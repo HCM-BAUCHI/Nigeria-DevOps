@@ -1588,8 +1588,57 @@ od-project-factory:
 #  egov-mdms-service-endpoint-key: "/mdms-v2/v1/_search"
 #  egov-mdms-service-v2-endpoint-key: "/mdms-v2/v2/_search"
 
+
+digit-ui:
+  namespace: bauchi
+  image:
+    repository: egovio/digit-ui
+    tag: impel-central-instance-nigeria-multiarch-new-f9b9f6fb
+  custom-js-injection: |
+    sub_filter.conf: "
+      sub_filter  '<head>' '<head>
+      <script src=https://central-instance-assets.s3.af-south-1.amazonaws.com/globalConfig-ba.js type=text/javascript></script>
+      ';"
+
+dashboard-ui:
+  namespace: bauchi
+  image:
+    repository: egovio/dashboard-ui
+    tag: HDDF-4931-80af5c0
+  custom-js-injection: |
+    sub_filter.conf: "
+      sub_filter  '<head>' '<head>
+      <script src=https://central-instance-assets.s3.af-south-1.amazonaws.com/globalConfigDashboard-ba.js type=text/javascript></script>
+      ';"
+
+workbench-ui:
+  namespace: bauchi
+  image:
+    repository: egovio/workbench-ui
+    tag: HDDF-4931-d008fbe
+  custom-js-injection: |
+    sub_filter.conf: "
+      sub_filter  '<head>' '<head>
+      <script src=https://central-instance-assets.s3.af-south-1.amazonaws.com/globalConfigWorkbench-ba.js type=text/javascript></script>
+      ';"
+
+payments-ui:
+  namespace: bauchi
+  image:
+    repository: egovio/payments-ui
+    tag: HDDF-4931-427abb8
+  custom-js-injection: |
+    sub_filter.conf: "
+      sub_filter  '<head>' '<head>
+      <script src=https://central-instance-assets.s3.af-south-1.amazonaws.com/globalConfigPayments-ba.js type=text/javascript></script>
+      ';"
+
 transformer:
   namespace: "bauchi"
+  image:
+    repository: egovio/transformer
+    tag: HDDF-5226-5f0424b
+  replicas: 2
   heap: "-Xmx1536m -Xms1536m"
   hpa:
     enabled: true
@@ -1599,7 +1648,6 @@ transformer:
   memory_requests: 1.75Gi
   cpu_limits: 400m
   memory_limits: 2.25Gi
-  java-enable-debug: true
   save-project-task-topic: "ba-save-project-task-topic"
   update-project-task-topic: "ba-update-project-task-topic"
   transformer-producer-bulk-project-task-index-v1-topic: "ba-transformer-producer-bulk-project-task-index-v1-topic"
@@ -1618,6 +1666,7 @@ transformer:
   save-stock-topic: "ba-save-stock-topic"
   update-stock-topic: "ba-update-stock-topic"
   transformer-producer-bulk-stock-index-v1-topic: "ba-transformer-producer-bulk-stock-index-v1-topic"
+  transformer-producer-bulk-stock-index-updated-v1-topic: "ba-transformer-producer-bulk-stock-index-updated-v1-topic"
   save-facility-topic: "ba-save-facility-topic"
   update-facility-topic: "ba-update-facility-topic"
   save-service: "ba-save-service"
@@ -1647,6 +1696,29 @@ transformer:
   update-stock-reconciliation-topic: "ba-update-stock-reconciliation-topic"
   transformer-producer-stock-recon-index-v1-topic: "ba-transformer-producer-stock-recon-index-v1-topic"
   health-transformer: "ba-health-transformer"
+  transformer-consumer-error-tracer-topic: "error-details-indexer-topic"
+  transformer-producer-error-details-index-v1-topic: "ba-transformed-errors-topic"
+  transformer-error-skip-error-messages: "UPLOAD_ERROR_FROM_APP"
+  transformer-error-skip-error-codes: "DUPLICATE_ENTITY,INDIVIDUAL_ALREADY_MEMBER_OF_HOUSEHOLD,HOUSEHOLD_ALREADY_HAS_HEAD"
+  transformer-error-skip-url-contains: "facility,resource"
+  state-level-tenantid: "ko"
+  expense-bill-create-health-topic: "ba-expense-bill-create-health"
+  expense-bill-update-health-topic: "ba-expense-bill-update-health"
+  transformer-bill-index-topic: "ba-transformer-bill-index-topic"
+  transformer-billdetail-index-topic: "ba-transformer-billdetail-index-topic"
+  expense-bill-report-save-topic: "ba-expense-bill-report-save"
+  expense-bill-report-update-topic: "ba-expense-bill-report-update"
+  transformer-billreport-index-topic: "ba-transformer-billreport-index-topic"
+  save-musterroll-health-topic: "ba-save-musterroll-health"
+  update-musterroll-health-topic: "ba-update-musterroll-health"
+  transformer-producer-muster-roll-index-v1-topic: "ba-transformer-producer-muster-roll-index-v1-topic"
+  expense-bill-detail-create-topic: "ba-expense-bill-detail-create"
+  expense-bill-detail-update-topic: "ba-expense-bill-detail-update"
+  egov_localization_locale_code: "en_NG"
+  egov-localization-module-name: "hcm-boundary-admin"
+  transformer-consumer-create-user-action-topic: "ba-save-user-action-project-task-topic"
+  transformer-consumer-update-user-action-topic: "ba-update-user-action-project-task-topic"
+  transformer-producer-user-action-index-v1-topic: "ba-transformer-producer-user-action-index-v1-topic"
 
 error-handler:
   image:
