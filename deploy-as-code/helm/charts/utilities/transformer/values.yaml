@@ -444,7 +444,14 @@ env: |
   - name: EGOV_PROJECT_FACTORY_SEARCH_ENDPOINT
     value: "project-factory/v1/project-type/search"
   - name: SPRING_REDIS_HOST
-    value: redis.backbone
+  {{- if index .Values "cluster-configs" "configmaps" "egov-config" "data" "redis-host" }}
+    valueFrom:
+      configMapKeyRef:
+        name: egov-config
+        key: redis-host
+  {{- else }}
+    value: "redis.backbone"
+  {{- end }}
   - name: SPRING_REDIS_PORT
     value: "6379"
   - name: SPRING_CACHE_TYPE
