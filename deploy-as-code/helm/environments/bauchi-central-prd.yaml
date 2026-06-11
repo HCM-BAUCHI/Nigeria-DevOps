@@ -575,7 +575,7 @@ egov-persister-ht:
 #  persist-yml-path: "/work-dir/health-campaign-config/egov-persister-ht/chad,/work-dir/health-campaign-config/egov-persister-ht/ch,/work-dir/health-campaign-config/egov-persister-ht/kb,/work-dir/health-campaign-config/egov-persister-ht/jg,/work-dir/health-campaign-config/egov-persister-ht/kd,/work-dir/health-campaign-config/egov-persister-ht/so,/work-dir/health-campaign-config/egov-persister-ht/ab,/work-dir/health-campaign-config/egov-persister-ht/ba,/work-dir/health-campaign-config/egov-persister-ht/oy,/work-dir/health-campaign-config/egov-persister-ht/ko,/work-dir/health-campaign-config/egov-persister-ht/na,/work-dir/health-campaign-config/egov-persister-ht/pl,/work-dir/health-campaign-config/egov-persister-ht/bo,/work-dir/health-campaign-config/egov-persister-ht/ke,/work-dir/health-campaign-config/egov-persister-ht/od,/work-dir/health-campaign-config/egov-persister-ht/ad,/work-dir/health-campaign-config/egov-persister-ht/go"
 #  REMOVING EXCEPT chad, chad-prod, kebbi-azm, kaduna, jigawa, adamawa, gombe config files
 # /work-dir/health-campaign-config/egov-persister-ht/ad,/work-dir/health-campaign-config/egov-persister-ht/go,/work-dir/health-campaign-config/egov-persister-ht/ch
-  persist-yml-path: "/work-dir/health-campaign-config/egov-persister-ht/chad,/work-dir/health-campaign-config/egov-persister-ht/kb,/work-dir/health-campaign-config/egov-persister-ht/jg,/work-dir/health-campaign-config/egov-persister-ht/kd,/work-dir/health-campaign-config/egov-persister-ht/oy,/work-dir/health-campaign-config/egov-persister-ht/na,/work-dir/health-campaign-config/egov-persister-ht/ko,/work-dir/health-campaign-config/egov-persister/common,/work-dir/health-campaign-config/egov-persister-ht/pl,/work-dir/health-campaign-config/egov-persister-ht/ab"
+  persist-yml-path: "/work-dir/health-campaign-config/egov-persister-ht/chad,/work-dir/health-campaign-config/egov-persister-ht/kb,/work-dir/health-campaign-config/egov-persister-ht/jg,/work-dir/health-campaign-config/egov-persister-ht/kd,/work-dir/health-campaign-config/egov-persister-ht/oy,/work-dir/health-campaign-config/egov-persister-ht/na,/work-dir/health-campaign-config/egov-persister-ht/ko,/work-dir/health-campaign-config/egov-persister/common,/work-dir/health-campaign-config/egov-persister-ht/pl,/work-dir/health-campaign-config/egov-persister-ht/ab,/work-dir/health-campaign-config/egov-persister-ht/ba"
   initContainers:
     gitSync:
       repo: "git@github.com:HCM-BAUCHI/health-campaign-config"      ##### Change repo url with Your fork Repo url
@@ -682,6 +682,30 @@ egov-persister-kd-pl-ab:
     gitSync:
       repo: "git@github.com:HCM-BAUCHI/health-campaign-config"      ##### Change repo url with Your fork Repo url
       branch: "PROD"                                    ##### Change repo branch with Your fork Repo branch
+
+egov-persister-ba-bo-ke:
+  image:
+    repository: egovio/egov-persister
+    tag: 2.9-LTS-1b59a4c
+  kafka-consumer-group-id: "egov-infra-persist-kd-pl-ab"
+  heap: "-Xmx1536m -Xms1024m"
+  hpa:
+    enabled: true
+    minReplicas: 4
+    maxReplicas: 8
+  cpu_requests: 300m
+  memory_requests: 1.5Gi
+  cpu_limits: 400m
+  memory_limits: 2Gi
+  images:
+    - egovio/egov-persister
+  persist-yml-path: "/work-dir/health-campaign-config/egov-persister/ba"
+  initContainers:
+    gitSync:
+      repo: "git@github.com:HCM-BAUCHI/health-campaign-config"      ##### Change repo url with Your fork Repo url
+      branch: "PROD"                                    ##### Change repo branch with Your fork Repo branch
+
+
 
 egov-persister-chad:
   kafka-consumer-group-id: "egov-infra-persist-chad"
