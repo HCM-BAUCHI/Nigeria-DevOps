@@ -165,6 +165,8 @@ env: |
     value: egov-hrms/employees/_search
   - name: EGOV_PROJECT_RESOURCE_CREATE_PATH
     value: project/resource/v1/_create
+  - name: EGOV_PROJECT_RESOURCE_SEARCH_PATH
+    value: project/resource/v1/_search
   - name: EGOV_PROJECT_RESOURCE_FACILITY_PATH
     value: project/facility/v1/_create
   - name: EGOV_USER_SEARCH_PATH
