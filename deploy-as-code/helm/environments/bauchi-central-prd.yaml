@@ -1473,10 +1473,10 @@ project-factory:
     dbMigration:
       image:
         repository: "project-factory-db"
-        tag: nigeria-go-deep-2-3e6cf10
+        tag: nigeria-go-deep-2-ddb23b0
   image:
     repository: egovio/project-factory
-    tag: nigeria-go-deep-2-3e6cf10
+    tag: nigeria-go-deep-2-ddb23b0
   central-instance-enabled: false
   central-instance-build: true
   schemaNameExclude: [ "chad", "kb" ]
