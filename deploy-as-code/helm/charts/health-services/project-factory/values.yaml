@@ -11,6 +11,8 @@ ingress:
   enabled: true
   zuul: true
   context: "project-factory"
+  additionalAnnotations: |
+    nginx.ingress.kubernetes.io/proxy-body-size: 5m
 
 # Init Containers Configs
 initContainers:
