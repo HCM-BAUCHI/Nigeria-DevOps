@@ -41,21 +41,56 @@ global:
 #     limits:
 #       memory: "512Mi"
 
+disableAnnotationTimestamp: true
 
+dashboard-ui:
+  namespace: borno
+  image:
+    repository: egovio/dashboard-ui
+    tag: HDDF-4931-80af5c0
+  custom-js-injection: |
+    sub_filter.conf: "
+      sub_filter  '<head>' '<head>
+      <script src=https://central-instance-assets.s3.af-south-1.amazonaws.com/globalConfigDashboard-bo.js type=text/javascript></script>
+      ';"
 
+workbench-ui:
+  namespace: borno
+  image:
+    repository: egovio/workbench-ui
+    tag: HDDF-4931-932bdf1
+  custom-js-injection: |
+    sub_filter.conf: "
+      sub_filter  '<head>' '<head>
+      <script src=https://central-instance-assets.s3.af-south-1.amazonaws.com/globalConfigWorkbench-bo.js type=text/javascript></script>
+      ';"
+
+payments-ui:
+  namespace: borno
+  image:
+    repository: egovio/payments-ui
+    tag: HDDF-4931-427abb8
+  custom-js-injection: |
+    sub_filter.conf: "
+      sub_filter  '<head>' '<head>
+      <script src=https://central-instance-assets.s3.af-south-1.amazonaws.com/globalConfigPayments-bo.js type=text/javascript></script>
+      ';"
 
 transformer:
   namespace: "borno"
-  heap: "-Xmx3g -Xms3g"
+  image:
+    repository: egovio/transformer
+    tag: HDDF-5226-5f0424b
+  replicas: 2
+  heap: "-Xmx1536m -Xms1536m"
   hpa:
     enabled: true
     minReplicas: 2
     maxReplicas: 5
   cpu_requests: 300m
-  memory_requests: 3.5Gi
+  memory_requests: 1.75Gi
   cpu_limits: 400m
-  memory_limits: 4.5Gi
-  java-enable-debug: true
+  memory_limits: 2.25Gi
   save-project-task-topic: "bo-save-project-task-topic"
   update-project-task-topic: "bo-update-project-task-topic"
   transformer-producer-bulk-project-task-index-v1-topic: "bo-transformer-producer-bulk-project-task-index-v1-topic"
@@ -74,6 +109,7 @@ transformer:
   save-stock-topic: "bo-save-stock-topic"
   update-stock-topic: "bo-update-stock-topic"
   transformer-producer-bulk-stock-index-v1-topic: "bo-transformer-producer-bulk-stock-index-v1-topic"
+  transformer-producer-bulk-stock-index-updated-v1-topic: "bo-transformer-producer-bulk-stock-index-updated-v1-topic"
   save-facility-topic: "bo-save-facility-topic"
   update-facility-topic: "bo-update-facility-topic"
   save-service: "bo-save-service"
@@ -103,6 +139,29 @@ transformer:
   update-stock-reconciliation-topic: "bo-update-stock-reconciliation-topic"
   transformer-producer-stock-recon-index-v1-topic: "bo-transformer-producer-stock-recon-index-v1-topic"
   health-transformer: "bo-health-transformer"
+  transformer-consumer-error-tracer-topic: "error-details-indexer-topic"
+  transformer-producer-error-details-index-v1-topic: "bo-transformed-errors-topic"
+  transformer-error-skip-error-messages: "UPLOAD_ERROR_FROM_APP"
+  transformer-error-skip-error-codes: "DUPLICATE_ENTITY,INDIVIDUAL_ALREADY_MEMBER_OF_HOUSEHOLD,HOUSEHOLD_ALREADY_HAS_HEAD"
+  transformer-error-skip-url-contains: "facility,resource"
+  state-level-tenantid: "bo"
+  expense-bill-create-health-topic: "bo-expense-bill-create-health"
+  expense-bill-update-health-topic: "bo-expense-bill-update-health"
+  transformer-bill-index-topic: "bo-transformer-bill-index-topic"
+  transformer-billdetail-index-topic: "bo-transformer-billdetail-index-topic"
+  expense-bill-report-save-topic: "bo-expense-bill-report-save"
+  expense-bill-report-update-topic: "bo-expense-bill-report-update"
+  transformer-billreport-index-topic: "bo-transformer-billreport-index-topic"
+  save-musterroll-health-topic: "bo-save-musterroll-health"
+  update-musterroll-health-topic: "bo-update-musterroll-health"
+  transformer-producer-muster-roll-index-v1-topic: "bo-transformer-producer-muster-roll-index-v1-topic"
+  expense-bill-detail-create-topic: "bo-expense-bill-detail-create"
+  expense-bill-detail-update-topic: "bo-expense-bill-detail-update"
+  egov_localization_locale_code: "en_NG"
+  egov-localization-module-name: "hcm-boundary-admin"
+  transformer-consumer-create-user-action-topic: "bo-save-user-action-project-task-topic"
+  transformer-consumer-update-user-action-topic: "bo-update-user-action-project-task-topic"
+  transformer-producer-user-action-index-v1-topic: "bo-transformer-producer-user-action-index-v1-topic"
 
 hcm-moz-impl:
   namespace: borno
