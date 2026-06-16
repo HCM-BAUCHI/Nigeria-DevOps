@@ -466,7 +466,7 @@ env: |
   - name: PHONE_NUMBER_LENGTH
     value: {{ .Values.phoneNumberLength | default "11" | quote }}
   - name: HRMS_PARALLEL_SEARCH_LIMIT
-    value: {{ .Values.hrmsParallelSearchLimit | default "100" | quote }}
+    value: {{ .Values.hrmsParallelSearchLimit | default "10" | quote }}
   - name: APP_PORT
     value: {{ .Values.appPort | default "8080" | quote }}
   - name: EGOV_LOCALIZATION_SEARCH
