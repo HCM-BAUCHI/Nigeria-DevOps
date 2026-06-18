@@ -1305,7 +1305,7 @@ individual:
   schemaNameExclude: [ "chad", "kb" ]
   hostExclude: ["chad-hcm-prod.digit.org", "kebbi-azm-central-hcm.digit.org"]
   egov-beneficiary-idgen-integration-enabled: "true"
-  individual-beneficiary-id-validation-enabled: "true"
+  individual-beneficiary-id-validation-enabled: "false"
 
 individual-referral:
   image:
@@ -1328,6 +1328,7 @@ individual-referral:
   schemaNameExclude: [ "chad", "kb" ]
   hostExclude: ["chad-hcm-prod.digit.org", "kebbi-azm-central-hcm.digit.org"]
   egov-beneficiary-idgen-integration-enabled: "true"
+  individual-beneficiary-id-validation-enabled: "false"
 
 
 stock:
