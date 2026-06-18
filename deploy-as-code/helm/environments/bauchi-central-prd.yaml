@@ -1353,6 +1353,7 @@ stock:
   memory_limits: 768Mi
   schemaNameExclude: [ "chad", "kb" ]
   hostExclude: ["chad-hcm-prod.digit.org", "kebbi-azm-central-hcm.digit.org"]
+  java-enable-debug: "true"
   extraEnv:
     app: |
       - name: LOGGING_LEVEL_ORG_EGOV
