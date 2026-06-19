@@ -1280,10 +1280,10 @@ stock:
     dbMigration:
       image:
         repository: egovio/stock-db
-        tag: nigeria-go-deep-2-stock-8d4afdc
+        tag: nigeria-go-deep-2-stock-2aed5c4
   image:
     repository: egovio/stock
-    tag: nigeria-go-deep-2-stock-8d4afdc
+    tag: nigeria-go-deep-2-stock-2aed5c4
   central-instance-build: true
   central-instance-enabled: true
   heap: "-Xmx512m -Xms256m"
