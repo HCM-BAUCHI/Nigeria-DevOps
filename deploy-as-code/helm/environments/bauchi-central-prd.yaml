@@ -684,7 +684,7 @@ egov-persister-chad-kb-kd:
   memory_limits: 2Gi
   images:
     - egovio/egov-persister
-  persist-yml-path: "/work-dir/health-campaign-config/egov-persister/chad,/work-dir/health-campaign-config/egov-persister/kb"
+  persist-yml-path: "/work-dir/health-campaign-config/egov-persister/chad,/work-dir/health-campaign-config/egov-persister/kb,/work-dir/health-campaign-config/egov-persister/od"
   initContainers:
     gitSync:
       repo: "git@github.com:HCM-BAUCHI/health-campaign-config"      ##### Change repo url with Your fork Repo url
