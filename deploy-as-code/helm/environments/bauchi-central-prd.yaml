@@ -672,6 +672,9 @@ egov-persister-azm:
 
 
 egov-persister-chad-kb-kd:
+  image:
+    repository: egovio/egov-persister
+    tag: 2.9-LTS-1b59a4c
   kafka-consumer-group-id: "egov-infra-persist-chad-kb-kd"
   heap: "-Xmx1536m -Xms1024m"
   hpa:
