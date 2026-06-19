@@ -631,46 +631,6 @@ egov-persister-ht:
       branch: "PROD"                                    ##### Change repo branch with Your fork Repo branch
 
 
-egov-persister-go-ad:
-  kafka-consumer-group-id: "egov-infra-persist-go-ad"
-  heap: "-Xmx1792m -Xms1024m"
-  replicas: 1
-  hpa:
-    enabled: true
-    minReplicas: 2
-    maxReplicas: 20
-  cpu_requests: 200m
-  memory_requests: 768Mi
-  cpu_limits: 200m
-  memory_limits: 1Gi
-  images:
-    - egovio/egov-persister
-  persist-yml-path: "/work-dir/health-campaign-config/egov-persister/ad,/work-dir/health-campaign-config/egov-persister/go"
-  initContainers:
-    gitSync:
-      repo: "git@github.com:HCM-BAUCHI/health-campaign-config"      ##### Change repo url with Your fork Repo url
-      branch: "PROD"                                    ##### Change repo branch with Your fork Repo branch
-
-egov-persister-azm:
-  kafka-consumer-group-id: "egov-infra-persist-azm"
-  heap: "-Xmx1536m -Xms1024m"
-  hpa:
-    enabled: true
-    minReplicas: 2
-    maxReplicas: 12
-  cpu_requests: 300m
-  memory_requests: 1.5Gi
-  cpu_limits: 400m
-  memory_limits: 2Gi
-  images:
-    - egovio/egov-persister
-  persist-yml-path: "/work-dir/health-campaign-config/egov-persister/kb,/work-dir/health-campaign-config/egov-persister/kd,/work-dir/health-campaign-config/egov-persister/jg"
-  initContainers:
-    gitSync:
-      repo: "git@github.com:HCM-BAUCHI/health-campaign-config"      ##### Change repo url with Your fork Repo url
-      branch: "PROD"                                    ##### Change repo branch with Your fork Repo branch
-
-
 egov-persister-chad-kb-kd:
   image:
     repository: egovio/egov-persister
@@ -779,47 +739,6 @@ egov-persister-ba-bo-ke:
       repo: "git@github.com:HCM-BAUCHI/health-campaign-config"      ##### Change repo url with Your fork Repo url
       branch: "PROD"                                    ##### Change repo branch with Your fork Repo branch
 
-egov-persister-od:
-  image:
-    repository: egovio/egov-persister
-    tag: 2.9-LTS-1b59a4c
-  kafka-consumer-group-id: "egov-infra-persist-od"
-  heap: "-Xmx1536m -Xms1024m"
-  hpa:
-    enabled: true
-    minReplicas: 1
-    maxReplicas: 3
-  cpu_requests: 300m
-  memory_requests: 1.5Gi
-  cpu_limits: 400m
-  memory_limits: 2Gi
-  images:
-    - egovio/egov-persister
-  persist-yml-path: "/work-dir/health-campaign-config/egov-persister/od"
-  initContainers:
-    gitSync:
-      repo: "git@github.com:HCM-BAUCHI/health-campaign-config"      ##### Change repo url with Your fork Repo url
-      branch: "PROD"                                    ##### Change repo branch with Your fork Repo branch
-
-
-egov-persister-chad:
-  kafka-consumer-group-id: "egov-infra-persist-chad"
-  heap: "-Xmx768m -Xms256m"
-  hpa:
-    enabled: true
-    minReplicas: 2
-    maxReplicas: 4
-  cpu_requests: 300m
-  memory_requests: 768Mi
-  cpu_limits: 400m
-  memory_limits: 1Gi
-  images:
-    - egovio/egov-persister
-  persist-yml-path: "file:///work-dir/health-campaign-config/egov-persister/boundary-persister.yml,/work-dir/health-campaign-config/egov-persister/ch,/work-dir/health-campaign-config/egov-persister/chad"
-  initContainers:
-    gitSync:
-      repo: "git@github.com:HCM-BAUCHI/health-campaign-config"      ##### Change repo url with Your fork Repo url
-      branch: "PROD"
 
 # gateway >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
