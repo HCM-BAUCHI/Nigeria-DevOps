@@ -31,6 +31,7 @@ appType: "java-spring"
 tracing-enabled: true
 heap: "-Xmx1024m -Xms1024m"
 java-args: ""
+tracer-request-logging-enabled: "false"
 persist-yml-path: "file:///work-dir/health-campaign-config/egov-persister/project-persister.yml"
 indexer-yml-path: "file:///work-dir/health-campaign-config/egov-indexer/project-indexer.yml"
 
@@ -331,3 +332,5 @@ env: |
     value: {{ index .Values "project-create-cache-key" | quote }}
   - name: PROJECT_KAFKA_BATCH_SIZE
     value: {{ index .Values "project-kafka-batch-size" | quote }}
+  - name: TRACER_REQUESTLOGGINGENABLED
+    value: {{ index .Values "tracer-request-logging-enabled" | quote }}
