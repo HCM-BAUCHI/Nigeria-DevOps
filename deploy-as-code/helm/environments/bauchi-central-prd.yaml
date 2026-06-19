@@ -511,6 +511,30 @@ egov-indexer-ba-bo-ke:
       branch: "PROD"                                      ##### Change repo branch with Your fork Repo branch
   egov-indexer-yaml-repo-path: "/work-dir/health-campaign-config/egov-indexer/ba,/work-dir/health-campaign-config/egov-indexer/bo,/work-dir/health-campaign-config/egov-indexer/ke"
 
+egov-indexer-ch:
+  image:
+    repository: egovio/egov-indexer
+    tag: indexer-17-searchBody-aefd92b
+  kafka-consumer-group-id: "egov-indexer-consumer-grp-ch"
+  heap: "-Xmx1536m -Xms1024m"
+  hpa:
+    enabled: true
+    minReplicas: 4
+    maxReplicas: 8
+  cpu_requests: 300m
+  memory_requests: 1.5Gi
+  cpu_limits: 400m
+  memory_limits: 2Gi
+  initContainers:
+    dbMigration:
+      image:
+        repository: egovio/egov-indexer-db
+        tag: indexer-17-searchBody-aefd92b
+    gitSync:
+      repo: "git@github.com:HCM-BAUCHI/health-campaign-config"        ##### Change repo url with Your fork Repo url
+      branch: "PROD"                                      ##### Change repo branch with Your fork Repo branch
+  egov-indexer-yaml-repo-path: "/work-dir/health-campaign-config/egov-indexer/ch"
+
 egov-indexer-na-oy-ko-jg:
   image:
     repository: egovio/egov-indexer
