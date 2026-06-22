@@ -972,7 +972,7 @@ egov-hrms:
   heap: "-Xmx1024m -Xms512m"
   hpa:
     enabled: true
-    minReplicas: 2
+    minReplicas: 4
     maxReplicas: 8
   cpu_requests: 200m
   memory_requests: 1Gi
@@ -985,6 +985,7 @@ egov-hrms:
   java-enable-debug: true
   schemaNameExclude: [ "chad", "kb" ]
   hostExclude: ["chad-hcm-prod.digit.org", "kebbi-azm-central-hcm.digit.org"]
+  spring-datasource-tomcat-max-active: "10"
 
 #egov-otp:
 #  heap: "-Xmx512m -Xms512m"
