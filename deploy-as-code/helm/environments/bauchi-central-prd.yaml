@@ -1586,10 +1586,10 @@ excel-ingestion:
     dbMigration:
       image:
         repository: egovio/excel-ingestion-db
-        tag: nigeria-go-deep-2-97ed978
+        tag: nigeria-go-deep-2-d2d0f76
   image:
     repository: egovio/excel-ingestion
-    tag: nigeria-go-deep-2-97ed978
+    tag: nigeria-go-deep-2-d2d0f76
   group-id: "egov-excel-ingestion"
   central-instance-build: true
   central-instance-enabled: true
