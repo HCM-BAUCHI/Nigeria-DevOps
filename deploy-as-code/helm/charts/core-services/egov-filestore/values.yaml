@@ -21,7 +21,7 @@ ingress:
 # Container Configs
 image:
   repository: "egov-filestore"
-replicas: "1"
+replicas: "2"
 healthChecks:
   enabled: true
   livenessProbePath: "/filestore/health"
@@ -30,15 +30,25 @@ appType: "java-spring"
 tracing-enabled: true
 is-bucket-fixed: "true"
 fixed-bucketname: "egov-rainmaker"
-heap: "-Xmx192m -Xms192m"
+heap: "-Xmx512m -Xms512m"
 file-storage-mount-path: "/filestore"
 is-nfs-enabled: false
 is-s3-enabled: true
-memory_limits: "512Mi"
-cpu_limits: "300m"
+memory_limits: "1Gi"
+cpu_limits: "500m"
+memory_requests: "512Mi"
+cpu_requests: "250m"
 
 persistence:
   enabled: false
+
+# HPA Configuration
+hpa:
+  enabled: true
+  minReplicas: 2
+  maxReplicas: 5
+  targetCPUUtilizationPercentage: 80
+  targetMemoryUtilizationPercentage: 80
 
 # Additional Container Envs
 env: |

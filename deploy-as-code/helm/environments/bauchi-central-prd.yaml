@@ -220,6 +220,13 @@ egov-filestore:
   image:
     repository: egovio/egov-filestore
     tag: master-filestore-fix-5e0acbc
+  replicas: 2
+  hpa:
+    enabled: true
+    minReplicas: 2
+    maxReplicas: 5
+    targetCPUUtilizationPercentage: 80
+    targetMemoryUtilizationPercentage: 80
   volume: /opt/eGov/filestore
   is-bucket-fixed: "true"
   minio.url: "https://s3.amazonaws.com"
@@ -230,11 +237,11 @@ egov-filestore:
   allowed-file-formats: "jpg,jpeg,png,doc,docx,pdf,odt,ods,text,dxf,xls,xlsx"
   filestore-url-validity: 3600
   fixed-bucketname: ng-central-filestore  ## Add filestore bucket name
-  heap: "-Xmx256m -Xms128m"
-  cpu_requests: 200m
-  memory_requests: 256Mi
-  cpu_limits: 300m
-  memory_limits: 512Mi
+  heap: "-Xmx512m -Xms512m"
+  cpu_requests: 250m
+  memory_requests: 512Mi
+  cpu_limits: 500m
+  memory_limits: 1Gi
 
 egov-idgen:
   initContainers:
