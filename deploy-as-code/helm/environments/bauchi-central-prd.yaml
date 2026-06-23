@@ -1822,10 +1822,10 @@ health-attendance:
     dbMigration:
       image:
         repository: egovio/health-attendance-db
-        tag: nigeria-go-deep-1d0eb9e
+        tag: nigeria-go-deep-6680733
   image:
     repository: egovio/health-attendance
-    tag: nigeria-go-deep-1d0eb9e
+    tag: nigeria-go-deep-6680733
   central-instance-build: true
   central-instance-enabled: true
   schemaNameExclude: [ "chad", "kb" ]
