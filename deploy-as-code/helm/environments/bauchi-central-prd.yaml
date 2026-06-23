@@ -1670,7 +1670,7 @@ workbench-ui:
   namespace: bauchi
   image:
     repository: egovio/workbench-ui
-    tag: taraba_commodity_changes_merge-810c378
+    tag: taraba_commodity_limit_changes-e63264d
   custom-js-injection: |
     sub_filter.conf: "
       sub_filter  '<head>' '<head>
