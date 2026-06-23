@@ -171,7 +171,7 @@ airflow-trigger:
   initContainers:
     extraInitContainers: |
       - name: run-migration
-        image: bhanuprakashmegov/airflow-custom-trigger:central3
+        image: bhanuprakashmegov/airflow-custom-trigger:central4
         command: [ "python", "migrate.py" ]
         env:
           - name: DB_HOST
@@ -200,7 +200,7 @@ airflow-trigger:
             value: "oy,ko,na,jg"
   image:
     repository: "bhanuprakashmegov/airflow-custom-trigger"
-    tag: "central3"
+    tag: "central4"
   hpa:
     enabled: true
     minReplicas: 1
