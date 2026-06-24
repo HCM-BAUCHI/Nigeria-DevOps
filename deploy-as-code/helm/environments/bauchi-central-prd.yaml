@@ -1896,7 +1896,7 @@ health-expense:
   memory_limits: 768Mi
 
 health-expense-calculator:
-  namespace: egov
+  namespace: bauchi
   initContainers:
     dbMigration:
       image:
