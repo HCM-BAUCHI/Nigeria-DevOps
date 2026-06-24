@@ -1264,6 +1264,8 @@ individual-referral:
   image:
     repository: egovio/individual
     tag: customize-2.0-individual-08fa309
+  spring-datasource-tomcat-max-active: "10"
+  server-tomcat-max-threads: "20"
   central-instance-build: true
   central-instance-enabled: true
   initContainers:
@@ -1340,6 +1342,8 @@ household-referral:
   image:
     repository: egovio/household
     tag: HCMPRE-2656-HCM-Services-Household-5717dde
+  spring-datasource-tomcat-max-active: "10"
+  server-tomcat-max-threads: "20"
   central-instance-build: true
   central-instance-enabled: true
   initContainers:
@@ -1386,6 +1390,8 @@ project-referral:
   image:
     repository: egovio/project
     tag: customize-nigeria-go-deep-2-project-bb6bfd6
+  spring-datasource-tomcat-max-active: "10"
+  server-tomcat-max-threads: "20"
   central-instance-build: true
   central-instance-enabled: true
   initContainers:
@@ -1442,7 +1448,8 @@ referralmanagement:
     readinessProbeTimeoutSeconds: 30
     livenessProbePeriodSeconds: 120
     readinessProbePeriodSeconds: 60
-  spring-datasource-tomcat-max-active: "20"
+  spring-datasource-tomcat-max-active: "10"
+  server-tomcat-max-threads: "20"
   spring-datasource-hikari-minimum-idle: "5"
   spring-datasource-hikari-connection-timeout: "45000"
   spring-datasource-hikari-idle-timeout: "300000"
