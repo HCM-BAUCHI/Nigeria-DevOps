@@ -1915,6 +1915,7 @@ health-expense-calculator:
     - jigawa-central-hcm.digit.org
     - kebbi-azm-central-hcm.digit.org
     - chad-hcm.digit.org
+    - chad-hcm-prod.digit.org
     - gombe-hcm.digit.org
   initContainers:
     dbMigration:
