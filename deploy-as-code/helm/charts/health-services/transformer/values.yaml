@@ -398,7 +398,10 @@ env: |
     value: {{ index .Values "egov-localization-module-name" | quote }}
   
   - name: EGOV_DEVICE_TOKEN_HOST
-    value: http://egov-notification-push.egov:8080/
+    valueFrom:
+      configMapKeyRef:
+        name: egov-service-host
+        key: egov-notification-push
   - name: EGOV_SEARCH_DEVICE_TOKEN_URL
     value: "/egov-notification-push/device-token/v1/_search"
   - name: TRANSFORMER_PRODUCER_BULK_STOCK_INDEX_UPDATED_V1_TOPIC
