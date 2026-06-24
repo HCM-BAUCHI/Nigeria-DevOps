@@ -103,7 +103,7 @@ transformer:
   namespace: "kaduna"
   image:
     repository: egovio/transformer
-    tag: HDDF-5226-5f0424b
+    tag: HDDF-5226-1403ae9
   heap: "-Xmx1536m -Xms1536m"
   hpa:
     enabled: true

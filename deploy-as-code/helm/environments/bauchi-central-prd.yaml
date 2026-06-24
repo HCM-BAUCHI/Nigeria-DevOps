@@ -1703,7 +1703,7 @@ transformer:
   namespace: "bauchi"
   image:
     repository: egovio/transformer
-    tag: HDDF-5226-7abda19
+    tag: HDDF-5226-1403ae9
   replicas: 2
   heap: "-Xmx1536m -Xms1536m"
   hpa:
