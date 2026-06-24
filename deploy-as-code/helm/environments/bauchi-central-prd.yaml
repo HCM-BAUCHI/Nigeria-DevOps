@@ -1901,21 +1901,29 @@ health-expense-calculator:
     dbMigration:
       image:
         repository: egovio/health-expense-calculator-db
-        tag: v1.0.0-172f7e79e-55
+        tag: nigeria-go-deep-3fa1c21
   image:
     repository: egovio/health-expense-calculator
-    tag: v1.0.0-172f7e79e-55
-  central-instance-build: true
-  java-enable-debug: false
-  heap: "-Xmx512m -Xms256m"
+    tag: nigeria-go-deep-3fa1c21
+  heap: "-Xmx2048m -Xms1024m"
   hpa:
     enabled: true
     minReplicas: 2
     maxReplicas: 5
-  cpu_requests: 200m
-  memory_requests: 512Mi
-  cpu_limits: 300m
-  memory_limits: 768Mi
+  cpu_requests: 500m
+  memory_requests: 2Gi
+  cpu_limits: 600m
+  memory_limits: 2.5Gi
+  central-instance-build: true
+  tracing-enabled: true
+  java-enable-debug: true
+  egov-mdms-service-endpoint-key: "/mdms-v2/v1/_search"
+  report-header-title: "Health Campaign Payment Report"
+  is-attendance-approval-required: "true"
+  register-batch-size: 15
+  bill-generation-async-enabled: "true"
+  bill-generation-async-topic: "ba-bill-generation-async-topic"
+  spring-kafka-consumer-group-id: "ba-health-expense-calculator"
 
 pdf-service:
   namespace: egov
