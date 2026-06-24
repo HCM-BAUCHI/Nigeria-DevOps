@@ -252,6 +252,8 @@ egov-idgen:
   image:
     repository: egovio/egov-idgen
     tag: master-1e8d2bb
+  spring-datasource-tomcat-max-active: "10"
+  server-tomcat-max-threads: "20"
   idformat-from-mdms: "true"
   java-args: -Dspring.profiles.active=monitoring
   autocreate-new-seq: "true"
@@ -330,6 +332,8 @@ egov-enc-service:
   image:
     repository: egovio/egov-enc-service
     tag: HCMPRE-2741-encryption-664a4e7
+  spring-datasource-tomcat-max-active: "20"
+  server-tomcat-max-threads: "30"
   heap: "-Xmx384m -Xms128m"
   hpa:
     enabled: true
@@ -2163,6 +2167,8 @@ beneficiary-idgen:
   image:
     repository: egovio/beneficiary-idgen
     tag: master-b91815e
+  spring-datasource-tomcat-max-active: "10"
+  server-tomcat-max-threads: "20"
 
 inbox:
   namespace: egov
