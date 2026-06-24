@@ -1897,6 +1897,25 @@ health-expense:
 
 health-expense-calculator:
   namespace: bauchi
+  ingress:
+    name: bauchi-health-expense-calculator
+    namespace: egov
+  hostExclude:
+    - oyo-hcm.digit.org
+    - kogi-hcm.digit.org
+    - nasarawa-hcm.digit.org
+    - fct-abuja-hcm.digit.org
+    - plateau-hcm.digit.org
+    - borno-hcm.digit.org
+    - kebbi-hcm-central.digit.org
+    - sokoto-hcm.digit.org
+    - ondo-hcm.digit.org
+    - adamawa-hcm.digit.org
+    - kaduna-central-hcm.digit.org
+    - jigawa-central-hcm.digit.org
+    - kebbi-azm-central-hcm.digit.org
+    - chad-hcm.digit.org
+    - gombe-hcm.digit.org
   initContainers:
     dbMigration:
       image:
