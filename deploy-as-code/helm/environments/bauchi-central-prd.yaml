@@ -260,7 +260,7 @@ egov-idgen:
   hpa:
     enabled: true
     minReplicas: 4
-    maxReplicas: 5
+    maxReplicas: 8
   heap: "-Xmx768m -Xms256m"
   cpu_requests: 200m
   memory_requests: 768Mi
@@ -338,7 +338,7 @@ egov-enc-service:
   hpa:
     enabled: true
     minReplicas: 4
-    maxReplicas: 5
+    maxReplicas: 8
   cpu_requests: 200m
   memory_requests: 384Mi
   cpu_limits: 300m
@@ -355,6 +355,8 @@ boundary-service:
   image:
     repository: "egovio/boundary-service"
     tag: "boundary-hierarchy-def-modified-2.9-lts-8cde4b0"
+  spring-datasource-tomcat-max-active: "10"
+  server-tomcat-max-threads: "20"
   hpa:
     enabled: true
     minReplicas: 4
@@ -400,6 +402,8 @@ egov-user:
   image:
     repository: egovio/egov-user
     tag: central-instance-switch-device-changes-7eec928
+  spring-datasource-tomcat-max-active: "5"
+  server-tomcat-max-threads: "10"
   central-instance-build: true
   central-instance-enabled: true
   heap: "-Xmx1024m -Xms512m"
@@ -990,6 +994,7 @@ egov-hrms:
   schemaNameExclude: [ "chad", "kb" ]
   hostExclude: ["chad-hcm-prod.digit.org", "kebbi-azm-central-hcm.digit.org"]
   spring-datasource-tomcat-max-active: "10"
+  server-tomcat-max-threads: "10"
 
 #egov-otp:
 #  heap: "-Xmx512m -Xms512m"
@@ -1179,6 +1184,8 @@ facility:
   image:
     repository: egovio/facility
     tag: facility-search-limit-fix-554bc07
+  spring-datasource-tomcat-max-active: "5"
+  server-tomcat-max-threads: "10"
   central-instance-build: true
   central-instance-enabled: true
   heap: "-Xmx512m -Xms256m"
@@ -1252,7 +1259,7 @@ individual:
   heap: "-Xmx1g -Xms512m"
   hpa:
     enabled: true
-    minReplicas: 2
+    minReplicas: 4
     maxReplicas: 8
   cpu_requests: 300m
   memory_requests: 1Gi
@@ -1262,7 +1269,8 @@ individual:
   hostExclude: ["chad-hcm-prod.digit.org", "kebbi-azm-central-hcm.digit.org"]
   egov-beneficiary-idgen-integration-enabled: "true"
   individual-beneficiary-id-validation-enabled: "false"
-  spring-datasource-tomcat-max-active: "50"
+  spring-datasource-tomcat-max-active: "5"
+  server-tomcat-max-threads: "10"
 
 individual-referral:
   image:
@@ -1299,6 +1307,8 @@ stock:
   image:
     repository: egovio/stock
     tag: nigeria-go-deep-2-stock-2aed5c4
+  spring-datasource-tomcat-max-active: "5"
+  server-tomcat-max-threads: "10"
   central-instance-build: true
   central-instance-enabled: true
   heap: "-Xmx512m -Xms256m"
@@ -1328,6 +1338,8 @@ household:
   image:
     repository: egovio/household
     tag: HCMPRE-2656-HCM-Services-Household-5717dde
+  spring-datasource-tomcat-max-active: "5"
+  server-tomcat-max-threads: "10"
   central-instance-build: true
   central-instance-enabled: true
   heap: "-Xmx1024m -Xms512m"
@@ -1389,6 +1401,8 @@ project:
   hostExclude: ["chad-hcm-prod.digit.org", "kebbi-azm-central-hcm.digit.org"]
   project-task-no-resource-validation-status: "ADMINISTRATION_FAILED,BENEFICIARY_REFUSED,CLOSED_HOUSEHOLD,NOT_ADMINISTERED,BENEFICIARY_DIED,BENEFICIARY_MIGRATED,BENEFICIARY_ABSENT,BENEFICIARY_INELIGIBLE,INELIGIBLE"
   tracer-request-logging-enabled: "true"
+  spring-datasource-tomcat-max-active: "5"
+  server-tomcat-max-threads: "10"
 
 project-referral:
   image:
@@ -2167,8 +2181,12 @@ beneficiary-idgen:
   image:
     repository: egovio/beneficiary-idgen
     tag: master-b91815e
-  spring-datasource-tomcat-max-active: "10"
-  server-tomcat-max-threads: "20"
+  spring-datasource-tomcat-max-active: "5"
+  server-tomcat-max-threads: "10"
+  hpa:
+    enabled: true
+    minReplicas: 8
+    maxReplicas: 8
 
 inbox:
   namespace: egov
