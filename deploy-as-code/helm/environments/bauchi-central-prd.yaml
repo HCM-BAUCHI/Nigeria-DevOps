@@ -2169,9 +2169,9 @@ dashboard-analytics:
       enabled: true
       repo: "git@github.com:HCM-BAUCHI/health-campaign-config"
       branch: "PROD"
-  config-schema-paths: "file:///work-dir/health-campaign-config/egov-dss-dashboards/oy/dashboard-analytics/*.json"
+  config-schema-paths: "file:///work-dir/health-campaign-config/egov-dss-dashboards/ch/dashboard-analytics/*.json"
 is-central-instance: "true"
-central-instance-tenants: "oy,ko,na,jg,pl,ab,kd,ba,ke"
+central-instance-tenants: "oy,ko,na,jg,pl,ab,kd,ba,ke,ch"
 central-instance-base-path: "file:///work-dir/health-campaign-config/egov-dss-dashboards"
 
 
