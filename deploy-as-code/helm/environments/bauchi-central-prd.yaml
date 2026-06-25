@@ -39,6 +39,10 @@ global:
     - go
     - chad
 
+service:
+  additionalAnnotations: |
+    zuul/route-host: bauchi-hcm.digit.org
+
 cluster-configs:
   namespaces:
     create: true
