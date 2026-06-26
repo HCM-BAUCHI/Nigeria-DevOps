@@ -1,0 +1,58 @@
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: ch-refresh-household-address-mv
+  namespace: chad
+
+spec:
+  schedule: "*/30 * * * *"
+
+  concurrencyPolicy: Forbid
+
+  successfulJobsHistoryLimit: 1
+  failedJobsHistoryLimit: 2
+
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          containers:
+          - name: refresh-matview
+            image: postgres:15
+
+            env:
+            - name: PGUSER
+              valueFrom:
+                secretKeyRef:
+                  name: db
+                  key: username
+
+            - name: PGPASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: db
+                  key: password
+
+            - name: PGHOST
+              valueFrom:
+                configMapKeyRef:
+                  name: egov-config
+                  key: db-host
+
+            - name: PGDATABASE
+              valueFrom:
+                configMapKeyRef:
+                  name: egov-config
+                  key: db-name
+
+            command:
+            - /bin/sh
+            - -c
+            - |
+              psql \
+                -h "$PGHOST" \
+                -U "$PGUSER" \
+                -d "$PGDATABASE" \
+                -c "REFRESH MATERIALIZED VIEW ch.household_address_mv;"
+
+          restartPolicy: OnFailure
