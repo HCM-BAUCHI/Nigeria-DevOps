@@ -72,6 +72,12 @@ save-attendance-log: "save-attendance-log"
 update-attendance-log: "update-attendance-log"
 transformer-save-attendance-log: "transformer-save-attendance-log"
 transformer-save-attendance-register: "transformer-save-attendance-register"
+transformer-save-attendance-staff: "save-staff"
+transformer-update-attendance-staff: "update-staff"
+transformer-save-attendance-attendee: "save-attendee"
+transformer-update-attendance-attendee: "update-attendee"
+transformer-producer-attendance-staff-index: "transformer-producer-attendance-staff-index"
+transformer-producer-attendee-index: "transformer-producer-attendee-index"
 transformer-producer-extra-transformed-checklist-index-topic: "transformer-producer-extra-transformed-checklist-index-topic"
 update-household-member-topic: "update-household-member-topic"
 save-stock-reconciliation-topic: "save-stock-reconciliation-topic"
@@ -434,3 +440,16 @@ env: |
     value: {{ index .Values "transformer-consumer-update-user-action-topic" | default "update-user-action-project-topic" | quote }}
   - name: TRANSFORMER_PRODUCER_USER_ACTION_INDEX_V1_TOPIC
     value: {{ index .Values "transformer-producer-user-action-index-v1-topic" | default "transformer-producer-user-action-index-v1-topic" | quote }}
+  
+  - name: TRANSFORMER_CONSUMER_SAVE_ATTENDANCE_STAFF_TOPIC
+    value: {{ index .Values "transformer-save-attendance-staff" | default "save-staff" | quote }}
+  - name: TRANSFORMER_CONSUMER_UPDATE_ATTENDANCE_STAFF_TOPIC
+    value: {{ index .Values "transformer-update-attendance-staff" | default "update-staff" | quote }}
+  - name: TRANSFORMER_CONSUMER_SAVE_ATTENDEE_TOPIC
+    value: {{ index .Values "transformer-save-attendance-attendee" | default "save-attendee" | quote }}
+  - name: TRANSFORMER_CONSUMER_UPDATE_ATTENDEE_TOPIC
+    value: {{ index .Values "transformer-update-attendance-attendee" | default "update-attendee" | quote }}
+  - name: TRANSFORMER_PRODUCER_ATTENDANCE_STAFF_INDEX_V1_TOPIC
+    value: {{ index .Values "transformer-producer-attendance-staff-index" | default "transformer-producer-attendance-staff-index" | quote }}
+  - name: TRANSFORMER_PRODUCER_ATTENDEE_INDEX_V1_TOPIC
+    value: {{ index .Values "transformer-producer-attendee-index" | default "transformer-producer-attendee-index" | quote }}
