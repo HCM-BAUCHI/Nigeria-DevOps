@@ -39,10 +39,6 @@ global:
     - go
     - chad
 
-service:
-  additionalAnnotations: |
-    zuul/route-host: bauchi-hcm.digit.org
-
 cluster-configs:
   namespaces:
     create: true
@@ -1925,6 +1921,9 @@ health-expense:
   memory_limits: 768Mi
 
 health-expense-calculator:
+  service:
+    additionalAnnotations: |
+      zuul/route-host: bauchi-hcm.digit.org
   namespace: bauchi
   ingress:
     name: bauchi-health-expense-calculator
