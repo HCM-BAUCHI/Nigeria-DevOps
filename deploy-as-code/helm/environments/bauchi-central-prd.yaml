@@ -1969,7 +1969,7 @@ health-expense-calculator:
   memory_requests: 2Gi
   cpu_limits: 600m
   memory_limits: 2.5Gi
-  central-instance-build: true
+  central-instance-build: false
   tracing-enabled: true
   java-enable-debug: true
   spring-kafka-consumer-group-id: "ba-health-expense-calculator"
