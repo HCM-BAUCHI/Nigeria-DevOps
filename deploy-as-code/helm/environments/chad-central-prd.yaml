@@ -7,7 +7,7 @@ transformer:
   namespace: "chad"
   image:
     repository: egovio/transformer
-    tag: chad-bednet-22da527
+    tag: HDDF-5226-1403ae9
   heap: "-Xmx1536m -Xms1024m"
   hpa:
     enabled: true
