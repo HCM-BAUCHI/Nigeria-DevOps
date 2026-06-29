@@ -29,6 +29,7 @@ healthChecks:
   livenessProbePath: "/health-expense-calculator/health"
   readinessProbePath: "/health-expense-calculator/health"
 appType: "java-spring"
+tracing-enabled: true
 heap: "-Xmx256m -Xms256m"
 memory_limits: 512Mi
 java-args: ""
@@ -102,7 +103,7 @@ env: |
     valueFrom:
       configMapKeyRef:
         name: egov-config
-        key: boundary-hierarchy
+        key: {{ index .Values "boundary-hierarchy-name" | default "boundary-hierarchy" }}
   - name: EGOV_LOCALIZATION_LOCALE_CODE
     value: "en_MZ"
   - name: PROJECT_SERVICE_HOST
@@ -259,4 +260,6 @@ env: |
     value: "false"
   - name: PROJECT_MANAGEMENT_SYSTEM_KAFKA_UPDATE_TOPIC
     value: {{ index .Values "project-management-system-kafka-update-topic" | default "update-project" | quote }}
-  
+  - name: PROJECT_MANAGEMENT_SYSTEM_KAFKA_UPDATE_DATE_TOPIC
+    value: {{ index .Values "project-management-system-kafka-update-date-topic" | default "update-project-date" | quote }}
+

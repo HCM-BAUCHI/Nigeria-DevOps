@@ -84,6 +84,7 @@ save-stock-reconciliation-topic: "save-stock-reconciliation-topic"
 update-stock-reconciliation-topic: "update-stock-reconciliation-topic"
 transformer-producer-stock-recon-index-v1-topic: "transformer-producer-stock-recon-index-v1-topic"
 health-transformer: "health-transformer"
+boundary-hierarchy-name: "boundary-hierarchy"
 transformer-consumer-error-tracer-topic: "error-details-indexer-topic"
 transformer-producer-error-details-index-v1-topic: "oy-transformed-errors-topic"
 transformer-error-skip-error-messages: "UPLOAD_ERROR_FROM_APP"
@@ -354,7 +355,7 @@ env: |
     valueFrom:
       configMapKeyRef:
         name: egov-config
-        key: boundary-hierarchy
+        key: {{ index .Values "boundary-hierarchy-name" | quote }}
   - name: PROJECT_STAFF_ROLE_MDMS_MODULE
     value: HCM-PROJECT-STAFF-ROLES
   - name: EGOV_SEARCH_HOUSEHOLD_URL

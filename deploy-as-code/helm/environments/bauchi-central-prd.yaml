@@ -103,6 +103,7 @@ cluster-configs:
         tracer-errors-provideexceptionindetails: "true"
         egov-env: "PROD"
         boundary-hierarchy: "ADMIN"
+        boundary-hierarchy-chad: "ADMIN2"
         egov-internal-microservice-user-uuid: "e1f57dfe-35a0-494a-911d-22cd3f786612"
         host-map: "{'ba':'https://bauchi-hcm.digit.org/','oy':'https://oyo-hcm.digit.org/','ko':'https://kogi-hcm.digit.org/','na':'https://nasarawa-hcm.digit.org/','ab':'https://fct-abuja-hcm.digit.org/','pl':'https://plateau-hcm.digit.org/','bo':'https://borno-hcm.digit.org/','ke':'https://kebbi-hcm-central.digit.org/','so':'https://sokoto-hcm.digit.org/','od':'https://ondo-hcm.digit.org/','ad':'https://adamawa-hcm.digit.org/','kd':'https://kaduna-central-hcm.digit.org/','jg':'https://jigawa-central-hcm.digit.org/','kb':'https://kebbi-azm-central-hcm.digit.org/','go':'https://gombe-hcm.digit.org/','chad':'https://chad-hcm-prod.digit.org/'}"
         db-schema-names: "ba,oy,ko,na,ab,pl,bo,ke,so,od,ad,kd,jg,kb,ch,go,chad"
@@ -1968,16 +1969,41 @@ health-expense-calculator:
   memory_requests: 2Gi
   cpu_limits: 600m
   memory_limits: 2.5Gi
-  central-instance-build: true
+  central-instance-build: false
   tracing-enabled: true
   java-enable-debug: true
+  spring-kafka-consumer-group-id: "ba-health-expense-calculator"
   egov-mdms-service-endpoint-key: "/mdms-v2/v1/_search"
   report-header-title: "Health Campaign Payment Report"
+  report-date-time-format: "dd/MM/yyyy HH:mm:ss z"
   is-attendance-approval-required: "true"
   register-batch-size: 15
+  tenantId: "ba"
+  excell-state-level-tenant-id: "ba"
+  boundary-hierarchy-name: "boundary-hierarchy"
+  calculate-musterroll-health: ba-calculate-musterroll-health
+  calculate-error-health: ba-calculate-error-health
+  calculate-billmeta-health: ba-calculate-billmeta-health
+  report-error-queue-topic: ba-report-error-queue-topic
+  report-retry-queue-topic: ba-report-retry-queue-topic
+  report-generation-trigger-topic: ba-report-generation-trigger
+  report-generation-retry-trigger-topic: ba-report-generation-retry-trigger
+  bill-generation-async-topic: ba-bill-generation-async-topic
   bill-generation-async-enabled: "true"
-  bill-generation-async-topic: "ba-bill-generation-async-topic"
-  spring-kafka-consumer-group-id: "ba-health-expense-calculator"
+  expense-bill-create-topic: ba-expense-bill-create-health
+  expense-bill-update-topic: ba-expense-bill-update-health
+  expense-bill-index-topic: ba-expense-bill-index-health
+  payment-pdf-key: "health-bill-payment-bednet"
+  billing-frequency-custom-minimum-days: "1"
+  billing-config-v2-enabled: "true"
+  billing-config-create-topic: ba-billing-config-create
+  billing-config-update-topic: ba-billing-config-update
+  billing-period-status-update-topic: ba-billing-period-status-update
+  billing-period-generation-enabled: "true"
+  billing-muster-roll-period-aware-enabled: "true"
+  egov-musterroll-search-endpoint: "/health-muster-roll/v1/_search"
+  project-management-system-kafka-update-topic: ba-update-project
+  project-management-system-kafka-update-date-topic: ba-update-project-date
 
 pdf-service:
   namespace: egov

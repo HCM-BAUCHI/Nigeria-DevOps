@@ -54,6 +54,8 @@ initContainers:
               key: jg-db-url
           {{- else if eq .Values.namespace "chad-prod" }}
               key: chad-db-url
+          {{- else if eq .Values.namespace "bauchi" }}
+              key: ba-db-url
           {{- else }}
               key: db-url
           {{- end }}
@@ -170,8 +172,8 @@ extraEnv:
             name: egov-config
             {{- if index .Values "db-read-url-enabled" }}
             key: db-read-url
-            {{- else if eq .Values.namespace "health" }}
-            key: health-db-url
+            {{- else if eq .Values.namespace "bauchi" }}
+            key: ba-db-url
             {{- else if eq .Values.namespace "kaduna" }}
             key: kd-db-url
             {{- else if eq .Values.namespace "kebbi-azm" }}
@@ -200,8 +202,8 @@ extraEnv:
             name: egov-config
             {{- if index .Values "db-read-url-enabled" }}
             key: db-read-url
-            {{- else if eq .Values.namespace "health" }}
-            key: health-db-url
+            {{- else if eq .Values.namespace "bauchi" }}
+            key: ba-db-url
             {{- else if eq .Values.namespace "kaduna" }}
             key: kd-db-url
             {{- else if eq .Values.namespace "kebbi-azm" }}
