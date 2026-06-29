@@ -18,6 +18,7 @@ transformer:
   cpu_limits: 400m
   memory_limits: 2Gi
   java-enable-debug: true
+  boundary-hierarchy-name: "boundary-hierarchy-chad"
   save-project-task-topic: "ch-save-project-task-topic"
   update-project-task-topic: "ch-update-project-task-topic"
   transformer-producer-bulk-project-task-index-v1-topic: "ch-transformer-producer-bulk-project-task-index-v1-topic"

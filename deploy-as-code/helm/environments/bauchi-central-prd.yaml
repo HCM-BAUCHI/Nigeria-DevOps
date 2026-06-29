@@ -103,6 +103,7 @@ cluster-configs:
         tracer-errors-provideexceptionindetails: "true"
         egov-env: "PROD"
         boundary-hierarchy: "ADMIN"
+        boundary-hierarchy-chad: "ADMIN2"
         egov-internal-microservice-user-uuid: "e1f57dfe-35a0-494a-911d-22cd3f786612"
         host-map: "{'ba':'https://bauchi-hcm.digit.org/','oy':'https://oyo-hcm.digit.org/','ko':'https://kogi-hcm.digit.org/','na':'https://nasarawa-hcm.digit.org/','ab':'https://fct-abuja-hcm.digit.org/','pl':'https://plateau-hcm.digit.org/','bo':'https://borno-hcm.digit.org/','ke':'https://kebbi-hcm-central.digit.org/','so':'https://sokoto-hcm.digit.org/','od':'https://ondo-hcm.digit.org/','ad':'https://adamawa-hcm.digit.org/','kd':'https://kaduna-central-hcm.digit.org/','jg':'https://jigawa-central-hcm.digit.org/','kb':'https://kebbi-azm-central-hcm.digit.org/','go':'https://gombe-hcm.digit.org/','chad':'https://chad-hcm-prod.digit.org/'}"
         db-schema-names: "ba,oy,ko,na,ab,pl,bo,ke,so,od,ad,kd,jg,kb,ch,go,chad"
