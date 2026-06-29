@@ -1916,7 +1916,8 @@ health-expense:
   hostExclude: ["chad-hcm-prod.digit.org", "kebbi-azm-central-hcm.digit.org"]
   java-enable-debug: false
   java-args: ""
-  business-workflow-status-map: "{}"
+  business-workflow-status-map: "{'EXPENSE.WAGES':'false','EXPENSE.PURCHASE':'false','EXPENSE.SUPERVISION':'false','PAYMENTS.BILL':'true','PAYMENTS.BILLDETAILS':'true'}"
+  expense-v2-periodic-billing-enabled: true
   heap: "-Xmx512m -Xms256m"
   hpa:
     enabled: true

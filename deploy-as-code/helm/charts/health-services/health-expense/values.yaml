@@ -37,6 +37,10 @@ cpu_limits: "300m"
 expense-billing-bill-create: expense-bill-create-health
 expense-billing-bill-update: expense-bill-update-health
 report-generation-trigger-topic: report-generation-trigger
+expense-billing-default-limit: "100"
+expense-billing-search-max-limit: "200"
+spring-kafka-producer-properties-max-request-size: "10485760"
+egov-mdms-v2-search-endpoint: "/mdms-v2/v1/_search"
 
 # Additional Container Envs
 env: |
@@ -113,8 +117,10 @@ env: |
   {{- end }}
   {{- if index .Values "expense-billing-search-max-limit" }}
   - name: EXPENSE_BILLING_SEARCH_MAX_LIMIT
-    value: {{ index .Values "expense-billing-search-max-limit" | quote }} 
+    value: {{ index .Values "expense-billing-search-max-limit" | quote }}
   {{- end }}
+  - name: WF_TRANSITION_RETRY_MAX_ATTEMPTS
+    value: {{ index .Values "wf-transition-retry-max-attempts" | default "20" | quote }}
   - name: WORKS_PROJECT_HOST
     valueFrom:
       configMapKeyRef:
