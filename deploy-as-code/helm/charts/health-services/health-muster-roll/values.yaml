@@ -29,6 +29,7 @@ healthChecks:
   livenessProbePath: "/health-muster-roll/health"
   readinessProbePath: "/health-muster-roll/health"
 appType: "java-spring"
+tracing-enabled: true
 heap: "-Xmx256m -Xms256m"
 memory_limits: 512Mi
 java-args: ""
@@ -38,6 +39,26 @@ musterroll-kafka-update-topic: update-musterroll-health
 musterroll-kafka-calculate-topic: calculate-musterroll-health
 musterroll-attendance-report-generate-topic: generate-attendance-report
 musterroll-attendance-report-update-topic: attendance-report-update
+
+notification-sms-enabled: "false"
+musterroll-default-limit: "100"
+musterroll-search-max-limit: "200"
+musterroll-workflow-business-service: "HCMMUSTERROLL"
+attendance-log-search-endpoint: "attendance/log/v1/_search"
+attendance-register-search-endpoint: "attendance/v1/_search"
+attendance-register-update-endpoint: "attendance/v1/_update"
+attendance-register-search-limit: "100"
+individual-search-endpoint: "individual/v1/_search"
+expense-calculator-endpoint: "health-expense-calculator/v1/_estimate"
+muster-restricted-search-roles: "ORG_ADMIN,ORG_STAFF"
+musterroll-update-recompute-attendance-enabled: "false"
+musterroll-individual-entry-roles-enabled: "false"
+musterroll-validate-start-date-monday-enabled: "false"
+musterroll-validate-attendance-register-enabled: "true"
+musterroll-set-default-duration-enabled: "false"
+musterroll-add-bank-account-details-enabled: "false"
+musterroll-update-attendance-register-review-status-enabled: "true"
+musterroll-workflow-enabled: "true"
 
 # Additional Container Envs
 env: |
@@ -50,7 +71,7 @@ env: |
   - name: SERVER_CONTEXT_PATH
     value: /health-muster-roll
   - name: SERVER_SERVLET_CONTEXT-PATH
-    value: /health-muster-roll 
+    value: /health-muster-roll
   - name: EGOV_MDMS_HOST
     valueFrom:
       configMapKeyRef:
@@ -233,4 +254,58 @@ env: |
       configMapKeyRef:
         name: egov-service-host
         key: worker-registry-host
+  - name: EGOV_MDMS_V2_SEARCH_ENDPOINT
+    value: /mdms-v2/v1/_search
+  - name: EGOV_IDGEN_PATH
+    value: egov-idgen/id/_generate
+  - name: EGOV_IDGEN_MUSTERROLL_NUMBER_NAME
+    value: muster.number
+  - name: EGOV_LOCALIZATION_SEARCH_ENDPOINT
+    value: /localization/messages/v1/_search
+  - name: EGOV_WORKFLOW_TRANSITION_PATH
+    value: /egov-workflow-v2/egov-wf/process/_transition
+  - name: EGOV_WORKFLOW_BUSINESSSERVICE_SEARCH_PATH
+    value: /egov-workflow-v2/egov-wf/businessservice/_search
+  - name: EGOV_WORKFLOW_PROCESSINSTANCE_SEARCH_PATH
+    value: /egov-workflow-v2/egov-wf/process/_search
+  - name: MUSTERROLL_WORKFLOW_MODULE_NAME
+    value: health-muster-roll
+  - name: MUSTERROLL_DEFAULT_DURATION_DAYS
+    value: "6"
+  - name: MUSTER_CAMPAIGN_SUPERVISOR_ROLE
+    value: CAMPAIGN_SUPERVISOR
+  - name: WORKS_EXPENSE_CALCULATOR_BILLING_PERIOD_SEARCH_ENDPOINT
+    value: /health-expense-calculator/billing-config/v1/periods/_search
+  - name: WORKS_EXPENSE_CALCULATOR_BILLING_CONFIG_SEARCH_ENDPOINT
+    value: /health-expense-calculator/billing-config/v1/_search
+  - name: WORKS_EXPENSE_CALCULATOR_CHECK_BILL_STATUS_ENDPOINT
+    value: /health-expense-calculator/v1/_checkBillStatus
+  - name: EGOV_FILESTORE_DOWNLOAD_ENDPOINT
+    value: filestore/v1/files/id
+  - name: EGOV_WORKER_REGISTRY_SEARCH_PATH
+    value: worker/v1/_search
+  - name: ELASTICSEARCH_QUERIES_MDMS_MODULE
+    value: AttendanceReportDetail
+  - name: ELASTICSEARCH_QUERIES_MDMS_MASTER
+    value: ElasticSearchQuery
+  - name: ATTENDANCE_REPORT_FILESTORE_MODULE
+    value: ATTENDANCE
+  - name: ATTENDANCE_REPORT_LOCALIZATION_MODULE
+    value: muster-roll
+  - name: ATTENDANCE_REPORT_DATE_FORMAT
+    value: dd/MM/yyyy
+  - name: ATTENDANCE_REPORT_TIMEZONE
+    valueFrom:
+      configMapKeyRef:
+        name: egov-config
+        key: timezone
+  - name: ATTENDANCE_REPORT_SESSION_BOUNDARY_TIME
+    value: "12:00"
+  - name: ATTENDANCE_REPORT_ALLOWED_SKILLS
+    value: DISTRIBUTOR,REGISTRAR,HEALTH_FACILITY_WORKER
+  - name: STATE_LEVEL_TENANTID_LENGTH
+    valueFrom:
+      configMapKeyRef:
+        name: egov-config
+        key: state-level-tenantid-length
   
