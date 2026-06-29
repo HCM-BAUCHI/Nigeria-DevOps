@@ -2018,8 +2018,8 @@ pdf-service:
         tag: v4.2.1
       repo: "git@github.com:HCM-BAUCHI/health-campaign-config"
       branch: "PROD"
-  data-config-urls: "file:///work-dir/health-campaign-config/pdf-service/data-config/health-bill-payment.json"
-  format-config-urls: "file:///work-dir/health-campaign-config/pdf-service/format-config/health-bill-payment.json"
+  data-config-urls: "file:///work-dir/health-campaign-config/pdf-service/data-config/health-bill-payment-ba.json"
+  format-config-urls: "file:///work-dir/health-campaign-config/pdf-service/format-config/health-bill-payment-ba.json"
   heap: "-Xmx512m -Xms256m"
   hpa:
     enabled: true
