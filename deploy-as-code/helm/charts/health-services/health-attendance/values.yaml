@@ -45,6 +45,7 @@ project-management-system-kafka-update-topic: update-project
 attendance-log-kafka-bulk-create-topic: save-attendance-log-bulk-health
 attendance-log-kafka-bulk-update-topic: update-attendance-log-bulk-health
 attendance-register-kafka-muster-status-update-topic: muster-roll-status-update
+egov-expense-calculator-billing-period-search-endpoint: "/health-expense-calculator/billing-config/v1/periods/_search"
 
 # Additional Container Envs
 env: |
