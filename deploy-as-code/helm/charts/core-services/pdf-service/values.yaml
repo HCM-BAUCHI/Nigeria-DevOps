@@ -94,3 +94,8 @@ env: |
         key: egov-services-fqdn-name
   - name: EGOV_LOCALISATION_SEARCH
     value: "localization/messages/v2/_search"
+  - name: STATE_LEVEL_TENANT_ID
+    valueFrom:
+      configMapKeyRef:
+        name: egov-config
+        key: egov-state-level-tenant-id
