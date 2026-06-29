@@ -105,7 +105,7 @@ env: |
         name: egov-config
         key: {{ index .Values "boundary-hierarchy-name" | default "boundary-hierarchy" }}
   - name: EGOV_LOCALIZATION_LOCALE_CODE
-    value: "en_MZ"
+    value: "en_NG"
   - name: PROJECT_SERVICE_HOST
     valueFrom:
       configMapKeyRef:
