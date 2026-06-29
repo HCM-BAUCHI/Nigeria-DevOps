@@ -954,7 +954,7 @@ egov-workflow-v2:
   heap: "-Xmx384m -Xms128m"
   hpa:
     enabled: true
-    minReplicas: 4
+    minReplicas: 2
     maxReplicas: 8
   cpu_requests: 200m
   memory_requests: 384Mi
@@ -980,7 +980,7 @@ egov-hrms:
   heap: "-Xmx1024m -Xms512m"
   hpa:
     enabled: true
-    minReplicas: 4
+    minReplicas: 2
     maxReplicas: 8
   cpu_requests: 200m
   memory_requests: 1Gi
@@ -1191,8 +1191,8 @@ facility:
   heap: "-Xmx512m -Xms256m"
   hpa:
     enabled: true
-    minReplicas: 6
-    maxReplicas: 10
+    minReplicas: 2
+    maxReplicas: 8
   cpu_requests: 200m
   memory_requests: 512Mi
   cpu_limits: 300m
@@ -1259,7 +1259,7 @@ individual:
   heap: "-Xmx1g -Xms512m"
   hpa:
     enabled: true
-    minReplicas: 4
+    minReplicas: 2
     maxReplicas: 8
   cpu_requests: 300m
   memory_requests: 1Gi
@@ -1286,8 +1286,8 @@ individual-referral:
   heap: "-Xmx1536m -Xms768m"
   hpa:
     enabled: true
-    minReplicas: 7
-    maxReplicas: 11
+    minReplicas: 2
+    maxReplicas: 5
   cpu_requests: 300m
   memory_requests: 1.5Gi
   cpu_limits: 400m
@@ -1345,7 +1345,7 @@ household:
   heap: "-Xmx1024m -Xms512m"
   hpa:
     enabled: true
-    minReplicas: 4
+    minReplicas: 2
     maxReplicas: 8
   cpu_requests: 300m
   memory_requests: 1Gi
@@ -1368,8 +1368,8 @@ household-referral:
   heap: "-Xmx1536m -Xms768m"
   hpa:
     enabled: true
-    minReplicas: 7
-    maxReplicas: 11
+    minReplicas: 2
+    maxReplicas: 5
   cpu_requests: 300m
   memory_requests: 1.5Gi
   cpu_limits: 400m
@@ -1419,8 +1419,8 @@ project-referral:
   heap: "-Xmx1536m -Xms768m"
   hpa:
     enabled: true
-    minReplicas: 7
-    maxReplicas: 11
+    minReplicas: 2
+    maxReplicas: 5
   cpu_requests: 200m
   memory_requests: 1.5Gi
   cpu_limits: 300m
@@ -1445,8 +1445,8 @@ referralmanagement:
   heap: "-Xmx1536m -Xms768m"
   hpa:
     enabled: true
-    minReplicas: 7
-    maxReplicas: 11
+    minReplicas: 2
+    maxReplicas: 5
   cpu_requests: 300m
   memory_requests: 1.5Gi
   cpu_limits: 400m
@@ -1517,7 +1517,7 @@ project-factory:
   replicas: 3
   hpa:
     enabled: true
-    minReplicas: 4
+    minReplicas: 3
     maxReplicas: 8
   cpu_requests: 200m
   memory_requests: 768Mi
