@@ -34,6 +34,7 @@ heap: "-Xmx256m -Xms256m"
 memory_limits: 512Mi
 java-args: ""
 cpu_limits: "300m"
+spring-kafka-producer-properties-max-request-size: "10485760"
 
 # Additional Container Envs
 env: |

@@ -308,4 +308,6 @@ env: |
       configMapKeyRef:
         name: egov-config
         key: state-level-tenantid-length
+  - name: SPRING_KAFKA_PRODUCER_PROPERTIES_MAX_REQUEST_SIZE
+    value: "10485760"
   
