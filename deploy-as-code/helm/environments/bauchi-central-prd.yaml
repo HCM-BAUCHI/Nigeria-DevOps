@@ -2010,7 +2010,7 @@ pdf-service:
   namespace: egov
   image:
     repository: egovio/pdf-service
-    tag: central-instance-pdf-2aad92c
+    tag: central-instance-pdf-7b3064f
   initContainers:
     gitSync:
       image:
