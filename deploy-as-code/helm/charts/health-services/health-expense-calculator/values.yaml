@@ -11,6 +11,8 @@ ingress:
   enabled: true
   zuul: true
   context: "health-expense-calculator"
+  additionalAnnotations: |
+    nginx.ingress.kubernetes.io/proxy-body-size: "10m"
 
 # Init Containers Configs
 initContainers:

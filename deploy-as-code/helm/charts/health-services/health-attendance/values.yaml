@@ -9,6 +9,8 @@ ingress:
   enabled: true
   zuul: true
   context: "attendance"
+  additionalAnnotations: |
+    nginx.ingress.kubernetes.io/proxy-body-size: "10m"
 
 # Init Containers Configs
 initContainers:
@@ -45,8 +47,8 @@ project-management-system-kafka-update-topic: update-project
 attendance-log-kafka-bulk-create-topic: save-attendance-log-bulk-health
 attendance-log-kafka-bulk-update-topic: update-attendance-log-bulk-health
 attendance-register-kafka-muster-status-update-topic: muster-roll-status-update
-egov-expense-calculator-billing-period-search-endpoint: "/health-expense-calculator/billing-config/v1/periods/_search"
-egov-muster-roll-search-endpoint: "/health-muster-roll/v1/_search"
+egov-expense-calculator-billing-period-search-endpoint: "health-expense-calculator/billing-config/v1/periods/_search"
+egov-muster-roll-search-endpoint: "health-muster-roll/v1/_search"
 
 # Additional Container Envs
 env: |
