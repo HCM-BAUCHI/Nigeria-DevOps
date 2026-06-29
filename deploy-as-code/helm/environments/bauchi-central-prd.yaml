@@ -1994,7 +1994,7 @@ health-expense-calculator:
   expense-bill-create-topic: ba-expense-bill-create-health
   expense-bill-update-topic: ba-expense-bill-update-health
   expense-bill-index-topic: ba-expense-bill-index-health
-  payment-pdf-key: "health-bill-payment-bednet"
+  payment-pdf-key: "health-bill-payment-ba"
   billing-frequency-custom-minimum-days: "1"
   billing-config-v2-enabled: "true"
   billing-config-create-topic: ba-billing-config-create
