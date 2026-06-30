@@ -2061,10 +2061,10 @@ egov-notification-push:
     dbMigration:
       image:
         repository: egovio/egov-notification-push-db
-        tag: nigeria-go-deep-push-notification-ca09919
+        tag: nigeria-go-deep-push-notification-batch-7d2ba39
   image:
     repository: egovio/egov-notification-push
-    tag: nigeria-go-deep-push-notification-ca09919
+    tag: nigeria-go-deep-push-notification-batch-7d2ba39
   replicas: 4
   central-instance-build: true
   central-instance-enabled: true
