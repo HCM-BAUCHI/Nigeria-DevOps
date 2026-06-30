@@ -34,6 +34,10 @@ java-args: ""
 env: |
   - name: SPRING_KAFKA_CONSUMER_GROUP_ID
     value: egov-notification-push-group
+  - name: SPRING_KAFKA_CONSUMER_MAX_POLL_RECORDS
+    value: "50"
+  - name: SPRING_KAFKA_CONSUMER_PROPERTIES_MAX_POLL_INTERVAL_MS
+    value: "600000"
   - name: SPRING_KAFKA_PRODUCER_KEY_SERIALIZER
     value: org.apache.kafka.common.serialization.StringSerializer
   {{- if index .Values "global" "tracer-errors-provideexceptionindetails" }}
