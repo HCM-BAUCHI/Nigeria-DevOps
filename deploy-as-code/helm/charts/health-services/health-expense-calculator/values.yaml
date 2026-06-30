@@ -107,8 +107,10 @@ env: |
       configMapKeyRef:
         name: egov-config
         key: {{ index .Values "boundary-hierarchy-name" | default "boundary-hierarchy" }}
+  - name: EGOV_LOCALIZATION_MODULE_NAME
+    value: {{ index .Values "egov-localization-module-name" | default "hcm-boundary-admin" | quote }}
   - name: EGOV_LOCALIZATION_LOCALE_CODE
-    value: "en_NG"
+    value: {{ index .Values "egov-localization-locale-code" | default "en_NG" | quote }}
   - name: PROJECT_SERVICE_HOST
     valueFrom:
       configMapKeyRef:
@@ -141,20 +143,12 @@ env: |
     value: {{ index .Values "payment-pdf-key" | quote }}
   {{- end }}
 
-  {{- if index .Values "report-localization-module-name" }}
   - name: REPORT_LOCALIZATION_MODULE_NAME
-    value: {{ index .Values "report-localization-module-name" | quote }}
-  {{- end }}
-
-  {{- if index .Values "report-localization-boundary-module-name" }}
+    value: {{ index .Values "report-localization-module-name" | default "hcm-payments" | quote }}
   - name: REPORT_LOCALIZATION_BOUNDARY_MODULE_NAME
-    value: {{ index .Values "report-localization-boundary-module-name" | quote }}
-  {{- end }}
-
-  {{- if index .Values "report-localization-locale-code" }}
+    value: {{ index .Values "report-localization-boundary-module-name" | default "hcm-boundary-admin" | quote }}
   - name: REPORT_LOCALIZATION_LOCALE_CODE
-    value: {{ index .Values "report-localization-locale-code" | quote }}
-  {{- end }}
+    value: {{ index .Values "report-localization-locale-code" | default "en_NG" | quote }}
 
   {{- if index .Values "report-header-title" }}
   - name: REPORT_HEADER_TITLE
