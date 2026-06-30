@@ -2080,18 +2080,18 @@ health-notification-service:
     dbMigration:
       image:
         repository: egovio/health-notification-service-db
-        tag: health-notification-service-b83cc15
+        tag: health-notification-service-cache-ca7303e
   image:
     repository: egovio/health-notification-service
-    tag: health-notification-service-b83cc15
-  replicas: 4
+    tag: health-notification-service-cache-ca7303e
+  replicas: 2
   central-instance-build: true
   central-instance-enabled: true
-  heap: "-Xmx512m -Xms256m"
+  heap: "-Xmx1024m -Xms512m"
   cpu_requests: 100m
-  memory_requests: 512Mi
+  memory_requests: 768Mi
   cpu_limits: 300m
-  memory_limits: 1024Mi
+  memory_limits: 1296Mi
 
 #pdf-service:
 #  initContainers:
