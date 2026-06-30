@@ -265,4 +265,8 @@ env: |
     value: {{ index .Values "project-management-system-kafka-update-topic" | default "update-project" | quote }}
   - name: PROJECT_MANAGEMENT_SYSTEM_KAFKA_UPDATE_DATE_TOPIC
     value: {{ index .Values "project-management-system-kafka-update-date-topic" | default "update-project-date" | quote }}
+  - name: SPRING_KAFKA_CONSUMER_PROPERTIES_MAX_PARTITION_FETCH_BYTES
+    value: "15728640"
+  - name: SPRING_KAFKA_CONSUMER_PROPERTIES_FETCH_MAX_BYTES
+    value: "15728640"
 
