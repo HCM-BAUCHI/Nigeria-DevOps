@@ -2068,11 +2068,11 @@ egov-notification-push:
   replicas: 4
   central-instance-build: true
   central-instance-enabled: true
-  heap: "-Xmx768m -Xms256m"
-  cpu_requests: 100m
-  memory_requests: 512Mi
-  cpu_limits: 300m
-  memory_limits: 1024Mi
+  heap: "-Xmx1296m -Xms1024m"
+  cpu_requests: 200m
+  memory_requests: 1.5Gi
+  cpu_limits: 600m
+  memory_limits: 2Gi
 
 health-notification-service:
   namespace: egov
