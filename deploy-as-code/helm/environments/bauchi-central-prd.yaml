@@ -1881,10 +1881,10 @@ health-muster-roll:
     dbMigration:
       image:
         repository: egovio/health-muster-roll-db
-        tag: nigeria-go-deep-report-fix-81e3bd4
+        tag: nigeria-go-deep-report-fix-adaa688
   image:
     repository: egovio/health-muster-roll
-    tag: nigeria-go-deep-report-fix-81e3bd4
+    tag: nigeria-go-deep-report-fix-adaa688
   central-instance-build: true
   central-instance-enabled: true
   schemaNameExclude: [ "chad", "kb" ]
