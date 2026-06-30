@@ -1251,10 +1251,10 @@ individual:
     dbMigration:
       image:
         repository: egovio/individual-db
-        tag: customize-2.0-individual-08fa309
+        tag: customize-2.0-individual-6d6d26b
   image:
     repository: egovio/individual
-    tag: customize-2.0-individual-08fa309
+    tag: customize-2.0-individual-6d6d26b
   central-instance-build: true
   central-instance-enabled: true
   heap: "-Xmx1g -Xms512m"

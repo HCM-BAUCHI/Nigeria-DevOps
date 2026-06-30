@@ -45,6 +45,7 @@ egov-beneficiary-idgen-integration-enabled: "false"
 egov-beneficiary-idgen-idpool-search-path: "beneficiary-idgen/id/id_pool/_search"
 egov-beneficiary-idgen-idpool-update-path: "beneficiary-idgen/id/id_pool/_update"
 individual-beneficiary-id-validation-enabled: "false"
+individual-beneficiary-id-update-enabled: "false"
 individual-beneficiary-id-length: "12"
 notification-sms-disabled-roles: "ORG_ADMIN"
 
@@ -83,6 +84,8 @@ env: |
     value: {{ index .Values "egov-beneficiary-idgen-idpool-update-path" | quote }}
   - name: INDIVIDUAL_BENEFICIARY_ID_VALIDATION_ENABLED
     value: {{ index .Values "individual-beneficiary-id-validation-enabled" | quote }}
+  - name: INDIVIDUAL_BENEFICIARY_ID_UPDATE_ENABLED
+    value: {{ index .Values "individual-beneficiary-id-update-enabled" | quote }}
   - name: INDIVIDUAL_BENEFICIARY_ID_LENGTH
     value: {{ index .Values "individual-beneficiary-id-length" | quote }}
   - name: IDGEN.INDIVIDUAL.ID.FORMAT
