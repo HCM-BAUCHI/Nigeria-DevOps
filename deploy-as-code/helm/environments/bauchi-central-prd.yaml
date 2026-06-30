@@ -2068,7 +2068,7 @@ egov-notification-push:
   replicas: 4
   central-instance-build: true
   central-instance-enabled: true
-  heap: "-Xmx256m -Xms256m"
+  heap: "-Xmx768m -Xms256m"
   cpu_requests: 100m
   memory_requests: 512Mi
   cpu_limits: 300m
