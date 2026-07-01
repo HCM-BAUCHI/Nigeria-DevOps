@@ -625,6 +625,9 @@ egov-indexer-kd-pl-ab:
 #      branch: "PROD"                                    ##### Change repo branch with Your fork Repo branch
 
 egov-persister-ht:
+  image:
+    repository: egovio/egov-persister
+    tag: 2.9-LTS-persister-changes-8053b51
   kafka-consumer-group-id: "egov-infra-persist-b"
   heap: "-Xmx768m -Xms256m"
   hpa:
@@ -650,7 +653,7 @@ egov-persister-ht:
 egov-persister-chad-kb-kd:
   image:
     repository: egovio/egov-persister
-    tag: 2.9-LTS-1b59a4c
+    tag: 2.9-LTS-persister-changes-8053b51
   kafka-consumer-group-id: "egov-infra-persist-chad-kb-kd"
   heap: "-Xmx1536m -Xms1024m"
   hpa:
@@ -672,7 +675,7 @@ egov-persister-chad-kb-kd:
 egov-persister-ch:
   image:
     repository: egovio/egov-persister
-    tag: 2.9-LTS-1b59a4c
+    tag: 2.9-LTS-persister-changes-8053b51
   kafka-consumer-group-id: "egov-infra-persist-ch"
   heap: "-Xmx1536m -Xms1024m"
   hpa:
@@ -693,6 +696,9 @@ egov-persister-ch:
 
 
 egov-persister-na-oy-ko-jg:
+  image:
+    repository: egovio/egov-persister
+    tag: 2.9-LTS-persister-changes-8053b51
   kafka-consumer-group-id: "egov-infra-persist-na-oy-ko-jg"
   heap: "-Xmx1536m -Xms1024m"
   hpa:
@@ -714,7 +720,7 @@ egov-persister-na-oy-ko-jg:
 egov-persister-kd-pl-ab:
   image:
     repository: egovio/egov-persister
-    tag: 2.9-LTS-1b59a4c
+    tag: 2.9-LTS-persister-changes-8053b51
   kafka-consumer-group-id: "egov-infra-persist-kd-pl-ab"
   heap: "-Xmx1536m -Xms1024m"
   hpa:
