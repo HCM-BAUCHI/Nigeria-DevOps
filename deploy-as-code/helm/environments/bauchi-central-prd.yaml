@@ -2181,10 +2181,10 @@ loki:
       working_directory: /data/loki/boltdb-shipper-compactor
       shared_store: s3                             ## AWS s3 as storage
       retention_enabled: true
-      compaction_interval: 168h                    ## compaction in hours
+      compaction_interval: 720h                    ## compaction in hours
     table_manager:
       retention_deletes_enabled: true
-      retention_period: 168h
+      retention_period: 720h
 
 
 dashboard-analytics:
