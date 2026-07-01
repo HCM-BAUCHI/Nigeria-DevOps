@@ -39,3 +39,15 @@ env: |
     value: "1"
   - name: SPRING_KAFKA_CONSUMER_GROUP_ID
     value: {{ index .Values "kafka-consumer-group-id" | quote }}
+  - name: PERSISTER_CUSTOM_EXECUTOR_ENABLED
+    value: "false"
+  - name: PERSISTER_BATCH_PARALLELTOPICPROCESSING_THREADPOOLSIZE
+    value: "2"
+  - name: PERSISTER_BATCH_TOPICS
+    value: ""
+  - name: PERSISTER_DEADLETTER_REPROCESS_ENABLED
+    value: "false"
+  - name: PERSISTER_DEADLETTER_REPROCESS_ERROR_TOPIC
+    value: "egov-persister-deadletter-processed-ba-bo-ke"
+  - name: TRACER_ERRORSTOPIC
+    value: "egov-persister-deadletter-ba-bo-ke"
