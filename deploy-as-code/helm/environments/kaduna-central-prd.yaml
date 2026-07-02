@@ -62,6 +62,8 @@ cluster-configs:
 egov-enc-service:
   secret-name: "egov-enc-service"
   namespace: "kaduna"
+  ingress:
+    enabled: false
   initContainers:
     dbMigration:
       image:
