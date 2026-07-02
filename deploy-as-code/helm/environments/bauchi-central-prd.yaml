@@ -2241,7 +2241,7 @@ beneficiary-idgen:
   hpa:
     enabled: true
     minReplicas: 8
-    maxReplicas: 8
+    maxReplicas: 12
 
 inbox:
   namespace: egov
