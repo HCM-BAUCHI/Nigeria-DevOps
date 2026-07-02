@@ -1282,7 +1282,7 @@ individual:
 individual-referral:
   image:
     repository: egovio/individual
-    tag: customize-2.0-individual-08fa309
+    tag: customize-2.0-individual-6d6d26b
   spring-datasource-tomcat-max-active: "30"
   server-tomcat-max-threads: "40"
   central-instance-build: true
