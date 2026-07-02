@@ -65,10 +65,10 @@ egov-enc-service:
   initContainers:
     dbMigration:
       image:
-        repository: egovio/referralmanagement-db
+        repository: egovio/egov-enc-service-db
         tag: HCMPRE-2741-encryption-664a4e7
   image:
-    repository: egovio/referralmanagement
+    repository: egovio/egov-enc-service
     tag: HCMPRE-2741-encryption-664a4e7
   heap: "-Xmx512m -Xms512m"
   hpa:
