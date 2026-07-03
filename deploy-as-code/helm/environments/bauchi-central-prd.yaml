@@ -1221,7 +1221,7 @@ product:
   hpa:
     enabled: true
     minReplicas: 2
-    maxReplicas: 5
+    maxReplicas: 7
   cpu_requests: 200m
   memory_requests: 512Mi
   cpu_limits: 300m
@@ -1398,7 +1398,7 @@ project:
   hpa:
     enabled: true
     minReplicas: 4
-    maxReplicas: 8
+    maxReplicas: 12
   cpu_requests: 300m
   memory_requests: 1Gi
   cpu_limits: 400m
