@@ -2221,7 +2221,7 @@ dashboard-analytics:
       branch: "PROD"
   config-schema-paths: "file:///work-dir/health-campaign-config/egov-dss-dashboards/ch/dashboard-analytics/*.json"
 is-central-instance: "true"
-central-instance-tenants: "oy,ko,na,jg,pl,ab,kd,ba,ke,ch"
+central-instance-tenants: "oy,ko,na,jg,pl,ab,kd,ba,ke,ch,bo"
 central-instance-base-path: "file:///work-dir/health-campaign-config/egov-dss-dashboards"
 
 
