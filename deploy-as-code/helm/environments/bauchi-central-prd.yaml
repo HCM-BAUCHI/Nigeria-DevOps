@@ -2231,7 +2231,7 @@ beneficiary-idgen:
     dbMigration:
       image:
         repository: egovio/beneficiary-idgen-db
-        tag: master-b91815e
+        tag: beneficiary-igden-tenant-specific-ddd07eb
   image:
     repository: egovio/beneficiary-idgen
     tag: master-b91815e
