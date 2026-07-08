@@ -2234,7 +2234,7 @@ beneficiary-idgen:
         tag: beneficiary-igden-tenant-specific-ddd07eb
   image:
     repository: egovio/beneficiary-idgen
-    tag: master-b91815e
+    tag: beneficiary-igden-tenant-specific-ddd07eb
   spring-datasource-tomcat-max-active: "5"
   server-tomcat-max-threads: "10"
   hpa:
