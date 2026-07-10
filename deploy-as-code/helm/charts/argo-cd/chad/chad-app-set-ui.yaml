@@ -10,6 +10,7 @@ spec:
           - name: digit-ui
           - name: workbench-ui
           - name: dashboard-ui
+          - name: payments-ui
 
   template:
     metadata:
