@@ -550,6 +550,30 @@ egov-indexer-ch:
       branch: "PROD"                                      ##### Change repo branch with Your fork Repo branch
   egov-indexer-yaml-repo-path: "/work-dir/health-campaign-config/egov-indexer/ch"
 
+egov-indexer-so-zf:
+  image:
+    repository: egovio/egov-indexer
+    tag: indexer-17-searchBody-aefd92b
+  kafka-consumer-group-id: "egov-indexer-consumer-grp-so-zf"
+  heap: "-Xmx1536m -Xms1024m"
+  hpa:
+    enabled: true
+    minReplicas: 4
+    maxReplicas: 8
+  cpu_requests: 300m
+  memory_requests: 1.5Gi
+  cpu_limits: 400m
+  memory_limits: 2Gi
+  initContainers:
+    dbMigration:
+      image:
+        repository: egovio/egov-indexer-db
+        tag: indexer-17-searchBody-aefd92b
+    gitSync:
+      repo: "git@github.com:HCM-BAUCHI/health-campaign-config"        ##### Change repo url with Your fork Repo url
+      branch: "PROD"                                      ##### Change repo branch with Your fork Repo branch
+  egov-indexer-yaml-repo-path: "/work-dir/health-campaign-config/egov-indexer/so"
+
 egov-indexer-na-oy-ko-jg:
   image:
     repository: egovio/egov-indexer
@@ -688,6 +712,28 @@ egov-persister-ch:
   images:
     - egovio/egov-persister
   persist-yml-path: "/work-dir/health-campaign-config/egov-persister/ch"
+  initContainers:
+    gitSync:
+      repo: "git@github.com:HCM-BAUCHI/health-campaign-config"      ##### Change repo url with Your fork Repo url
+      branch: "PROD"                                    ##### Change repo branch with Your fork Repo branch
+
+egov-persister-so-zf:
+  image:
+    repository: egovio/egov-persister
+    tag: 2.9-LTS-persister-changes-8053b51
+  kafka-consumer-group-id: "egov-infra-persist-so-zf"
+  heap: "-Xmx1536m -Xms1024m"
+  hpa:
+    enabled: true
+    minReplicas: 2
+    maxReplicas: 5
+  cpu_requests: 300m
+  memory_requests: 1.5Gi
+  cpu_limits: 400m
+  memory_limits: 2Gi
+  images:
+    - egovio/egov-persister
+  persist-yml-path: "/work-dir/health-campaign-config/egov-persister/so"
   initContainers:
     gitSync:
       repo: "git@github.com:HCM-BAUCHI/health-campaign-config"      ##### Change repo url with Your fork Repo url
