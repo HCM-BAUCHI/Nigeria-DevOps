@@ -1,0 +1,14 @@
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: zamfara-hcm.digit.org-tls-certs
+  namespace: egov
+spec:
+  secretName: zamfara-hcm.digit.org-tls-certs
+  issuerRef:
+    name: letsencrypt-prod
+    kind: ClusterIssuer
+  commonName: zamfara-hcm.digit.org
+  dnsNames:
+    - zamfara-hcm.digit.org
+

@@ -56,6 +56,8 @@ initContainers:
               key: chad-db-url
           {{- else if eq .Values.namespace "bauchi" }}
               key: ba-db-url
+          {{- else if eq .Values.namespace "zamfara" }}
+              key: zf-db-url
           {{- else }}
               key: db-url
           {{- end }}
@@ -81,6 +83,8 @@ initContainers:
           value: "jg"
           {{- else if eq .Values.namespace "chad-prod" }}
           value: "chad"
+          {{- else if eq .Values.namespace "zamfara" }}
+          value: "zf"
           {{- else }}
           value: "public"
           {{- end }}
@@ -182,6 +186,8 @@ extraEnv:
             key: jg-db-url
             {{- else if eq .Values.namespace "chad-prod"}}
             key: chad-db-url
+            {{- else if eq .Values.namespace "zamfara"}}
+            key: zf-db-url
             {{- else }}
             key: db-url
             {{- end }}
@@ -212,6 +218,8 @@ extraEnv:
             key: jg-db-url
             {{- else if eq .Values.namespace "chad-prod" }}
             key: chad-db-url
+            {{- else if eq .Values.namespace "zamfara" }}
+            key: zf-db-url
             {{- else }}
             key: db-url
             {{- end }}
