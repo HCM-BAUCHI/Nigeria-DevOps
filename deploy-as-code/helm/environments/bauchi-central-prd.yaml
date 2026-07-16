@@ -1628,7 +1628,7 @@ project-factory:
   serverTimezone: "UTC"
   attendanceAttendeeSearchPageSize: "100"
   attendanceStaffSearchPageSize: "100"
-  centralInstanceTenantIds: "ba,oy,ko,na,ab,pl,bo,ke,so,od,ad,kd,jg,ch,go"
+  centralInstanceTenantIds: "ba,oy,ko,na,ab,pl,bo,ke,so,od,ad,kd,jg,ch,go,zf"
   command: |
     - sh
     - -c
@@ -2007,6 +2007,7 @@ health-expense-calculator:
     - chad-hcm.digit.org
     - chad-hcm-prod.digit.org
     - gombe-hcm.digit.org
+    - zamfara-hcm.digit.org
   initContainers:
     dbMigration:
       image:

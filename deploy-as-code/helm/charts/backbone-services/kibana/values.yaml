@@ -208,6 +208,9 @@ ingress:
     - host: chad-hcm.digit.org
       paths:
         - path: /kibana-upgrade
+    - host: zamfara-hcm.digit.org
+      paths:
+        - path: /kibana-upgrade
   tls: 
     - secretName: bauchi-hcm.digit.org-tls-certs
       hosts:
@@ -257,6 +260,9 @@ ingress:
     - secretName: chad-hcm.digit.org-tls-certs
       hosts:
         - chad-hcm.digit.org
+    - secretName: zamfara-hcm.digit.org-tls-certs
+      hosts:
+        - zamfara-hcm.digit.org
 
 readinessProbe:
   failureThreshold: 3
