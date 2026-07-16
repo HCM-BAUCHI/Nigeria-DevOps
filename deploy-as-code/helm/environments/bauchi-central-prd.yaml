@@ -736,7 +736,7 @@ egov-persister-so-zf:
   memory_limits: 2Gi
   images:
     - egovio/egov-persister
-  persist-yml-path: "/work-dir/health-campaign-config/egov-persister/so"
+  persist-yml-path: "/work-dir/health-campaign-config/egov-persister/so,/work-dir/health-campaign-config/egov-persister/zf"
   initContainers:
     gitSync:
       repo: "git@github.com:HCM-BAUCHI/health-campaign-config"      ##### Change repo url with Your fork Repo url
