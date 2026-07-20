@@ -575,7 +575,7 @@ egov-indexer-so-zf:
     gitSync:
       repo: "git@github.com:HCM-BAUCHI/health-campaign-config"        ##### Change repo url with Your fork Repo url
       branch: "PROD"                                      ##### Change repo branch with Your fork Repo branch
-  egov-indexer-yaml-repo-path: "/work-dir/health-campaign-config/egov-indexer/so"
+  egov-indexer-yaml-repo-path: "/work-dir/health-campaign-config/egov-indexer/so,/work-dir/health-campaign-config/egov-indexer/zf"
 
 egov-indexer-na-oy-ko-jg:
   image:
