@@ -1272,6 +1272,8 @@ product:
     minReplicas: 2
     maxReplicas: 7
   cpu_requests: 200m
+  spring-datasource-tomcat-max-active: "25"
+  server-tomcat-max-threads: "200"
   memory_requests: 512Mi
   cpu_limits: 300m
   memory_limits: 768Mi
