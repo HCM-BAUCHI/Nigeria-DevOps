@@ -1272,7 +1272,7 @@ product:
     enabled: true
     minReplicas: 2
     maxReplicas: 7
-  cpu_requests: 200m
+  cpu_requests: 400m
   spring-datasource-tomcat-max-active: "25"
   server-tomcat-max-threads: "200"
   memory_requests: 768Mi
