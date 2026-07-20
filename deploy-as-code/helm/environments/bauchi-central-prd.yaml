@@ -1266,6 +1266,7 @@ product:
     tag: summaryreportodwnloadfeature-81a31da
   central-instance-build: true
   central-instance-enabled: true
+  db-read-url-enabled: true
   heap: "-Xmx512m -Xms256m"
   hpa:
     enabled: true
