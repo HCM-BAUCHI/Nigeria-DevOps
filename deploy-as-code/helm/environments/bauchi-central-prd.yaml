@@ -1260,10 +1260,10 @@ product:
     dbMigration:
       image:
         repository: egovio/product-db
-        tag: summaryreportodwnloadfeature-81a31da
+        tag: summaryreportodwnloadfeature-2867f24
   image:
     repository: egovio/product
-    tag: summaryreportodwnloadfeature-81a31da
+    tag: summaryreportodwnloadfeature-2867f24
   central-instance-build: true
   central-instance-enabled: true
   db-read-url-enabled: true
