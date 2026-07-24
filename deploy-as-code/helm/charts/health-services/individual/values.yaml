@@ -49,6 +49,8 @@ individual-beneficiary-id-update-enabled: "false"
 individual-beneficiary-id-length: "12"
 notification-sms-disabled-roles: "ORG_ADMIN"
 
+db-read-url-enabled-2: true
+
 # Additional Container Envs
 env: |
   - name: SPRING_KAFKA_CONSUMER_GROUP_ID

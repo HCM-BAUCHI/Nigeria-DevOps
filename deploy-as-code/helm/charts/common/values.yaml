@@ -176,6 +176,8 @@ extraEnv:
             name: egov-config
             {{- if index .Values "db-read-url-enabled" }}
             key: db-read-url
+            {{- else if index .Values "db-read-url-enabled-2" }}
+            key: db-read-url-2
             {{- else if eq .Values.namespace "bauchi" }}
             key: ba-db-url
             {{- else if eq .Values.namespace "kaduna" }}
@@ -208,6 +210,8 @@ extraEnv:
             name: egov-config
             {{- if index .Values "db-read-url-enabled" }}
             key: db-read-url
+            {{- else if index .Values "db-read-url-enabled-2" }}
+            key: db-read-url-2
             {{- else if eq .Values.namespace "bauchi" }}
             key: ba-db-url
             {{- else if eq .Values.namespace "kaduna" }}
