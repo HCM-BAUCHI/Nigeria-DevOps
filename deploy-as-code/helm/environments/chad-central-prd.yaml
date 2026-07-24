@@ -11,8 +11,8 @@ transformer:
   heap: "-Xmx1536m -Xms1024m"
   hpa:
     enabled: true
-    minReplicas: 2
-    maxReplicas: 7
+    minReplicas: 4
+    maxReplicas: 4
   cpu_requests: 300m
   memory_requests: 1.5Gi
   cpu_limits: 400m
