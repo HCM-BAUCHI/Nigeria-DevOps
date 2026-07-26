@@ -272,6 +272,7 @@ egov-idgen:
   memory_limits: 1Gi
 
 mdms-v2:
+  db-read-url-enabled: true
   initContainers:
     dbMigration:
       image:
@@ -307,6 +308,7 @@ egov-accesscontrol:
   memory_limits: 768Mi
 
 pgr-services:
+  db-read-url-enabled: true
   initContainers:
     dbMigration:
       image:
@@ -998,6 +1000,7 @@ internal-gateway-scg:
 #  musterroll-validate-attendance-register-enabled: "true"
 
 egov-workflow-v2:
+  db-read-url-enabled: true
   initContainers:
     dbMigration:
       image:
@@ -1024,6 +1027,7 @@ egov-workflow-v2:
   pdf-link: "/download/epass?tenantId={TENANTID}&ids={UUID}"
 
 egov-hrms:
+  db-read-url-enabled: true
   initContainers:
     dbMigration:
       image:
@@ -1231,6 +1235,7 @@ grafana:
   dashboardsFolder: /work-dir/health-campaign-config/monitoring-dashboards    
 
 facility:
+  db-read-url-enabled: true
   initContainers:
     dbMigration:
       image:
@@ -1357,6 +1362,7 @@ individual-referral:
 
 
 stock:
+  db-read-url-enabled: true
   initContainers:
     dbMigration:
       image:
@@ -1388,6 +1394,7 @@ stock:
         value: "DEBUG"
 
 household:
+  db-read-url-enabled: true
   initContainers:
     dbMigration:
       image:
@@ -1436,6 +1443,7 @@ household-referral:
   hostExclude: ["chad-hcm-prod.digit.org", "kebbi-azm-central-hcm.digit.org"]
 
 project:
+  db-read-url-enabled: true
   initContainers:
     dbMigration:
       image:
@@ -1535,6 +1543,7 @@ referralmanagement:
   egov-wardfilegen-file-pool-size: "32"
 
 service-request:
+  db-read-url-enabled: true
   initContainers:
     dbMigration:
       image:
@@ -1642,6 +1651,7 @@ project-factory:
 
 
 worker-registry:
+  db-read-url-enabled: true
   namespace: egov
   initContainers:
     dbMigration:
@@ -1909,6 +1919,7 @@ hcm-moz-impl:
       memory: "3Gi"
       
 health-attendance:
+  db-read-url-enabled: true
   namespace: egov
   initContainers:
     dbMigration:
@@ -1936,6 +1947,7 @@ health-attendance:
   egov-mdms-service-endpoint-key: "/mdms-v2/v1/_search"
 
 health-muster-roll:
+  db-read-url-enabled: true
   namespace: egov
   initContainers:
     dbMigration:
@@ -1961,6 +1973,7 @@ health-muster-roll:
   memory_limits: 768Mi
 
 health-expense:
+  db-read-url-enabled: true
   namespace: egov
   initContainers:
     dbMigration:

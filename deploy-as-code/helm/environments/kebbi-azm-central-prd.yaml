@@ -18,6 +18,7 @@ cluster-configs:
         db-name: "ngcentralprd" ## Add db-name
         db-url: "jdbc:postgresql://ng-central-prd-db.cpe4q0cycqi7.af-south-1.rds.amazonaws.com:5432/ngcentralprd"
         db-read-url: "jdbc:postgresql://ng-central-prd-read-db.cpe4q0cycqi7.af-south-1.rds.amazonaws.com:5432/ngcentralprd"
+        kb-db-read-url: "jdbc:postgresql://ng-central-prd-read-db.cpe4q0cycqi7.af-south-1.rds.amazonaws.com:5432/ngcentralprd?currentSchema=kb"
         kd-db-url: "jdbc:postgresql://ng-central-prd-db.cpe4q0cycqi7.af-south-1.rds.amazonaws.com:5432/ngcentralprd?currentSchema=kd"
         jg-db-url: "jdbc:postgresql://ng-central-prd-db.cpe4q0cycqi7.af-south-1.rds.amazonaws.com:5432/ngcentralprd?currentSchema=jg"
         kb-db-url: "jdbc:postgresql://ng-central-prd-db.cpe4q0cycqi7.af-south-1.rds.amazonaws.com:5432/ngcentralprd?currentSchema=kb"
@@ -102,6 +103,7 @@ cluster-configs:
         health-expense: 'http://health-expense.egov:8080/'
 
 household:
+  db-read-url-enabled: true
   central-instance-build: true
   central-instance-enabled: false
   heap: "-Xmx1024m -Xms512m"
@@ -222,6 +224,7 @@ individual-referral:
   individual-producer-update-user-id-topic: kb-update-user-id-topic
 
 project:
+  db-read-url-enabled: true
   central-instance-build: true
   central-instance-enabled: false
   heap: "-Xmx1g -Xms512m"
@@ -404,6 +407,7 @@ product:
   product-variant-kafka-update-topic: kb-update-product-variant-topic
 
 facility:
+  db-read-url-enabled: true
   central-instance-build: true
   central-instance-enabled: false
   heap: "-Xmx512m -Xms256m"
@@ -429,6 +433,7 @@ facility:
   facility-consumer-bulk-update-topic: kb-update-facility-bulk-topic
 
 stock:
+  db-read-url-enabled: true
   central-instance-build: true
   central-instance-enabled: false
   ingress:
@@ -460,6 +465,7 @@ stock:
   stock-reconciliation-consumer-bulk-update-topic: kb-update-stock-reconciliation-bulk-topic
 
 egov-hrms:
+  db-read-url-enabled: true
   heap: "-Xmx1024m -Xms512m"
   hpa:
     enabled: true
@@ -487,6 +493,7 @@ egov-hrms:
 
 
 service-request:
+  db-read-url-enabled: true
   central-instance-build: true
   central-instance-enabled: false
   heap: "-Xmx512m -Xms256m"

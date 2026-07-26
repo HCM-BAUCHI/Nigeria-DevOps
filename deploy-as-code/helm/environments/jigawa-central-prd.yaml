@@ -18,6 +18,7 @@ cluster-configs:
         db-name: "ngcentralprd" ## Add db-name
         db-url: "jdbc:postgresql://ng-central-prd-db.cpe4q0cycqi7.af-south-1.rds.amazonaws.com:5432/ngcentralprd"
         db-read-url: "jdbc:postgresql://ng-central-prd-read-db.cpe4q0cycqi7.af-south-1.rds.amazonaws.com:5432/ngcentralprd"
+        jg-db-read-url: "jdbc:postgresql://ng-central-prd-read-db.cpe4q0cycqi7.af-south-1.rds.amazonaws.com:5432/ngcentralprd?currentSchema=jg"
         kd-db-url: "jdbc:postgresql://ng-central-prd-db.cpe4q0cycqi7.af-south-1.rds.amazonaws.com:5432/ngcentralprd?currentSchema=kd"
         jg-db-url: "jdbc:postgresql://ng-central-prd-db.cpe4q0cycqi7.af-south-1.rds.amazonaws.com:5432/ngcentralprd?currentSchema=jg"
         kb-db-url: "jdbc:postgresql://ng-central-prd-db.cpe4q0cycqi7.af-south-1.rds.amazonaws.com:5432/ngcentralprd?currentSchema=kb"
