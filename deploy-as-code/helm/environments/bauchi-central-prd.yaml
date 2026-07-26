@@ -338,7 +338,7 @@ egov-enc-service:
   image:
     repository: egovio/egov-enc-service
     tag: HCMPRE-2741-encryption-664a4e7
-  spring-datasource-tomcat-max-active: "20"
+  spring-datasource-tomcat-max-active: "2"
   server-tomcat-max-threads: "30"
   heap: "-Xmx384m -Xms128m"
   hpa:
