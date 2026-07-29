@@ -2296,11 +2296,13 @@ central-instance-base-path: "file:///work-dir/health-campaign-config/egov-dss-da
 
 beneficiary-idgen:
   namespace: egov
+  central-instance-build: true
+  central-instance-enabled: true
   initContainers:
     dbMigration:
       image:
         repository: egovio/beneficiary-idgen-db
-        tag: beneficiary-igden-tenant-specific-ddd07eb
+        tag: beneficiary-idgen-central-instance-a8d144a
   image:
     repository: egovio/beneficiary-idgen
     tag: beneficiary-igden-tenant-specific-ddd07eb
