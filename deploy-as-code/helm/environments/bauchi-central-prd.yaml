@@ -2305,7 +2305,7 @@ beneficiary-idgen:
         tag: beneficiary-idgen-central-instance-a8d144a
   image:
     repository: egovio/beneficiary-idgen
-    tag: beneficiary-igden-tenant-specific-ddd07eb
+    tag: beneficiary-idgen-central-instance-mdms-6b8ad7c
   spring-datasource-tomcat-max-active: "5"
   server-tomcat-max-threads: "10"
   hpa:
