@@ -2310,8 +2310,8 @@ beneficiary-idgen:
   server-tomcat-max-threads: "10"
   hpa:
     enabled: true
-    minReplicas: 8
-    maxReplicas: 12
+    minReplicas: 2
+    maxReplicas: 6
 
 inbox:
   namespace: egov
