@@ -2308,6 +2308,11 @@ beneficiary-idgen:
     tag: beneficiary-idgen-central-instance-mdms-6b8ad7c
   spring-datasource-tomcat-max-active: "5"
   server-tomcat-max-threads: "10"
+  heap: "-Xmx512m -Xms384m"
+  cpu_requests: 200m
+  memory_requests: 512Mi
+  cpu_limits: 300m
+  memory_limits: 1024Mi
   hpa:
     enabled: true
     minReplicas: 2
