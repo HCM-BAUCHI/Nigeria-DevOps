@@ -1313,10 +1313,10 @@ individual:
     dbMigration:
       image:
         repository: egovio/individual-db
-        tag: customize-2.0-individual-6d6d26b
+        tag: customize-2.0-individual-2b3a499
   image:
     repository: egovio/individual
-    tag: customize-2.0-individual-6d6d26b
+    tag: customize-2.0-individual-2b3a499
   central-instance-build: true
   central-instance-enabled: true
   heap: "-Xmx1g -Xms512m"
@@ -1338,7 +1338,7 @@ individual:
 individual-referral:
   image:
     repository: egovio/individual
-    tag: customize-2.0-individual-6d6d26b
+    tag: customize-2.0-individual-2b3a499
   spring-datasource-tomcat-max-active: "30"
   server-tomcat-max-threads: "40"
   central-instance-build: true
