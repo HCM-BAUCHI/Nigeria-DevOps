@@ -49,7 +49,8 @@ individual-beneficiary-id-update-enabled: "false"
 individual-beneficiary-id-length: "12"
 notification-sms-disabled-roles: "ORG_ADMIN"
 
-db-read-url-enabled-2: true
+db-read-url-enabled: true
+db-read-url-enabled-2: false
 
 # Additional Container Envs
 env: |

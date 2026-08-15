@@ -3,7 +3,8 @@ labels:
   app: "individual-referral"
   group: "core"
 
-db-read-url-enabled-2: true
+db-read-url-enabled: true
+db-read-url-enabled-2: false
 
 # Ingress Configs
 ingress:
