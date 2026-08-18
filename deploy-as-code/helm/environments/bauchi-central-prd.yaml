@@ -379,10 +379,10 @@ boundary-management:
     dbMigration:
       image:
         repository: egovio/boundary-management-db
-        tag: master-aa57e79
+        tag: master-b912a1c
   image:
     repository: egovio/boundary-management
-    tag: master-aa57e79
+    tag: master-b912a1c
   central-instance-build: true
   central-instance-enabled: true
   schemaNameExclude: [ "chad", "kb" ]
@@ -394,9 +394,9 @@ boundary-management:
     minReplicas: 1
     maxReplicas: 3
   cpu_requests: 200m
-  memory_requests: 1Gi
+  memory_requests: 2Gi
   cpu_limits: 400m
-  memory_limits: 1.5Gi
+  memory_limits: 2Gi
   defaultLocale: 'en_NG'
 
 egov-user:
