@@ -357,10 +357,10 @@ boundary-service:
     dbMigration:
       image:
         repository: "egovio/boundary-service-db"
-        tag: "boundary-hierarchy-def-modified-2.9-lts-8cde4b0"
+        tag: "master-perf-ad568fb"
   image:
     repository: "egovio/boundary-service"
-    tag: "boundary-hierarchy-def-modified-2.9-lts-8cde4b0"
+    tag: "master-perf-ad568fb"
   spring-datasource-tomcat-max-active: "10"
   server-tomcat-max-threads: "20"
   hpa:

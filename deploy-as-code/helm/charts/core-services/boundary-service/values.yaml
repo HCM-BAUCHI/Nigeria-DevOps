@@ -34,6 +34,20 @@ kafka-topics-create-boundary-hierarchy: "save-boundary-hierarchy-definition"
 kafka-topics-update-boundary-hierarchy: "update-boundary-hierarchy-definition"
 kafka-topics-create-boundary-relationship: "save-boundary-relationship"
 kafka-topics-update-boundary-relationship: "update-boundary-relationship"
+kafka-topics-bulk-create-boundary-relationship-job: "boundary-relationship-bulk-create-job"
+
+boundary-default-offset: 0
+boundary-default-limit: 50
+boundary-max-default-limit: 300
+boundary-bulk-max-size: 100
+
+spring-kafka-consumer-enable-auto-commit: false
+spring-kafka-producer-retries: 3
+spring-kafka-producer-batch-size: 16384
+spring-kafka-producer-properties-linger-ms: 1
+spring-kafka-producer-buffer-memory: "33554432"
+spring-kafka-producer-properties-max-block-ms: 15000
+
 memory_limits: "512Mi"
 cpu_limits: "150m"
 
@@ -73,3 +87,25 @@ env: |
     value: {{ index .Values "kafka-topics-update-boundary" | quote }}
   - name: KAFKA_TOPICS_UPDATE_BOUNDARY_HIERARCHY
     value: {{ index .Values "kafka-topics-update-boundary-hierarchy" | quote }}
+  - name: KAFKA_TOPICS_BULK_CREATE_BOUNDARY_RELATIONSHIP_JOB
+    value: {{ index .Values "kafka-topics-bulk-create-boundary-relationship-job" | quote }}
+  - name: BOUNDARY_DEFAULT_OFFSET
+    value: {{ index .Values "boundary-default-offset" | quote }}
+  - name: BOUNDARY_DEFAULT_LIMIT
+    value: {{ index .Values "boundary-default-limit" | quote }}
+  - name: BOUNDARY_MAX_DEFAULT_LIMIT
+    value: {{ index .Values "boundary-max-default-limit" | quote }}
+  - name: BOUNDARY_BULK_MAX_SIZE
+    value: {{ index .Values "boundary-bulk-max-size" | quote }}
+  - name: SPRING_KAFKA_CONSUMER_ENABLE_AUTO_COMMIT
+    value: {{ index .Values "spring-kafka-consumer-enable-auto-commit" | quote }}
+  - name: SPRING_KAFKA_PRODUCER_RETRIES
+    value: {{ index .Values "spring-kafka-producer-retries" | quote }}
+  - name: SPRING_KAFKA_PRODUCER_BATCH_SIZE
+    value: {{ index .Values "spring-kafka-producer-batch-size" | quote }}
+  - name: SPRING_KAFKA_PRODUCER_PROPERTIES_LINGER_MS
+    value: {{ index .Values "spring-kafka-producer-properties-linger-ms" | quote }}
+  - name: SPRING_KAFKA_PRODUCER_BUFFER_MEMORY
+    value: {{ index .Values "spring-kafka-producer-buffer-memory" | quote }}
+  - name: SPRING_KAFKA_PRODUCER_PROPERTIES_MAX_BLOCK_MS
+    value: {{ index .Values "spring-kafka-producer-properties-max-block-ms" | quote }}
