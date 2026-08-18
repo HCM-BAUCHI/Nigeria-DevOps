@@ -2138,10 +2138,10 @@ egov-notification-push:
     dbMigration:
       image:
         repository: egovio/egov-notification-push-db
-        tag: nigeria-go-deep-push-notification-batch-7d2ba39
+        tag: nigeria-go-deep-push-notification-batch-00fb53d
   image:
     repository: egovio/egov-notification-push
-    tag: nigeria-go-deep-push-notification-batch-7d2ba39
+    tag: nigeria-go-deep-push-notification-batch-00fb53d
   hpa:
     enabled: true
     minReplicas: 1
@@ -2153,6 +2153,14 @@ egov-notification-push:
   memory_requests: 1.5Gi
   cpu_limits: 600m
   memory_limits: 2Gi
+  extraEnv:
+    app: |
+      - name: TRACER_ERRORSPUBLISH
+        value: "true"
+      - name: TRACER_ERRORSTOPIC
+        value: "egov-error-notification"
+      - name: LOGGING_LEVEL_ORG_EGOV
+        value: "DEBUG"
 
 health-notification-service:
   namespace: egov
@@ -2160,10 +2168,10 @@ health-notification-service:
     dbMigration:
       image:
         repository: egovio/health-notification-service-db
-        tag: health-notification-service-cache-ca7303e
+        tag: health-notification-service-cache-0583519
   image:
     repository: egovio/health-notification-service
-    tag: health-notification-service-cache-ca7303e
+    tag: health-notification-service-cache-0583519
   hpa:
     enabled: true
     minReplicas: 1
@@ -2175,6 +2183,14 @@ health-notification-service:
   memory_requests: 768Mi
   cpu_limits: 300m
   memory_limits: 1296Mi
+  extraEnv:
+    app: |
+      - name: TRACER_ERRORSPUBLISH
+        value: "true"
+      - name: TRACER_ERRORSTOPIC
+        value: "egov-error-notification"
+      - name: LOGGING_LEVEL_ORG_EGOV
+        value: "DEBUG"
 
 #pdf-service:
 #  initContainers:
