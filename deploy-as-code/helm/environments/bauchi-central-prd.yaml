@@ -2157,8 +2157,6 @@ egov-notification-push:
     app: |
       - name: TRACER_ERRORSPUBLISH
         value: "true"
-      - name: TRACER_ERRORSTOPIC
-        value: "egov-error-notification"
       - name: LOGGING_LEVEL_ORG_EGOV
         value: "DEBUG"
 
