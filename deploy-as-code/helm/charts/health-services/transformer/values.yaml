@@ -108,6 +108,7 @@ egov-localization-module-name: "hcm-boundary-nigeriauat"
 transformer-consumer-create-user-action-topic: "save-user-action-project-topic"
 transformer-consumer-update-user-action-topic: "update-user-action-project-topic"
 transformer-producer-user-action-index-v1-topic: "transformer-producer-user-action-index-v1-topic"
+transformer-error-topic: "transformer-error-topic"
 # Additional Container Envs
 env: |
   - name: SPRING_KAFKA_CONSUMER_GROUP_ID
@@ -454,3 +455,5 @@ env: |
     value: {{ index .Values "transformer-producer-attendance-staff-index" | default "transformer-producer-attendance-staff-index" | quote }}
   - name: TRANSFORMER_PRODUCER_ATTENDEE_INDEX_V1_TOPIC
     value: {{ index .Values "transformer-producer-attendee-index" | default "transformer-producer-attendee-index" | quote }}
+  - name: TRANSFORMER_ERROR_TOPIC
+    value: {{ index .Values "transformer-error-topic" | default "transformer-error-topic" | quote }}

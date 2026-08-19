@@ -58,7 +58,7 @@ workbench-ui:
   namespace: borno
   image:
     repository: egovio/workbench-ui
-    tag: master-2d83e1d
+    tag: bednet-prod-copy-v1-cb5ec20
   custom-js-injection: |
     sub_filter.conf: "
       sub_filter  '<head>' '<head>
@@ -69,7 +69,7 @@ payments-ui:
   namespace: borno
   image:
     repository: egovio/payments-ui
-    tag: master-2d83e1d
+    tag: bednet-prod-copy-v2-2fd5985
   custom-js-injection: |
     sub_filter.conf: "
       sub_filter  '<head>' '<head>
@@ -80,7 +80,7 @@ transformer:
   namespace: "borno"
   image:
     repository: egovio/transformer
-    tag: HDDF-5226-1403ae9
+    tag: multihierarchy-error-catch-2d595c9
   replicas: 2
   heap: "-Xmx1536m -Xms1536m"
   hpa:
@@ -162,6 +162,7 @@ transformer:
   transformer-consumer-create-user-action-topic: "bo-save-user-action-project-task-topic"
   transformer-consumer-update-user-action-topic: "bo-update-user-action-project-task-topic"
   transformer-producer-user-action-index-v1-topic: "bo-transformer-producer-user-action-index-v1-topic"
+  transformer-error-topic: "ba-transformer-error-topic"
 
 hcm-moz-impl:
   namespace: borno
