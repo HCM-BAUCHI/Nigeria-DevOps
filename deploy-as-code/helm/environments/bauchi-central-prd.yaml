@@ -1041,10 +1041,10 @@ egov-hrms:
     dbMigration:
       image:
         repository: egovio/egov-hrms-db
-        tag: customize-2.1-hrms-88d374c
+        tag: customize-2.0-hrms-8b8c6e3
   image:
     repository: egovio/egov-hrms
-    tag: customize-2.1-hrms-88d374c
+    tag: customize-2.0-hrms-8b8c6e3
   heap: "-Xmx1024m -Xms512m"
   hpa:
     enabled: true
