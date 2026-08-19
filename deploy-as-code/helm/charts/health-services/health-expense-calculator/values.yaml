@@ -65,7 +65,7 @@ env: |
     valueFrom:
       configMapKeyRef:
         name: egov-service-host
-        key: health-expense
+        key: {{ index .Values "egov-bill-host-configmap-key" | default "health-expense" }}
   - name: EGOV_MDMS_HOST
     valueFrom:
       configMapKeyRef:

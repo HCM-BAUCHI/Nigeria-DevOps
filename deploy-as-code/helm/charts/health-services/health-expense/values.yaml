@@ -148,10 +148,14 @@ env: |
   - name: EXPENSE_V2_PERIODIC_BILLING_ENABLED
     value: {{ index .Values "expense-v2-periodic-billing-enabled" | default "false" | quote }}
   - name: EXPENSE_KAFKA_TENANT_ID_PATTERN
+  {{- if hasKey .Values "expense-kafka-tenant-id-pattern" }}
+    value: {{ index .Values "expense-kafka-tenant-id-pattern" | quote }}
+  {{- else }}
     valueFrom:
       configMapKeyRef:
         name: egov-config
         key: kafka-tenant-id-pattern
+  {{- end }}
   - name: TASK_SCHEDULER-BOOTSTRAP_TENANTS
     value: {{ index .Values "task-scheduler-bootstrap-tenants" | default "mz" | quote}}
   - name: WORKS_WORKER_REGISTRY_HOST

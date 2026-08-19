@@ -425,7 +425,7 @@ env: |
     valueFrom:
       configMapKeyRef:
         name: egov-service-host
-        key: health-expense
+        key: {{ index .Values "egov-bill-service-host-configmap-key" | default "health-expense" }}
   - name: EGOV_BILL_SEARCH_URL
     value: /health-expense/bill/v1/_search
   - name: EGOV_PROJECT_FACTORY_HOST

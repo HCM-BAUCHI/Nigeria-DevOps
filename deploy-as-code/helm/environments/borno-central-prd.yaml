@@ -162,7 +162,105 @@ transformer:
   transformer-consumer-create-user-action-topic: "bo-save-user-action-project-task-topic"
   transformer-consumer-update-user-action-topic: "bo-update-user-action-project-task-topic"
   transformer-producer-user-action-index-v1-topic: "bo-transformer-producer-user-action-index-v1-topic"
-  transformer-error-topic: "ba-transformer-error-topic"
+  transformer-error-topic: "bo-transformer-error-topic"
+  egov-bill-service-host-configmap-key: "health-expense-borno"
+
+health-expense:
+  namespace: borno
+  central-instance-build: true
+  central-instance-enabled: false
+  ingress:
+    name: borno-health-expense
+  service:
+    additionalAnnotations: |
+      zuul/route-host: borno-hcm.digit.org
+  initContainers:
+    dbMigration:
+      image:
+        repository: egovio/health-expense-db
+        tag: nigeria-go-deep-payments-expense-15b5a23
+  image:
+    repository: egovio/health-expense
+    tag: nigeria-go-deep-payments-expense-15b5a23
+  java-enable-debug: false
+  java-args: ""
+  business-workflow-status-map: "{'EXPENSE.WAGES':'false','EXPENSE.PURCHASE':'false','EXPENSE.SUPERVISION':'false','PAYMENTS.BILL':'true','PAYMENTS.BILLDETAILS':'true'}"
+  expense-v2-periodic-billing-enabled: true
+  task-scheduler-bootstrap-tenants: "bo"
+  expense-kafka-tenant-id-pattern: ""
+  expense-billing-bill-create: "bo-expense-bill-create-health"
+  expense-billing-bill-update: "bo-expense-bill-update-health"
+  report-generation-trigger-topic: "bo-report-generation-trigger"
+  heap: "-Xmx512m -Xms256m"
+  hpa:
+    enabled: true
+    minReplicas: 1
+    maxReplicas: 3
+  cpu_requests: 200m
+  memory_requests: 512Mi
+  cpu_limits: 300m
+  memory_limits: 768Mi
+
+health-expense-calculator:
+  namespace: borno
+  service:
+    additionalAnnotations: |
+      zuul/route-host: borno-hcm.digit.org
+  ingress:
+    name: borno-health-expense-calculator
+  egov-bill-host-configmap-key: "health-expense-borno"
+  initContainers:
+    dbMigration:
+      image:
+        repository: egovio/health-expense-calculator-db
+        tag: nigeria-go-deep-3fa1c21
+  image:
+    repository: egovio/health-expense-calculator
+    tag: nigeria-go-deep-3fa1c21
+  heap: "-Xmx2048m -Xms1024m"
+  hpa:
+    enabled: true
+    minReplicas: 2
+    maxReplicas: 5
+  cpu_requests: 500m
+  memory_requests: 1.5Gi
+  cpu_limits: 600m
+  memory_limits: 2.5Gi
+  central-instance-build: false
+  tracing-enabled: true
+  java-enable-debug: false
+  spring-kafka-consumer-group-id: "bo-health-expense-calculator"
+  egov-mdms-service-endpoint-key: "/mdms-v2/v1/_search"
+  report-header-title: "Health Campaign Payment Report"
+  report-date-time-format: "dd/MM/yyyy HH:mm:ss z"
+  is-attendance-approval-required: "true"
+  register-batch-size: 15
+  tenantId: "bo"
+  excell-state-level-tenant-id: "bo"
+  boundary-hierarchy-name: "boundary-hierarchy"
+  calculate-musterroll-health: bo-calculate-musterroll-health
+  calculate-error-health: bo-calculate-error-health
+  calculate-billmeta-health: bo-calculate-billmeta-health
+  report-error-queue-topic: bo-report-error-queue-topic
+  report-retry-queue-topic: bo-report-retry-queue-topic
+  report-generation-trigger-topic: bo-report-generation-trigger
+  report-generation-retry-trigger-topic: bo-report-generation-retry-trigger
+  bill-generation-async-topic: bo-bill-generation-async-topic
+  bill-generation-async-enabled: "true"
+  expense-bill-create-topic: bo-expense-bill-create-health
+  expense-bill-update-topic: bo-expense-bill-update-health
+  expense-bill-index-topic: bo-expense-bill-index-health
+  payment-pdf-key: "health-bill-payment-bo"
+  billing-frequency-custom-minimum-days: "1"
+  billing-config-v2-enabled: "true"
+  billing-config-create-topic: bo-billing-config-create
+  billing-config-update-topic: bo-billing-config-update
+  billing-period-status-update-topic: bo-billing-period-status-update
+  billing-period-generation-enabled: "true"
+  billing-muster-roll-period-aware-enabled: "true"
+  egov-musterroll-search-endpoint: "/health-muster-roll/v1/_search"
+  project-management-system-kafka-update-topic: bo-update-project
+  project-management-system-kafka-update-date-topic: bo-update-project-date
 
 hcm-moz-impl:
   namespace: borno
