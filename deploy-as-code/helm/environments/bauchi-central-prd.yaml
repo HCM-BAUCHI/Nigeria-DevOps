@@ -1984,7 +1984,7 @@ health-muster-roll:
   memory_limits: 768Mi
 
 health-expense:
-  db-read-url-enabled: true
+  db-read-url-enabled: false
   namespace: egov
   initContainers:
     dbMigration:

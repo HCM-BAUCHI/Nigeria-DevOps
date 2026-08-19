@@ -60,6 +60,8 @@ initContainers:
               key: zf-db-url
           {{- else if eq .Values.namespace "borno" }}
               key: bo-db-url
+          {{- else if eq .Values.namespace "oyo" }}
+              key: oy-db-url
           {{- else }}
               key: db-url
           {{- end }}
@@ -212,6 +214,8 @@ extraEnv:
             key: zf-db-url
             {{- else if eq .Values.namespace "borno" }}
             key: bo-db-url
+            {{- else if eq .Values.namespace "oyo" }}
+            key: oy-db-url
             {{- else }}
             key: db-url
             {{- end }}
@@ -244,6 +248,8 @@ extraEnv:
             key: zf-db-url
             {{- else if eq .Values.namespace "borno" }}
             key: bo-db-url
+            {{- else if eq .Values.namespace "oyo" }}
+            key: oy-db-url
             {{- else }}
             key: db-url
             {{- end }}
