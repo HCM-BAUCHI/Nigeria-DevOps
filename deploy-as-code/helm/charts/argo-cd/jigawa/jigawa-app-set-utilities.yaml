@@ -19,7 +19,7 @@ spec:
       source:
         repoURL: git@github.com:HCM-BAUCHI/Nigeria-Devops.git
         targetRevision: ng-central-prd
-        path: deploy-as-code/helm/charts/utilities/{{name}}
+        path: deploy-as-code/helm/charts/health-services/{{name}}
         helm:
           valueFiles:
             - values.yaml
