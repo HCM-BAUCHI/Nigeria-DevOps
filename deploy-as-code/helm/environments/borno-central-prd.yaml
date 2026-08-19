@@ -178,10 +178,10 @@ health-expense:
     dbMigration:
       image:
         repository: egovio/health-expense-db
-        tag: nigeria-go-deep-payments-expense-15b5a23
+        tag: nigeria-go-deep-ekfrazo-e8a113c
   image:
     repository: egovio/health-expense
-    tag: nigeria-go-deep-payments-expense-15b5a23
+    tag: nigeria-go-deep-ekfrazo-e8a113c
   java-enable-debug: false
   java-args: ""
   business-workflow-status-map: "{'EXPENSE.WAGES':'false','EXPENSE.PURCHASE':'false','EXPENSE.SUPERVISION':'false','PAYMENTS.BILL':'true','PAYMENTS.BILLDETAILS':'true'}"
@@ -190,6 +190,7 @@ health-expense:
   expense-kafka-tenant-id-pattern: ""
   expense-billing-bill-create: "bo-expense-bill-create-health"
   expense-billing-bill-update: "bo-expense-bill-update-health"
+  expense-bill-signature-required-actions: "SEND_FOR_REVIEW,SEND_FOR_APPROVAL,PAYMENT_INITIATION"
   report-generation-trigger-topic: "bo-report-generation-trigger"
   heap: "-Xmx512m -Xms256m"
   hpa:
@@ -213,10 +214,10 @@ health-expense-calculator:
     dbMigration:
       image:
         repository: egovio/health-expense-calculator-db
-        tag: nigeria-go-deep-3fa1c21
+        tag: nigeria-go-deep-ekfrazo-e8a113c
   image:
     repository: egovio/health-expense-calculator
-    tag: nigeria-go-deep-3fa1c21
+    tag: nigeria-go-deep-ekfrazo-e8a113c
   heap: "-Xmx2048m -Xms1024m"
   hpa:
     enabled: true
@@ -251,6 +252,8 @@ health-expense-calculator:
   expense-bill-update-topic: bo-expense-bill-update-health
   expense-bill-index-topic: bo-expense-bill-index-health
   payment-pdf-key: "health-bill-payment-bo"
+  egov-filestore-signature-connect-timeout-ms: "3000"
+  egov-filestore-signature-read-timeout-ms: "10000"
   billing-frequency-custom-minimum-days: "1"
   billing-config-v2-enabled: "true"
   billing-config-create-topic: bo-billing-config-create

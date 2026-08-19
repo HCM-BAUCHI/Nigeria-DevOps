@@ -156,6 +156,10 @@ env: |
         name: egov-config
         key: kafka-tenant-id-pattern
   {{- end }}
+  {{- if hasKey .Values "expense-bill-signature-required-actions" }}
+  - name: EXPENSE_BILL_SIGNATURE_REQUIRED_ACTIONS
+    value: {{ index .Values "expense-bill-signature-required-actions" | quote }}
+  {{- end }}
   - name: TASK_SCHEDULER-BOOTSTRAP_TENANTS
     value: {{ index .Values "task-scheduler-bootstrap-tenants" | default "mz" | quote}}
   - name: WORKS_WORKER_REGISTRY_HOST
