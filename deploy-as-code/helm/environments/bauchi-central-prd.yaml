@@ -1526,8 +1526,8 @@ referralmanagement:
   memory_requests: 1.5Gi
   cpu_limits: 400m
   memory_limits: 2Gi
-  schemaNameExclude: [ "chad", "kb", "kd", "jg" ]
-  hostExclude: ["chad-hcm-prod.digit.org", "kebbi-azm-central-hcm.digit.org", "kaduna-central-hcm.digit.org", "jigawa-central-hcm.digit.org"]
+  schemaNameExclude: [ "chad", "kb" ]
+  hostExclude: ["chad-hcm-prod.digit.org", "kebbi-azm-central-hcm.digit.org"]
   kafka-consumer-group-id: "health-referral-management"
   egov-s3-bucket: "downsync-ng-prod"
   egov-s3-region: "af-south-1"

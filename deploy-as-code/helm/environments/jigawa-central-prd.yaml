@@ -204,54 +204,6 @@ hcm-moz-impl:
       memory: "3Gi"
 
 
-referralmanagement:
-  namespace: jigawa
-  ingress:
-    enabled: true
-    zuul: true
-    namespace: egov
-    name: referralmanagement-jigawa
-    context: referralmanagement
-  initContainers:
-    dbMigration:
-      image:
-        repository: egovio/referralmanagement-db
-        tag: nigeria-go-deep-2-e0dbbd4
-  image:
-    repository: egovio/referralmanagement
-    tag: nigeria-go-deep-2-e0dbbd4
-  central-instance-build: true
-  downsync-services-enabled: true
-  heap: "-Xmx1536m -Xms768m"
-  hpa:
-    enabled: true
-    minReplicas: 2
-    maxReplicas: 5
-  cpu_requests: 300m
-  memory_requests: 1.5Gi
-  cpu_limits: 400m
-  memory_limits: 2Gi
-  egov-enc-service-configmap-key: "egov-enc-service-jigawa"
-  referralmanagement-sideeffect-kafka-create-topic: "jg-save-side-effect-topic"
-  referralmanagement-sideeffect-kafka-update-topic: "jg-update-side-effect-topic"
-  referralmanagement-sideeffect-kafka-delete-topic: "jg-delete-side-effect-topic"
-  referralmanagement-sideeffect-consumer-bulk-create-topic: "jg-save-side-effect-bulk-topic"
-  referralmanagement-sideeffect-consumer-bulk-update-topic: "jg-update-side-effect-bulk-topic"
-  referralmanagement-sideeffect-consumer-bulk-delete-topic: "jg-delete-side-effect-bulk-topic"
-  referralmanagement-referral-kafka-create-topic: "jg-save-referral-topic"
-  referralmanagement-referral-kafka-update-topic: "jg-update-referral-topic"
-  referralmanagement-referral-kafka-delete-topic: "jg-delete-referral-topic"
-  referralmanagement-referral-consumer-bulk-create-topic: "jg-save-referral-bulk-topic"
-  referralmanagement-referral-consumer-bulk-update-topic: "jg-update-referral-bulk-topic"
-  referralmanagement-referral-consumer-bulk-delete-topic: "jg-delete-referral-bulk-topic"
-  referralmanagement-hfreferral-kafka-create-topic: "jg-save-hfreferral-topic"
-  referralmanagement-hfreferral-kafka-update-topic: "jg-update-hfreferral-topic"
-  referralmanagement-hfreferral-kafka-delete-topic: "jg-delete-hfreferral-topic"
-  referralmanagement-hfreferral-consumer-bulk-create-topic: "jg-save-hfreferral-bulk-topic"
-  referralmanagement-hfreferral-consumer-bulk-update-topic: "jg-update-hfreferral-bulk-topic"
-  referralmanagement-hfreferral-consumer-bulk-delete-topic: "jg-delete-hfreferral-bulk-topic"
-  kafka-consumer-group-id: "jg-health-referral-management"
-
 digit-ui:
   namespace: jigawa
   image:

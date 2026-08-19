@@ -271,54 +271,6 @@ hcm-moz-impl:
       memory: "3Gi"
 
 
-referralmanagement:
-  namespace: kaduna
-  ingress:
-    enabled: true
-    zuul: true
-    namespace: egov
-    name: referralmanagement-kaduna
-    context: referralmanagement
-  initContainers:
-    dbMigration:
-      image:
-        repository: egovio/referralmanagement-db
-        tag: nigeria-go-deep-2-e0dbbd4
-  image:
-    repository: egovio/referralmanagement
-    tag: nigeria-go-deep-2-e0dbbd4
-  central-instance-build: true
-  downsync-services-enabled: true
-  heap: "-Xmx1536m -Xms768m"
-  hpa:
-    enabled: true
-    minReplicas: 2
-    maxReplicas: 5
-  cpu_requests: 300m
-  memory_requests: 1.5Gi
-  cpu_limits: 400m
-  memory_limits: 2Gi
-  egov-enc-service-configmap-key: "egov-enc-service-kaduna"
-  referralmanagement-sideeffect-kafka-create-topic: "kd-save-side-effect-topic"
-  referralmanagement-sideeffect-kafka-update-topic: "kd-update-side-effect-topic"
-  referralmanagement-sideeffect-kafka-delete-topic: "kd-delete-side-effect-topic"
-  referralmanagement-sideeffect-consumer-bulk-create-topic: "kd-save-side-effect-bulk-topic"
-  referralmanagement-sideeffect-consumer-bulk-update-topic: "kd-update-side-effect-bulk-topic"
-  referralmanagement-sideeffect-consumer-bulk-delete-topic: "kd-delete-side-effect-bulk-topic"
-  referralmanagement-referral-kafka-create-topic: "kd-save-referral-topic"
-  referralmanagement-referral-kafka-update-topic: "kd-update-referral-topic"
-  referralmanagement-referral-kafka-delete-topic: "kd-delete-referral-topic"
-  referralmanagement-referral-consumer-bulk-create-topic: "kd-save-referral-bulk-topic"
-  referralmanagement-referral-consumer-bulk-update-topic: "kd-update-referral-bulk-topic"
-  referralmanagement-referral-consumer-bulk-delete-topic: "kd-delete-referral-bulk-topic"
-  referralmanagement-hfreferral-kafka-create-topic: "kd-save-hfreferral-topic"
-  referralmanagement-hfreferral-kafka-update-topic: "kd-update-hfreferral-topic"
-  referralmanagement-hfreferral-kafka-delete-topic: "kd-delete-hfreferral-topic"
-  referralmanagement-hfreferral-consumer-bulk-create-topic: "kd-save-hfreferral-bulk-topic"
-  referralmanagement-hfreferral-consumer-bulk-update-topic: "kd-update-hfreferral-bulk-topic"
-  referralmanagement-hfreferral-consumer-bulk-delete-topic: "kd-delete-hfreferral-bulk-topic"
-  kafka-consumer-group-id: "kd-health-referral-management"
-
 digit-ui:
   namespace: kaduna
   custom-js-injection: |
