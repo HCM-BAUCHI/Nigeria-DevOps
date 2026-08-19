@@ -277,10 +277,10 @@ mdms-v2:
     dbMigration:
       image:
         repository: egovio/mdms-v2-db
-        tag: central-instance-mdms-2-944672d
+        tag: central-instance-mdms-2-590b8ea
   image:
     repository: egovio/mdms-v2
-    tag: central-instance-mdms-2-944672d
+    tag: central-instance-mdms-2-590b8ea
   central-instance-build: true
   central-instance-enabled: true
   hpa:
@@ -334,10 +334,10 @@ egov-enc-service:
     dbMigration:
       image:
         repository: egovio/egov-enc-service-db
-        tag: HCMPRE-2741-encryption-664a4e7
+        tag: central-instance-tracerNew-eb7ff05
   image:
     repository: egovio/egov-enc-service
-    tag: HCMPRE-2741-encryption-664a4e7
+    tag: central-instance-tracerNew-eb7ff05
   spring-datasource-tomcat-max-active: "2"
   server-tomcat-max-threads: "30"
   heap: "-Xmx384m -Xms128m"
@@ -655,7 +655,7 @@ egov-indexer-kd-pl-ab:
 egov-persister-ht:
   image:
     repository: egovio/egov-persister
-    tag: 2.9-LTS-persister-changes-8053b51
+    tag: master-perf-fe334d2
   kafka-consumer-group-id: "egov-infra-persist-b"
   heap: "-Xmx768m -Xms256m"
   hpa:
@@ -681,7 +681,7 @@ egov-persister-ht:
 egov-persister-chad-kb-kd:
   image:
     repository: egovio/egov-persister
-    tag: 2.9-LTS-persister-changes-8053b51
+    tag: master-perf-fe334d2
   kafka-consumer-group-id: "egov-infra-persist-chad-kb-kd"
   heap: "-Xmx1536m -Xms1024m"
   hpa:
@@ -703,7 +703,7 @@ egov-persister-chad-kb-kd:
 egov-persister-ch:
   image:
     repository: egovio/egov-persister
-    tag: 2.9-LTS-persister-changes-8053b51
+    tag: master-perf-fe334d2
   kafka-consumer-group-id: "egov-infra-persist-ch"
   heap: "-Xmx1536m -Xms1024m"
   hpa:
@@ -725,7 +725,7 @@ egov-persister-ch:
 egov-persister-so-zf:
   image:
     repository: egovio/egov-persister
-    tag: 2.9-LTS-persister-changes-8053b51
+    tag: master-perf-fe334d2
   kafka-consumer-group-id: "egov-infra-persist-so-zf"
   heap: "-Xmx1536m -Xms1024m"
   hpa:
@@ -748,7 +748,7 @@ egov-persister-so-zf:
 egov-persister-na-oy-ko-jg:
   image:
     repository: egovio/egov-persister
-    tag: 2.9-LTS-persister-changes-8053b51
+    tag: master-perf-fe334d2
   kafka-consumer-group-id: "egov-infra-persist-na-oy-ko-jg"
   heap: "-Xmx1536m -Xms1024m"
   hpa:
@@ -770,7 +770,7 @@ egov-persister-na-oy-ko-jg:
 egov-persister-kd-pl-ab:
   image:
     repository: egovio/egov-persister
-    tag: 2.9-LTS-persister-changes-8053b51
+    tag: master-perf-fe334d2
   kafka-consumer-group-id: "egov-infra-persist-kd-pl-ab"
   heap: "-Xmx1536m -Xms1024m"
   hpa:
@@ -792,7 +792,7 @@ egov-persister-kd-pl-ab:
 egov-persister-ba-bo-ke:
   image:
     repository: egovio/egov-persister
-    tag: 2.9-LTS-persister-changes-8053b51
+    tag: master-perf-fe334d2
   kafka-consumer-group-id: "egov-infra-persist-ba-bo-ke"
   heap: "-Xmx1536m -Xms1024m"
   hpa:
@@ -883,6 +883,9 @@ zuul:
   egov-mixed-mode-endpoints-whitelist: "/pgr/seva/v1/_create,/pgr/seva/v1/_search,/pgr/seva/v1/_count,/workflow/history/v1/_search,/filestore/v1/files/id,/filestore/v1/files,/filestore/v1/files/tag,/egov-common-masters/departments/_search,/pt-property/property/propertytypes/_search,/pt-property/properties/_search,/pt-property/property/usages/_search,/egov-idgen/id/_generate,/egf-masters/financialyears/_search,/egov-common-workflows/process/_start,/egov-common-workflows/process/_search,/egov-common-workflows/tasks,/egov-common-workflows/tasks/{id}/_update,/user/_search,/billing-service/demand/_dues,/billing-service/bill/_generate,/billing-service/demand/_create,/wcms/masters/waterchargesconfig/_search,/wcms/masters/usagetypes/_search,/wcms/masters/pipesizes/_search,/wcms-connection/connection/_getbillingtypes,/wcms-connection/connection/_getconnectiontypes,/wcms/masters/sourcetypes/_search,/wcms/masters/supplytypes/_search,/wcms/masters/storagereservoirs/_search,/wcms/masters/treatmentplants/_search,/wcms/masters/documenttypes-applicationtypes/_search,/wcms/masters/donations/_search,/wcms/masters/nonmeterwaterrates/_search,/wcms-connection/connection/_create,/egov-common-masters/genders/_search,/egov-common-workflows/designations/_search,/access/v1/actions/mdms/_get,/tl-services/v1/BPAREG/_create,/tl-services/v1/BPAREG/_update,/tl-calculator/v1/BPAREG/_getbill,/property-services/property/_search,/billing-service/bill/v2/_search,/egov-location/location/v11/boundarys/_search,/boundary-service/boundary-relationships/_search,/pg-service/transaction/v1/_create,/collection-services/payments/_search,/pdf-service/v1/_create,/billing-service/bill/v2/_fetchbill,/pg-service/transaction/v1/_update,/ws-services/wc/_search,/sw-services/swc/_search,/edcr/rest/dcr/scrutinydetails,/edcr/rest/dcr/occomparison,/egov-pdf/download/PAYMENT/consolidatedreceipt,/collection-services/payments/PT/_search,/collection-services/payments/WS/_search,/collection-services/payments/SW/_search,/collection-services/payments/WS.ONE_TIME_FEE/_search,/collection-services/payments/SW.ONE_TIME_FEE/_search,/turn-io-adapter/_transform,/egov-user-event/v1/events/_search"
 
 gateway:
+  image:
+    repository: egovio/gateway
+    tag: customize-2.1-gateway-dc34e2b
   hpa:
     enabled: true
     minReplicas: 2
@@ -901,6 +904,9 @@ gateway:
   egov-mixed-mode-endpoints-whitelist: "/workflow/history/v1/_search,/filestore/v1/files/id,/filestore/v1/files,/filestore/v1/files/tagso,/egov-idgen/id/_generate,/egf-masters/financialyears/_search,/user/_search,/billing-service/demand/_dues,/billing-service/bill/_generate,/billing-service/demand/_create,/access/v1/actions/mdms/_get,/egov-user-event/v1/events/_search,/boundary-service/boundary-relationships/_search"
 
 gateway-2:
+  image:
+    repository: egovio/gateway
+    tag: customize-2.1-gateway-dc34e2b
   replicas: 1
   hpa:
     enabled: true
@@ -1266,10 +1272,10 @@ product:
     dbMigration:
       image:
         repository: egovio/product-db
-        tag: summaryreportodwnloadfeature-2867f24
+        tag: customize-2.1-product-dbc6a01
   image:
     repository: egovio/product
-    tag: summaryreportodwnloadfeature-2867f24
+    tag: customize-2.1-product-dbc6a01
   central-instance-build: true
   central-instance-enabled: true
   db-read-url-enabled: true
@@ -1660,10 +1666,10 @@ worker-registry:
     dbMigration:
       image:
         repository: egovio/worker-registry-db
-        tag: customize-2.0-worker-registry-8fce267
+        tag: customize-2.1-worker-registry-ed6e560
   image:
     repository: egovio/worker-registry
-    tag: customize-2.0-worker-registry-8fce267
+    tag: customize-2.1-worker-registry-ed6e560
   central-instance-build: true
   central-instance-enabled: true
   central-instance-name: egov
@@ -2166,10 +2172,10 @@ health-notification-service:
     dbMigration:
       image:
         repository: egovio/health-notification-service-db
-        tag: health-notification-service-cache-0583519
+        tag: customize-2.1-health-notification-service-d45063b
   image:
     repository: egovio/health-notification-service
-    tag: health-notification-service-cache-0583519
+    tag: customize-2.1-health-notification-service-d45063b
   hpa:
     enabled: true
     minReplicas: 1

@@ -208,3 +208,52 @@ env: |
       configMapKeyRef:
         name: egov-config
         key: kafka-tenant-id-pattern
+  - name: EGOV_STATE_TENANT_ID
+    valueFrom:
+      configMapKeyRef:
+        name: egov-config
+        key: egov-state-level-tenant-id
+  - name: EGOV_ENC_STATE_LEVEL_TENANT_IDS
+    value: "ba,kd,kb,jg"
+  - name: tenant.state.level.tenant.id.mappings.kd
+    value: "kd"
+  - name: tenant.state.level.tenant.id.mappings.kb
+    value: "kb"
+  - name: tenant.state.level.tenant.id.mappings.jg
+    value: "jg"
+  - name: egov.enc.tenant.host.kd
+    valueFrom:
+      configMapKeyRef:
+        name: egov-service-host
+        key: egov-enc-service-kaduna
+  - name: egov.enc.tenant.host.kb
+    valueFrom:
+      configMapKeyRef:
+        name: egov-service-host
+        key: egov-enc-service-kebbi-azm
+  - name: egov.enc.tenant.host.jg
+    valueFrom:
+      configMapKeyRef:
+        name: egov-service-host
+        key: egov-enc-service-jigawa
+  - name: TENANT_STATE_LEVEL_TENANT_ID_MAPPINGS_kb
+    value: kb
+  - name: TENANT_STATE_LEVEL_TENANT_ID_MAPPINGS_jg
+    value: jg
+  - name: TENANT_STATE_LEVEL_TENANT_ID_MAPPINGS_kd
+    value: kd
+  - name: EGOV_ENC_TENANT_HOST_jg
+    valueFrom:
+      configMapKeyRef:
+        name: egov-service-host
+        key: egov-enc-service-jigawa
+  - name: EGOV_ENC_TENANT_HOST_kd
+    valueFrom:
+      configMapKeyRef:
+        name: egov-service-host
+        key: egov-enc-service-kaduna
+  - name: EGOV_ENC_TENANT_HOST_kb
+    valueFrom:
+      configMapKeyRef:
+        name: egov-service-host
+        key: egov-enc-service-kebbi-azm
