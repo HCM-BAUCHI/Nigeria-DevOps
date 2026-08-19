@@ -165,7 +165,6 @@ cluster-configs:
         health-expense-borno: 'http://health-expense.borno:8080/'
         health-expense-calculator-borno: 'http://health-expense-calculator.borno:8080/'
         health-notification-service: 'http://health-notification-service.egov:8080/'
-        pdf-service: 'http://pdf-service.egov:8080/'
 
     hcm-moz-impl:
       data:
@@ -2206,7 +2205,7 @@ health-notification-service:
 #  format-config-urls: "file:///work-dir/health-campaign-config/pdf-service/format-config/health-bill-payment.json"
 
 ### Grafana >>>>>>>>>>>>>>>>>>>>
-grafana:
+#grafana:
   # github:
   #   allowed_organizations: ["HCM-BAUCHI"]
   #   role_attribute_path: contains(groups[*], '@egovernments/bihar-devops') && 'Editor' || contains(groups[*], '@egovernments/bihar-mgramseva-uat') && 'Viewer'
