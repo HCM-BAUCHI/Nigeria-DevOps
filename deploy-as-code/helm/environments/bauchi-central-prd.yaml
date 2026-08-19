@@ -1329,7 +1329,6 @@ individual:
   central-instance-build: true
   central-instance-enabled: true
   heap: "-Xmx1g -Xms512m"
-  hpa-owns-replicas: true
   hpa:
     enabled: true
     minReplicas: 2
@@ -1357,7 +1356,6 @@ individual-referral:
     dbMigration:
       enabled: false
   heap: "-Xmx1536m -Xms768m"
-  hpa-owns-replicas: true
   hpa:
     enabled: true
     minReplicas: 2

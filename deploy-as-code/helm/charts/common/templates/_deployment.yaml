@@ -20,20 +20,20 @@ spec:
     matchLabels:
       {{- include "common.labels" . | nindent 6 }}  
 {{- end }}
-{{- if index .Values "hpa-owns-replicas" }}
+{{- $hpa := .Values.hpa | default dict }}
+{{- $persistence := .Values.persistence | default dict }}
+{{- if $persistence.enabled }}
   strategy:
-    rollingUpdate:
-      maxUnavailable: 0
-      maxSurge: {{ .Values.maxSurge | default 1 }}
-  replicas: {{ .Values.hpa.minReplicas }}
+    type: Recreate
 {{- else }}
-{{- $persistence := .Values.persistence | default dict -}}
-{{- if and (not (hasKey $persistence "enabled")) (eq (.Values.replicas | int) 1) }}
   strategy:
+    type: RollingUpdate
     rollingUpdate:
-      maxUnavailable: 0
+      maxUnavailable: {{ index .Values "rollout-max-unavailable" | default 0 }}
+      maxSurge: {{ index .Values "rollout-max-surge" | default "25%" }}
 {{- end }}
-  replicas: {{ .Values.replicas }}
+{{- if not $hpa.enabled }}
+  replicas: {{ .Values.replicas | default 1 }}
 {{- end }}
   template:
     metadata:  
