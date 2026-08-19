@@ -26,7 +26,7 @@ image:
   repository: provectuslabs/kafka-ui
   pullPolicy: IfNotPresent
   # Overrides the image tag whose default is the chart appVersion.
-  tag: ""
+  tag: "latest"
 
 imagePullSecrets: []
 nameOverride: ""
@@ -47,7 +47,7 @@ yamlApplicationConfig:
   kafka:
     clusters:
       - name: kafka-clusters
-        bootstrapServers: b-1.centralmsk.6jj53l.c2.kafka.af-south-1.amazonaws.com:9092,b-2.centralmsk.6jj53l.c2.kafka.af-south-1.amazonaws.com:9092,b-3.centralmsk.6jj53l.c2.kafka.af-south-1.amazonaws.com:9092
+        bootstrapServers: b-1.ngcentralprdmskkraftn.nsr1hv.c2.kafka.af-south-1.amazonaws.com:9092,b-2.ngcentralprdmskkraftn.nsr1hv.c2.kafka.af-south-1.amazonaws.com:9092,b-3.ngcentralprdmskkraftn.nsr1hv.c2.kafka.af-south-1.amazonaws.com:9092,b-4.ngcentralprdmskkraftn.nsr1hv.c2.kafka.af-south-1.amazonaws.com:9092,b-5.ngcentralprdmskkraftn.nsr1hv.c2.kafka.af-south-1.amazonaws.com:9092,b-6.ngcentralprdmskkraftn.nsr1hv.c2.kafka.af-south-1.amazonaws.com:9092
         readOnly: true
   # spring:
   #   security:
