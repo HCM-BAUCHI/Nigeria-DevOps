@@ -26,11 +26,11 @@ variable "availability_zones" {
 
 variable "kubernetes_version" {
   description = "kubernetes version"
-  default = "1.33"
+  default = "1.34"
 }
 
 variable "instance_types" {
-  description = "Arry of instance types for SPOT instances"
+  description = "eGov recommended below instance type as a default"
   default = ["r6g.xlarge"]
 }
 

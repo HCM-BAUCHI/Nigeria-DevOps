@@ -27,6 +27,8 @@ resource "aws_db_instance" "rds_postgres" {
   copy_tags_to_snapshot   = "true"
   skip_final_snapshot     = "true"
   deletion_protection     = "true"
+  auto_minor_version_upgrade = "false"
+  performance_insights_enabled = "true"
 
     tags = "${
     tomap({

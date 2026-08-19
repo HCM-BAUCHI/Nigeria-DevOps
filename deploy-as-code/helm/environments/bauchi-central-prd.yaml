@@ -91,7 +91,7 @@ cluster-configs:
         es-host: "elasticsearch-data.es-cluster-v8"
         es-indexer-host: "https://elasticsearch-data.es-cluster-v8:9200/"
         flyway-locations: "filesystem:/flyway/sql,filesystem:/flyway/seed,filesystem:/flyway/qa"
-        kafka-brokers: "b-1.ngcentralprdmsk.kyuf2j.c2.kafka.af-south-1.amazonaws.com:9092,b-2.ngcentralprdmsk.kyuf2j.c2.kafka.af-south-1.amazonaws.com:9092,b-3.ngcentralprdmsk.kyuf2j.c2.kafka.af-south-1.amazonaws.com:9092,b-4.ngcentralprdmsk.kyuf2j.c2.kafka.af-south-1.amazonaws.com:9092,b-5.ngcentralprdmsk.kyuf2j.c2.kafka.af-south-1.amazonaws.com:9092,b-6.ngcentralprdmsk.kyuf2j.c2.kafka.af-south-1.amazonaws.com:9092"
+        kafka-brokers: "b-1.ngcentralprdmskkraftn.nsr1hv.c2.kafka.af-south-1.amazonaws.com:9092,b-2.ngcentralprdmskkraftn.nsr1hv.c2.kafka.af-south-1.amazonaws.com:9092,b-3.ngcentralprdmskkraftn.nsr1hv.c2.kafka.af-south-1.amazonaws.com:9092,b-4.ngcentralprdmskkraftn.nsr1hv.c2.kafka.af-south-1.amazonaws.com:9092,b-5.ngcentralprdmskkraftn.nsr1hv.c2.kafka.af-south-1.amazonaws.com:9092,b-6.ngcentralprdmskkraftn.nsr1hv.c2.kafka.af-south-1.amazonaws.com:9092"
         kafka-infra-brokers: "release-name-kafka-controller-headless.kafka-cluster:9092"
         logging-level-jdbc: "DEBUG"
         mobile-validation-workaround: "true"
