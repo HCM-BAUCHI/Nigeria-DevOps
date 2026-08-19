@@ -1800,7 +1800,7 @@ transformer:
   image:
     repository: egovio/transformer
     tag: HDDF-5226-1403ae9
-  replicas: 2
+  replicas: 1
   heap: "-Xmx1536m -Xms1536m"
   hpa:
     enabled: true

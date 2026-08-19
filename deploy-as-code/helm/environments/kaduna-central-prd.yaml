@@ -103,6 +103,7 @@ individual:
   memory_limits: 1Gi
 
 transformer:
+  replicas: 1
   namespace: "kaduna"
   image:
     repository: egovio/transformer
@@ -110,8 +111,8 @@ transformer:
   heap: "-Xmx1536m -Xms1536m"
   hpa:
     enabled: true
-    minReplicas: 2
-    maxReplicas: 5
+    minReplicas: 1
+    maxReplicas: 4
   ingress:
     enabled: false
     zuul: false

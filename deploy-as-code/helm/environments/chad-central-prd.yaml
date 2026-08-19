@@ -4,6 +4,7 @@ global:
 disableAnnotationTimestamp: true
 
 transformer:
+  replicas: 1
   namespace: "chad"
   image:
     repository: egovio/transformer
@@ -11,7 +12,7 @@ transformer:
   heap: "-Xmx1536m -Xms1024m"
   hpa:
     enabled: true
-    minReplicas: 4
+    minReplicas: 1
     maxReplicas: 4
   cpu_requests: 300m
   memory_requests: 1.5Gi

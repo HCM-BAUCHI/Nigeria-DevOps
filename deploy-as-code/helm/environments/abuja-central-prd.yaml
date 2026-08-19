@@ -4,6 +4,7 @@ global:
 disableAnnotationTimestamp: true
 
 transformer:
+  replicas: 1
   namespace: "abuja"
   image:
     repository: egovio/transformer
@@ -11,8 +12,8 @@ transformer:
   heap: "-Xmx1536m -Xms1536m"
   hpa:
     enabled: true
-    minReplicas: 2
-    maxReplicas: 5
+    minReplicas: 1
+    maxReplicas: 4
   cpu_requests: 300m
   memory_requests: 1.75Gi
   cpu_limits: 400m

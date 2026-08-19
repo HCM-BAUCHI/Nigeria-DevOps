@@ -81,12 +81,12 @@ transformer:
   image:
     repository: egovio/transformer
     tag: HDDF-5226-1403ae9
-  replicas: 2
+  replicas: 1
   heap: "-Xmx1536m -Xms1536m"
   hpa:
     enabled: true
-    minReplicas: 2
-    maxReplicas: 5
+    minReplicas: 1
+    maxReplicas: 4
   cpu_requests: 300m
   memory_requests: 1.75Gi
   cpu_limits: 400m
