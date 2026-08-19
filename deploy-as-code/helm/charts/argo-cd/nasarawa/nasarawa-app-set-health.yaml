@@ -1,20 +1,20 @@
 apiVersion: argoproj.io/v1alpha1
 kind: ApplicationSet
 metadata:
-  name: oyo-appset-utilities
+  name: nasarawa-appset-health
   namespace: argocd
 spec:
   generators:
     - list:
         elements:
-          - name: hcm-moz-impl
+          - name: transformer
 
   template:
     metadata:
-      name: 'oyo-{{name}}'
+      name: 'nasarawa-{{name}}'
 
     spec:
-      project: oyo-project
+      project: nasarawa-project
 
       source:
         repoURL: git@github.com:HCM-BAUCHI/Nigeria-Devops.git
@@ -23,11 +23,11 @@ spec:
         helm:
           valueFiles:
             - values.yaml
-            - ../../../environments/oyo-central-prd.yaml
+            - ../../../environments/nasarawa-central-prd.yaml
 
       destination:
         server: https://kubernetes.default.svc
-        namespace: oyo
+        namespace: nasarawa
 
       syncPolicy:
         automated:
