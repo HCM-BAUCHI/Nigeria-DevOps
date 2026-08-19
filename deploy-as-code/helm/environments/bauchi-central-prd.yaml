@@ -252,10 +252,10 @@ egov-idgen:
     dbMigration:
       image:
         repository: egovio/egov-idgen-db
-        tag: master-1e8d2bb
+        tag: 2.9-LTS-IDgen-mdmsDatacache-bd2b4f1
   image:
     repository: egovio/egov-idgen
-    tag: master-1e8d2bb
+    tag: 2.9-LTS-IDgen-mdmsDatacache-bd2b4f1
   spring-datasource-tomcat-max-active: "10"
   server-tomcat-max-threads: "20"
   idformat-from-mdms: "true"
@@ -1033,10 +1033,10 @@ egov-hrms:
     dbMigration:
       image:
         repository: egovio/egov-hrms-db
-        tag: customize-2.0-hrms-8b8c6e3
+        tag: customize-2.1-hrms-88d374c
   image:
     repository: egovio/egov-hrms
-    tag: customize-2.0-hrms-8b8c6e3
+    tag: customize-2.1-hrms-88d374c
   heap: "-Xmx1024m -Xms512m"
   hpa:
     enabled: true

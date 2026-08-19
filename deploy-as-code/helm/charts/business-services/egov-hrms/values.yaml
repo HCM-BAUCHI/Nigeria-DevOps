@@ -47,6 +47,10 @@ decryption-abac-enable: "false"
 notification-email-enabled: "true"
 parent-level-tenant-id: "pb"
 egov-hrms-auto-generate-password: "false"
+egov-user-create-bulk-endpoint: "/user/users/v2/_create"
+egov-individual-create-bulk-endpoint: "/individual/v1/bulk/_create"
+egov-hrms-mobile-number-min-length: "8"
+egov-hrms-mobile-number-max-length: "11"
 
 # Additional Container Envs
 env: |
@@ -191,4 +195,12 @@ env: |
     value: {{ index .Values "notification-email-enabled" | quote }}
   - name: PARENT_LEVEL_TENANT_ID
     value: {{ index .Values "parent-level-tenant-id" | quote }}
+  - name: EGOV_USER_CREATE_BULK_ENDPOINT
+    value: {{ index .Values "egov-user-create-bulk-endpoint" | quote }}
+  - name: EGOV_INDIVIDUAL_CREATE_BULK_ENDPOINT
+    value: {{ index .Values "egov-individual-create-bulk-endpoint" | quote }}
+  - name: EGOV_HRMS_MOBILE_NUMBER_MIN_LENGTH
+    value: {{ index .Values "egov-hrms-mobile-number-min-length" | quote }}
+  - name: EGOV_HRMS_MOBILE_NUMBER_MAX_LENGTH
+    value: {{ index .Values "egov-hrms-mobile-number-max-length" | quote }}
 
