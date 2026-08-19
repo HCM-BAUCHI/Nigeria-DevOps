@@ -257,3 +257,5 @@ env: |
       configMapKeyRef:
         name: egov-service-host
         key: egov-enc-service-kebbi-azm
+  - name: EGOV_SEARCH_USER_URL
+    value: "/user/_search"
