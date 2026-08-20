@@ -80,7 +80,7 @@ transformer:
   namespace: "borno"
   image:
     repository: egovio/transformer
-    tag: multihierarchy-error-catch-2d595c9
+    tag: customize-2.1-transformer-mh-13dcdc0
   replicas: 1
   heap: "-Xmx1536m -Xms1536m"
   hpa:
