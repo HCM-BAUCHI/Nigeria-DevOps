@@ -164,7 +164,7 @@ transformer:
   expense-bill-detail-create-topic: "bo-expense-bill-detail-create"
   expense-bill-detail-update-topic: "bo-expense-bill-detail-update"
   egov_localization_locale_code: "en_NG"
-  egov-localization-module-name: "hcm-boundary-admin"
+  egov-localization-module-name: "hcm-boundary-"
   transformer-consumer-create-user-action-topic: "bo-save-user-action-project-task-topic"
   transformer-consumer-update-user-action-topic: "bo-update-user-action-project-task-topic"
   transformer-producer-user-action-index-v1-topic: "bo-transformer-producer-user-action-index-v1-topic"
