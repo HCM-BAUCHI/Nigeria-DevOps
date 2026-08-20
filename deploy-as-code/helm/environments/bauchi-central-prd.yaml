@@ -2150,7 +2150,7 @@ egov-notification-push:
     tag: nigeria-go-deep-push-notification-batch-00fb53d
   hpa:
     enabled: true
-    minReplicas: 1
+    minReplicas: 4
     maxReplicas: 4
   central-instance-build: true
   central-instance-enabled: true
@@ -2178,7 +2178,7 @@ health-notification-service:
     tag: customize-2.1-health-notification-service-d45063b
   hpa:
     enabled: true
-    minReplicas: 1
+    minReplicas: 4
     maxReplicas: 4
   central-instance-build: true
   central-instance-enabled: true
