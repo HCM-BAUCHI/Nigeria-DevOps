@@ -2344,8 +2344,8 @@ beneficiary-idgen:
   memory_limits: 1024Mi
   hpa:
     enabled: true
-    minReplicas: 2
-    maxReplicas: 6
+    minReplicas: 4
+    maxReplicas: 8
 
 inbox:
   namespace: egov
