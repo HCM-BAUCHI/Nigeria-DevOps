@@ -109,6 +109,8 @@ transformer-consumer-create-user-action-topic: "save-user-action-project-topic"
 transformer-consumer-update-user-action-topic: "update-user-action-project-topic"
 transformer-producer-user-action-index-v1-topic: "transformer-producer-user-action-index-v1-topic"
 transformer-error-topic: "transformer-error-topic"
+egov-boundary-hierarchy-types: "ADMIN"
+transformer-producer-push-batch-size: "100"
 # Additional Container Envs
 env: |
   - name: SPRING_KAFKA_CONSUMER_GROUP_ID
@@ -121,6 +123,8 @@ env: |
     value: "30000"
   - name: SPRING_KAFKA_CONSUMER_PROPERTIES_MAX_POLL_INTERVAL_MS
     value: "600000" 
+  - name: TRANSFORMER_PRODUCER_PUSH_BATCH_SIZE
+    value: {{ index .Values "transformer-producer-push-batch-size" | quote }} 
   {{- if index .Values "global" "tracer-errors-provideexceptionindetails" }}
   - name: TRACER_ERRORS_PROVIDEEXCEPTIONINDETAILS
     valueFrom:
@@ -357,6 +361,8 @@ env: |
       configMapKeyRef:
         name: egov-config
         key: {{ index .Values "boundary-hierarchy-name" | quote }}
+  - name: EGOV_BOUNDARY_HIERARCHY_TYPES
+    value: {{ index .Values "egov-boundary-hierarchy-types" | default "egov-boundary-hierarchy-types" | quote }}
   - name: PROJECT_STAFF_ROLE_MDMS_MODULE
     value: HCM-PROJECT-STAFF-ROLES
   - name: EGOV_SEARCH_HOUSEHOLD_URL

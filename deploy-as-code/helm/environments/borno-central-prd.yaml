@@ -80,7 +80,7 @@ transformer:
   namespace: "borno"
   image:
     repository: egovio/transformer
-    tag: customize-2.1-transformer-mh-fe1680e
+    tag: customize-2.1-transformer-mh-9aeae4f
   replicas: 1
   heap: "-Xmx1536m -Xms1536m"
   hpa:
@@ -170,6 +170,8 @@ transformer:
   transformer-producer-user-action-index-v1-topic: "bo-transformer-producer-user-action-index-v1-topic"
   transformer-error-topic: "bo-transformer-error-topic"
   egov-bill-service-host-configmap-key: "health-expense-borno"
+  egov-boundary-hierarchy-types: "ADMIN,ITN"
+  transformer-producer-push-batch-size: "100"
 
 health-expense:
   namespace: borno
