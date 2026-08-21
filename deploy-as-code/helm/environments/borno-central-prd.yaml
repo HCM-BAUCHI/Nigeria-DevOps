@@ -80,7 +80,7 @@ transformer:
   namespace: "borno"
   image:
     repository: egovio/transformer
-    tag: customize-2.1-transformer-mh-dc4b115
+    tag: customize-2.1-transformer-mh-a44b5f9
   replicas: 1
   heap: "-Xmx1536m -Xms1536m"
   hpa:
