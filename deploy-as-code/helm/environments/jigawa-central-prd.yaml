@@ -65,9 +65,6 @@ egov-enc-service:
     enabled: true
     minReplicas: 2
     maxReplicas: 5
-  ingress:
-    enabled: false
-    zuul: false
   cpu_requests: 100m
   memory_requests: 768Mi
   cpu_limits: 200m
@@ -103,9 +100,6 @@ transformer:
     enabled: true
     minReplicas: 1
     maxReplicas: 4
-  ingress:
-    enabled: false
-    zuul: false
   cpu_requests: 300m
   memory_requests: 1.75Gi
   cpu_limits: 400m

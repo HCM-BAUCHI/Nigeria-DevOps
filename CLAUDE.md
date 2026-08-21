@@ -87,6 +87,7 @@ Index file. Deep details live in scoped CLAUDE.md files (listed at bottom) that 
 | ArgoCD reverts replica edits | HPA owns replicas; app-sets ignoreDifferences `/spec/replicas` + RespectIgnoreDifferences | never set replicas when `hpa.enabled`; tune `hpa.minReplicas/maxReplicas` |
 | deployer aborts mid-run | any shelled command failure panics; args split on whitespace | fix underlying command; no spaces in paths |
 | deployer CLI tag has no effect | env `<svc>:` block pins `image.tag`; merge wins over `--set` | bump the tag in the env file |
+| render fails `wrong type for value; expected string; got map` at `_deployment.yaml` resources | env `<svc>:` block sets `resources:` as a YAML map; common chart expects a tpl STRING (`resources: \|`) — hcm-moz-impl has this bug in ALL 18 env files (cannot render anywhere) | convert the env override to the string form or drop it (use `cpu_/memory_requests/limits` keys instead) |
 
 ## Conventions
 

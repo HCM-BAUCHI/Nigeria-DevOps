@@ -63,8 +63,6 @@ cluster-configs:
 egov-enc-service:
   secret-name: "egov-enc-service"
   namespace: "kaduna"
-  ingress:
-    enabled: false
   initContainers:
     dbMigration:
       image:
@@ -113,9 +111,6 @@ transformer:
     enabled: true
     minReplicas: 1
     maxReplicas: 4
-  ingress:
-    enabled: false
-    zuul: false
   cpu_requests: 300m
   memory_requests: 1.75Gi
   cpu_limits: 400m

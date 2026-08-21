@@ -3,12 +3,6 @@ labels:
   app: "transformer"
   group: "health"
 
-# Ingress Configs
-ingress:
-  enabled: true
-  zuul: true
-  context: "transformer"
-
 # Init Containers Configs
 initContainers:
   dbMigration:

@@ -580,9 +580,6 @@ transformer:
   replicas: 1
   namespace: "chad-prod"
   heap: "-Xmx768m -Xms512m"
-  ingress:
-    name: chad-transformer
-    namespace: egov
   hpa:
     enabled: true
     minReplicas: 1

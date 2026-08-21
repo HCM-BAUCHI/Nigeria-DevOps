@@ -3,12 +3,6 @@ labels:
   app: "hcm-moz-impl"
   group: "core"
 
-# Ingress Configs
-ingress:
-  enabled: true
-  zuul: true
-  context: "hcm-moz-impl"
-
 # Init Containers Configs
 initContainers:
   dbMigration:
