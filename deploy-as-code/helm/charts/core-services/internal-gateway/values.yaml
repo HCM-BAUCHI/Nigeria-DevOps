@@ -52,6 +52,10 @@ eventlog-topic: "zuul-event-log"
 eventlog-urls-whitelist: ""
 home-isolation-chatbot-router-enabled: false
 
+nodeSelector:
+  architecture: arm64
+  kubernetes.io/arch: arm64
+
 # Additional Container Envs
 env: |
   - name: SERVER_PORT
@@ -73,5 +77,4 @@ env: |
   - name: JAVA_ARGS
     value: {{ index .Values "java-args" | quote }}  
   - name: EGOV_SERVICE_CONFIG_PATH
-    value: "file:/etc/internal-router/tenant-config.json"   
- 
+    value: "file:/etc/internal-router/tenant-config.json"

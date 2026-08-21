@@ -10,7 +10,7 @@ namespace: egov
 initContainers:
   extraInitContainers: |
     - name: "gateway-kubernetes-discovery"
-      image: {{ .Values.global.containerRegistry }}/gateway-kubernetes-discovery:master-gateway-kubernetes-discovery-host-76493aa615-13
+      image: {{ .Values.global.containerRegistry }}/gateway-kubernetes-discovery:master-gateway-kubernetes-discovery-host-08663c6
       env: 
       - name: "OUTPUT_FILE_PATH"
         value: "/etc/zuul/routes.properties" 
@@ -53,6 +53,10 @@ eventlog-urls-whitelist: ""
 home-isolation-chatbot-router-enabled: false
 memory_limits: "768Mi"
 cpu_limits: "400m"
+
+nodeSelector:
+  architecture: arm64
+  kubernetes.io/arch: arm64
 
 # Additional Container Envs
 env: |
