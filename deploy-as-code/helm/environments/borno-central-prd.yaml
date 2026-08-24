@@ -235,7 +235,7 @@ health-expense-calculator:
         tag: nigeria-go-deep-ekfrazo-e8a113c
   image:
     repository: egovio/health-expense-calculator
-    tag: nigeria-go-deep-3fa1c21
+    tag: nigeria-go-deep-ekfrazo-e8a113c
   heap: "-Xmx2048m -Xms1024m"
   hpa:
     enabled: true
