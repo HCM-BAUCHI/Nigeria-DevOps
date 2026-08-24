@@ -2068,6 +2068,7 @@ health-expense-calculator:
   calculate-musterroll-health: ba-calculate-musterroll-health
   calculate-error-health: ba-calculate-error-health
   calculate-billmeta-health: ba-calculate-billmeta-health
+  expense-calculator-create-topic: ba-save-calculator
   report-error-queue-topic: ba-report-error-queue-topic
   report-retry-queue-topic: ba-report-retry-queue-topic
   report-generation-trigger-topic: ba-report-generation-trigger

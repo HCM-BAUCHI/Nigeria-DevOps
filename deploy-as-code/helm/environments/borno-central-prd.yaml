@@ -200,6 +200,16 @@ health-expense:
   expense-billing-bill-update: "bo-expense-bill-update-health"
   expense-bill-signature-required-actions: "SEND_FOR_REVIEW,SEND_FOR_APPROVAL,PAYMENT_INITIATION"
   report-generation-trigger-topic: "bo-report-generation-trigger"
+  expense-billing-bill-detail-create: "bo-expense-bill-detail-create"
+  expense-billing-bill-detail-update: "bo-expense-bill-detail-update"
+  expense-bill-task: "bo-expense-bill-task"
+  expense-bill-task-details: "bo-expense-bill-task-details"
+  expense-task-status-update: "bo-expense-task-status-update"
+  expense-task-details-update: "bo-expense-task-details-update"
+  expense-billing-payment-create: "bo-expense-payment-create"
+  expense-billing-payment-update: "bo-expense-payment-update"
+  expense-bill-report-save: "bo-expense-bill-report-save"
+  expense-bill-report-update: "bo-expense-bill-report-update"
   heap: "-Xmx512m -Xms256m"
   hpa:
     enabled: true
@@ -250,6 +260,7 @@ health-expense-calculator:
   calculate-musterroll-health: bo-calculate-musterroll-health
   calculate-error-health: bo-calculate-error-health
   calculate-billmeta-health: bo-calculate-billmeta-health
+  expense-calculator-create-topic: bo-save-calculator
   report-error-queue-topic: bo-report-error-queue-topic
   report-retry-queue-topic: bo-report-retry-queue-topic
   report-generation-trigger-topic: bo-report-generation-trigger

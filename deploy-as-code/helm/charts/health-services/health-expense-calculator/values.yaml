@@ -37,6 +37,8 @@ memory_limits: 512Mi
 java-args: ""
 cpu_limits: "300m"
 spring-kafka-producer-properties-max-request-size: "10485760"
+expense-calculator-create-topic: save-calculator
+kafka-topics-consumer: service-consumer-topic
 
 # Additional Container Envs
 env: |
@@ -267,6 +269,10 @@ env: |
     value: {{ index .Values "project-management-system-kafka-update-topic" | default "update-project" | quote }}
   - name: PROJECT_MANAGEMENT_SYSTEM_KAFKA_UPDATE_DATE_TOPIC
     value: {{ index .Values "project-management-system-kafka-update-date-topic" | default "update-project-date" | quote }}
+  - name: EXPENSE_CALCULATOR_CREATE_TOPIC
+    value: {{ index .Values "expense-calculator-create-topic" | quote }}
+  - name: KAFKA_TOPICS_CONSUMER
+    value: {{ index .Values "kafka-topics-consumer" | quote }}
   - name: SPRING_KAFKA_CONSUMER_PROPERTIES_MAX_PARTITION_FETCH_BYTES
     value: "15728640"
   - name: SPRING_KAFKA_CONSUMER_PROPERTIES_FETCH_MAX_BYTES
