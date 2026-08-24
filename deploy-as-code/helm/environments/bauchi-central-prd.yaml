@@ -2094,7 +2094,7 @@ pdf-service:
   namespace: egov
   image:
     repository: egovio/pdf-service
-    tag: central-instance-pdf-7b3064f
+    tag: central-instance-pdf-fix-19587c6
   initContainers:
     gitSync:
       image:
