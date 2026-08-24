@@ -2115,8 +2115,8 @@ pdf-service:
           value: "true"
         - name: "GITSYNC_ROOT"
           value: "/work-dir"
-  data-config-urls: "file:///work-dir/health-campaign-config/pdf-service/data-config/health-bill-payment-ba.json"
-  format-config-urls: "file:///work-dir/health-campaign-config/pdf-service/format-config/health-bill-payment-ba.json"
+  data-config-urls: "file:///work-dir/health-campaign-config/pdf-service/data-config/health-bill-payment-ba.json,file:///work-dir/health-campaign-config/pdf-service/data-config/health-bill-payment-bo.json"
+  format-config-urls: "file:///work-dir/health-campaign-config/pdf-service/format-config/health-bill-payment-ba.json,file:///work-dir/health-campaign-config/pdf-service/format-config/health-bill-payment-bo.json"
   heap: "-Xmx512m -Xms256m"
   hpa:
     enabled: true
