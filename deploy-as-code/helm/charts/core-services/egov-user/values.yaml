@@ -94,6 +94,21 @@ env: |
     value: "/mdms-v2/v1/_search"
   - name: MDMS_PATH
     value: "/mdms-v2/v1/_search"
+  - name: EGOV_MDMS_V2_HOST
+    valueFrom:
+      configMapKeyRef:
+        name: egov-service-host
+        key: mdms-v2
+  - name: EGOV_MDMS_V2_SEARCH_ENDPOINT
+    value: "/mdms-v2/v2/_search"
+  - name: EGOV_PUSH_NOTIFICATION_HOST
+    valueFrom:
+      configMapKeyRef:
+        name: egov-service-host
+        key: egov-notification-push
+        optional: true
+  - name: EGOV_USER_BULK_BCRYPT_THREADS
+    value: {{ index .Values "bulk-bcrypt-threads" | default "3" | quote }}
   - name: EGOV_ENC_HOST
     valueFrom:
       configMapKeyRef:

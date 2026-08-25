@@ -405,12 +405,13 @@ egov-user:
     dbMigration:
       image:
         repository: egovio/egov-user-db
-        tag: central-instance-switch-device-changes-7eec928
+        tag: central-instance-switch-device-changes-bulk-1f14b00
   image:
     repository: egovio/egov-user
-    tag: central-instance-switch-device-changes-7eec928
-  spring-datasource-tomcat-max-active: "5"
-  server-tomcat-max-threads: "10"
+    tag: central-instance-switch-device-changes-bulk-1f14b00
+  spring-datasource-tomcat-max-active: "10"
+  server-tomcat-max-threads: "200"
+  bulk-bcrypt-threads: "4"
   central-instance-build: true
   central-instance-enabled: true
   heap: "-Xmx1024m -Xms512m"
@@ -420,7 +421,7 @@ egov-user:
     maxReplicas: 8
   cpu_requests: 500m
   memory_requests: 1Gi
-  cpu_limits: 600m
+  cpu_limits: 1
   memory_limits: 1.5Gi
   otp-validation: "true"
   citizen-otp-enabled: "true"
