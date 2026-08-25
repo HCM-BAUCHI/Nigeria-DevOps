@@ -172,6 +172,8 @@ transformer:
   egov-bill-service-host-configmap-key: "health-expense-borno"
   egov-boundary-hierarchy-types: "ADMIN,ITN"
   transformer-producer-push-batch-size: "100"
+  transformer-consumer-service-enabled: "false"
+  transformer-consumer-side-effect-enabled: "false"
 
 health-expense:
   namespace: borno

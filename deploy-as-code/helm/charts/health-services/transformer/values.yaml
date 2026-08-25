@@ -105,6 +105,34 @@ transformer-producer-user-action-index-v1-topic: "transformer-producer-user-acti
 transformer-error-topic: "transformer-error-topic"
 egov-boundary-hierarchy-types: "ADMIN"
 transformer-producer-push-batch-size: "100"
+
+# Kafka consumer toggles - one per @KafkaListener in the transformer.
+# Keep the value QUOTED: an unquoted YAML false is empty to Go templates and
+# the "| default" in the env block below would silently flip it back to true.
+# Override per state in helm/environments/<state>.yaml, only where it differs.
+transformer-consumer-attendance-enabled: "true"
+transformer-consumer-attendance-staff-enabled: "true"
+transformer-consumer-attendee-enabled: "true"
+transformer-consumer-bill-enabled: "true"
+transformer-consumer-billdetail-enabled: "true"
+transformer-consumer-billreport-enabled: "true"
+transformer-consumer-device-token-enabled: "true"
+transformer-consumer-facility-enabled: "true"
+transformer-consumer-hfreferral-enabled: "true"
+transformer-consumer-household-enabled: "true"
+transformer-consumer-household-member-enabled: "true"
+transformer-consumer-musterroll-enabled: "true"
+transformer-consumer-pgr-enabled: "true"
+transformer-consumer-project-enabled: "true"
+transformer-consumer-project-staff-enabled: "true"
+transformer-consumer-project-task-enabled: "true"
+transformer-consumer-referral-enabled: "true"
+transformer-consumer-service-enabled: "true"
+transformer-consumer-side-effect-enabled: "true"
+transformer-consumer-stock-enabled: "true"
+transformer-consumer-stock-reconciliation-enabled: "true"
+transformer-consumer-user-action-enabled: "true"
+
 # Additional Container Envs
 env: |
   - name: SPRING_KAFKA_CONSUMER_GROUP_ID
@@ -457,3 +485,49 @@ env: |
     value: {{ index .Values "transformer-producer-attendee-index" | default "transformer-producer-attendee-index" | quote }}
   - name: TRANSFORMER_ERROR_TOPIC
     value: {{ index .Values "transformer-error-topic" | default "transformer-error-topic" | quote }}
+
+  # Kafka consumer toggles
+  - name: TRANSFORMER_CONSUMER_ATTENDANCE_ENABLED
+    value: {{ index .Values "transformer-consumer-attendance-enabled" | default "true" | quote }}
+  - name: TRANSFORMER_CONSUMER_ATTENDANCE_STAFF_ENABLED
+    value: {{ index .Values "transformer-consumer-attendance-staff-enabled" | default "true" | quote }}
+  - name: TRANSFORMER_CONSUMER_ATTENDEE_ENABLED
+    value: {{ index .Values "transformer-consumer-attendee-enabled" | default "true" | quote }}
+  - name: TRANSFORMER_CONSUMER_BILL_ENABLED
+    value: {{ index .Values "transformer-consumer-bill-enabled" | default "true" | quote }}
+  - name: TRANSFORMER_CONSUMER_BILLDETAIL_ENABLED
+    value: {{ index .Values "transformer-consumer-billdetail-enabled" | default "true" | quote }}
+  - name: TRANSFORMER_CONSUMER_BILLREPORT_ENABLED
+    value: {{ index .Values "transformer-consumer-billreport-enabled" | default "true" | quote }}
+  - name: TRANSFORMER_CONSUMER_DEVICE_TOKEN_ENABLED
+    value: {{ index .Values "transformer-consumer-device-token-enabled" | default "true" | quote }}
+  - name: TRANSFORMER_CONSUMER_FACILITY_ENABLED
+    value: {{ index .Values "transformer-consumer-facility-enabled" | default "true" | quote }}
+  - name: TRANSFORMER_CONSUMER_HFREFERRAL_ENABLED
+    value: {{ index .Values "transformer-consumer-hfreferral-enabled" | default "true" | quote }}
+  - name: TRANSFORMER_CONSUMER_HOUSEHOLD_ENABLED
+    value: {{ index .Values "transformer-consumer-household-enabled" | default "true" | quote }}
+  - name: TRANSFORMER_CONSUMER_HOUSEHOLD_MEMBER_ENABLED
+    value: {{ index .Values "transformer-consumer-household-member-enabled" | default "true" | quote }}
+  - name: TRANSFORMER_CONSUMER_MUSTERROLL_ENABLED
+    value: {{ index .Values "transformer-consumer-musterroll-enabled" | default "true" | quote }}
+  - name: TRANSFORMER_CONSUMER_PGR_ENABLED
+    value: {{ index .Values "transformer-consumer-pgr-enabled" | default "true" | quote }}
+  - name: TRANSFORMER_CONSUMER_PROJECT_ENABLED
+    value: {{ index .Values "transformer-consumer-project-enabled" | default "true" | quote }}
+  - name: TRANSFORMER_CONSUMER_PROJECT_STAFF_ENABLED
+    value: {{ index .Values "transformer-consumer-project-staff-enabled" | default "true" | quote }}
+  - name: TRANSFORMER_CONSUMER_PROJECT_TASK_ENABLED
+    value: {{ index .Values "transformer-consumer-project-task-enabled" | default "true" | quote }}
+  - name: TRANSFORMER_CONSUMER_REFERRAL_ENABLED
+    value: {{ index .Values "transformer-consumer-referral-enabled" | default "true" | quote }}
+  - name: TRANSFORMER_CONSUMER_SERVICE_ENABLED
+    value: {{ index .Values "transformer-consumer-service-enabled" | default "true" | quote }}
+  - name: TRANSFORMER_CONSUMER_SIDE_EFFECT_ENABLED
+    value: {{ index .Values "transformer-consumer-side-effect-enabled" | default "true" | quote }}
+  - name: TRANSFORMER_CONSUMER_STOCK_ENABLED
+    value: {{ index .Values "transformer-consumer-stock-enabled" | default "true" | quote }}
+  - name: TRANSFORMER_CONSUMER_STOCK_RECONCILIATION_ENABLED
+    value: {{ index .Values "transformer-consumer-stock-reconciliation-enabled" | default "true" | quote }}
+  - name: TRANSFORMER_CONSUMER_USER_ACTION_ENABLED
+    value: {{ index .Values "transformer-consumer-user-action-enabled" | default "true" | quote }}

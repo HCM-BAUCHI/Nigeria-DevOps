@@ -97,6 +97,15 @@ transformer:
   transformer-consumer-create-user-action-topic: "ch-save-user-action-project-task-topic"
   transformer-consumer-update-user-action-topic: "ch-update-user-action-project-task-topic"
   transformer-producer-user-action-index-v1-topic: "ch-transformer-producer-user-action-index-v1-topic"
+  transformer-consumer-attendance-enabled: "false"
+  transformer-consumer-attendance-staff-enabled: "false"
+  transformer-consumer-attendee-enabled: "false"
+  transformer-consumer-bill-enabled: "false"
+  transformer-consumer-billdetail-enabled: "false"
+  transformer-consumer-billreport-enabled: "false"
+  transformer-consumer-musterroll-enabled: "false"
+  transformer-consumer-service-enabled: "false"
+  transformer-consumer-side-effect-enabled: "false"
 
 hcm-moz-impl:
   namespace: chad

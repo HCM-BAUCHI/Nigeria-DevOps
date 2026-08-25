@@ -643,6 +643,8 @@ transformer:
   update-stock-reconciliation-topic: "chad-update-stock-reconciliation-topic"
   transformer-producer-stock-recon-index-v1-topic: "chad-transformer-producer-stock-recon-index-v1-topic"
   health-transformer: "chad-health-transformer"
+  transformer-consumer-service-enabled: "false"
+  transformer-consumer-side-effect-enabled: "false"
 
 digit-ui:
   namespace: chad-prod

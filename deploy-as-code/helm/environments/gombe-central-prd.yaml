@@ -111,6 +111,15 @@ transformer:
   update-stock-reconciliation-topic: "go-update-stock-reconciliation-topic"
   transformer-producer-stock-recon-index-v1-topic: "go-transformer-producer-stock-recon-index-v1-topic"
   health-transformer: "go-health-transformer"
+  transformer-consumer-attendance-enabled: "false"
+  transformer-consumer-attendance-staff-enabled: "false"
+  transformer-consumer-attendee-enabled: "false"
+  transformer-consumer-bill-enabled: "false"
+  transformer-consumer-billdetail-enabled: "false"
+  transformer-consumer-billreport-enabled: "false"
+  transformer-consumer-musterroll-enabled: "false"
+  transformer-consumer-service-enabled: "false"
+  transformer-consumer-side-effect-enabled: "false"
 
 hcm-moz-impl:
   namespace: gombe
