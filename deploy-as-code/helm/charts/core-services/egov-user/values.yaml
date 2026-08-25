@@ -106,7 +106,6 @@ env: |
       configMapKeyRef:
         name: egov-service-host
         key: egov-notification-push
-        optional: true
   - name: EGOV_USER_BULK_BCRYPT_THREADS
     value: {{ index .Values "bulk-bcrypt-threads" | default "3" | quote }}
   - name: EGOV_ENC_HOST
