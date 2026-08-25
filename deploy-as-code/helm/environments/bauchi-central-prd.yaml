@@ -1481,7 +1481,7 @@ project:
 project-referral:
   image:
     repository: egovio/project
-    tag: customize-nigeria-go-deep-2-project-bb6bfd6
+    tag: chad-removed-notnull-8efa870
   spring-datasource-tomcat-max-active: "30"
   server-tomcat-max-threads: "40"
   central-instance-build: true
