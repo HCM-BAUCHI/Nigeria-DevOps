@@ -1456,10 +1456,10 @@ project:
     dbMigration:
       image:
         repository: egovio/project-db
-        tag: customize-nigeria-go-deep-2-project-bb6bfd6
+        tag: chad-removed-notnull-8efa870
   image:
     repository: egovio/project
-    tag: customize-nigeria-go-deep-2-project-bb6bfd6
+    tag: chad-removed-notnull-8efa870
   central-instance-build: true
   central-instance-enabled: true
   heap: "-Xmx1g -Xms512m"
