@@ -1389,10 +1389,10 @@ stock:
     dbMigration:
       image:
         repository: egovio/stock-db
-        tag: nigeria-go-deep-2-stock-d3d660c
+        tag: customize-2.1-stock-73ee75b
   image:
     repository: egovio/stock
-    tag: nigeria-go-deep-2-stock-d3d660c
+    tag: customize-2.1-stock-73ee75b
   spring-datasource-tomcat-max-active: "5"
   server-tomcat-max-threads: "10"
   central-instance-build: true
