@@ -1470,10 +1470,10 @@ project:
     dbMigration:
       image:
         repository: egovio/project-db
-        tag: chad-removed-notnull-8efa870
+        tag: customize-nigeria-go-deep-2-project-bb6bfd6
   image:
     repository: egovio/project
-    tag: chad-removed-notnull-8efa870
+    tag: customize-nigeria-go-deep-2-project-bb6bfd6
   central-instance-build: true
   central-instance-enabled: true
   heap: "-Xmx1g -Xms512m"
@@ -1495,7 +1495,7 @@ project:
 project-referral:
   image:
     repository: egovio/project
-    tag: chad-removed-notnull-8efa870
+    tag: customize-nigeria-go-deep-2-project-bb6bfd6
   spring-datasource-tomcat-max-active: "30"
   server-tomcat-max-threads: "40"
   central-instance-build: true
