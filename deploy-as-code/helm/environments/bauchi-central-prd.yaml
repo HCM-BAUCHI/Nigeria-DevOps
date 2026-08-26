@@ -1262,10 +1262,10 @@ facility:
     dbMigration:
       image:
         repository: egovio/facility-db
-        tag: facility-search-limit-fix-554bc07
+        tag: master-d673cfa
   image:
     repository: egovio/facility
-    tag: facility-search-limit-fix-554bc07
+    tag: master-d673cfa
   spring-datasource-tomcat-max-active: "5"
   server-tomcat-max-threads: "10"
   central-instance-build: true
