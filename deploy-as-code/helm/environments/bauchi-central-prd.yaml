@@ -1049,7 +1049,7 @@ egov-workflow-v2:
   pdf-link: "/download/epass?tenantId={TENANTID}&ids={UUID}"
 
 egov-hrms:
-  db-read-url-enabled: true
+  db-read-url-enabled: false
   initContainers:
     dbMigration:
       image:
