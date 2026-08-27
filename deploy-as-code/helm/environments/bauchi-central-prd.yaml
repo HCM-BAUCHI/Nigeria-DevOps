@@ -1552,7 +1552,7 @@ referralmanagement:
   egov-project-task-search-batch-size: "200"
   egov-side-effect-search-batch-size: "200"
   egov-referral-search-batch-size: "200"
-  egov-hf-referral-search-batch-size: "1000"
+  egov-hf-referral-search-batch-size: "200"
   egov-s3-bucket: "downsync-ng-prod"
   egov-s3-region: "af-south-1"
   healthChecks:
