@@ -70,6 +70,9 @@ egov-project-task-search-batch-size: "200"
 egov-side-effect-search-batch-size: "200"
 egov-referral-search-batch-size: "200"
 egov-hf-referral-search-batch-size: "200"
+search-api-limit: "1000"
+referralmanagement-default-limit: "100"
+referralmanagement-search-max-limit: "200"
 egov-s3-bucket: "downsync-ng-prod"
 egov-s3-region: "af-south-1"
 egov-s3-endpoint: "https://s3.af-south-1.amazonaws.com"
@@ -339,15 +342,15 @@ env: |
   - name: REFERRALMANAGEMENT_HFREFERRAL_CONSUMER_BULK_DELETE_TOPIC
     value: {{ index .Values "referralmanagement-hfreferral-consumer-bulk-delete-topic" | quote }}
   - name: SEARCH_API_LIMIT
-    value: "1000"
+    value: {{ index .Values "search-api-limit" | quote }}
   - name: REFERRALMANAGEMENT_DOCUMENT_ID_VERIFICATION_REQUIRED
     value: "false"
   - name: REFERRALMANAGEMENT_DEFAULT_OFFSET
     value: "0"
   - name: REFERRALMANAGEMENT_DEFAULT_LIMIT
-    value: "100"
+    value: {{ index .Values "referralmanagement-default-limit" | quote }}
   - name: REFERRALMANAGEMENT_SEARCH_MAX_LIMIT
-    value: "200"
+    value: {{ index .Values "referralmanagement-search-max-limit" | quote }}
   - name: EGOV_IDGEN_PROJECT_NUMBER_NAME
     value: "project.number"
   - name: PROJECT_RESOURCE_IDGEN_ID_FORMAT
