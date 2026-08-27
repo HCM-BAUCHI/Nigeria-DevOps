@@ -1372,7 +1372,7 @@ individual-referral:
   hpa:
     enabled: true
     minReplicas: 5
-    maxReplicas: 11
+    maxReplicas: 16
   cpu_requests: 300m
   memory_requests: 1.5Gi
   cpu_limits: 400m
