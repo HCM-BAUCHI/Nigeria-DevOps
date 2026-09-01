@@ -1193,6 +1193,7 @@ elasticsearch-data:
     tag: 8.11.1
   persistence:
     enabled: true
+    dataDirSize: "1500Gi"
     aws:
       - volumeId: "vol-02e4dc71e0755a922" ## add your respective volume id eg. vol-0085073c65f76dre5
         zone: af-south-1b            ## add your respective zone eg. ap-south-1b
@@ -1204,9 +1205,11 @@ elasticsearch-data:
   esJavaOpts: "-Xmx5g -Xms5g"
   resources:
     requests:
-      memory: "6Gi"
+      cpu: "1"
+      memory: "8Gi"
     limits:
-      memory: "6Gi"
+      cpu: "2"
+      memory: "14Gi"
 
 elasticsearch-master:
   namespace: es-cluster-v8
@@ -1215,6 +1218,7 @@ elasticsearch-master:
     tag: 8.11.1
   persistence:
     enabled: true
+    dataDirSize: "10Gi"
     aws:
       - volumeId: "vol-0b70bde0e1db6baab" ## add your respective volume id eg. vol-0085073c65f76dre5
         zone: af-south-1b            ## add your respective zone eg. ap-south-1b
@@ -1226,9 +1230,11 @@ elasticsearch-master:
   esJavaOpts: "-Xmx448m -Xms448m"
   resources:
     requests:
-      memory: "896Mi"
+      cpu: "400m"
+      memory: "2Gi"
     limits:
-      memory: "896Mi"
+      cpu: "500m"
+      memory: "4Gi"
 
 es-curator:
   schedule: "45 18 * * *"
