@@ -56,8 +56,14 @@ hub:
   baseUrl: /jupyter
   cookieSecret:
   initContainers: []
-  nodeSelector: {}
-  tolerations: []
+  nodeSelector:
+    architecture: arm64
+    kubernetes.io/arch: arm64
+  tolerations:
+    - key: arm64-only
+      operator: Equal
+      value: "true"
+      effect: NoSchedule
   concurrentSpawnLimit: 64
   consecutiveFailureLimit: 5
   activeServerLimit:
@@ -235,8 +241,14 @@ proxy:
     defaultTarget:
     errorTarget:
     extraEnv: {}
-    nodeSelector: {}
-    tolerations: []
+    nodeSelector:
+      architecture: arm64
+      kubernetes.io/arch: arm64
+    tolerations:
+      - key: arm64-only
+        operator: Equal
+        value: "true"
+        effect: NoSchedule
     networkPolicy:
       enabled: true
       ingress: []
@@ -283,8 +295,14 @@ proxy:
     extraVolumeMounts: []
     extraStaticConfig: {}
     extraDynamicConfig: {}
-    nodeSelector: {}
-    tolerations: []
+    nodeSelector:
+      architecture: arm64
+      kubernetes.io/arch: arm64
+    tolerations:
+      - key: arm64-only
+        operator: Equal
+        value: "true"
+        effect: NoSchedule
     extraPorts: []
     networkPolicy:
       enabled: true
@@ -404,7 +422,7 @@ singleuser:
     static:
       pvcName:
       subPath: "{username}"
-    capacity: 25Gi
+    capacity: 35Gi
     homeMountPath: /home/jovyan
     dynamic:
       storageClass:
@@ -421,7 +439,7 @@ singleuser:
     limit:
     guarantee:
   memory:
-    limit:
+    limit: 12G
     guarantee: 3G
   extraResource:
     limits: {}
@@ -538,8 +556,14 @@ scheduling:
       tag: "v1.26.15" # ref: https://github.com/kubernetes/kubernetes/tree/master/CHANGELOG
       pullPolicy:
       pullSecrets: []
-    nodeSelector: {}
-    tolerations: []
+    nodeSelector:
+      architecture: arm64
+      kubernetes.io/arch: arm64
+    tolerations:
+      - key: arm64-only
+        operator: Equal
+        value: "true"
+        effect: NoSchedule
     labels: {}
     annotations: {}
     pdb:
@@ -589,6 +613,10 @@ scheduling:
         operator: Equal
         value: core
         effect: NoSchedule
+      - key: arm64-only
+        operator: Equal
+        value: "true"
+        effect: NoSchedule
     nodeAffinity:
       matchNodePurpose: prefer
   userPods:
@@ -600,6 +628,10 @@ scheduling:
       - key: hub.jupyter.org_dedicated
         operator: Equal
         value: user
+        effect: NoSchedule
+      - key: arm64-only
+        operator: Equal
+        value: "true"
         effect: NoSchedule
     nodeAffinity:
       matchNodePurpose: prefer
@@ -614,7 +646,11 @@ prePuller:
     runAsUser: 65534 # nobody user
     runAsGroup: 65534 # nobody group
     allowPrivilegeEscalation: false
-  extraTolerations: []
+  extraTolerations:
+    - key: arm64-only
+      operator: Equal
+      value: "true"
+      effect: NoSchedule
   # hook relates to the hook-image-awaiter Job and hook-image-puller DaemonSet
   hook:
     enabled: false
@@ -630,8 +666,14 @@ prePuller:
       runAsGroup: 65534 # nobody group
       allowPrivilegeEscalation: false
     podSchedulingWaitDuration: 10
-    nodeSelector: {}
-    tolerations: []
+    nodeSelector:
+      architecture: arm64
+      kubernetes.io/arch: arm64
+    tolerations:
+      - key: arm64-only
+        operator: Equal
+        value: "true"
+        effect: NoSchedule
     resources: {}
     serviceAccount:
       create: true
