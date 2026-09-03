@@ -1285,6 +1285,7 @@ facility:
   central-instance-build: true
   central-instance-enabled: true
   heap: "-Xmx512m -Xms256m"
+  kafka-consumer-group-id: "health-facility"
   hpa:
     enabled: true
     minReplicas: 2

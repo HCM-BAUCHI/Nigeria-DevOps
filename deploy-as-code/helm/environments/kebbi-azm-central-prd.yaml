@@ -424,7 +424,7 @@ facility:
   memory_requests: 512Mi
   cpu_limits: 300m
   memory_limits: 768Mi
-  kafka-consumer-group-id: kb-health-project
+  kafka-consumer-group-id: kb-health-facility
   facility-kafka-create-topic: kb-save-facility-topic
   facility-kafka-update-topic: kb-update-facility-topic
   facility-kafka-delete-topic: kb-delete-facility-topic

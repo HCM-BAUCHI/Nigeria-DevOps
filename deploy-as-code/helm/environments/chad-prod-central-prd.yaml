@@ -483,7 +483,7 @@ facility:
   memory_requests: 512Mi
   cpu_limits: 300m
   memory_limits: 768Mi
-  kafka-consumer-group-id: chad-health-project
+  kafka-consumer-group-id: chad-health-facility
   facility-kafka-create-topic: chad-save-facility-topic
   facility-kafka-update-topic: chad-update-facility-topic
   facility-kafka-delete-topic: chad-delete-facility-topic
