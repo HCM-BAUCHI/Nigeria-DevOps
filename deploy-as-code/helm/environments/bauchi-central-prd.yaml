@@ -1301,6 +1301,12 @@ facility:
         value: "true"
       - name: TRACER_ERRORSTOPIC
         value: "error-details-indexer-topic"
+      - name: MANAGEMENT_ENDPOINTS_WEB_EXPOSURE_INCLUDE
+        value: "health,prometheus,metrics,threaddump,caches"
+      - name: MANAGEMENT_ENDPOINT_HEALTH_SHOW_DETAILS
+        value: "always"
+      - name: SPRING_CACHE_REDIS_ENABLE_STATISTICS
+        value: "true"
 
 product:
   initContainers:
