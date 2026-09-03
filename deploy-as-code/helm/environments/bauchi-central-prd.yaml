@@ -1287,6 +1287,12 @@ facility:
   memory_limits: 768Mi
   schemaNameExclude: [ "chad", "kb" ]
   hostExclude: ["chad-hcm-prod.digit.org", "kebbi-azm-central-hcm.digit.org"]
+  extraEnv:
+    app: |
+      - name: TRACER_ERRORSPUBLISH
+        value: "true"
+      - name: TRACER_ERRORSTOPIC
+        value: "error-details-indexer-topic"
 
 product:
   initContainers:
@@ -1362,6 +1368,12 @@ individual:
   individual-beneficiary-id-validation-enabled: "false"
   spring-datasource-tomcat-max-active: "5"
   server-tomcat-max-threads: "10"
+  extraEnv:
+    app: |
+      - name: TRACER_ERRORSPUBLISH
+        value: "true"
+      - name: TRACER_ERRORSTOPIC
+        value: "error-details-indexer-topic"
 
 individual-referral:
   image:
@@ -1387,6 +1399,12 @@ individual-referral:
   hostExclude: ["chad-hcm-prod.digit.org", "kebbi-azm-central-hcm.digit.org"]
   egov-beneficiary-idgen-integration-enabled: "true"
   individual-beneficiary-id-validation-enabled: "false"
+  extraEnv:
+    app: |
+      - name: TRACER_ERRORSPUBLISH
+        value: "true"
+      - name: TRACER_ERRORSTOPIC
+        value: "error-details-indexer-topic"
 
 
 stock:
@@ -1420,6 +1438,10 @@ stock:
     app: |
       - name: LOGGING_LEVEL_ORG_EGOV
         value: "DEBUG"
+      - name: TRACER_ERRORSPUBLISH
+        value: "true"
+      - name: TRACER_ERRORSTOPIC
+        value: "error-details-indexer-topic"
 
 household:
   db-read-url-enabled: true
@@ -1446,6 +1468,12 @@ household:
   memory_limits: 1.5Gi
   schemaNameExclude: [ "chad", "kb" ]
   hostExclude: ["chad-hcm-prod.digit.org", "kebbi-azm-central-hcm.digit.org"]
+  extraEnv:
+    app: |
+      - name: TRACER_ERRORSPUBLISH
+        value: "true"
+      - name: TRACER_ERRORSTOPIC
+        value: "error-details-indexer-topic"
 
 household-referral:
   image:
@@ -1469,6 +1497,12 @@ household-referral:
   memory_limits: 2Gi
   schemaNameExclude: [ "chad", "kb" ]
   hostExclude: ["chad-hcm-prod.digit.org", "kebbi-azm-central-hcm.digit.org"]
+  extraEnv:
+    app: |
+      - name: TRACER_ERRORSPUBLISH
+        value: "true"
+      - name: TRACER_ERRORSTOPIC
+        value: "error-details-indexer-topic"
 
 project:
   db-read-url-enabled: true
@@ -1497,6 +1531,12 @@ project:
   tracer-request-logging-enabled: "true"
   spring-datasource-tomcat-max-active: "5"
   server-tomcat-max-threads: "10"
+  extraEnv:
+    app: |
+      - name: TRACER_ERRORSPUBLISH
+        value: "true"
+      - name: TRACER_ERRORSTOPIC
+        value: "error-details-indexer-topic"
 
 project-referral:
   image:
@@ -1522,6 +1562,12 @@ project-referral:
   schemaNameExclude: [ "chad", "kb" ]
   hostExclude: ["chad-hcm-prod.digit.org", "kebbi-azm-central-hcm.digit.org"]
   project-task-no-resource-validation-status: "ADMINISTRATION_FAILED,BENEFICIARY_REFUSED,CLOSED_HOUSEHOLD,NOT_ADMINISTERED,BENEFICIARY_DIED,BENEFICIARY_MIGRATED,BENEFICIARY_ABSENT,BENEFICIARY_INELIGIBLE,INELIGIBLE"
+  extraEnv:
+    app: |
+      - name: TRACER_ERRORSPUBLISH
+        value: "true"
+      - name: TRACER_ERRORSTOPIC
+        value: "error-details-indexer-topic"
 
 referralmanagement:
   initContainers:
@@ -1580,6 +1626,12 @@ referralmanagement:
   spring-datasource-hikari-leak-detection-threshold: "60000"
   egov-wardfilegen-ward-pool-size: "8"
   egov-wardfilegen-file-pool-size: "32"
+  extraEnv:
+    app: |
+      - name: TRACER_ERRORSPUBLISH
+        value: "true"
+      - name: TRACER_ERRORSTOPIC
+        value: "error-details-indexer-topic"
 
 service-request:
   db-read-url-enabled: true
