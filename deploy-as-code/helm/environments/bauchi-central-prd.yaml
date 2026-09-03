@@ -293,6 +293,14 @@ mdms-v2:
   memory_requests: 1024Mi
   cpu_limits: 300m
   memory_limits: 1.5Gi
+  extraEnv:
+    app: |
+      - name: MANAGEMENT_ENDPOINTS_WEB_EXPOSURE_INCLUDE
+        value: "health,prometheus,metrics,threaddump,caches"
+      - name: MANAGEMENT_ENDPOINT_HEALTH_SHOW_DETAILS
+        value: "always"
+      - name: SPRING_CACHE_REDIS_ENABLE_STATISTICS
+        value: "true"
 
 egov-accesscontrol:
   image:
@@ -1374,6 +1382,12 @@ individual:
         value: "true"
       - name: TRACER_ERRORSTOPIC
         value: "error-details-indexer-topic"
+      - name: MANAGEMENT_ENDPOINTS_WEB_EXPOSURE_INCLUDE
+        value: "health,prometheus,metrics,threaddump,caches"
+      - name: MANAGEMENT_ENDPOINT_HEALTH_SHOW_DETAILS
+        value: "always"
+      - name: SPRING_CACHE_REDIS_ENABLE_STATISTICS
+        value: "true"
 
 individual-referral:
   image:
@@ -1405,6 +1419,12 @@ individual-referral:
         value: "true"
       - name: TRACER_ERRORSTOPIC
         value: "error-details-indexer-topic"
+      - name: MANAGEMENT_ENDPOINTS_WEB_EXPOSURE_INCLUDE
+        value: "health,prometheus,metrics,threaddump,caches"
+      - name: MANAGEMENT_ENDPOINT_HEALTH_SHOW_DETAILS
+        value: "always"
+      - name: SPRING_CACHE_REDIS_ENABLE_STATISTICS
+        value: "true"
 
 
 stock:
