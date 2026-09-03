@@ -2176,7 +2176,7 @@ health-expense-calculator:
   register-batch-size: 15
   tenantId: "ba"
   excell-state-level-tenant-id: "ba"
-  boundary-hierarchy-name: "boundary-hierarchy"
+  boundary-hierarchy-name: "ADMIN"
   calculate-musterroll-health: ba-calculate-musterroll-health
   calculate-error-health: ba-calculate-error-health
   calculate-billmeta-health: ba-calculate-billmeta-health

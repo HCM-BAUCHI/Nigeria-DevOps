@@ -105,10 +105,7 @@ env: |
   - name: EGOV_BOUNDARY_SEARCH_URL
     value: {{ index .Values "egov-boundary-search-url" | default "/boundary-service/boundary-relationships/_search" }}
   - name: EGOV_BOUNDARY_HIERARCHY_NAME
-    valueFrom:
-      configMapKeyRef:
-        name: egov-config
-        key: {{ index .Values "boundary-hierarchy-name" | default "boundary-hierarchy" }}
+    value: {{ index .Values "boundary-hierarchy-name" | default "ADMIN" | quote }}
   - name: EGOV_LOCALIZATION_MODULE_NAME
     value: {{ index .Values "egov-localization-module-name" | default "hcm-boundary-admin" | quote }}
   - name: EGOV_LOCALIZATION_LOCALE_CODE

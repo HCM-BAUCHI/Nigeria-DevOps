@@ -259,7 +259,7 @@ health-expense-calculator:
   register-batch-size: 15
   tenantId: "bo"
   excell-state-level-tenant-id: "bo"
-  boundary-hierarchy-name: "boundary-hierarchy"
+  boundary-hierarchy-name: "ITN"
   egov-localization-module-name: "hcm-boundary-itn"
   report-localization-boundary-module-name: "hcm-boundary-itn"
   calculate-musterroll-health: bo-calculate-musterroll-health
