@@ -264,7 +264,7 @@ egov-idgen:
   autocreate-new-seq: "true"
   hpa:
     enabled: true
-    minReplicas: 4
+    minReplicas: 2
     maxReplicas: 8
   heap: "-Xmx768m -Xms256m"
   cpu_requests: 200m
@@ -352,7 +352,7 @@ egov-enc-service:
   heap: "-Xmx384m -Xms128m"
   hpa:
     enabled: true
-    minReplicas: 4
+    minReplicas: 2
     maxReplicas: 8
   cpu_requests: 200m
   memory_requests: 384Mi
@@ -374,7 +374,7 @@ boundary-service:
   server-tomcat-max-threads: "20"
   hpa:
     enabled: true
-    minReplicas: 4
+    minReplicas: 2
     maxReplicas: 8
   heap: "-Xmx1024m -Xms512m"
   cpu_requests: 200m
@@ -425,7 +425,7 @@ egov-user:
   heap: "-Xmx1024m -Xms512m"
   hpa:
     enabled: true
-    minReplicas: 4
+    minReplicas: 2
     maxReplicas: 8
   cpu_requests: 500m
   memory_requests: 1Gi
@@ -635,7 +635,7 @@ egov-indexer-kd-pl-ab:
   heap: "-Xmx1536m -Xms1024m"
   hpa:
     enabled: true
-    minReplicas: 4
+    minReplicas: 1
     maxReplicas: 6
   cpu_requests: 300m
   memory_requests: 1.5Gi
@@ -683,7 +683,7 @@ egov-persister-ht:
   heap: "-Xmx768m -Xms256m"
   hpa:
     enabled: true
-    minReplicas: 3
+    minReplicas: 2
     maxReplicas: 6
   cpu_requests: 300m
   memory_requests: 768Mi
@@ -798,7 +798,7 @@ egov-persister-kd-pl-ab:
   heap: "-Xmx1536m -Xms1024m"
   hpa:
     enabled: true
-    minReplicas: 4
+    minReplicas: 1
     maxReplicas: 4
   cpu_requests: 300m
   memory_requests: 1.5Gi
@@ -911,7 +911,7 @@ gateway:
     tag: customize-2.1-gateway-dc34e2b
   hpa:
     enabled: true
-    minReplicas: 4
+    minReplicas: 2
     maxReplicas: 8
   custom-filter-property: "false"
   cpu_requests: 200m
@@ -1350,7 +1350,7 @@ egov-localization:
   heap: "-Xmx3072m -Xms1500m"
   hpa:
     enabled: true
-    minReplicas: 4
+    minReplicas: 2
     maxReplicas: 8
   cpu_requests: 200m
   memory_requests: 2Gi
@@ -1410,7 +1410,7 @@ individual-referral:
   heap: "-Xmx1536m -Xms768m"
   hpa:
     enabled: true
-    minReplicas: 5
+    minReplicas: 2
     maxReplicas: 16
   cpu_requests: 300m
   memory_requests: 1.5Gi
@@ -1516,7 +1516,7 @@ household-referral:
   heap: "-Xmx1536m -Xms768m"
   hpa:
     enabled: true
-    minReplicas: 5
+    minReplicas: 2
     maxReplicas: 11
   cpu_requests: 300m
   memory_requests: 1.5Gi
@@ -1546,7 +1546,7 @@ project:
   heap: "-Xmx1g -Xms512m"
   hpa:
     enabled: true
-    minReplicas: 4
+    minReplicas: 2
     maxReplicas: 8
   cpu_requests: 300m
   memory_requests: 1Gi
@@ -1580,7 +1580,7 @@ project-referral:
   heap: "-Xmx1536m -Xms768m"
   hpa:
     enabled: true
-    minReplicas: 5
+    minReplicas: 2
     maxReplicas: 11
   cpu_requests: 200m
   memory_requests: 1.5Gi
@@ -1612,7 +1612,7 @@ referralmanagement:
   heap: "-Xmx1536m -Xms768m"
   hpa:
     enabled: true
-    minReplicas: 7
+    minReplicas: 2
     maxReplicas: 11
   cpu_requests: 300m
   memory_requests: 1.5Gi
@@ -2263,7 +2263,7 @@ egov-notification-push:
     tag: nigeria-go-deep-push-notification-batch-00fb53d
   hpa:
     enabled: true
-    minReplicas: 4
+    minReplicas: 2
     maxReplicas: 4
   central-instance-build: true
   central-instance-enabled: true
@@ -2291,7 +2291,7 @@ health-notification-service:
     tag: customize-2.1-health-notification-service-d45063b
   hpa:
     enabled: true
-    minReplicas: 4
+    minReplicas: 2
     maxReplicas: 4
   central-instance-build: true
   central-instance-enabled: true
@@ -2419,7 +2419,7 @@ dashboard-analytics:
   replicas: 3
   hpa:
     enabled: false
-    minReplicas: 3
+    minReplicas: 2
     maxReplicas: 5
   cpu_requests: 200m
   memory_requests: 768Mi
@@ -2457,7 +2457,7 @@ beneficiary-idgen:
   memory_limits: 1024Mi
   hpa:
     enabled: true
-    minReplicas: 4
+    minReplicas: 2
     maxReplicas: 8
 
 inbox:
