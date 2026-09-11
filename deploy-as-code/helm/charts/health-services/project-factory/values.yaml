@@ -12,7 +12,7 @@ ingress:
   zuul: true
   context: "project-factory"
   additionalAnnotations: |
-    nginx.ingress.kubernetes.io/proxy-body-size: 5m
+    nginx.ingress.kubernetes.io/proxy-body-size: 12m
 
 # Init Containers Configs
 initContainers:
@@ -390,7 +390,7 @@ env: |
   - name: MAX_RESOURCE_CREATION_ATTEMPTS
     value: {{ .Values.maxResourceCreationAttempts | default "200" | quote }}
   - name: WAIT_TIME_OF_EACH_ATTEMPT_MS
-    value: {{ .Values.waitTimeOfEachAttemptMs | default "40000" | quote }}
+    value: {{ .Values.waitTimeOfEachAttemptMs | default "5000" | quote }}
   - name: RETRY_TILL_RESOURCE_CREATION_COMPLETES
     value: {{ .Values.retryTillResourceCreationCompletes | default "100" | quote }}
   - name: LOCALIZATION_MODULE
@@ -466,7 +466,7 @@ env: |
   - name: PHONE_NUMBER_LENGTH
     value: {{ .Values.phoneNumberLength | default "11" | quote }}
   - name: HRMS_PARALLEL_SEARCH_LIMIT
-    value: {{ .Values.hrmsParallelSearchLimit | default "10" | quote }}
+    value: {{ .Values.hrmsParallelSearchLimit | default "100" | quote }}
   - name: APP_PORT
     value: {{ .Values.appPort | default "8080" | quote }}
   - name: EGOV_LOCALIZATION_SEARCH
@@ -494,15 +494,147 @@ env: |
   - name: CENTRAL_INSTANCE_TENANT_IDS
     value: {{ .Values.centralInstanceTenantIds | default "" }}
   - name: EXCEL_INGESTION_PERSISTENCE_STALL_TIMEOUT_MS
-    value: "600000"
+    value: {{ .Values.excelIngestionPersistenceStallTimeoutMs | default "600000" | quote }}
   - name: KAFKA_CONSUMER_MAX_CONCURRENT
-    value: "10"
+    value: {{ .Values.kafkaConsumerMaxConcurrent | default "5" | quote }}
   - name: USER_KAFKA_CREATE_BATCH_SIZE
-    value: "3"
+    value: {{ .Values.userKafkaCreateBatchSize | default "100" | quote }}
   - name: USER_CREATION_BATCH_SIZE
-    value: "3"
+    value: {{ .Values.userCreationBatchSize | default "100" | quote }}
   - name: USER_PERSIST_BATCH_SIZE
-    value: "10"
+    value: {{ .Values.userPersistBatchSize | default "20" | quote }}
   - name: PROJECT_CREATION_BATCH_SIZE
-    value: "40"
-  
+    value: {{ .Values.projectCreationBatchSize | default "20" | quote }}
+  - name: BOUNDARY_SYNC_RETRY_DELAY_MS
+    value: {{ .Values.boundarySyncRetryDelayMs | default "4000" | quote }}
+  - name: PROJECT_BULK_CREATE_CHUNK_SIZE
+    value: {{ .Values.projectBulkCreateChunkSize | default "0" | quote }}
+  - name: PROJECT_BULK_CREATE_CONCURRENCY
+    value: {{ .Values.projectBulkCreateConcurrency | default "5" | quote }}
+  - name: PROJECT_SEARCH_PAGE_SIZE
+    value: {{ .Values.projectSearchPageSize | default "100" | quote }}
+  - name: PROJECT_CONFIRM_RETRIES
+    value: {{ .Values.projectConfirmRetries | default "15" | quote }}
+  - name: PROJECT_CONFIRM_POLL_INTERVAL_MS
+    value: {{ .Values.projectConfirmPollIntervalMs | default "2000" | quote }}
+  - name: PROJECT_CREATE_PACE_DELAY_MS
+    value: {{ .Values.projectCreatePaceDelayMs | default "0" | quote }}
+  - name: USER_KAFKA_PRODUCE_WINDOW_SIZE
+    value: {{ .Values.userKafkaProduceWindowSize | default "100" | quote }}
+  - name: USER_KAFKA_PRODUCE_WINDOW_DELAY_MS
+    value: {{ .Values.userKafkaProduceWindowDelayMs | default "0" | quote }}
+  - name: USER_HRMS_FALLBACK_CONCURRENCY
+    value: {{ .Values.userHrmsFallbackConcurrency | default "5" | quote }}
+  - name: USER_HRMS_FALLBACK_MAX_RETRIES
+    value: {{ .Values.userHrmsFallbackMaxRetries | default "2" | quote }}
+  - name: USER_HRMS_FALLBACK_BACKOFF_MS
+    value: {{ .Values.userHrmsFallbackBackoffMs | default "500" | quote }}
+  - name: USER_HRMS_FALLBACK_WINDOW_DELAY_MS
+    value: {{ .Values.userHrmsFallbackWindowDelayMs | default "200" | quote }}
+  - name: USER_SEARCH_CONCURRENCY
+    value: {{ .Values.userSearchConcurrency | default "10" | quote }}
+  - name: USER_INDIVIDUAL_CONSISTENCY_POLL_INTERVAL_MS
+    value: {{ .Values.userIndividualConsistencyPollIntervalMs | default "2000" | quote }}
+  - name: USER_INDIVIDUAL_CONSISTENCY_MAX_POLL_ATTEMPTS
+    value: {{ .Values.userIndividualConsistencyMaxPollAttempts | default "5" | quote }}
+  - name: USER_WORKER_CREATE_BATCH_LAG
+    value: {{ .Values.userWorkerCreateBatchLag | default "2" | quote }}
+  - name: MAPPING_BULK_CREATE_CHUNK_SIZE
+    value: {{ .Values.mappingBulkCreateChunkSize | default "100" | quote }}
+  - name: STAFF_MAPPING_BULK
+    value: {{ .Values.staffMappingBulk | default "true" | quote }}
+  - name: MAPPING_BULK_CONFIRM_POLL_INTERVAL_MS
+    value: {{ .Values.mappingBulkConfirmPollIntervalMs | default "2000" | quote }}
+  - name: MAPPING_BULK_CONFIRM_MAX_ATTEMPTS
+    value: {{ .Values.mappingBulkConfirmMaxAttempts | default "5" | quote }}
+  - name: EGOV_SERVICE_REQUEST_HOST
+    valueFrom:
+      configMapKeyRef:
+        name: egov-service-host
+        key: service-request
+  - name: EGOV_PROJECT_STAFF_BULK_CREATE_PATH
+    value: {{ .Values.egovProjectStaffBulkCreatePath | default "project/staff/v1/bulk/_create" }}
+  - name: EGOV_PROJECT_RESOURCE_BULK_CREATE_PATH
+    value: {{ .Values.egovProjectResourceBulkCreatePath | default "project/resource/v1/bulk/_create" }}
+  - name: EGOV_PROJECT_FACILITY_BULK_CREATE_PATH
+    value: {{ .Values.egovProjectFacilityBulkCreatePath | default "project/facility/v1/bulk/_create" }}
+  - name: EGOV_SERVICE_DEFINITION_SEARCH_PATH
+    value: {{ .Values.egovServiceDefinitionSearchPath | default "service-request/service/definition/v1/_search" }}
+  - name: EGOV_SERVICE_DEFINITION_CREATE_PATH
+    value: {{ .Values.egovServiceDefinitionCreatePath | default "service-request/service/definition/v1/_create" }}
+  - name: EXCEL_INGESTION_GENERATION_TIMEOUT_MS
+    value: {{ .Values.excelIngestionGenerationTimeoutMs | default "600000" | quote }}
+  - name: EXCEL_INGESTION_POLLING_INTERVAL_MS
+    value: {{ .Values.excelIngestionPollingIntervalMs | default "60000" | quote }}
+  - name: EXCEL_INGESTION_MAX_RETRIES
+    value: {{ .Values.excelIngestionMaxRetries | default "3" | quote }}
+  - name: EXCEL_INGESTION_SEARCH_SHEET_PROCESSING_ROW_LIMIT
+    value: {{ .Values.excelIngestionSearchSheetProcessingRowLimit | default "5000" | quote }}
+  - name: EXCEL_INGESTION_PAGE_SIZE
+    value: {{ .Values.excelIngestionPageSize | default "2000" | quote }}
+  - name: EXCEL_INGESTION_PERSISTENCE_POLL_INTERVAL_MS
+    value: {{ .Values.excelIngestionPersistencePollIntervalMs | default "10000" | quote }}
+  - name: KAFKA_TOPIC_LARGE_MESSAGE_MAX_BYTES
+    value: {{ .Values.kafkaTopicLargeMessageMaxBytes | default "4194304" | quote }}
+  - name: KAFKA_CONSUMER_RETRIES
+    value: {{ .Values.kafkaConsumerRetries | default "10" | quote }}
+  - name: LOCALIZATION_MESSAGE_CHUNK_SIZE
+    value: {{ .Values.localizationMessageChunkSize | default "100" | quote }}
+  - name: RESOURCE_CREATION_NO_PROGRESS_TIMEOUT_MS
+    value: {{ .Values.resourceCreationNoProgressTimeoutMs | default "600000" | quote }}
+  - name: MAPPING_PERSISTENCE_STALL_TIMEOUT_MS
+    value: {{ .Values.mappingPersistenceStallTimeoutMs | default "300000" | quote }}
+  - name: MAPPING_PERSISTENCE_POLL_INTERVAL_MS
+    value: {{ .Values.mappingPersistencePollIntervalMs | default "5000" | quote }}
+  - name: BATCH_SIZE
+    value: {{ .Values.batchSize | default "100" | quote }}
+  - name: BOUNDARY_PERSIST_BATCH_SIZE
+    value: {{ .Values.boundaryPersistBatchSize | default "100" | quote }}
+  - name: BOUNDARY_MAPPING_PERSIST_BATCH_SIZE
+    value: {{ .Values.boundaryMappingPersistBatchSize | default "100" | quote }}
+  - name: FACILITY_PERSIST_BATCH_SIZE
+    value: {{ .Values.facilityPersistBatchSize | default "100" | quote }}
+  - name: FACILITY_CREATION_BATCH_SIZE
+    value: {{ .Values.facilityCreationBatchSize | default "100" | quote }}
+  - name: FACILITY_KAFKA_CREATE_BATCH_SIZE
+    value: {{ .Values.facilityKafkaCreateBatchSize | default "30" | quote }}
+  - name: FACILITY_SEARCH_BATCH_SIZE
+    value: {{ .Values.facilitySearchBatchSize | default "50" | quote }}
+  - name: USER_MAPPING_PERSIST_BATCH_SIZE
+    value: {{ .Values.userMappingPersistBatchSize | default "100" | quote }}
+  - name: USER_SEARCH_BATCH_SIZE
+    value: {{ .Values.userSearchBatchSize | default "50" | quote }}
+  - name: USER_VALIDATION_SEARCH_BATCH_SIZE
+    value: {{ .Values.userValidationSearchBatchSize | default "50" | quote }}
+  - name: USER_INDIVIDUAL_SEARCH_BATCH_SIZE
+    value: {{ .Values.userIndividualSearchBatchSize | default "50" | quote }}
+  - name: WORKER_REGISTRY_SEARCH_BATCH_SIZE
+    value: {{ .Values.workerRegistrySearchBatchSize | default "50" | quote }}
+  - name: WORKER_REGISTRY_UPDATE_BATCH_SIZE
+    value: {{ .Values.workerRegistryUpdateBatchSize | default "100" | quote }}
+  - name: MAPPING_KAFKA_BATCH_SIZE
+    value: {{ .Values.mappingKafkaBatchSize | default "30" | quote }}
+  - name: MAPPING_PERSIST_BATCH_SIZE
+    value: {{ .Values.mappingPersistBatchSize | default "100" | quote }}
+  - name: RESOURCE_ACTIVITY_BATCH_SIZE
+    value: {{ .Values.resourceActivityBatchSize | default "10" | quote }}
+  - name: PRODUCT_VARIANT_SEARCH_BATCH_SIZE
+    value: {{ .Values.productVariantSearchBatchSize | default "100" | quote }}
+  - name: SHEET_DATA_PERSIST_BATCH_SIZE
+    value: {{ .Values.sheetDataPersistBatchSize | default "100" | quote }}
+  - name: ATTENDANCE_ATTENDEE_PERSIST_BATCH_SIZE
+    value: {{ .Values.attendanceAttendeePersistBatchSize | default "100" | quote }}
+  - name: ATTENDANCE_REGISTER_PERSIST_BATCH_SIZE
+    value: {{ .Values.attendanceRegisterPersistBatchSize | default "100" | quote }}
+  - name: ATTENDANCE_REGISTER_API_BATCH_SIZE
+    value: {{ .Values.attendanceRegisterApiBatchSize | default "100" | quote }}
+  - name: HRMS_SEARCH_BY_UUID_BATCH_SIZE
+    value: {{ .Values.hrmsSearchByUuidBatchSize | default "50" | quote }}
+  - name: HRMS_SEARCH_BY_USERNAME_BATCH_SIZE
+    value: {{ .Values.hrmsSearchByUsernameBatchSize | default "50" | quote }}
+  - name: MAPPING_RECONCILE_STALL_TIMEOUT_MS
+    value: {{ .Values.mappingReconcileStallTimeMs | default "30000" | quote }}
+  - name: MAPPING_MAX_RECONCILE_CYCLES
+    value: {{ .Values.mappingMaxReconcileCycles | default "5" | quote }}
+  - name: PERSISTENCE_WAIT_TIME_MS
+    value: {{ .Values.persistenceWaitTimeMs | default "200" | quote }}

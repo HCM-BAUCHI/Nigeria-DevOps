@@ -27,6 +27,7 @@ image:
   repository: "boundary-management"
 replicas: "1"
 appType: "java-spring"
+tracing-enabled: true
 heap: '-Xmx768m -Xms512m'
 memory_limits: '1Gi'
 cpu_limits: '300m'
@@ -87,6 +88,8 @@ env: |
     value: {{ .Values.mdmsV1SchemaSearchEndpoint | default "mdms-v2/schema/v1/_search" }}
   - name: EGOV_BOUNDARY_RELATIONSHIP_SEARCHPATH
     value: boundary-service/boundary-relationships/_search
+  - name: EGOV_BOUNDARY_RELATIONSHIP_BULK_CREATE
+    value: boundary-service/boundary-relationships/bulk/_create
   - name: EGOV_BOUNDARY_SERVICE_SEARCHPATH
     value: boundary-service/boundary/_search
   - name: EGOV_BOUNDARY_HIERARCHY_SEARCHPATH
@@ -153,7 +156,7 @@ env: |
   - name: LOCALIZATION_MODULE
     value: "hcm-admin-schemas"
   - name: LOCALIZATION_WAIT_TIME_IN_BOUNDARY_CREATION
-    value: "30000"
+    value: "200"
   - name: LOCALIZATION_CHUNK_SIZE_FOR_BOUNDARY_CREATION
     value: "2000"
   - name: APP_LOG_LEVEL
@@ -180,7 +183,27 @@ env: |
     value: "redis.backbone"
   {{- end }}
   - name: AUTO_RETRY_IF_HTTP_ERROR
-    value: "socket hang up"
+    value: {{ .Values.autoRetryIfHttpError | default "socket hang up,write EPIPE,read ECONNRESET,ECONNRESET,EPIPE" | quote }}
+  - name: HTTP_SOCKET_IDLE_TIMEOUT_MS
+    value: {{ .Values.httpSocketIdleTimeoutMs | default "60000" | quote }}
+  - name: LOCALISATION_VERIFY_POLL_INTERVAL_MS
+    value: {{ .Values.localisationVerifyPollIntervalMs | default "3000" | quote }}
+  - name: LOCALISATION_VERIFY_TIMEOUT_MS
+    value: {{ .Values.localisationVerifyTimeoutMs | default "30000" | quote }}
+  - name: RELATIONSHIP_CREATE_CONCURRENCY
+    value: {{ .Values.relationshipCreateConcurrency | default "10" | quote }}
+  - name: BULK_RELATIONSHIP_CHUNK_SIZE
+    value: {{ .Values.bulkRelationshipChunkSize | default "100" | quote }}
+  - name: BULK_RELATIONSHIP_RETRY_ATTEMPTS
+    value: {{ .Values.bulkRelationshipRetryAttempts | default "30" | quote }}
+  - name: BULK_RELATIONSHIP_RETRY_DELAY_MS
+    value: {{ .Values.bulkRelationshipRetryDelayMs | default "2000" | quote }}
+  - name: PERSISTENCE_DRAIN_TIMEOUT_MS
+    value: {{ .Values.persistenceDrainTimeoutMs | default "600000" | quote }}
+  - name: PERSISTENCE_DRAIN_POLL_INTERVAL_MS
+    value: {{ .Values.persistenceDrainPollIntervalMs | default "5000" | quote }}
+  - name: GENERATE_TRIGGER_DELAY_MS
+    value: {{ .Values.generateTriggerDelayMs | default "5000" | quote }}
   - name: EXCLUDE_HIERARCHY_TYPE_FROM_BOUNDARY_CODES
     value: {{ .Values.ExcludeHierarchyTypeFromBoundaryCodes | default "false" | quote }}
   - name: EXCLUDE_BOUNDARY_NAME_AT_LAST_FROM_BOUNDARY_CODES

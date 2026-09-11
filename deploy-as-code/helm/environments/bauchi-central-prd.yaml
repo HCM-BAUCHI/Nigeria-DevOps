@@ -1689,10 +1689,10 @@ project-factory:
     dbMigration:
       image:
         repository: "project-factory-db"
-        tag: master-c5dff1d
+        tag: master-excel-pf-fix-97dd5b5
   image:
     repository: egovio/project-factory
-    tag: master-c5dff1d
+    tag: master-excel-pf-fix-97dd5b5
   central-instance-enabled: false
   central-instance-build: true
   schemaNameExclude: [ "chad", "kb" ]
@@ -1753,12 +1753,22 @@ project-factory:
   userMainBoundary: "ADMIN"
   userMainBoundaryType: "Country"
   maxResourceCreationAttempts: "200"
-  waitTimeOfEachAttemptMs: "20000"
+  waitTimeOfEachAttemptMs: "5000"
   retryTillResourceCreationCompletes: "50"
   serverTimezone: "UTC"
   attendanceAttendeeSearchPageSize: "100"
   attendanceStaffSearchPageSize: "100"
   centralInstanceTenantIds: "ba,oy,ko,na,ab,pl,bo,ke,so,od,ad,kd,jg,ch,go,zf"
+  userKafkaCreateBatchSize: '100'
+  mappingBulkCreateChunkSize: '150'
+  projectBulkCreateChunkSize: '100'
+  projectCreatePaceDelayMs: '100'
+  userWorkerCreateBatchLag: '7'
+  userIndividualConsistencyMaxPollAttempts: '10'
+  userIndividualSearchBatchSize: '150'
+  mappingKafkaBatchSize: '300'
+  projectConfirmRetries: '45'
+  projectBulkCreateConcurrency: '3'
   command: |
     - sh
     - -c
@@ -1798,10 +1808,10 @@ excel-ingestion:
     dbMigration:
       image:
         repository: egovio/excel-ingestion-db
-        tag: nigeria-go-deep-2-0248b5f
+        tag: master-b912a1c
   image:
     repository: egovio/excel-ingestion
-    tag: nigeria-go-deep-2-0248b5f
+    tag: master-b912a1c
   group-id: "egov-excel-ingestion"
   central-instance-build: true
   central-instance-enabled: true
@@ -1821,12 +1831,14 @@ excel-ingestion:
   project-factory-host: project-factory
   excel-ingestion-generation-save-topic: "save-generated-file"
   excel-ingestion-generation-update-topic: "update-generated-file"
+  excel-ingestion-generation-init-topic: "excel-ingestion-generation-init"
   excel-ingestion-processing-save-topic: "save-processing-file"
   excel-ingestion-processing-update-topic: "update-processing-file"
   excel-ingestion-sheet-data-save-topic: "save-sheet-data-temp"
   excel-ingestion-sheet-data-delete-topic: "delete-sheet-data-temp"
   excel-ingestion-processing-result-topic: "hcm-processing-result"
   java-enable-debug: true
+  wait-time-of-each-attempt-ms: "20000"
 
 od-project-factory:
   global:
