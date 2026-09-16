@@ -475,7 +475,7 @@ egov-indexer:
   cpu_requests: 300m
   memory_requests: 1Gi
   cpu_limits: 400m
-  memory_limits: 768Mi
+  memory_limits: 1.5Gi
   initContainers:
     dbMigration:
       image:
