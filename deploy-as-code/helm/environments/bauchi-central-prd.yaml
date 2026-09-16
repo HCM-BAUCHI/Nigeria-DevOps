@@ -1320,7 +1320,7 @@ product:
     tag: customize-2.1-product-4c59c40
   central-instance-build: true
   central-instance-enabled: true
-  db-write-url: true
+  db-read-url-enabled: true
   heap: "-Xmx512m -Xms256m"
   hpa:
     enabled: true
