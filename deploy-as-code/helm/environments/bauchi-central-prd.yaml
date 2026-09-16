@@ -286,7 +286,7 @@ mdms-v2:
   central-instance-enabled: true
   hpa:
     enabled: true
-    minReplicas: 2
+    minReplicas: 4
     maxReplicas: 8
   heap: "-Xmx1024m -Xms768m"
   cpu_requests: 200m
@@ -309,7 +309,7 @@ egov-accesscontrol:
   heap: "-Xmx384m -Xms128m"
   hpa:
     enabled: true
-    minReplicas: 2
+    minReplicas: 3
     maxReplicas: 5
   cpu_requests: 200m
   memory_requests: 512Mi
@@ -352,7 +352,7 @@ egov-enc-service:
   heap: "-Xmx384m -Xms128m"
   hpa:
     enabled: true
-    minReplicas: 2
+    minReplicas: 4
     maxReplicas: 8
   cpu_requests: 200m
   memory_requests: 384Mi
@@ -374,7 +374,7 @@ boundary-service:
   server-tomcat-max-threads: "20"
   hpa:
     enabled: true
-    minReplicas: 2
+    minReplicas: 4
     maxReplicas: 8
   heap: "-Xmx1024m -Xms512m"
   cpu_requests: 200m
@@ -425,7 +425,7 @@ egov-user:
   heap: "-Xmx1024m -Xms512m"
   hpa:
     enabled: true
-    minReplicas: 2
+    minReplicas: 4
     maxReplicas: 8
   cpu_requests: 500m
   memory_requests: 1.25Gi
@@ -1082,8 +1082,8 @@ egov-hrms:
   java-enable-debug: true
   schemaNameExclude: [ "chad", "kb" ]
   hostExclude: ["chad-hcm-prod.digit.org", "kebbi-azm-central-hcm.digit.org"]
-  spring-datasource-tomcat-max-active: "10"
-  server-tomcat-max-threads: "10"
+  spring-datasource-tomcat-max-active: "4"
+  server-tomcat-max-threads: "4"
 
 #egov-otp:
 #  heap: "-Xmx512m -Xms512m"
@@ -1288,7 +1288,7 @@ facility:
   kafka-consumer-group-id: "health-facility"
   hpa:
     enabled: true
-    minReplicas: 2
+    minReplicas: 4
     maxReplicas: 8
   cpu_requests: 200m
   memory_requests: 512Mi
@@ -1350,7 +1350,7 @@ egov-localization:
   heap: "-Xmx3072m -Xms1500m"
   hpa:
     enabled: true
-    minReplicas: 2
+    minReplicas: 4
     maxReplicas: 8
   cpu_requests: 200m
   memory_requests: 2Gi
@@ -1410,8 +1410,8 @@ individual-referral:
   heap: "-Xmx1536m -Xms768m"
   hpa:
     enabled: true
-    minReplicas: 2
-    maxReplicas: 16
+    minReplicas: 5
+    maxReplicas: 11
   cpu_requests: 300m
   memory_requests: 1.5Gi
   cpu_limits: 400m
@@ -1451,8 +1451,8 @@ stock:
   heap: "-Xmx512m -Xms256m"
   hpa:
     enabled: true
-    minReplicas: 2
-    maxReplicas: 5
+    minReplicas: 4
+    maxReplicas: 6
   cpu_requests: 200m
   memory_requests: 768Mi
   cpu_limits: 300m
@@ -1516,7 +1516,7 @@ household-referral:
   heap: "-Xmx1536m -Xms768m"
   hpa:
     enabled: true
-    minReplicas: 2
+    minReplicas: 5
     maxReplicas: 11
   cpu_requests: 300m
   memory_requests: 1.5Gi
@@ -1580,7 +1580,7 @@ project-referral:
   heap: "-Xmx1536m -Xms768m"
   hpa:
     enabled: true
-    minReplicas: 2
+    minReplicas: 5
     maxReplicas: 11
   cpu_requests: 200m
   memory_requests: 1.5Gi
@@ -1612,7 +1612,7 @@ referralmanagement:
   heap: "-Xmx1536m -Xms768m"
   hpa:
     enabled: true
-    minReplicas: 2
+    minReplicas: 5
     maxReplicas: 11
   cpu_requests: 300m
   memory_requests: 1.75Gi
@@ -2275,8 +2275,8 @@ egov-notification-push:
     tag: nigeria-go-deep-push-notification-batch-00fb53d
   hpa:
     enabled: true
-    minReplicas: 2
-    maxReplicas: 4
+    minReplicas: 4
+    maxReplicas: 6
   central-instance-build: true
   central-instance-enabled: true
   heap: "-Xmx1296m -Xms1024m"
@@ -2303,8 +2303,8 @@ health-notification-service:
     tag: customize-2.1-health-notification-service-d45063b
   hpa:
     enabled: true
-    minReplicas: 2
-    maxReplicas: 4
+    minReplicas: 4
+    maxReplicas: 6
   central-instance-build: true
   central-instance-enabled: true
   heap: "-Xmx1024m -Xms512m"
