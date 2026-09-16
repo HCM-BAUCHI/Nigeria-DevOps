@@ -2419,7 +2419,7 @@ dashboard-analytics:
   namespace: egov
   image:
     repository: egovio/dashboard-analytics
-    tag: analytics-raw-response-transform-5f98d99
+    tag: analytics-raw-response-transform-6574c7a
   ingress:
     name: dashboard-analytics
     namespace: egov
