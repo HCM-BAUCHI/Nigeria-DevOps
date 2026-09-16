@@ -466,7 +466,7 @@ product:
   product-variant-kafka-update-topic: chad-update-product-variant-topic
 
 facility:
-  db-read-url-enabled: true
+  db-write-url: true
   central-instance-build: true
   central-instance-enabled: false
   heap: "-Xmx512m -Xms256m"
@@ -524,7 +524,7 @@ stock:
   stock-reconciliation-consumer-bulk-update-topic: chad-update-stock-reconciliation-bulk-topic
 
 egov-hrms:
-  db-read-url-enabled: true
+  db-write-url: true
   heap: "-Xmx1024m -Xms512m"
   hpa:
     enabled: true
@@ -552,7 +552,7 @@ egov-hrms:
 
 
 service-request:
-  db-read-url-enabled: true
+  db-write-url: true
   central-instance-build: true
   central-instance-enabled: false
   heap: "-Xmx512m -Xms256m"

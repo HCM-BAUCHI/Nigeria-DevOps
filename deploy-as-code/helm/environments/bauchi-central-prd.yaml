@@ -273,7 +273,7 @@ egov-idgen:
   memory_limits: 1Gi
 
 mdms-v2:
-  db-read-url-enabled: true
+  db-write-url: true
   initContainers:
     dbMigration:
       image:
@@ -317,7 +317,7 @@ egov-accesscontrol:
   memory_limits: 768Mi
 
 pgr-services:
-  db-read-url-enabled: true
+  db-write-url: true
   initContainers:
     dbMigration:
       image:
@@ -915,7 +915,7 @@ gateway:
     maxReplicas: 8
   custom-filter-property: "false"
   cpu_requests: 200m
-  memory_requests: 1Gi
+  memory_requests: 1.25Gi
   cpu_limits: 400m
   memory_limits: 1.5Gi
   tracing-enabled: "true"
@@ -1030,7 +1030,7 @@ internal-gateway-scg:
 #  musterroll-validate-attendance-register-enabled: "true"
 
 egov-workflow-v2:
-  db-read-url-enabled: true
+  db-write-url: true
   initContainers:
     dbMigration:
       image:
@@ -1057,7 +1057,7 @@ egov-workflow-v2:
   pdf-link: "/download/epass?tenantId={TENANTID}&ids={UUID}"
 
 egov-hrms:
-  db-read-url-enabled: false
+  db-write-url: true
   initContainers:
     dbMigration:
       image:
@@ -1271,7 +1271,7 @@ grafana:
   dashboardsFolder: /work-dir/health-campaign-config/monitoring-dashboards    
 
 facility:
-  db-read-url-enabled: true
+  db-write-url: true
   initContainers:
     dbMigration:
       image:
@@ -1320,7 +1320,7 @@ product:
     tag: customize-2.1-product-4c59c40
   central-instance-build: true
   central-instance-enabled: true
-  db-read-url-enabled: true
+  db-write-url: true
   heap: "-Xmx512m -Xms256m"
   hpa:
     enabled: true
@@ -1454,9 +1454,9 @@ stock:
     minReplicas: 2
     maxReplicas: 5
   cpu_requests: 200m
-  memory_requests: 512Mi
+  memory_requests: 768Mi
   cpu_limits: 300m
-  memory_limits: 768Mi
+  memory_limits: 1Gi
   schemaNameExclude: [ "chad", "kb" ]
   hostExclude: ["chad-hcm-prod.digit.org", "kebbi-azm-central-hcm.digit.org"]
   java-enable-debug: "true"
@@ -1661,7 +1661,7 @@ referralmanagement:
         value: "error-details-indexer-topic"
 
 service-request:
-  db-read-url-enabled: true
+  db-write-url: true
   initContainers:
     dbMigration:
       image:
@@ -1779,7 +1779,7 @@ project-factory:
 
 
 worker-registry:
-  db-read-url-enabled: false
+  db-write-url: true
   namespace: egov
   initContainers:
     dbMigration:
@@ -2051,7 +2051,7 @@ hcm-moz-impl:
       memory: "3Gi"
       
 health-attendance:
-  db-read-url-enabled: true
+  db-write-url: true
   namespace: egov
   initContainers:
     dbMigration:
@@ -2079,7 +2079,7 @@ health-attendance:
   egov-mdms-service-endpoint-key: "/mdms-v2/v1/_search"
 
 health-muster-roll:
-  db-read-url-enabled: true
+  db-write-url: true
   namespace: egov
   initContainers:
     dbMigration:
@@ -2105,7 +2105,7 @@ health-muster-roll:
   memory_limits: 768Mi
 
 health-expense:
-  db-read-url-enabled: false
+  db-write-url: true
   namespace: egov
   initContainers:
     dbMigration:
