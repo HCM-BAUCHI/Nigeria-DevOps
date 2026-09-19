@@ -55,9 +55,12 @@ egov-excel-sheet-password: "passwordhere"
 egov-excel-sheet-zoom: "90"
 egov-excel-validation-error-color: "#ff0000"
 wait-time-of-each-attempt-ms: "3000"
+kafka-mdc-enabled: "true"
 
 # Additional Container Envs
 env: |
+  - name: TRACER_KAFKA_MDC_ENABLED
+    value: {{ index .Values "kafka-mdc-enabled" | quote }}
   - name: SERVER_PORT
     value: "8080"
   - name: JAVA_OPTS

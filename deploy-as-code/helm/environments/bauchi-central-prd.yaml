@@ -1812,10 +1812,10 @@ excel-ingestion:
     dbMigration:
       image:
         repository: egovio/excel-ingestion-db
-        tag: master-b912a1c
+        tag: master-ekfrazo-1bb0855
   image:
     repository: egovio/excel-ingestion
-    tag: master-b912a1c
+    tag: master-ekfrazo-1bb0855
   group-id: "egov-excel-ingestion"
   central-instance-build: true
   central-instance-enabled: true
