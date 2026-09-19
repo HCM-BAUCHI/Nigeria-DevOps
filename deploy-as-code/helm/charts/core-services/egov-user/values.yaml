@@ -34,7 +34,7 @@ otp-validation: "true"
 citizen-otp-enabled: "true"
 employee-otp-enabled: "false"
 access-token-validity: "22000"
-refresh-token-validity: "20160"
+refresh-token-validity: "24160"
 default-password-expiry: "90"
 mobile-number-validation: "false"
 roles-state-level: "true"
@@ -44,6 +44,10 @@ citizen-otp-fixed-enabled: "true"
 heap: "-Xmx192m -Xms192m"
 java-args: ""
 java-enable-debug: "true"
+egov-user-session-single-active-enabled: "false"
+egov-user-session-last.contact-interval-seconds: "60"
+egov-user-session-inactivity-period-days: "29"
+egov-user-session-single-active-tenants: "bo"
 
 # Additional Container Envs
 env: |
@@ -198,6 +202,14 @@ env: |
     value: "false" 
   - name: EGOV_USER_PWD_PATTERN
     value: ((?=.*\d)(?=.*[a-z])(?=.*[@#$%])(?=\S+$).*$)
+  - name: EGOV_USER_SESSION_SINGLE_ACTIVE_TENANTS
+    value: {{ index .Values "egov-user-session-single-active-tenants" | quote }}
+  - name: EGOV_USER_SESSION_SINGLE_ACTIVE_ENABLED
+    value: {{ index .Values "egov-user-session-single-active-enabled" | quote }}
+  - name: EGOV_USER_SESSION_LAST_CONTACT_INTERVAL_SECONDS
+    value: {{ index .Values "egov-user-session-last.contact-interval-seconds" | quote }}
+  - name: EGOV_USER_SESSION_INACTIVITY_PERIOD_DAYS
+    value: {{ index .Values "egov-user-session-inactivity-period-days" | quote }}
   - name: EGOV_ENC_STATE_LEVEL_TENANT_IDS
     value: "ba,kd,kb,jg"
   - name: tenant.state.level.tenant.id.mappings.kd
