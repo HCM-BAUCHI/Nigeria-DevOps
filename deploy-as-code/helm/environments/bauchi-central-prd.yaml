@@ -1706,8 +1706,8 @@ project-factory:
   replicas: 3
   hpa:
     enabled: true
-    minReplicas: 2
-    maxReplicas: 4
+    minReplicas: 3
+    maxReplicas: 3
   cpu_requests: 200m
   memory_requests: 768Mi
   cpu_limits: 1000m
