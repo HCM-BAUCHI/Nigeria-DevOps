@@ -1693,10 +1693,10 @@ project-factory:
     dbMigration:
       image:
         repository: "project-factory-db"
-        tag: master-ekfrazo-b829a19
+        tag: master-ekfrazo-b396b48
   image:
     repository: egovio/project-factory
-    tag: master-ekfrazo-b829a19
+    tag: master-ekfrazo-b396b48
   central-instance-enabled: false
   central-instance-build: true
   schemaNameExclude: [ "chad", "kb" ]
