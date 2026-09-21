@@ -1826,7 +1826,7 @@ excel-ingestion:
   memory_limits: "4072Mi"
   cpu_limits: "3"
   heap: -Xms3560m -Xmx3560m
-  replicas: 2
+  replicas: 1
   egov-mdms-service-host-key: 'mdms-v2'
   egov-mdms-service-endpoint-key: "mdms-v2/v2/_search"
   defaultLocale: 'en_NG'
