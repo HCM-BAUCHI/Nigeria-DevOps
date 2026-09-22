@@ -1,7 +1,7 @@
 # Airflow version and image
 airflowVersion: "3.0.2"
 defaultAirflowRepository: egovio/airflow
-defaultAirflowTag: "3.0.2-custom2"
+defaultAirflowTag: "3.0.2-custom3"
 
 # Image pull secrets for Docker Hub rate limits
 registry:
@@ -32,6 +32,15 @@ config:
     standalone_dag_processor: "True"
   logging:
     remote_logging: "False"
+nodeSelector:
+  architecture: arm64
+  kubernetes.io/arch: arm64
+
+tolerations:
+  - key: arm64-only
+    operator: Equal
+    value: "true"
+    effect: NoSchedule
 
 # DAG Processor
 dagProcessor:
@@ -186,6 +195,14 @@ postgresql:
   # auth:
   #   postgresPassword: VLXKZUdKbhy4+Q==
   primary:
+    nodeSelector:
+      architecture: arm64
+      kubernetes.io/arch: arm64
+    tolerations:
+      - key: arm64-only
+        operator: Equal
+        value: "true"
+        effect: NoSchedule
     resources:
       requests:
         cpu: "100m"
