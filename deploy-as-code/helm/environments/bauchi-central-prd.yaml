@@ -1693,10 +1693,10 @@ project-factory:
     dbMigration:
       image:
         repository: "project-factory-db"
-        tag: master-ekfrazo-d5b0b2a
+        tag: master-ekfrazo-32cf9ce
   image:
     repository: egovio/project-factory
-    tag: master-ekfrazo-d5b0b2a
+    tag: master-ekfrazo-32cf9ce
   central-instance-enabled: false
   central-instance-build: true
   schemaNameExclude: [ "chad", "kb" ]
@@ -1812,10 +1812,10 @@ excel-ingestion:
     dbMigration:
       image:
         repository: egovio/excel-ingestion-db
-        tag: master-ekfrazo-fc56f89
+        tag: master-ekfrazo-32cf9ce
   image:
     repository: egovio/excel-ingestion
-    tag: master-ekfrazo-fc56f89
+    tag: master-ekfrazo-32cf9ce
   group-id: "egov-excel-ingestion"
   central-instance-build: true
   central-instance-enabled: true
