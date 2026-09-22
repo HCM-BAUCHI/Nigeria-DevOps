@@ -413,10 +413,10 @@ egov-user:
     dbMigration:
       image:
         repository: egovio/egov-user-db
-        tag: central-instance-switch-device-changes-bulk-ekfrazo-4c67ff6
+        tag: central-instance-switch-device-changes-bulk-ekfrazo-0d4f342
   image:
     repository: egovio/egov-user
-    tag: central-instance-switch-device-changes-bulk-ekfrazo-4c67ff6
+    tag: central-instance-switch-device-changes-bulk-ekfrazo-0d4f342
   spring-datasource-tomcat-max-active: "10"
   server-tomcat-max-threads: "200"
   bulk-bcrypt-threads: "4"
