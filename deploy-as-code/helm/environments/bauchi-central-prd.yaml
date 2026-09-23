@@ -2066,10 +2066,10 @@ health-attendance:
     dbMigration:
       image:
         repository: egovio/health-attendance-db
-        tag: nigeria-go-deep-6680733
+        tag: master-cdc5957
   image:
     repository: egovio/health-attendance
-    tag: nigeria-go-deep-6680733
+    tag: master-cdc5957
   central-instance-build: true
   central-instance-enabled: true
   schemaNameExclude: [ "chad", "kb" ]
@@ -2091,9 +2091,9 @@ health-attendance:
       - name: TRACER_REQUESTLOGGINGENABLED
         value: "true"
       - name: TRACER_RESTTEMPLATEDETAILEDLOGGINGENABLED
-        value: "true"
+        value: "false"
       - name: TRACER_KAFKAMESSAGELOGGINGENABLED
-        value: "true"
+        value: "false"
 
 health-muster-roll:
   db-write-url: true
