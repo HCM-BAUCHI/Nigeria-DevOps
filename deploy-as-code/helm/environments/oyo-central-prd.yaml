@@ -53,7 +53,7 @@ transformer:
   replicas: 1
   hpa:
     enabled: true
-    minReplicas: 1
+    minReplicas: 2
     maxReplicas: 4
   cpu_requests: 300m
   memory_requests: 1.75Gi
