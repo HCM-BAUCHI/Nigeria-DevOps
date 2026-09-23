@@ -2094,6 +2094,8 @@ health-attendance:
         value: "false"
       - name: TRACER_KAFKAMESSAGELOGGINGENABLED
         value: "false"
+      - name: JAVA_TOOL_OPTIONS
+        value: "-Xmx512m -Xms256m"
 
 health-muster-roll:
   db-write-url: true
