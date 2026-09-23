@@ -81,11 +81,11 @@ transformer:
   namespace: "borno"
   image:
     repository: egovio/transformer
-    tag: customize-2.1-transformer-mh-bd49377
-  replicas: 0
+    tag: transformer-attendance-register-search-user-098078d
+  replicas: 1
   heap: "-Xmx1536m -Xms1536m"
   hpa:
-    enabled: false
+    enabled: true
     minReplicas: 3
     maxReplicas: 6
   cpu_requests: 300m
