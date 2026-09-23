@@ -1511,6 +1511,8 @@ household-referral:
     repository: egovio/household
     tag: HCMPRE-2656-HCM-Services-Household-5717dde
   spring-datasource-tomcat-max-active: "30"
+  db-read-url-enabled: false
+  db-read-url-enabled-2: true
   server-tomcat-max-threads: "40"
   central-instance-build: true
   central-instance-enabled: true
@@ -1609,6 +1611,8 @@ referralmanagement:
   image:
     repository: egovio/referralmanagement
     tag: master-impel-ref-cca889b
+  db-read-url-enabled: false
+  db-read-url-enabled-2: true
   downsync-services-enabled: true
   central-instance-build: true
   central-instance-enabled: true
