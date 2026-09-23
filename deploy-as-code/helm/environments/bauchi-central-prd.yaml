@@ -2066,10 +2066,10 @@ health-attendance:
     dbMigration:
       image:
         repository: egovio/health-attendance-db
-        tag: master-cdc5957
+        tag: attendance-staff-deenrollment-fix-8b590d8
   image:
     repository: egovio/health-attendance
-    tag: master-cdc5957
+    tag: attendance-staff-deenrollment-fix-8b590d8
   central-instance-build: true
   central-instance-enabled: true
   schemaNameExclude: [ "chad", "kb" ]
