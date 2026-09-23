@@ -85,7 +85,7 @@ transformer:
         value: "bo:d687a85c-85c4-4425-8326-2829706c1b47"
   image:
     repository: egovio/transformer
-    tag: transformer-attendance-register-search-user-098078d
+    tag: customize-2.1-transformer-mh-fix-877a4ba
   replicas: 1
   heap: "-Xmx1536m -Xms1536m"
   hpa:
