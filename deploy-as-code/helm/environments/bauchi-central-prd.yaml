@@ -2086,6 +2086,14 @@ health-attendance:
   memory_limits: 768Mi
   egov-mdms-service-host-key: 'mdms-v2'
   egov-mdms-service-endpoint-key: "/mdms-v2/v1/_search"
+  extraEnv:
+    app: |
+      - name: TRACER_REQUESTLOGGINGENABLED
+        value: "true"
+      - name: TRACER_RESTTEMPLATEDETAILEDLOGGINGENABLED
+        value: "true"
+      - name: TRACER_KAFKAMESSAGELOGGINGENABLED
+        value: "true"
 
 health-muster-roll:
   db-write-url: true
