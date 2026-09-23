@@ -82,10 +82,10 @@ transformer:
   image:
     repository: egovio/transformer
     tag: customize-2.1-transformer-mh-bd49377
-  replicas: 1
+  replicas: 0
   heap: "-Xmx1536m -Xms1536m"
   hpa:
-    enabled: true
+    enabled: false
     minReplicas: 3
     maxReplicas: 6
   cpu_requests: 300m
