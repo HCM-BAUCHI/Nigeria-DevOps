@@ -79,13 +79,9 @@ payments-ui:
 
 transformer:
   namespace: "borno"
-  extraEnv:
-    app: |
-      - name: TRANSFORMER_ATTENDANCE_REGISTER_SEARCH_USER_UUID
-        value: "bo:d687a85c-85c4-4425-8326-2829706c1b47"
   image:
     repository: egovio/transformer
-    tag: customize-2.1-transformer-mh-fix-877a4ba
+    tag: customize-2.1-transformer-mh-bd49377
   replicas: 1
   heap: "-Xmx1536m -Xms1536m"
   hpa:
