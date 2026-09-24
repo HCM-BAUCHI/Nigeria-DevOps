@@ -1414,7 +1414,7 @@ individual-referral:
   heap: "-Xmx1536m -Xms768m"
   hpa:
     enabled: true
-    minReplicas: 5
+    minReplicas: 7
     maxReplicas: 11
   cpu_requests: 300m
   memory_requests: 1.5Gi
@@ -1522,7 +1522,7 @@ household-referral:
   heap: "-Xmx1536m -Xms768m"
   hpa:
     enabled: true
-    minReplicas: 5
+    minReplicas: 7
     maxReplicas: 11
   cpu_requests: 300m
   memory_requests: 1.5Gi
@@ -1586,7 +1586,7 @@ project-referral:
   heap: "-Xmx1536m -Xms768m"
   hpa:
     enabled: true
-    minReplicas: 5
+    minReplicas: 7
     maxReplicas: 11
   cpu_requests: 200m
   memory_requests: 1.5Gi
@@ -1620,7 +1620,7 @@ referralmanagement:
   heap: "-Xmx1536m -Xms768m"
   hpa:
     enabled: true
-    minReplicas: 5
+    minReplicas: 7
     maxReplicas: 11
   cpu_requests: 300m
   memory_requests: 1.75Gi
