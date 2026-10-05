@@ -85,16 +85,73 @@ kubectl exec -n monitoring deploy/goalert -- \
 
 ## Wiring Alertmanager → GoAlert
 
-Alertmanager is in the same namespace, so route to the ClusterIP service and bypass the
-ingress and oauth2-proxy entirely:
+Use the **native** Alertmanager endpoint (not the generic one):
+`POST /api/v2/prometheusalertmanager/incoming`, integration key type
+`prometheusAlertmanager`.
 
-```
-http://goalert.monitoring:8081/goalert/api/v2/generic/incoming?token=<integration-key>
+Alertmanager runs in this same namespace, so route to the ClusterIP service and bypass the
+ingress and oauth2-proxy entirely. The `/goalert` prefix is still required in-cluster —
+GoAlert strips it internally, so omitting it returns 404.
+
+Existing objects in GoAlert (created at rollout):
+
+| | |
+|---|---|
+| escalation policy | `ng-central-prd Cluster Alerts` (repeat 0) |
+| service | `ng-central-prd Alertmanager` |
+| integration key | `kube-prometheus-stack`, type `prometheusAlertmanager` |
+
+Config, in the SOPS secrets file under `cluster-configs.secrets.alertmanager.config`
+(re-apply the `kube-prometheus-stack` release from `helm/charts/monitoring` afterwards):
+
+```yaml
+receivers:
+  - name: goalert
+    webhook_configs:
+      - url: http://goalert.monitoring:8081/goalert/api/v2/prometheusalertmanager/incoming
+        send_resolved: true    # firing -> triggered, resolved -> auto-close
+        max_alerts: 0
+        http_config:
+          authorization:
+            type: Bearer       # keeps the key out of URLs and access logs
+            credentials: <integration-key>
+
+route:
+  routes:
+    - receiver: goalert
+      continue: true           # see caveat below
+      group_by: ['alertname', 'namespace']
+      group_wait: 30s
+      group_interval: 5m
+      repeat_interval: 4h
+      matchers:
+        - severity =~ "critical|warning"
 ```
 
-Create the integration key in GoAlert first (Services → *your service* → Integration Keys).
-The Alertmanager config lives in the SOPS secrets file under
-`cluster-configs.secrets.alertmanager.config`.
+Bearer auth needs Alertmanager >= 0.22 (cluster runs 0.26.0). `?token=` also works —
+`auth.GetToken` prefers the `token` field/query, then the legacy `integrationKey`,
+`integration_key`, `key` aliases, then `Authorization: Bearer`.
+
+### Wiring caveats (both will bite silently)
+
+- **`continue: true` is mandatory.** Without it this route consumes matching alerts and the
+  pre-existing Slack/email receivers go quiet. Order matters too — place it before any
+  broader route that would match the same alerts.
+- **Dedup is keyed off the summary string.** The handler sets
+  `Dedup: alert.NewUserDedup(summary)`, and one webhook POST becomes **one** GoAlert alert
+  per Alertmanager *group*, not per individual alert. Summary comes from
+  `commonAnnotations.summary`; when that is absent it falls back to
+  `"<first alert summary> and N others"`, which changes as the group grows — producing
+  duplicate alerts that never auto-close. Make sure rules set `annotations.summary` and
+  group by `alertname` so the common annotation stays stable.
+
+### Automating against the GoAlert API
+
+`POST /api/v2/identity/providers/basic?noRedirect=1` (form `username`/`password`) returns a
+session token for use as `Authorization: Bearer` against `/api/graphql`. It **requires a
+`Referer` header matching the public URL** — without one GoAlert replies
+`307 -> /?login_error=invalid+referer`. `createService` can create the escalation policy and
+integration keys in a single mutation via `newEscalationPolicy` / `newIntegrationKeys`.
 
 ## Known caveats
 
