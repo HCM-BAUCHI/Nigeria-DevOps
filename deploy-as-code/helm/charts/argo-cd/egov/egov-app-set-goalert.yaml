@@ -1,0 +1,51 @@
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: ng-central-prd-egov-appset-goalert
+  namespace: argocd
+spec:
+  generators:
+    - list:
+        elements:
+          - name: goalert
+
+  template:
+    metadata:
+      name: 'egov-{{name}}'
+
+    spec:
+      project: egov-project
+
+      source:
+        repoURL: git@github.com:HCM-BAUCHI/Nigeria-Devops.git
+        targetRevision: ng-central-prd
+        path: deploy-as-code/helm/charts/backbone-services/{{name}}
+        helm:
+          valueFiles:
+            - values.yaml
+            - ../../../environments/bauchi-central-prd.yaml
+
+      destination:
+        server: https://kubernetes.default.svc
+        namespace: 'monitoring'
+
+      # No `automated:` block on purpose -- first rollout is a manual sync so the
+      # diff can be reviewed in the UI before anything lands in the shared
+      # monitoring namespace. Add automated/selfHeal once it is running clean.
+      syncPolicy:
+        syncOptions:
+          - ApplyOutOfSyncOnly=true
+          - ServerSideApply=true
+          - RespectIgnoreDifferences=true
+        retry:
+          limit: 10
+          backoff:
+            duration: 5s
+            factor: 2
+            maxDuration: 3m0s
+
+      ignoreDifferences:
+        - group: apps
+          kind: Deployment
+          jsonPointers:
+            - /spec/replicas

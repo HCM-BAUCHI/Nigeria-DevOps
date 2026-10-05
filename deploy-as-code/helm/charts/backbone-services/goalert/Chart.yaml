@@ -1,0 +1,18 @@
+apiVersion: v2
+name: goalert
+description: GoAlert - on-call scheduling and alert notification (Target/goalert)
+
+# A chart can be either an 'application' or a 'library' chart.
+type: application
+
+# This is the chart version. This version number should be incremented each time you make changes
+# to the chart and its templates, including the app version.
+version: 0.1.0
+
+# This is the version number of the application being deployed.
+appVersion: "v0.35.0"
+
+dependencies:
+- name: common
+  version: 0.0.5
+  repository: file://../../common
