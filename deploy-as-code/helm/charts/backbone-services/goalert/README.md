@@ -23,8 +23,14 @@ GoAlert handles its own path prefix: `app/inithttp.go` wraps the whole mux in
   `nginx.ingress.kubernetes.io/rewrite-target` annotation on this ingress.
 - the pod itself answers on `/goalert/health`, which is why the probe paths include
   the prefix.
-- `GOALERT_PUBLIC_URL` must include the prefix, otherwise generated links and auth
-  callbacks are wrong.
+- the prefix is **derived from the path of `GOALERT_PUBLIC_URL`** —
+  `app/cmd.go` does `cfg.HTTPPrefix = u.Path`.
+
+> **Do not set `GOALERT_HTTP_PREFIX`.** As of v0.35.0 `--http-prefix` is deprecated
+> (`MarkDeprecated("http-prefix", "use --public-url instead")`, which is why it no
+> longer appears in `goalert --help`), and supplying it alongside `--public-url` is a
+> hard startup failure: `public-url and http-prefix cannot be used together`.
+> Setting the prefix in the public URL is the only supported way.
 
 `ingress.waf.enabled` is set to `false` for this chart (the `common` default turns on the
 lua-resty-waf annotations) so the GraphQL API is not score-filtered.

@@ -73,10 +73,12 @@ healthChecks:
 env: |
   - name: GOALERT_LISTEN
     value: ":{{ .Values.httpPort }}"
+  # The path on this URL IS the http prefix -- cmd.go does `cfg.HTTPPrefix = u.Path`.
+  # Do NOT also set GOALERT_HTTP_PREFIX: that flag is deprecated as of v0.35.0 and
+  # combining the two is a hard startup error ("public-url and http-prefix cannot
+  # be used together").
   - name: GOALERT_PUBLIC_URL
     value: "https://{{ .Values.global.domain }}/{{ .Values.ingress.context }}"
-  - name: GOALERT_HTTP_PREFIX
-    value: "/{{ .Values.ingress.context }}"
   - name: GOALERT_DB_URL
     valueFrom:
       secretKeyRef:
