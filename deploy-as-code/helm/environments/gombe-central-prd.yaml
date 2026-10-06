@@ -3,7 +3,7 @@ global:
 
 service:
   additionalAnnotations: |
-    zuul/route-host: gombe-central-hcm.digit.org
+    zuul/route-host: gombe-hcm.digit.org
 
 disableAnnotationTimestamp: true
 
