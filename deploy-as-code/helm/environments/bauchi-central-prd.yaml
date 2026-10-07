@@ -504,8 +504,8 @@ egov-indexer-chad-kb-kd:
   heap: "-Xmx1536m -Xms1024m"
   hpa:
     enabled: true
-    minReplicas: 2
-    maxReplicas: 8
+    minReplicas: 1
+    maxReplicas: 6
   cpu_requests: 300m
   memory_requests: 1.5Gi
   cpu_limits: 400m
@@ -559,7 +559,7 @@ egov-indexer-ch:
   hpa:
     enabled: true
     minReplicas: 1
-    maxReplicas: 8
+    maxReplicas: 4
   cpu_requests: 300m
   memory_requests: 1.5Gi
   cpu_limits: 400m
@@ -584,7 +584,7 @@ egov-indexer-so-zf:
   heap: "-Xmx1536m -Xms1024m"
   hpa:
     enabled: true
-    minReplicas: 2
+    minReplicas: 1
     maxReplicas: 6
   cpu_requests: 300m
   memory_requests: 1.5Gi
@@ -610,8 +610,8 @@ egov-indexer-na-oy-ko-jg:
   heap: "-Xmx1536m -Xms1024m"
   hpa:
     enabled: true
-    minReplicas: 2
-    maxReplicas: 6
+    minReplicas: 1
+    maxReplicas: 4
   cpu_requests: 300m
   memory_requests: 1.5Gi
   cpu_limits: 400m
@@ -639,8 +639,8 @@ egov-indexer-kd-pl-ab:
   heap: "-Xmx1536m -Xms1024m"
   hpa:
     enabled: true
-    minReplicas: 2
-    maxReplicas: 6
+    minReplicas: 1
+    maxReplicas: 4
   cpu_requests: 300m
   memory_requests: 1.5Gi
   cpu_limits: 400m
@@ -667,8 +667,8 @@ egov-indexer-ad-go:
   heap: "-Xmx1536m -Xms1024m"
   hpa:
     enabled: true
-    minReplicas: 1
-    maxReplicas: 3
+    minReplicas: 2
+    maxReplicas: 4
   cpu_requests: 300m
   memory_requests: 1.5Gi
   cpu_limits: 400m
@@ -741,7 +741,7 @@ egov-persister-chad-kb-kd:
   heap: "-Xmx1536m -Xms1024m"
   hpa:
     enabled: true
-    minReplicas: 2
+    minReplicas: 1
     maxReplicas: 4
   cpu_requests: 300m
   memory_requests: 1.5Gi
@@ -808,7 +808,7 @@ egov-persister-na-oy-ko-jg:
   heap: "-Xmx1536m -Xms1024m"
   hpa:
     enabled: true
-    minReplicas: 2
+    minReplicas: 1
     maxReplicas: 6
   cpu_requests: 300m
   memory_requests: 1.5Gi
@@ -830,7 +830,7 @@ egov-persister-kd-pl-ab:
   heap: "-Xmx1536m -Xms1024m"
   hpa:
     enabled: true
-    minReplicas: 2
+    minReplicas: 1
     maxReplicas: 4
   cpu_requests: 300m
   memory_requests: 1.5Gi
@@ -874,8 +874,8 @@ egov-persister-ad-go:
   heap: "-Xmx1536m -Xms1024m"
   hpa:
     enabled: true
-    minReplicas: 1
-    maxReplicas: 3
+    minReplicas: 2
+    maxReplicas: 4
   cpu_requests: 300m
   memory_requests: 1.5Gi
   cpu_limits: 400m
