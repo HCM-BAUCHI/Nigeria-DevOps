@@ -58,6 +58,8 @@ initContainers:
               key: ba-db-url
           {{- else if eq .Values.namespace "zamfara" }}
               key: zf-db-url
+          {{- else if eq .Values.namespace "abia" }}
+              key: abia-db-url
           {{- else if eq .Values.namespace "borno" }}
               key: bo-db-url
           {{- else if eq .Values.namespace "oyo" }}
@@ -89,6 +91,8 @@ initContainers:
           value: "chad"
           {{- else if eq .Values.namespace "zamfara" }}
           value: "zf"
+          {{- else if eq .Values.namespace "abia" }}
+          value: "abia"
           {{- else if eq .Values.namespace "borno" }}
           value: "bo"
           {{- else }}
@@ -193,6 +197,8 @@ extraEnv:
             key: chad-db-read-url
             {{- else if eq .Values.namespace "zamfara" }}
             key: zf-db-read-url
+            {{- else if eq .Values.namespace "abia" }}
+            key: abia-db-read-url
             {{- else if eq .Values.namespace "borno" }}
             key: bo-db-read-url
             {{- else }}
@@ -212,6 +218,8 @@ extraEnv:
             key: chad-db-url
             {{- else if eq .Values.namespace "zamfara"}}
             key: zf-db-url
+            {{- else if eq .Values.namespace "abia"}}
+            key: abia-db-url
             {{- else if eq .Values.namespace "borno" }}
             key: bo-db-url
             {{- else if eq .Values.namespace "oyo" }}
