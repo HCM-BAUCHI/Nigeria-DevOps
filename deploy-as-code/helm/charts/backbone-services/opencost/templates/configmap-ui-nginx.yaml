@@ -1,0 +1,88 @@
+# configmap-ui-nginx.yaml
+# The opencost-ui image ships default.nginx.conf.template and runs envsubst over
+# it at startup -- but only `if [ ! -e /etc/nginx/conf.d/default.nginx.conf ]`.
+# Mounting a finished config at that path skips the substitution entirely, which
+# is what we want for two reasons:
+#
+#   1. The shipped template hardcodes `listen [::]:9090`. This is an IPv4-only
+#      EKS cluster (VPC CNI, 192.168.0.0/16); if the pod netns has IPv6
+#      disabled nginx aborts with "Address family not supported by protocol".
+#   2. The upstream value `${API_SERVER}` defaults to 0.0.0.0. The exporter is a
+#      sidecar in this same pod, so 127.0.0.1 is the honest address.
+#
+# Because envsubst is skipped, this file must contain NO ${...} placeholders.
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ template "common.name" . }}-ui-nginx
+  namespace: {{ .Values.namespace }}
+  labels:
+{{- include "common.labels" . | nindent 4 }}
+data:
+  default.nginx.conf: |
+    gzip on;
+    gzip_static on;
+    gzip_min_length 50000;
+    gzip_proxied expired no-cache no-store private auth;
+    gzip_types
+        application/javascript
+        application/x-javascript
+        application/json
+        application/manifest+json
+        application/wasm
+        application/xhtml+xml
+        application/xml
+        font/otf
+        font/ttf
+        image/svg+xml
+        text/css
+        text/javascript
+        text/plain
+        text/xml;
+
+    upstream model {
+        server 127.0.0.1:{{ .Values.httpPort }};
+    }
+
+    server {
+        server_name _;
+        listen {{ .Values.ui.port }};
+
+        root /var/www;
+        index index.html;
+        large_client_header_buffers 4 32k;
+        add_header Cache-Control "must-revalidate";
+
+        error_page 504 /custom_504.html;
+        location = /custom_504.html {
+            internal;
+        }
+
+        location /healthz {
+            access_log /dev/null;
+            return 200 'OK';
+        }
+
+        # SPA: serve the file if it exists, otherwise hand the route to React
+        # Router. Safe with `root` (the redirect loop the upstream template
+        # warns about only happens when try_files is combined with `alias`).
+        location / {
+            try_files $uri $uri/ /index.html;
+        }
+
+        # Must stay in sync with the UI container's BASE_URL env var -- the
+        # compiled JS calls this prefix. proxy_pass with a trailing slash strips
+        # /model/ so the exporter sees /allocation/compute, /healthz, etc.
+        location /model/ {
+            proxy_pass http://model/;
+            proxy_redirect off;
+            proxy_http_version 1.1;
+            proxy_set_header Connection "";
+            proxy_set_header X-Real-IP $remote_addr;
+            proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+            proxy_connect_timeout 60s;
+            proxy_send_timeout 60s;
+            proxy_read_timeout 180s;
+        }
+    }

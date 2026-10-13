@@ -1,0 +1,31 @@
+# servicemonitor.yaml
+# Hand-written instead of common.servicemonitor: the Prometheus CR in this
+# cluster selects on `release: kube-prometheus-stack`, and common.labels cannot
+# add a metadata-only label (anything in additionalLabels would also land in the
+# Deployment's and Service's selectors).
+#
+# Scrapes the exporter port, not the UI port. Without this the UI can only show
+# the current instant -- opencost reads its own history back out of Prometheus.
+{{- if .Values.serviceMonitor.enabled }}
+---
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: {{ template "common.name" . }}
+  namespace: {{ .Values.namespace }}
+  labels:
+    release: kube-prometheus-stack
+{{- include "common.labels" . | nindent 4 }}
+spec:
+  endpoints:
+  - port: http
+    path: /metrics
+    honorLabels: {{ .Values.serviceMonitor.honorLabels }}
+    interval: {{ .Values.serviceMonitor.interval }}
+  selector:
+    matchLabels:
+{{- include "common.labels" . | nindent 6 }}
+  namespaceSelector:
+    matchNames:
+      - {{ .Values.namespace | quote }}
+{{- end }}
