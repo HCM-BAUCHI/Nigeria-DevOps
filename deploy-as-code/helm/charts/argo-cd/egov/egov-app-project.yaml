@@ -10,3 +10,13 @@ spec:
   destinations:
     - namespace: '*'
       server: https://kubernetes.default.svc
+
+  # With this field absent, ArgoCD denies EVERY cluster-scoped resource in this
+  # project. Listing these two keeps that deny-by-default for everything else
+  # while letting egov-opencost create the read-only inventory role its exporter
+  # needs. Add a kind here only when an app genuinely requires it.
+  clusterResourceWhitelist:
+    - group: rbac.authorization.k8s.io
+      kind: ClusterRole
+    - group: rbac.authorization.k8s.io
+      kind: ClusterRoleBinding
