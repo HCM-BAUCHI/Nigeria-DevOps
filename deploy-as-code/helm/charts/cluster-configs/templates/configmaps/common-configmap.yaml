@@ -8,7 +8,11 @@ metadata:
   name: {{ index $.Values "cluster-configs" "configmaps" "egov-config" "name" }}
   namespace: {{ $ns }}
 data:
-{{- range $key, $value := index $.Values "cluster-configs" "configmaps" "egov-config" "data" }}
+{{- $data := deepCopy (index $.Values "cluster-configs" "configmaps" "egov-config" "data") }}
+{{- range $key, $value := index (index $.Values "cluster-configs" "configmaps" "egov-config" "namespace-overrides" | default dict) $ns | default dict }}
+{{- $_ := set $data $key $value }}
+{{- end }}
+{{- range $key, $value := $data }}
   {{ $key }}: {{ $value | quote }}
 {{- end }}
 ---
