@@ -1,0 +1,325 @@
+global:
+  domain: abia-hcm.digit.org
+# egov-localization:
+#   namespace: "oyo"
+#   heap: "-Xmx512m -Xms512m"
+#   memory_limits: "512Mi"
+#   resources:
+#     requests:
+#       memory: "512Mi"
+#     limits:
+#       memory: "512Mi"
+
+
+# boundary-service:
+#   namespace: "oyo"
+#   heap: "-Xmx512m -Xms512m"
+#   memory_limits: "512Mi"
+#   resources:
+#     requests:
+#       memory: "512Mi"
+#     limits:
+#       memory: "512Mi"
+
+# egov-idgen:
+#   namespace: "oyo"
+#   heap: "-Xmx512m -Xms512m"
+#   memory_limits: "512Mi"
+#   resources:
+#     requests:
+#       memory: "512Mi"
+#     limits:
+#       memory: "512Mi"
+
+# egov-enc-service:
+#   namespace: "oyo"
+#   heap: "-Xmx512m -Xms512m"
+#   memory_limits: "512Mi"
+#   resources:
+#     requests:
+#       memory: "512Mi"
+#     limits:
+#       memory: "512Mi"
+
+disableAnnotationTimestamp: true
+
+dashboard-ui:
+  namespace: abia
+  image:
+    repository: egovio/dashboard-ui
+    tag: HDDF-4931-maps-78df2be
+  custom-js-injection: |
+    sub_filter.conf: "
+      sub_filter  '<head>' '<head>
+      <script src=https://central-instance-assets.s3.af-south-1.amazonaws.com/globalConfigDashboard-bo.js type=text/javascript></script>
+      ';"
+
+workbench-ui:
+  namespace: abia
+  image:
+    repository: egovio/workbench-ui
+    tag: abia-ProdUat_Build-v1-adc912a
+  custom-js-injection: |
+    sub_filter.conf: "
+      sub_filter  '<head>' '<head>
+      <script src=https://central-instance-assets.s3.af-south-1.amazonaws.com/globalConfigWorkbench-bo.js type=text/javascript></script>
+      <script src=https://central-instance-assets.s3.af-south-1.amazonaws.com/abia_workbench_gtm_ga4.json type=text/javascript></script>
+      ';"
+
+payments-ui:
+  namespace: abia
+  image:
+    repository: egovio/payments-ui
+    tag: bednet-prod-payments_ui-6782072
+  custom-js-injection: |
+    sub_filter.conf: "
+      sub_filter  '<head>' '<head>
+      <script src=https://central-instance-assets.s3.af-south-1.amazonaws.com/globalConfigPayments-bo.js type=text/javascript></script>
+      ';"
+
+transformer:
+  namespace: "abia"
+  image:
+    repository: egovio/transformer
+    tag: customize-2.1-transformer-mh-bd49377
+  replicas: 1
+  heap: "-Xmx1536m -Xms1536m"
+  hpa:
+    enabled: true
+    minReplicas: 3
+    maxReplicas: 6
+  cpu_requests: 300m
+  memory_requests: 1.75Gi
+  cpu_limits: 400m
+  memory_limits: 2.25Gi
+  save-project-task-topic: "bo-save-project-task-topic"
+  update-project-task-topic: "bo-update-project-task-topic"
+  transformer-producer-bulk-project-task-index-v1-topic: "bo-transformer-producer-bulk-project-task-index-v1-topic"
+  save-project-staff-topic: "bo-save-project-staff-topic"
+  update-project-staff-topic: "bo-update-project-staff-topic"
+  transformer-producer-bulk-project-staff-index-v1-topic: "bo-transformer-producer-bulk-project-staff-index-v1-topic"
+  transformer-producer-bulk-project-index-v1-topic: "bo-transformer-producer-bulk-project-index-v1-topic"
+  save-project: "bo-save-project"
+  update-project: "bo-update-project"
+  save-household-member-topic: "bo-save-household-member-topic"
+  transformer-producer-household-member-index-v1-topic: "bo-transformer-producer-household-member-index-v1-topic"
+  save-household-topic: "bo-save-household-topic"
+  update-household-topic: "bo-update-household-topic"
+  transformer-producer-household-index-v1-topic: "bo-transformer-producer-household-index-v1-topic"
+  transformer-producer-service-index-v2-topic: "bo-transformer-producer-service-index-v2-topic"
+  save-stock-topic: "bo-save-stock-topic"
+  update-stock-topic: "bo-update-stock-topic"
+  transformer-producer-bulk-stock-index-v1-topic: "bo-transformer-producer-bulk-stock-index-v1-topic"
+  transformer-producer-bulk-stock-index-updated-v1-topic: "bo-transformer-producer-bulk-stock-index-updated-v1-topic"
+  save-facility-topic: "bo-save-facility-topic"
+  update-facility-topic: "bo-update-facility-topic"
+  save-service: "bo-save-service"
+  transformer-producer-service-request-index-v1-topic: "bo-transformer-producer-service-request-index-v1-topic"
+  save-referral-topic: "bo-save-referral-topic"
+  transformer-producer-referral-index-v1-topic: "bo-transformer-producer-referral-index-v1-topic"
+  update-referral-topic: "bo-update-referral-topic"
+  save-side-effect-topic: "bo-save-side-effect-topic"
+  update-side-effect-topic: "bo-update-side-effect-topic"
+  transformer-producer-side-effect-index-v1-topic: "bo-transformer-producer-side-effect-index-v1-topic"
+  save-pgr-request: "bo-save-pgr-request"
+  transformer-save-pgr-request: "bo-transformer-save-pgr-request"
+  update-pgr-request: "bo-update-pgr-request"
+  save-hfreferral-topic: "bo-save-hfreferral-topic"
+  update-hfreferral-topic: "bo-update-hfreferral-topic"
+  transformer-producer-hfreferral-index-v1-topic: "bo-transformer-producer-hfreferral-index-v1-topic"
+  transformer-producer-hfreferral-service-index-topic: "bo-transformer-producer-hfreferral-service-index-topic"
+  transformer-producer-finance-checklist-index-v1-topic: "bo-transformer-producer-finance-checklist-index-v1-topic"
+  transformer-producer-special-spraying-index-topic: "bo-transformer-producer-special-spraying-index-topic"
+  save-attendance-log: "bo-save-attendance-log"
+  update-attendance-log: "bo-update-attendance-log"
+  transformer-save-attendance-log: "bo-transformer-save-attendance-log"
+  transformer-save-attendance-register: "bo-transformer-save-attendance-register"
+  transformer-save-attendance-staff: "bo-save-staff"
+  transformer-update-attendance-staff: "bo-update-staff"
+  transformer-save-attendance-attendee: "bo-save-attendee"
+  transformer-update-attendance-attendee: "bo-update-attendee"
+  transformer-producer-attendance-staff-index: "bo-transformer-producer-attendance-staff-index"
+  transformer-producer-attendee-index: "bo-transformer-producer-attendee-index"
+  transformer-producer-extra-transformed-checklist-index-topic: "bo-transformer-producer-extra-transformed-checklist-index-topic"
+  update-household-member-topic: "bo-update-household-member-topic"
+  save-stock-reconciliation-topic: "bo-save-stock-reconciliation-topic"
+  update-stock-reconciliation-topic: "bo-update-stock-reconciliation-topic"
+  transformer-producer-stock-recon-index-v1-topic: "bo-transformer-producer-stock-recon-index-v1-topic"
+  health-transformer: "bo-health-transformer"
+  transformer-consumer-error-tracer-topic: "error-details-indexer-topic"
+  transformer-producer-error-details-index-v1-topic: "bo-transformed-errors-topic"
+  transformer-error-skip-error-messages: "UPLOAD_ERROR_FROM_APP"
+  transformer-error-skip-error-codes: "DUPLICATE_ENTITY,INDIVIDUAL_ALREADY_MEMBER_OF_HOUSEHOLD,HOUSEHOLD_ALREADY_HAS_HEAD"
+  transformer-error-skip-url-contains: "facility,resource"
+  state-level-tenantid: "bo"
+  expense-bill-create-health-topic: "bo-expense-bill-create-health"
+  expense-bill-update-health-topic: "bo-expense-bill-update-health"
+  transformer-bill-index-topic: "bo-transformer-bill-index-topic"
+  transformer-billdetail-index-topic: "bo-transformer-billdetail-index-topic"
+  expense-bill-report-save-topic: "bo-expense-bill-report-save"
+  expense-bill-report-update-topic: "bo-expense-bill-report-update"
+  transformer-billreport-index-topic: "bo-transformer-billreport-index-topic"
+  save-musterroll-health-topic: "bo-save-musterroll-health"
+  update-musterroll-health-topic: "bo-update-musterroll-health"
+  transformer-producer-muster-roll-index-v1-topic: "bo-transformer-producer-muster-roll-index-v1-topic"
+  expense-bill-detail-create-topic: "bo-expense-bill-detail-create"
+  expense-bill-detail-update-topic: "bo-expense-bill-detail-update"
+  egov_localization_locale_code: "en_NG"
+  egov-localization-module-name: "hcm-boundary-"
+  transformer-consumer-create-user-action-topic: "bo-save-user-action-project-task-topic"
+  transformer-consumer-update-user-action-topic: "bo-update-user-action-project-task-topic"
+  transformer-producer-user-action-index-v1-topic: "bo-transformer-producer-user-action-index-v1-topic"
+  transformer-error-topic: "bo-transformer-error-topic"
+  egov-bill-service-host-configmap-key: "health-expense-abia"
+  egov-boundary-hierarchy-types: "ADMIN,ITN"
+  transformer-producer-push-batch-size: "100"
+  transformer-consumer-service-enabled: "false"
+  transformer-consumer-side-effect-enabled: "false"
+
+health-expense:
+  namespace: abia
+  central-instance-build: true
+  central-instance-enabled: false
+  ingress:
+    name: abia-health-expense
+  service:
+    additionalAnnotations: |
+      zuul/route-host: abia-hcm.digit.org
+  initContainers:
+    dbMigration:
+      image:
+        repository: egovio/health-expense-db
+        tag: nigeria-go-deep-ekfrazo-e8a113c
+  image:
+    repository: egovio/health-expense
+    tag: nigeria-go-deep-ekfrazo-e8a113c
+  java-enable-debug: false
+  java-args: ""
+  business-workflow-status-map: "{'EXPENSE.WAGES':'false','EXPENSE.PURCHASE':'false','EXPENSE.SUPERVISION':'false','PAYMENTS.BILL':'true','PAYMENTS.BILLDETAILS':'true'}"
+  expense-v2-periodic-billing-enabled: true
+  task-scheduler-bootstrap-tenants: "bo"
+  expense-kafka-tenant-id-pattern: ""
+  expense-billing-bill-create: "bo-expense-bill-create-health"
+  expense-billing-bill-update: "bo-expense-bill-update-health"
+  expense-bill-signature-required-actions: "SEND_FOR_REVIEW,SEND_FOR_APPROVAL,PAYMENT_INITIATION"
+  report-generation-trigger-topic: "bo-report-generation-trigger"
+  expense-billing-bill-detail-create: "bo-expense-bill-detail-create"
+  expense-billing-bill-detail-update: "bo-expense-bill-detail-update"
+  expense-bill-task: "bo-expense-bill-task"
+  expense-bill-task-details: "bo-expense-bill-task-details"
+  expense-task-status-update: "bo-expense-task-status-update"
+  expense-task-details-update: "bo-expense-task-details-update"
+  expense-billing-payment-create: "bo-expense-payment-create"
+  expense-billing-payment-update: "bo-expense-payment-update"
+  expense-bill-report-save: "bo-expense-bill-report-save"
+  expense-bill-report-update: "bo-expense-bill-report-update"
+  heap: "-Xmx512m -Xms256m"
+  hpa:
+    enabled: true
+    minReplicas: 1
+    maxReplicas: 3
+  cpu_requests: 200m
+  memory_requests: 512Mi
+  cpu_limits: 300m
+  memory_limits: 768Mi
+
+health-expense-calculator:
+  namespace: abia
+  service:
+    additionalAnnotations: |
+      zuul/route-host: abia-hcm.digit.org
+  ingress:
+    name: abia-health-expense-calculator
+  egov-bill-host-configmap-key: "health-expense-abia"
+  initContainers:
+    dbMigration:
+      image:
+        repository: egovio/health-expense-calculator-db
+        tag: nigeria-go-deep-ekfrazo-e8a113c
+  image:
+    repository: egovio/health-expense-calculator
+    tag: nigeria-go-deep-ekfrazo-e8a113c
+  heap: "-Xmx2048m -Xms1024m"
+  hpa:
+    enabled: true
+    minReplicas: 2
+    maxReplicas: 5
+  cpu_requests: 500m
+  memory_requests: 1.5Gi
+  cpu_limits: 600m
+  memory_limits: 2.5Gi
+  central-instance-build: false
+  tracing-enabled: true
+  java-enable-debug: false
+  spring-kafka-consumer-group-id: "bo-health-expense-calculator"
+  egov-mdms-service-endpoint-key: "/mdms-v2/v1/_search"
+  report-header-title: "Health Campaign Payment Report"
+  report-date-time-format: "dd/MM/yyyy HH:mm:ss z"
+  is-attendance-approval-required: "true"
+  register-batch-size: 15
+  tenantId: "bo"
+  excell-state-level-tenant-id: "bo"
+  boundary-hierarchy-name: "ITN"
+  egov-localization-module-name: "hcm-boundary-itn"
+  report-localization-boundary-module-name: "hcm-boundary-itn"
+  calculate-musterroll-health: bo-calculate-musterroll-health
+  calculate-error-health: bo-calculate-error-health
+  calculate-billmeta-health: bo-calculate-billmeta-health
+  expense-calculator-create-topic: bo-save-calculator
+  report-error-queue-topic: bo-report-error-queue-topic
+  report-retry-queue-topic: bo-report-retry-queue-topic
+  report-generation-trigger-topic: bo-report-generation-trigger
+  report-generation-retry-trigger-topic: bo-report-generation-retry-trigger
+  bill-generation-async-topic: bo-bill-generation-async-topic
+  bill-generation-async-enabled: "true"
+  expense-bill-create-topic: bo-expense-bill-create-health
+  expense-bill-update-topic: bo-expense-bill-update-health
+  expense-bill-index-topic: bo-expense-bill-index-health
+  payment-pdf-key: "health-bill-payment-bo"
+  egov-filestore-signature-connect-timeout-ms: "3000"
+  egov-filestore-signature-read-timeout-ms: "10000"
+  billing-frequency-custom-minimum-days: "1"
+  billing-config-v2-enabled: "true"
+  billing-config-create-topic: bo-billing-config-create
+  billing-config-update-topic: bo-billing-config-update
+  billing-period-status-update-topic: bo-billing-period-status-update
+  billing-period-generation-enabled: "true"
+  billing-muster-roll-period-aware-enabled: "true"
+  egov-musterroll-search-endpoint: "/health-muster-roll/v1/_search"
+  project-management-system-kafka-update-topic: bo-update-project
+  project-management-system-kafka-update-date-topic: bo-update-project-date
+
+hcm-moz-impl:
+  namespace: abia
+  replicas: 1
+  heap: "-Xmx2048m -Xms2048m"
+  memory_limits: "2Gi"
+  startDate: "03/07/2025"
+  endDate: "07/07/2025"
+  boundary-code: "bo"
+  create-boundaryCSV-data: "bo-create-boundaryCSV-data"
+  update-dhis2-job: "bo-update-dhis2-job"
+  create-dhis2-job: "bo-create-dhis2-job"
+  create-boundary-data: "bo-create-boundary-data"
+  update-digit-dhis2-mapping: "bo-update-digit-dhis2-mapping"
+  create-digit-dhis2-mapping: "bo-create-digit-dhis2-mapping"
+  update-digit-record: "bo-update-digit-record"
+  create-digit-record: "bo-create-digit-record"
+  update-dhis2-digit-mapping: "bo-update-dhis2-digit-mapping"
+  create-dhis2-digit-mapping: "bo-create-dhis2-digit-mapping"
+  update-dhis2-record: "bo-update-dhis2-record"
+  create-dhis2-record: "bo-create-dhis2-record"
+  resources:
+    requests:
+      memory: "3Gi"
+    limits:
+      memory: "3Gi"
+
+
+digit-ui:
+  namespace: abia
+  custom-js-injection: |
+    sub_filter.conf: "
+      sub_filter  '<head>' '<head>
+      <script src=https://central-instance-assets.s3.af-south-1.amazonaws.com/globalConfig-bo.js type=text/javascript></script>
+      ';"
