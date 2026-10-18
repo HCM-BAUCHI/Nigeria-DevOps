@@ -118,9 +118,15 @@ cluster-configs:
           egov-state-level-tenant-id: "bo"
           health-expense-borno: "http://health-expense.borno:8080/"
           health-expense-calculator-borno: "http://health-expense-calculator.borno:8080/"
+        abia:
+          egov-state-level-tenant-id: "abia"
+          health-expense-borno: "http://health-expense.abia:8080/"
+          health-expense-calculator-borno: "http://health-expense-calculator.abia:8080/"
         egov:
           health-expense-borno: "http://health-expense.borno:8080/"
           health-expense-calculator-borno: "http://health-expense-calculator.borno:8080/"
+          health-expense-abia: "http://health-expense.abia:8080/"
+          health-expense-calculator-abia: "http://health-expense-calculator.abia:8080/"
           server-tomcat-max-connections-referral: "2000"
           server-tomcat-max-threads-referral: "40"
           spring-datasource-tomcat-max-active-referral: "20"
@@ -148,7 +154,7 @@ cluster-configs:
         egov-hrms: "http://egov-hrms.egov:8080/"
         worker-registry-host: "http://worker-registry.egov:8080/"
         es-client: "https://elasticsearch-data.es-cluster-v8:9200"
-        pdf-service: "http://pdf-service.egov:8080/"
+        pdf-service: "http://pdf-service.egov.svc.cluster.local:8080/"
         user-otp: "http://user-otp.egov:8080/"
         minio-url: "https://minio-uat.digit.org/"
         zuul: "http://zuul.egov:8080/"
@@ -181,7 +187,9 @@ cluster-configs:
         borno:
           health-expense-borno: 'http://health-expense.borno:8080/'
           health-expense-calculator-borno: 'http://health-expense-calculator.borno:8080/'
-          pdf-service: "http://pdf-service.egov.svc.cluster.local:8080/"
+        abia:
+          health-expense-abia: 'http://health-expense.abia:8080/'
+          health-expense-calculator-abia: 'http://health-expense-calculator.abia:8080/'
         egov:
           health-expense-calculator: 'http://internal-gateway-scg.egov:8080/'
 
