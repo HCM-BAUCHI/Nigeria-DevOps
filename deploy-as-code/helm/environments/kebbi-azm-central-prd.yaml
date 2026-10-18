@@ -18,7 +18,6 @@ cluster-configs:
         db-name: "ngcentralprd" ## Add db-name
         db-url: "jdbc:postgresql://ng-central-prd-db.cpe4q0cycqi7.af-south-1.rds.amazonaws.com:5432/ngcentralprd"
         db-read-url: "jdbc:postgresql://ng-central-prd-read-db.cpe4q0cycqi7.af-south-1.rds.amazonaws.com:5432/ngcentralprd"
-        kb-db-read-url: "jdbc:postgresql://ng-central-prd-read-db.cpe4q0cycqi7.af-south-1.rds.amazonaws.com:5432/ngcentralprd?currentSchema=kb"
         kd-db-url: "jdbc:postgresql://ng-central-prd-db.cpe4q0cycqi7.af-south-1.rds.amazonaws.com:5432/ngcentralprd?currentSchema=kd"
         jg-db-url: "jdbc:postgresql://ng-central-prd-db.cpe4q0cycqi7.af-south-1.rds.amazonaws.com:5432/ngcentralprd?currentSchema=jg"
         kb-db-url: "jdbc:postgresql://ng-central-prd-db.cpe4q0cycqi7.af-south-1.rds.amazonaws.com:5432/ngcentralprd?currentSchema=kb"
@@ -38,7 +37,7 @@ cluster-configs:
         es-host: "elasticsearch-data.es-cluster-v8"
         es-indexer-host: "https://elasticsearch-data.es-cluster-v8:9200/"
         flyway-locations: "filesystem:/flyway/sql,filesystem:/flyway/seed,filesystem:/flyway/qa"
-        kafka-brokers: "b-1.centralmsk.6jj53l.c2.kafka.af-south-1.amazonaws.com:9092,b-2.centralmsk.6jj53l.c2.kafka.af-south-1.amazonaws.com:9092,b-3.centralmsk.6jj53l.c2.kafka.af-south-1.amazonaws.com:9092"
+        kafka-brokers: "b-1.ngcentralprdmsk.mp3072.c2.kafka.af-south-1.amazonaws.com:9092,b-2.ngcentralprdmsk.mp3072.c2.kafka.af-south-1.amazonaws.com:9092,b-3.ngcentralprdmsk.mp3072.c2.kafka.af-south-1.amazonaws.com:9092,b-4.ngcentralprdmsk.mp3072.c2.kafka.af-south-1.amazonaws.com:9092"
         kafka-infra-brokers: "release-name-kafka-controller-headless.kafka-cluster:9092"
         logging-level-jdbc: "DEBUG"
         mobile-validation-workaround: "true"
