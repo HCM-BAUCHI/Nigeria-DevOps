@@ -49,7 +49,7 @@ transformer:
   namespace: "kogi"
   image:
     repository: egovio/transformer
-    tag: HDDF-5226-c512500
+    tag: customize-2.1-transformer-mh-bd49377
   replicas: 1
   heap: "-Xmx1536m -Xms1536m"
   hpa:
@@ -119,7 +119,7 @@ transformer:
   transformer-error-skip-error-messages: "UPLOAD_ERROR_FROM_APP"
   transformer-error-skip-error-codes: "DUPLICATE_ENTITY,INDIVIDUAL_ALREADY_MEMBER_OF_HOUSEHOLD,HOUSEHOLD_ALREADY_HAS_HEAD"
   transformer-error-skip-url-contains: "facility,resource"
-  state-level-tenantid: "ko"
+  state-level-tenantid: "bo"
   expense-bill-create-health-topic: "ko-expense-bill-create-health"
   expense-bill-update-health-topic: "ko-expense-bill-update-health"
   transformer-bill-index-topic: "ko-transformer-bill-index-topic"
@@ -133,17 +133,14 @@ transformer:
   expense-bill-detail-create-topic: "ko-expense-bill-detail-create"
   expense-bill-detail-update-topic: "ko-expense-bill-detail-update"
   egov_localization_locale_code: "en_NG"
-  egov-localization-module-name: "hcm-boundary-admin"
+  egov-localization-module-name: "hcm-boundary-"
   transformer-consumer-create-user-action-topic: "ko-save-user-action-project-task-topic"
   transformer-consumer-update-user-action-topic: "ko-update-user-action-project-task-topic"
   transformer-producer-user-action-index-v1-topic: "ko-transformer-producer-user-action-index-v1-topic"
-  transformer-consumer-attendance-enabled: "false"
-  transformer-consumer-attendance-staff-enabled: "false"
-  transformer-consumer-attendee-enabled: "false"
-  transformer-consumer-bill-enabled: "false"
-  transformer-consumer-billdetail-enabled: "false"
-  transformer-consumer-billreport-enabled: "false"
-  transformer-consumer-musterroll-enabled: "false"
+  transformer-error-topic: "ko-transformer-error-topic"
+  egov-bill-service-host-configmap-key: "health-expense-borno"
+  egov-boundary-hierarchy-types: "ADMIN,ITN"
+  transformer-producer-push-batch-size: "100"
   transformer-consumer-service-enabled: "false"
   transformer-consumer-side-effect-enabled: "false"
 
@@ -189,7 +186,7 @@ dashboard-ui:
   namespace: kogi
   image:
     repository: egovio/dashboard-ui
-    tag: HDDF-4931-a645e10
+    tag: HDDF-4931-maps-78df2be
   custom-js-injection: |
     sub_filter.conf: "
       sub_filter  '<head>' '<head>
@@ -200,7 +197,7 @@ workbench-ui:
   namespace: kogi
   image:
     repository: egovio/workbench-ui
-    tag: nigeria_mc-5212cd5
+    tag: borno-ProdUat_Build-v1-adc912a
   custom-js-injection: |
     sub_filter.conf: "
       sub_filter  '<head>' '<head>
@@ -211,7 +208,7 @@ payments-ui:
   namespace: kogi
   image:
     repository: egovio/payments-ui
-    tag: HDDF-4931-427abb8
+    tag: bednet-prod-payments_ui-6782072
   custom-js-injection: |
     sub_filter.conf: "
       sub_filter  '<head>' '<head>
