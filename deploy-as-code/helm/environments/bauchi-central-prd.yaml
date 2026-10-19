@@ -292,7 +292,7 @@ egov-idgen:
   hpa:
     enabled: true
     minReplicas: 2
-    maxReplicas: 8
+    maxReplicas: 5
   heap: "-Xmx768m -Xms256m"
   cpu_requests: 200m
   memory_requests: 768Mi
@@ -313,8 +313,8 @@ mdms-v2:
   central-instance-enabled: true
   hpa:
     enabled: true
-    minReplicas: 4
-    maxReplicas: 8
+    minReplicas: 2
+    maxReplicas: 5
   heap: "-Xmx1024m -Xms768m"
   cpu_requests: 200m
   memory_requests: 1024Mi
@@ -336,7 +336,7 @@ egov-accesscontrol:
   heap: "-Xmx384m -Xms128m"
   hpa:
     enabled: true
-    minReplicas: 3
+    minReplicas: 2
     maxReplicas: 5
   cpu_requests: 200m
   memory_requests: 512Mi
@@ -379,8 +379,8 @@ egov-enc-service:
   heap: "-Xmx384m -Xms128m"
   hpa:
     enabled: true
-    minReplicas: 4
-    maxReplicas: 8
+    minReplicas: 2
+    maxReplicas: 5
   cpu_requests: 200m
   memory_requests: 384Mi
   cpu_limits: 300m
@@ -401,8 +401,8 @@ boundary-service:
   server-tomcat-max-threads: "20"
   hpa:
     enabled: true
-    minReplicas: 4
-    maxReplicas: 8
+    minReplicas: 2
+    maxReplicas: 5
   heap: "-Xmx1024m -Xms512m"
   cpu_requests: 200m
   memory_requests: 1Gi
@@ -452,8 +452,8 @@ egov-user:
   heap: "-Xmx1024m -Xms512m"
   hpa:
     enabled: true
-    minReplicas: 4
-    maxReplicas: 8
+    minReplicas: 2
+    maxReplicas: 5
   cpu_requests: 500m
   memory_requests: 1.25Gi
   cpu_limits: 1
@@ -559,8 +559,8 @@ egov-indexer-ba-bo-ke:
   heap: "-Xmx1536m -Xms1024m"
   hpa:
     enabled: true
-    minReplicas: 4
-    maxReplicas: 6
+    minReplicas: 2
+    maxReplicas: 5
   cpu_requests: 300m
   memory_requests: 1.5Gi
   cpu_limits: 400m
@@ -612,7 +612,7 @@ egov-indexer-so-zf:
   hpa:
     enabled: true
     minReplicas: 2
-    maxReplicas: 6
+    maxReplicas: 5
   cpu_requests: 300m
   memory_requests: 1.5Gi
   cpu_limits: 400m
@@ -879,8 +879,8 @@ egov-persister-ba-bo-ke:
   heap: "-Xmx1536m -Xms1024m"
   hpa:
     enabled: true
-    minReplicas: 4
-    maxReplicas: 6
+    minReplicas: 2
+    maxReplicas: 5
   cpu_requests: 300m
   memory_requests: 1.5Gi
   cpu_limits: 400m
@@ -992,8 +992,8 @@ gateway:
     tag: customize-2.1-gateway-dc34e2b
   hpa:
     enabled: true
-    minReplicas: 4
-    maxReplicas: 8
+    minReplicas: 2
+    maxReplicas: 5
   custom-filter-property: "false"
   cpu_requests: 200m
   memory_requests: 1.25Gi
@@ -1124,7 +1124,7 @@ egov-workflow-v2:
   hpa:
     enabled: true
     minReplicas: 2
-    maxReplicas: 6
+    maxReplicas: 5
   cpu_requests: 200m
   memory_requests: 384Mi
   cpu_limits: 300m
@@ -1151,7 +1151,7 @@ egov-hrms:
   hpa:
     enabled: true
     minReplicas: 2
-    maxReplicas: 8
+    maxReplicas: 5
   cpu_requests: 200m
   memory_requests: 1Gi
   cpu_limits: 300m
@@ -1369,8 +1369,8 @@ facility:
   kafka-consumer-group-id: "health-facility"
   hpa:
     enabled: true
-    minReplicas: 4
-    maxReplicas: 8
+    minReplicas: 2
+    maxReplicas: 5
   cpu_requests: 200m
   memory_requests: 512Mi
   cpu_limits: 300m
@@ -1406,7 +1406,7 @@ product:
   hpa:
     enabled: true
     minReplicas: 2
-    maxReplicas: 7
+    maxReplicas: 5
   cpu_requests: 400m
   spring-datasource-tomcat-max-active: "25"
   server-tomcat-max-threads: "200"
@@ -1431,8 +1431,8 @@ egov-localization:
   heap: "-Xmx3072m -Xms1500m"
   hpa:
     enabled: true
-    minReplicas: 4
-    maxReplicas: 8
+    minReplicas: 2
+    maxReplicas: 5
   cpu_requests: 200m
   memory_requests: 2Gi
   cpu_limits: 300m
@@ -1453,7 +1453,7 @@ individual:
   hpa:
     enabled: true
     minReplicas: 2
-    maxReplicas: 8
+    maxReplicas: 5
   cpu_requests: 300m
   memory_requests: 1Gi
   cpu_limits: 400m
@@ -1491,8 +1491,8 @@ individual-referral:
   heap: "-Xmx1536m -Xms768m"
   hpa:
     enabled: true
-    minReplicas: 7
-    maxReplicas: 11
+    minReplicas: 3
+    maxReplicas: 7
   cpu_requests: 300m
   memory_requests: 1.5Gi
   cpu_limits: 400m
@@ -1532,8 +1532,8 @@ stock:
   heap: "-Xmx512m -Xms256m"
   hpa:
     enabled: true
-    minReplicas: 4
-    maxReplicas: 6
+    minReplicas: 2
+    maxReplicas: 5
   cpu_requests: 200m
   memory_requests: 768Mi
   cpu_limits: 300m
@@ -1569,7 +1569,7 @@ household:
   hpa:
     enabled: true
     minReplicas: 2
-    maxReplicas: 8
+    maxReplicas: 5
   cpu_requests: 300m
   memory_requests: 1Gi
   cpu_limits: 400m
@@ -1599,8 +1599,8 @@ household-referral:
   heap: "-Xmx1536m -Xms768m"
   hpa:
     enabled: true
-    minReplicas: 7
-    maxReplicas: 11
+    minReplicas: 3
+    maxReplicas: 7
   cpu_requests: 300m
   memory_requests: 1.5Gi
   cpu_limits: 400m
@@ -1630,7 +1630,7 @@ project:
   hpa:
     enabled: true
     minReplicas: 2
-    maxReplicas: 8
+    maxReplicas: 5
   cpu_requests: 300m
   memory_requests: 1.25Gi
   cpu_limits: 400m
@@ -1663,8 +1663,8 @@ project-referral:
   heap: "-Xmx1536m -Xms768m"
   hpa:
     enabled: true
-    minReplicas: 7
-    maxReplicas: 11
+    minReplicas: 3
+    maxReplicas: 7
   cpu_requests: 200m
   memory_requests: 1.5Gi
   cpu_limits: 300m
@@ -1697,8 +1697,8 @@ referralmanagement:
   heap: "-Xmx1536m -Xms768m"
   hpa:
     enabled: true
-    minReplicas: 7
-    maxReplicas: 11
+    minReplicas: 3
+    maxReplicas: 7
   cpu_requests: 300m
   memory_requests: 1.75Gi
   cpu_limits: 400m
@@ -1787,8 +1787,8 @@ project-factory:
   replicas: 3
   hpa:
     enabled: true
-    minReplicas: 3
-    maxReplicas: 3
+    minReplicas: 2
+    maxReplicas: 5
   cpu_requests: 200m
   memory_requests: 768Mi
   cpu_limits: 1000m
@@ -2009,8 +2009,8 @@ transformer:
   heap: "-Xmx1536m -Xms1536m"
   hpa:
     enabled: true
-    minReplicas: 2
-    maxReplicas: 4
+    minReplicas: 1
+    maxReplicas: 3
   cpu_requests: 300m
   memory_requests: 1.75Gi
   cpu_limits: 400m
@@ -2155,8 +2155,8 @@ health-attendance:
   heap: "-Xmx512m -Xms256m"
   hpa:
     enabled: true
-    minReplicas: 4
-    maxReplicas: 6
+    minReplicas: 2
+    maxReplicas: 5
   cpu_requests: 200m
   memory_requests: 512Mi
   cpu_limits: 300m
@@ -2567,7 +2567,7 @@ beneficiary-idgen:
   hpa:
     enabled: true
     minReplicas: 2
-    maxReplicas: 8
+    maxReplicas: 5
 
 inbox:
   namespace: egov
