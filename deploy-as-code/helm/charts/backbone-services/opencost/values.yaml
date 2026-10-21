@@ -1,0 +1,186 @@
+# Common Labels
+labels:
+  app: "opencost"
+  group: "monitoring"
+
+namespace: monitoring
+
+# Read-only cluster inventory access (nodes, pods, pvs, ...). Created by
+# templates/rbac.yaml -- opencost cannot allocate cost without it.
+serviceAccount: opencost
+
+# Container Configs
+# The exporter is the MAIN container; the UI runs as a sidecar (extraContainers
+# below) and reaches the exporter over localhost. The repository contains a "/",
+# so common.image uses it verbatim instead of prefixing global.containerRegistry.
+image:
+  repository: "ghcr.io/opencost/opencost"
+  tag: "1.121.3"
+
+# Keep at 1. Multiple exporters would emit duplicate cost metrics for the same
+# cluster and double-count in Prometheus.
+replicas: "1"
+
+# Exporter API + /metrics port. The UI sidecar port is ui.port below.
+httpPort: 9003
+
+ui:
+  image:
+    repository: "ghcr.io/opencost/opencost-ui"
+    tag: "1.121.3"
+  port: 9090
+
+# Cost data source. kube-prometheus-stack lives in this same namespace.
+prometheus:
+  endpoint: "http://kube-prometheus-stack-prometheus.monitoring.svc.cluster.local:9090"
+  # Must match the Prometheus scrape interval closely enough that opencost's
+  # rate() windows resolve; 300s matches the upstream chart default.
+  queryResolutionSeconds: "300"
+
+# Shows up as the cluster name in the UI and on every emitted metric.
+clusterId: "ng-central-prd"
+
+# Ingress Configs
+# NOTE: unlike every other chart in this repo, opencost is NOT served as a
+# sub-path of global.domain -- it gets its own hostname. The OpenCost UI bakes
+# its asset paths in at image build time (vite `base`), so serving the stock
+# image from a sub-path would make it request /assets/* at the domain root.
+# That is why this chart ships its own ingress template instead of using
+# common.ingress, which can only emit global.domain.
+ingress:
+  enabled: true
+  host: "opencost-global.digit.org"
+  # cert-manager issues <host>-tls-certs into this namespace via ingress-shim.
+  # Nothing else serves this hostname, so this ingress must own the cert.
+  certIssuer: "letsencrypt-prod"
+  waf:
+    enabled: false
+  # oauth2-proxy currently only answers for bauchi-hcm.digit.org, and the GitHub
+  # OAuth App behind it allows a single callback URL. Turning this on before a
+  # second OAuth App exists for this hostname will produce a redirect loop.
+  # See README.md "Putting authentication in front of it".
+  auth:
+    enabled: false
+  # Zero-dependency alternative to SSO: restrict by source IP. Empty = open.
+  # e.g. "196.0.0.0/24,41.0.0.0/24"
+  sourceRange: ""
+  additionalAnnotations: |
+    nginx.ingress.kubernetes.io/proxy-body-size: "8m"
+    nginx.ingress.kubernetes.io/proxy-read-timeout: "180"
+
+# Scrape the exporter's own cost metrics back into Prometheus so the UI can show
+# more than the current instant. Requires the kube-prometheus-stack operator.
+serviceMonitor:
+  enabled: true
+  interval: 60s
+  honorLabels: true
+
+resources: |
+  requests:
+    cpu: 100m
+    memory: 256Mi
+  limits:
+    cpu: "1"
+    memory: 1Gi
+
+healthChecks:
+  enabled: true
+  readinessProbe: |
+    httpGet:
+        path: /healthz
+        port: {{ .Values.httpPort }}
+    initialDelaySeconds: 10
+    timeoutSeconds: 5
+    periodSeconds: 10
+    successThreshold: 1
+    failureThreshold: 20
+  livenessProbe: |
+    httpGet:
+        path: /healthz
+        port: {{ .Values.httpPort }}
+    initialDelaySeconds: 30
+    timeoutSeconds: 5
+    periodSeconds: 20
+    successThreshold: 1
+    failureThreshold: 5
+
+# Additional Container Envs (exporter)
+# No cloud credentials are set: on AWS, opencost reads on-demand node pricing
+# from the public AWS pricing API. Add a cloud-integration secret only if you
+# want real billing (CUR) data rather than list prices.
+env: |
+  - name: LOG_LEVEL
+    value: "info"
+  - name: API_PORT
+    value: "{{ .Values.httpPort }}"
+  - name: INSTALL_NAMESPACE
+    value: "{{ .Values.namespace }}"
+  - name: CLUSTER_ID
+    value: "{{ .Values.clusterId }}"
+  - name: PROMETHEUS_SERVER_ENDPOINT
+    value: "{{ .Values.prometheus.endpoint }}"
+  - name: PROMETHEUS_QUERY_RESOLUTION_SECONDS
+    value: "{{ .Values.prometheus.queryResolutionSeconds }}"
+  - name: INSECURE_SKIP_VERIFY
+    value: "false"
+  - name: EMIT_POD_ANNOTATIONS_METRIC
+    value: "false"
+  - name: EMIT_NAMESPACE_ANNOTATIONS_METRIC
+    value: "false"
+  - name: EMIT_KSM_V1_METRICS
+    value: "false"
+  - name: EMIT_KSM_V1_METRICS_ONLY
+    value: "true"
+
+# UI sidecar.
+# BASE_URL is still read at startup even though we mount our own nginx config:
+# docker-entrypoint.sh rewrites the {PLACEHOLDER_BASE_URL} token inside the
+# compiled JS bundles with it. It must match the /model/ proxy location in
+# templates/configmap-ui-nginx.yaml.
+extraContainers: |
+  - name: opencost-ui
+    image: "{{ .Values.ui.image.repository }}:{{ .Values.ui.image.tag }}"
+    imagePullPolicy: IfNotPresent
+    ports:
+      - name: http-ui
+        containerPort: {{ .Values.ui.port }}
+        protocol: TCP
+    env:
+      - name: BASE_URL
+        value: "/model"
+      - name: LEGACY_MODE
+        value: "false"
+    readinessProbe:
+      httpGet:
+        path: /healthz
+        port: {{ .Values.ui.port }}
+      initialDelaySeconds: 10
+      timeoutSeconds: 5
+      periodSeconds: 10
+      failureThreshold: 10
+    livenessProbe:
+      httpGet:
+        path: /healthz
+        port: {{ .Values.ui.port }}
+      initialDelaySeconds: 30
+      timeoutSeconds: 5
+      periodSeconds: 20
+      failureThreshold: 5
+    resources:
+      requests:
+        cpu: 10m
+        memory: 64Mi
+      limits:
+        memory: 256Mi
+    volumeMounts:
+      - name: ui-nginx-config
+        mountPath: /etc/nginx/conf.d/default.nginx.conf
+        subPath: default.nginx.conf
+
+extraVolumes: |
+  - name: ui-nginx-config
+    configMap:
+      name: {{ template "common.name" . }}-ui-nginx
+      items:
+        - key: default.nginx.conf
+          path: default.nginx.conf
