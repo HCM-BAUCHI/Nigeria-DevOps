@@ -53,7 +53,7 @@ transformer:
   replicas: 1
   hpa:
     enabled: true
-    minReplicas: 2
+    minReplicas: 1
     maxReplicas: 4
   cpu_requests: 300m
   memory_requests: 1.75Gi
@@ -231,7 +231,7 @@ health-expense-calculator:
   heap: "-Xmx2048m -Xms1024m"
   hpa:
     enabled: true
-    minReplicas: 2
+    minReplicas: 1
     maxReplicas: 5
   cpu_requests: 500m
   memory_requests: 2Gi
