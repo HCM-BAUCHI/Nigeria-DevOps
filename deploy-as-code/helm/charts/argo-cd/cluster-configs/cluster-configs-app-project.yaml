@@ -1,0 +1,27 @@
+apiVersion: argoproj.io/v1alpha1
+kind: AppProject
+metadata:
+  name: cluster-configs-project
+  namespace: argocd
+spec:
+  description: Cluster Configs project for ArgoCD applications
+  sourceRepos:
+    - 'git@github.com:HCM-BAUCHI/Nigeria-Devops.git'
+    - 'https://github.com/HCM-BAUCHI/Nigeria-Devops.git'
+  destinations:
+    - namespace: '*'
+      server: https://kubernetes.default.svc
+  clusterResourceWhitelist:
+    - group: rbac.authorization.k8s.io
+      kind: ClusterRole
+    - group: rbac.authorization.k8s.io
+      kind: ClusterRoleBinding
+    - group: ''
+      kind: Namespace
+    - group: ''
+      kind: ConfigMap
+    - group: ''
+      kind: Secret
+  namespaceResourceWhitelist:
+    - group: '*'
+      kind: '*'
