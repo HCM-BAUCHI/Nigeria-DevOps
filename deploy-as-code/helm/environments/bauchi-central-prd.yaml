@@ -573,7 +573,7 @@ egov-indexer-ba-bo-ke:
     gitSync:
       repo: "git@github.com:HCM-BAUCHI/health-campaign-config"        ##### Change repo url with Your fork Repo url
       branch: "PROD"                                      ##### Change repo branch with Your fork Repo branch
-  egov-indexer-yaml-repo-path: "/work-dir/health-campaign-config/egov-indexer/ba,/work-dir/health-campaign-config/egov-indexer/bo,/work-dir/health-campaign-config/egov-indexer/ke"
+  egov-indexer-yaml-repo-path: "/work-dir/health-campaign-config/egov-indexer/ba,/work-dir/health-campaign-config/egov-indexer/bo,/work-dir/health-campaign-config/egov-indexer/ke,/work-dir/health-campaign-config/egov-indexer/abia"
   dss-collectionindex-topic-push-enabled: "false"
   topic-push-enabled: "false"
 
@@ -887,7 +887,7 @@ egov-persister-ba-bo-ke:
   memory_limits: 2Gi
   images:
     - egovio/egov-persister
-  persist-yml-path: "/work-dir/health-campaign-config/egov-persister/ba,/work-dir/health-campaign-config/egov-persister/bo,/work-dir/health-campaign-config/egov-persister/ke"
+  persist-yml-path: "/work-dir/health-campaign-config/egov-persister/ba,/work-dir/health-campaign-config/egov-persister/bo,/work-dir/health-campaign-config/egov-persister/ke,/work-dir/health-campaign-config/egov-persister/abia"
   initContainers:
     gitSync:
       repo: "git@github.com:HCM-BAUCHI/health-campaign-config"      ##### Change repo url with Your fork Repo url
