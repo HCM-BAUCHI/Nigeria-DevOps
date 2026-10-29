@@ -85,7 +85,7 @@ cluster-configs:
         redis-downsync-host: "ng-central-redis.nolaw2.ng.0001.afs1.cache.amazonaws.com"
         egov-services-fqdn-name: "https://bauchi-hcm-digit.org/" ## Add your Domain Name
         state-level-tenantid-length: "1"
-        kafka-tenant-id-pattern: "(ba|oy|ko|na|ab|pl|bo|ke|so|od|ad|kd|jg|ch|go|zf|abia|si)-"
+        kafka-tenant-id-pattern: "(ba|oy|ko|na|ab|pl|bo|ke|so|od|ad|kd|jg|kb|ch|go|zf|abia|si)-"
         state-schema-index-position-tenantid: "0"
         is-environment-central-instance: "true"
         aws-cluster-ip: "https://AD11FA377F3AEE4369833D9626BD7A83.gr7.af-south-1.eks.amazonaws.com"
@@ -424,8 +424,8 @@ boundary-management:
     tag: master-b912a1c
   central-instance-build: true
   central-instance-enabled: true
-  schemaNameExclude: [ "chad", "kb" ]
-  hostExclude: ["chad-hcm-prod.digit.org", "kebbi-azm-central-hcm.digit.org"]
+  schemaNameExclude: [ "chad" ]
+  hostExclude: ["chad-hcm-prod.digit.org"]
   java-enable-debug: false
   heap: "-Xmx512m -Xms256m"
   hpa:
@@ -476,7 +476,7 @@ egov-user:
   egov-user-session-single-active-enabled: "true"
   egov-user-session-last.contact-interval-seconds: "60"
   egov-user-session-inactivity-period-days: "30"
-  egov-user-session-single-active-tenants: "bo,ad,ko,abia"
+  egov-user-session-single-active-tenants: "bo,ko,abia"
 
 audit-service:
 #  persist-yml-path: "https://raw.githubusercontent.com/HCM-BAUCHI/health-campaign-config/PROD/egov-persister/ch/egov-workflow-v2-persister.yml,https://raw.githubusercontent.com/HCM-BAUCHI/health-campaign-config/PROD/egov-persister/ch/facility-persister.yml,https://raw.githubusercontent.com/HCM-BAUCHI/health-campaign-config/PROD/egov-persister/ch/hcm-moz-impl-persister.yml,https://raw.githubusercontent.com/HCM-BAUCHI/health-campaign-config/PROD/egov-persister/ch/household-persister.yml,https://raw.githubusercontent.com/HCM-BAUCHI/health-campaign-config/PROD/egov-persister/ch/hrms-employee-persister.yml,https://raw.githubusercontent.com/HCM-BAUCHI/health-campaign-config/PROD/egov-persister/ch/individual-persister.yml,https://raw.githubusercontent.com/HCM-BAUCHI/health-campaign-config/PROD/egov-persister/ch/stock-persister.yml,https://raw.githubusercontent.com/HCM-BAUCHI/health-campaign-config/PROD/egov-persister-ht/ch/service-request-persister.yml,https://raw.githubusercontent.com/HCM-BAUCHI/health-campaign-config/PROD/egov-persister-ht/ch/project-task-persister.yml,https://raw.githubusercontent.com/HCM-BAUCHI/health-campaign-config/PROD/egov-persister/ch/project-persister.yml,https://raw.githubusercontent.com/HCM-BAUCHI/health-campaign-config/PROD/egov-persister/kb/egov-workflow-v2-persister.yml,https://raw.githubusercontent.com/HCM-BAUCHI/health-campaign-config/PROD/egov-persister/kb/facility-persister.yml,https://raw.githubusercontent.com/HCM-BAUCHI/health-campaign-config/PROD/egov-persister/kb/hcm-moz-impl-persister.yml,https://raw.githubusercontent.com/HCM-BAUCHI/health-campaign-config/PROD/egov-persister/kb/household-persister.yml,https://raw.githubusercontent.com/HCM-BAUCHI/health-campaign-config/PROD/egov-persister/kb/hrms-employee-persister.yml,https://raw.githubusercontent.com/HCM-BAUCHI/health-campaign-config/PROD/egov-persister/kb/individual-persister.yml,https://raw.githubusercontent.com/HCM-BAUCHI/health-campaign-config/PROD/egov-persister/kb/stock-persister.yml,https://raw.githubusercontent.com/HCM-BAUCHI/health-campaign-config/PROD/egov-persister-ht/kb/service-request-persister.yml,https://raw.githubusercontent.com/HCM-BAUCHI/health-campaign-config/PROD/egov-persister-ht/kb/project-task-persister.yml,https://raw.githubusercontent.com/HCM-BAUCHI/health-campaign-config/PROD/egov-persister/kb/project-persister.yml,https://raw.githubusercontent.com/HCM-BAUCHI/health-campaign-config/PROD/egov-persister/jg/egov-workflow-v2-persister.yml,https://raw.githubusercontent.com/HCM-BAUCHI/health-campaign-config/PROD/egov-persister/jg/facility-persister.yml,https://raw.githubusercontent.com/HCM-BAUCHI/health-campaign-config/PROD/egov-persister/jg/hcm-moz-impl-persister.yml,https://raw.githubusercontent.com/HCM-BAUCHI/health-campaign-config/PROD/egov-persister/jg/household-persister.yml,https://raw.githubusercontent.com/HCM-BAUCHI/health-campaign-config/PROD/egov-persister/jg/hrms-employee-persister.yml,https://raw.githubusercontent.com/HCM-BAUCHI/health-campaign-config/PROD/egov-persister/jg/individual-persister.yml,https://raw.githubusercontent.com/HCM-BAUCHI/health-campaign-config/PROD/egov-persister/jg/stock-persister.yml,https://raw.githubusercontent.com/HCM-BAUCHI/health-campaign-config/PROD/egov-persister-ht/jg/service-request-persister.yml,https://raw.githubusercontent.com/HCM-BAUCHI/health-campaign-config/PROD/egov-persister-ht/jg/project-task-persister.yml,https://raw.githubusercontent.com/HCM-BAUCHI/health-campaign-config/PROD/egov-persister/jg/project-persister.yml,https://raw.githubusercontent.com/HCM-BAUCHI/health-campaign-config/PROD/egov-persister/kd/egov-workflow-v2-persister.yml,https://raw.githubusercontent.com/HCM-BAUCHI/health-campaign-config/PROD/egov-persister/kd/facility-persister.yml,https://raw.githubusercontent.com/HCM-BAUCHI/health-campaign-config/PROD/egov-persister/kd/hcm-moz-impl-persister.yml,https://raw.githubusercontent.com/HCM-BAUCHI/health-campaign-config/PROD/egov-persister/kd/household-persister.yml,https://raw.githubusercontent.com/HCM-BAUCHI/health-campaign-config/PROD/egov-persister/kd/hrms-employee-persister.yml,https://raw.githubusercontent.com/HCM-BAUCHI/health-campaign-config/PROD/egov-persister/kd/individual-persister.yml,https://raw.githubusercontent.com/HCM-BAUCHI/health-campaign-config/PROD/egov-persister/kd/stock-persister.yml,https://raw.githubusercontent.com/HCM-BAUCHI/health-campaign-config/PROD/egov-persister-ht/kd/service-request-persister.yml,https://raw.githubusercontent.com/HCM-BAUCHI/health-campaign-config/PROD/egov-persister-ht/kd/project-task-persister.yml,https://raw.githubusercontent.com/HCM-BAUCHI/health-campaign-config/PROD/egov-persister/kd/project-persister.yml,https://raw.githubusercontent.com/HCM-BAUCHI/health-campaign-config/PROD/egov-persister/so/egov-workflow-v2-persister.yml,https://raw.githubusercontent.com/HCM-BAUCHI/health-campaign-config/PROD/egov-persister/so/facility-persister.yml,https://raw.githubusercontent.com/HCM-BAUCHI/health-campaign-config/PROD/egov-persister/so/hcm-moz-impl-persister.yml,https://raw.githubusercontent.com/HCM-BAUCHI/health-campaign-config/PROD/egov-persister/so/household-persister.yml,https://raw.githubusercontent.com/HCM-BAUCHI/health-campaign-config/PROD/egov-persister/so/hrms-employee-persister.yml,https://raw.githubusercontent.com/HCM-BAUCHI/health-campaign-config/PROD/egov-persister/so/individual-persister.yml,https://raw.githubusercontent.com/HCM-BAUCHI/health-campaign-config/PROD/egov-persister/so/stock-persister.yml,https://raw.githubusercontent.com/HCM-BAUCHI/health-campaign-config/PROD/egov-persister-ht/so/service-request-persister.yml,https://raw.githubusercontent.com/HCM-BAUCHI/health-campaign-config/PROD/egov-persister-ht/so/project-task-persister.yml,https://raw.githubusercontent.com/HCM-BAUCHI/health-campaign-config/PROD/egov-persister/so/project-persister.yml,https://raw.githubusercontent.com/HCM-BAUCHI/health-campaign-config/PROD/egov-persister/so/product-persister.yml,https://raw.githubusercontent.com/HCM-BAUCHI/health-campaign-config/PROD/egov-persister/ab/egov-workflow-v2-persister.yml,https://raw.githubusercontent.com/HCM-BAUCHI/health-campaign-config/PROD/egov-persister/ab/facility-persister.yml,https://raw.githubusercontent.com/HCM-BAUCHI/health-campaign-config/PROD/egov-persister/ab/hcm-moz-impl-persister.yml,https://raw.githubusercontent.com/HCM-BAUCHI/health-campaign-config/PROD/egov-persister/ab/household-persister.yml,https://raw.githubusercontent.com/HCM-BAUCHI/health-campaign-config/PROD/egov-persister/ab/hrms-employee-persister.yml,https://raw.githubusercontent.com/HCM-BAUCHI/health-campaign-config/PROD/egov-persister/ab/individual-persister.yml,https://raw.githubusercontent.com/HCM-BAUCHI/health-campaign-config/PROD/egov-persister/ab/stock-persister.yml,https://raw.githubusercontent.com/HCM-BAUCHI/health-campaign-config/PROD/egov-persister-ht/ab/service-request-persister.yml,https://raw.githubusercontent.com/HCM-BAUCHI/health-campaign-config/PROD/egov-persister-ht/ab/project-task-persister.yml,https://raw.githubusercontent.com/HCM-BAUCHI/health-campaign-config/PROD/egov-persister/ab/project-persister.yml,https://raw.githubusercontent.com/HCM-BAUCHI/health-campaign-config/PROD/egov-persister/ab/product-persister.yml,https://raw.githubusercontent.com/HCM-BAUCHI/health-campaign-config/PROD/egov-persister/ba/egov-workflow-v2-persister.yml,https://raw.githubusercontent.com/HCM-BAUCHI/health-campaign-config/PROD/egov-persister/ba/facility-persister.yml,https://raw.githubusercontent.com/HCM-BAUCHI/health-campaign-config/PROD/egov-persister/ba/hcm-moz-impl-persister.yml,https://raw.githubusercontent.com/HCM-BAUCHI/health-campaign-config/PROD/egov-persister/ba/household-persister.yml,https://raw.githubusercontent.com/HCM-BAUCHI/health-campaign-config/PROD/egov-persister/ba/hrms-employee-persister.yml,https://raw.githubusercontent.com/HCM-BAUCHI/health-campaign-config/PROD/egov-persister/ba/individual-persister.yml,https://raw.githubusercontent.com/HCM-BAUCHI/health-campaign-config/PROD/egov-persister/ba/stock-persister.yml,https://raw.githubusercontent.com/HCM-BAUCHI/health-campaign-config/PROD/egov-persister-ht/ba/service-request-persister.yml,https://raw.githubusercontent.com/HCM-BAUCHI/health-campaign-config/PROD/egov-persister-ht/ba/project-task-persister.yml,https://raw.githubusercontent.com/HCM-BAUCHI/health-campaign-config/PROD/egov-persister/ba/project-persister.yml,https://raw.githubusercontent.com/HCM-BAUCHI/health-campaign-config/PROD/egov-persister/ba/product-persister.yml,https://raw.githubusercontent.com/HCM-BAUCHI/health-campaign-config/PROD/egov-persister/oy/egov-workflow-v2-persister.yml,https://raw.githubusercontent.com/HCM-BAUCHI/health-campaign-config/PROD/egov-persister/oy/facility-persister.yml,https://raw.githubusercontent.com/HCM-BAUCHI/health-campaign-config/PROD/egov-persister/oy/hcm-moz-impl-persister.yml,https://raw.githubusercontent.com/HCM-BAUCHI/health-campaign-config/PROD/egov-persister/oy/household-persister.yml,https://raw.githubusercontent.com/HCM-BAUCHI/health-campaign-config/PROD/egov-persister/oy/hrms-employee-persister.yml,https://raw.githubusercontent.com/HCM-BAUCHI/health-campaign-config/PROD/egov-persister/oy/individual-persister.yml,https://raw.githubusercontent.com/HCM-BAUCHI/health-campaign-config/PROD/egov-persister/oy/stock-persister.yml,https://raw.githubusercontent.com/HCM-BAUCHI/health-campaign-config/PROD/egov-persister-ht/oy/service-request-persister.yml,https://raw.githubusercontent.com/HCM-BAUCHI/health-campaign-config/PROD/egov-persister-ht/oy/project-task-persister.yml,https://raw.githubusercontent.com/HCM-BAUCHI/health-campaign-config/PROD/egov-persister/oy/project-persister.yml,https://raw.githubusercontent.com/HCM-BAUCHI/health-campaign-config/PROD/egov-persister/oy/product-persister.yml,https://raw.githubusercontent.com/HCM-BAUCHI/health-campaign-config/PROD/egov-persister/ko/egov-workflow-v2-persister.yml,https://raw.githubusercontent.com/HCM-BAUCHI/health-campaign-config/PROD/egov-persister/ko/facility-persister.yml,https://raw.githubusercontent.com/HCM-BAUCHI/health-campaign-config/PROD/egov-persister/ko/hcm-moz-impl-persister.yml,https://raw.githubusercontent.com/HCM-BAUCHI/health-campaign-config/PROD/egov-persister/ko/household-persister.yml,https://raw.githubusercontent.com/HCM-BAUCHI/health-campaign-config/PROD/egov-persister/ko/hrms-employee-persister.yml,https://raw.githubusercontent.com/HCM-BAUCHI/health-campaign-config/PROD/egov-persister/ko/individual-persister.yml,https://raw.githubusercontent.com/HCM-BAUCHI/health-campaign-config/PROD/egov-persister/ko/stock-persister.yml,https://raw.githubusercontent.com/HCM-BAUCHI/health-campaign-config/PROD/egov-persister-ht/ko/service-request-persister.yml,https://raw.githubusercontent.com/HCM-BAUCHI/health-campaign-config/PROD/egov-persister-ht/ko/project-task-persister.yml,https://raw.githubusercontent.com/HCM-BAUCHI/health-campaign-config/PROD/egov-persister/ko/project-persister.yml,https://raw.githubusercontent.com/HCM-BAUCHI/health-campaign-config/PROD/egov-persister/ko/product-persister.yml,https://raw.githubusercontent.com/HCM-BAUCHI/health-campaign-config/PROD/egov-persister/na/egov-workflow-v2-persister.yml,https://raw.githubusercontent.com/HCM-BAUCHI/health-campaign-config/PROD/egov-persister/na/facility-persister.yml,https://raw.githubusercontent.com/HCM-BAUCHI/health-campaign-config/PROD/egov-persister/na/hcm-moz-impl-persister.yml,https://raw.githubusercontent.com/HCM-BAUCHI/health-campaign-config/PROD/egov-persister/na/household-persister.yml,https://raw.githubusercontent.com/HCM-BAUCHI/health-campaign-config/PROD/egov-persister/na/hrms-employee-persister.yml,https://raw.githubusercontent.com/HCM-BAUCHI/health-campaign-config/PROD/egov-persister/na/individual-persister.yml,https://raw.githubusercontent.com/HCM-BAUCHI/health-campaign-config/PROD/egov-persister/na/stock-persister.yml,https://raw.githubusercontent.com/HCM-BAUCHI/health-campaign-config/PROD/egov-persister-ht/na/service-request-persister.yml,https://raw.githubusercontent.com/HCM-BAUCHI/health-campaign-config/PROD/egov-persister-ht/na/project-task-persister.yml,https://raw.githubusercontent.com/HCM-BAUCHI/health-campaign-config/PROD/egov-persister/na/project-persister.yml,https://raw.githubusercontent.com/HCM-BAUCHI/health-campaign-config/PROD/egov-persister/na/product-persister.yml,https://raw.githubusercontent.com/HCM-BAUCHI/health-campaign-config/PROD/egov-persister/pl/egov-workflow-v2-persister.yml,https://raw.githubusercontent.com/HCM-BAUCHI/health-campaign-config/PROD/egov-persister/pl/facility-persister.yml,https://raw.githubusercontent.com/HCM-BAUCHI/health-campaign-config/PROD/egov-persister/pl/hcm-moz-impl-persister.yml,https://raw.githubusercontent.com/HCM-BAUCHI/health-campaign-config/PROD/egov-persister/pl/household-persister.yml,https://raw.githubusercontent.com/HCM-BAUCHI/health-campaign-config/PROD/egov-persister/pl/hrms-employee-persister.yml,https://raw.githubusercontent.com/HCM-BAUCHI/health-campaign-config/PROD/egov-persister/pl/individual-persister.yml,https://raw.githubusercontent.com/HCM-BAUCHI/health-campaign-config/PROD/egov-persister/pl/stock-persister.yml,https://raw.githubusercontent.com/HCM-BAUCHI/health-campaign-config/PROD/egov-persister-ht/pl/service-request-persister.yml,https://raw.githubusercontent.com/HCM-BAUCHI/health-campaign-config/PROD/egov-persister-ht/pl/project-task-persister.yml,https://raw.githubusercontent.com/HCM-BAUCHI/health-campaign-config/PROD/egov-persister/pl/project-persister.yml,https://raw.githubusercontent.com/HCM-BAUCHI/health-campaign-config/PROD/egov-persister/pl/product-persister.yml,https://raw.githubusercontent.com/HCM-BAUCHI/health-campaign-config/PROD/egov-persister/bo/egov-workflow-v2-persister.yml,https://raw.githubusercontent.com/HCM-BAUCHI/health-campaign-config/PROD/egov-persister/bo/facility-persister.yml,https://raw.githubusercontent.com/HCM-BAUCHI/health-campaign-config/PROD/egov-persister/bo/hcm-moz-impl-persister.yml,https://raw.githubusercontent.com/HCM-BAUCHI/health-campaign-config/PROD/egov-persister/bo/household-persister.yml,https://raw.githubusercontent.com/HCM-BAUCHI/health-campaign-config/PROD/egov-persister/bo/hrms-employee-persister.yml,https://raw.githubusercontent.com/HCM-BAUCHI/health-campaign-config/PROD/egov-persister/bo/individual-persister.yml,https://raw.githubusercontent.com/HCM-BAUCHI/health-campaign-config/PROD/egov-persister/bo/stock-persister.yml,https://raw.githubusercontent.com/HCM-BAUCHI/health-campaign-config/PROD/egov-persister-ht/bo/service-request-persister.yml,https://raw.githubusercontent.com/HCM-BAUCHI/health-campaign-config/PROD/egov-persister-ht/bo/project-task-persister.yml,https://raw.githubusercontent.com/HCM-BAUCHI/health-campaign-config/PROD/egov-persister/bo/project-persister.yml,https://raw.githubusercontent.com/HCM-BAUCHI/health-campaign-config/PROD/egov-persister/bo/product-persister.yml,https://raw.githubusercontent.com/HCM-BAUCHI/health-campaign-config/PROD/egov-persister/ke/egov-workflow-v2-persister.yml,https://raw.githubusercontent.com/HCM-BAUCHI/health-campaign-config/PROD/egov-persister/ke/facility-persister.yml,https://raw.githubusercontent.com/HCM-BAUCHI/health-campaign-config/PROD/egov-persister/ke/hcm-moz-impl-persister.yml,https://raw.githubusercontent.com/HCM-BAUCHI/health-campaign-config/PROD/egov-persister/ke/household-persister.yml,https://raw.githubusercontent.com/HCM-BAUCHI/health-campaign-config/PROD/egov-persister/ke/hrms-employee-persister.yml,https://raw.githubusercontent.com/HCM-BAUCHI/health-campaign-config/PROD/egov-persister/ke/individual-persister.yml,https://raw.githubusercontent.com/HCM-BAUCHI/health-campaign-config/PROD/egov-persister/ke/stock-persister.yml,https://raw.githubusercontent.com/HCM-BAUCHI/health-campaign-config/PROD/egov-persister-ht/ke/service-request-persister.yml,https://raw.githubusercontent.com/HCM-BAUCHI/health-campaign-config/PROD/egov-persister-ht/ke/project-task-persister.yml,https://raw.githubusercontent.com/HCM-BAUCHI/health-campaign-config/PROD/egov-persister/ke/project-persister.yml,https://raw.githubusercontent.com/HCM-BAUCHI/health-campaign-config/PROD/egov-persister/ke/product-persister.yml,https://raw.githubusercontent.com/HCM-BAUCHI/health-campaign-config/PROD/egov-persister/od/egov-workflow-v2-persister.yml,https://raw.githubusercontent.com/HCM-BAUCHI/health-campaign-config/PROD/egov-persister/od/facility-persister.yml,https://raw.githubusercontent.com/HCM-BAUCHI/health-campaign-config/PROD/egov-persister/od/hcm-moz-impl-persister.yml,https://raw.githubusercontent.com/HCM-BAUCHI/health-campaign-config/PROD/egov-persister/od/household-persister.yml,https://raw.githubusercontent.com/HCM-BAUCHI/health-campaign-config/PROD/egov-persister/od/hrms-employee-persister.yml,https://raw.githubusercontent.com/HCM-BAUCHI/health-campaign-config/PROD/egov-persister/od/individual-persister.yml,https://raw.githubusercontent.com/HCM-BAUCHI/health-campaign-config/PROD/egov-persister/od/stock-persister.yml,https://raw.githubusercontent.com/HCM-BAUCHI/health-campaign-config/PROD/egov-persister-ht/od/service-request-persister.yml,https://raw.githubusercontent.com/HCM-BAUCHI/health-campaign-config/PROD/egov-persister-ht/od/project-task-persister.yml,https://raw.githubusercontent.com/HCM-BAUCHI/health-campaign-config/PROD/egov-persister/od/project-persister.yml,https://raw.githubusercontent.com/HCM-BAUCHI/health-campaign-config/PROD/egov-persister/od/product-persister.yml,https://raw.githubusercontent.com/HCM-BAUCHI/health-campaign-config/PROD/egov-persister/ad/egov-workflow-v2-persister.yml,https://raw.githubusercontent.com/HCM-BAUCHI/health-campaign-config/PROD/egov-persister/ad/facility-persister.yml,https://raw.githubusercontent.com/HCM-BAUCHI/health-campaign-config/PROD/egov-persister/ad/hcm-moz-impl-persister.yml,https://raw.githubusercontent.com/HCM-BAUCHI/health-campaign-config/PROD/egov-persister/ad/household-persister.yml,https://raw.githubusercontent.com/HCM-BAUCHI/health-campaign-config/PROD/egov-persister/ad/hrms-employee-persister.yml,https://raw.githubusercontent.com/HCM-BAUCHI/health-campaign-config/PROD/egov-persister/ad/individual-persister.yml,https://raw.githubusercontent.com/HCM-BAUCHI/health-campaign-config/PROD/egov-persister/ad/stock-persister.yml,https://raw.githubusercontent.com/HCM-BAUCHI/health-campaign-config/PROD/egov-persister-ht/ad/service-request-persister.yml,https://raw.githubusercontent.com/HCM-BAUCHI/health-campaign-config/PROD/egov-persister-ht/ad/project-task-persister.yml,https://raw.githubusercontent.com/HCM-BAUCHI/health-campaign-config/PROD/egov-persister/ad/project-persister.yml,https://raw.githubusercontent.com/HCM-BAUCHI/health-campaign-config/PROD/egov-persister/ad/product-persister.yml,https://raw.githubusercontent.com/HCM-BAUCHI/health-campaign-config/PROD/egov-persister/go/egov-workflow-v2-persister.yml,https://raw.githubusercontent.com/HCM-BAUCHI/health-campaign-config/PROD/egov-persister/go/facility-persister.yml,https://raw.githubusercontent.com/HCM-BAUCHI/health-campaign-config/PROD/egov-persister/go/hcm-moz-impl-persister.yml,https://raw.githubusercontent.com/HCM-BAUCHI/health-campaign-config/PROD/egov-persister/go/household-persister.yml,https://raw.githubusercontent.com/HCM-BAUCHI/health-campaign-config/PROD/egov-persister/go/hrms-employee-persister.yml,https://raw.githubusercontent.com/HCM-BAUCHI/health-campaign-config/PROD/egov-persister/go/individual-persister.yml,https://raw.githubusercontent.com/HCM-BAUCHI/health-campaign-config/PROD/egov-persister/go/stock-persister.yml,https://raw.githubusercontent.com/HCM-BAUCHI/health-campaign-config/PROD/egov-persister-ht/go/service-request-persister.yml,https://raw.githubusercontent.com/HCM-BAUCHI/health-campaign-config/PROD/egov-persister-ht/go/project-task-persister.yml,https://raw.githubusercontent.com/HCM-BAUCHI/health-campaign-config/PROD/egov-persister/go/project-persister.yml,https://raw.githubusercontent.com/HCM-BAUCHI/health-campaign-config/PROD/egov-persister/go/product-persister.yml"
@@ -1164,8 +1164,8 @@ egov-hrms:
   java-args: -Dspring.profiles.active=monitoring
   employee-applink: "https://bauchi-hcm.digit.org/digit-ui/employee/login"
   java-enable-debug: true
-  schemaNameExclude: [ "chad", "kb" ]
-  hostExclude: ["chad-hcm-prod.digit.org", "kebbi-azm-central-hcm.digit.org"]
+  schemaNameExclude: [ "chad" ]
+  hostExclude: ["chad-hcm-prod.digit.org"]
   spring-datasource-tomcat-max-active: "4"
   server-tomcat-max-threads: "4"
 
@@ -1378,8 +1378,8 @@ facility:
   memory_requests: 512Mi
   cpu_limits: 300m
   memory_limits: 768Mi
-  schemaNameExclude: [ "chad", "kb" ]
-  hostExclude: ["chad-hcm-prod.digit.org", "kebbi-azm-central-hcm.digit.org"]
+  schemaNameExclude: [ "chad" ]
+  hostExclude: ["chad-hcm-prod.digit.org"]
   extraEnv:
     app: |
       - name: TRACER_ERRORSPUBLISH
@@ -1416,8 +1416,8 @@ product:
   memory_requests: 768Mi
   cpu_limits: 1
   memory_limits: 1024Mi
-  schemaNameExclude: [ "chad", "kb" ]
-  hostExclude: ["chad-hcm-prod.digit.org", "kebbi-azm-central-hcm.digit.org"]
+  schemaNameExclude: [ "chad" ]
+  hostExclude: ["chad-hcm-prod.digit.org"]
 
 egov-localization:
   initContainers:
@@ -1461,8 +1461,8 @@ individual:
   memory_requests: 1Gi
   cpu_limits: 400m
   memory_limits: 1.5Gi
-  schemaNameExclude: [ "chad", "kb" ]
-  hostExclude: ["chad-hcm-prod.digit.org", "kebbi-azm-central-hcm.digit.org"]
+  schemaNameExclude: [ "chad" ]
+  hostExclude: ["chad-hcm-prod.digit.org"]
   egov-beneficiary-idgen-integration-enabled: "true"
   individual-beneficiary-id-validation-enabled: "false"
   spring-datasource-tomcat-max-active: "5"
@@ -1500,8 +1500,8 @@ individual-referral:
   memory_requests: 1.5Gi
   cpu_limits: 400m
   memory_limits: 2Gi
-  schemaNameExclude: [ "chad", "kb" ]
-  hostExclude: ["chad-hcm-prod.digit.org", "kebbi-azm-central-hcm.digit.org"]
+  schemaNameExclude: [ "chad" ]
+  hostExclude: ["chad-hcm-prod.digit.org"]
   egov-beneficiary-idgen-integration-enabled: "true"
   individual-beneficiary-id-validation-enabled: "false"
   extraEnv:
@@ -1541,8 +1541,8 @@ stock:
   memory_requests: 768Mi
   cpu_limits: 300m
   memory_limits: 1Gi
-  schemaNameExclude: [ "chad", "kb" ]
-  hostExclude: ["chad-hcm-prod.digit.org", "kebbi-azm-central-hcm.digit.org"]
+  schemaNameExclude: [ "chad" ]
+  hostExclude: ["chad-hcm-prod.digit.org"]
   java-enable-debug: "true"
   tracer-request-logging-enabled: "true"
   extraEnv:
@@ -1577,8 +1577,8 @@ household:
   memory_requests: 1Gi
   cpu_limits: 400m
   memory_limits: 1.5Gi
-  schemaNameExclude: [ "chad", "kb" ]
-  hostExclude: ["chad-hcm-prod.digit.org", "kebbi-azm-central-hcm.digit.org"]
+  schemaNameExclude: [ "chad" ]
+  hostExclude: ["chad-hcm-prod.digit.org"]
   extraEnv:
     app: |
       - name: TRACER_ERRORSPUBLISH
@@ -1608,8 +1608,8 @@ household-referral:
   memory_requests: 1.5Gi
   cpu_limits: 400m
   memory_limits: 2Gi
-  schemaNameExclude: [ "chad", "kb" ]
-  hostExclude: ["chad-hcm-prod.digit.org", "kebbi-azm-central-hcm.digit.org"]
+  schemaNameExclude: [ "chad" ]
+  hostExclude: ["chad-hcm-prod.digit.org"]
   extraEnv:
     app: |
       - name: TRACER_ERRORSPUBLISH
@@ -1638,8 +1638,8 @@ project:
   memory_requests: 1.25Gi
   cpu_limits: 400m
   memory_limits: 1.5Gi
-  schemaNameExclude: [ "chad", "kb" ]
-  hostExclude: ["chad-hcm-prod.digit.org", "kebbi-azm-central-hcm.digit.org"]
+  schemaNameExclude: [ "chad" ]
+  hostExclude: ["chad-hcm-prod.digit.org"]
   project-task-no-resource-validation-status: "ADMINISTRATION_FAILED,BENEFICIARY_REFUSED,CLOSED_HOUSEHOLD,NOT_ADMINISTERED,BENEFICIARY_DIED,BENEFICIARY_MIGRATED,BENEFICIARY_ABSENT,BENEFICIARY_INELIGIBLE,INELIGIBLE"
   tracer-request-logging-enabled: "true"
   spring-datasource-tomcat-max-active: "5"
@@ -1672,8 +1672,8 @@ project-referral:
   memory_requests: 1.5Gi
   cpu_limits: 300m
   memory_limits: 2Gi
-  schemaNameExclude: [ "chad", "kb" ]
-  hostExclude: ["chad-hcm-prod.digit.org", "kebbi-azm-central-hcm.digit.org"]
+  schemaNameExclude: [ "chad" ]
+  hostExclude: ["chad-hcm-prod.digit.org"]
   project-task-no-resource-validation-status: "ADMINISTRATION_FAILED,BENEFICIARY_REFUSED,CLOSED_HOUSEHOLD,NOT_ADMINISTERED,BENEFICIARY_DIED,BENEFICIARY_MIGRATED,BENEFICIARY_ABSENT,BENEFICIARY_INELIGIBLE,INELIGIBLE"
   extraEnv:
     app: |
@@ -1706,8 +1706,8 @@ referralmanagement:
   memory_requests: 1.75Gi
   cpu_limits: 400m
   memory_limits: 2Gi
-  schemaNameExclude: [ "chad", "kb" ]
-  hostExclude: ["chad-hcm-prod.digit.org", "kebbi-azm-central-hcm.digit.org"]
+  schemaNameExclude: [ "chad" ]
+  hostExclude: ["chad-hcm-prod.digit.org"]
   kafka-consumer-group-id: "health-referral-management"
   search-api-limit: "1000"
   referralmanagement-default-limit: "1000"
@@ -1769,8 +1769,8 @@ service-request:
   memory_requests: 512Mi
   cpu_limits: 300m
   memory_limits: 768Mi
-  schemaNameExclude: [ "chad", "kb" ]
-  hostExclude: ["chad-hcm-prod.digit.org", "kebbi-azm-central-hcm.digit.org"]
+  schemaNameExclude: [ "chad" ]
+  hostExclude: ["chad-hcm-prod.digit.org"]
   
 project-factory:
   initContainers:
@@ -1783,8 +1783,8 @@ project-factory:
     tag: master-ekfrazo-f145ca4
   central-instance-enabled: false
   central-instance-build: true
-  schemaNameExclude: [ "chad", "kb" ]
-  hostExclude: [ "chad-hcm-prod.digit.org", "kebbi-azm-central-hcm.digit.org" ]
+  schemaNameExclude: [ "chad" ]
+  hostExclude: ["chad-hcm-prod.digit.org" ]
   namespace: egov
   heap: "-Xmx2048m -Xms512m"
   replicas: 3
@@ -1846,7 +1846,7 @@ project-factory:
   serverTimezone: "UTC"
   attendanceAttendeeSearchPageSize: "100"
   attendanceStaffSearchPageSize: "100"
-  centralInstanceTenantIds: "ba,oy,ko,na,ab,pl,bo,ke,so,od,ad,kd,jg,ch,go,zf,abia,si"
+  centralInstanceTenantIds: "ba,oy,ko,na,ab,pl,bo,ke,so,od,ad,kd,jg,kb,ch,go,zf,abia,si"
   userKafkaCreateBatchSize: '100'
   mappingBulkCreateChunkSize: '150'
   projectBulkCreateChunkSize: '100'
@@ -1887,8 +1887,8 @@ worker-registry:
     maxReplicas: 3
   cpu_requests: 200m
   memory_requests: 368Mi
-  schemaNameExclude: [ "chad", "kb" ]
-  hostExclude: ["chad-hcm-prod.digit.org", "kebbi-azm-central-hcm.digit.org"]
+  schemaNameExclude: [ "chad" ]
+  hostExclude: ["chad-hcm-prod.digit.org"]
 
 excel-ingestion:
   namespace: egov
@@ -1903,8 +1903,8 @@ excel-ingestion:
   group-id: "egov-excel-ingestion"
   central-instance-build: true
   central-instance-enabled: true
-  schemaNameExclude: [ "chad", "kb" ]
-  hostExclude: ["chad-hcm-prod.digit.org", "kebbi-azm-central-hcm.digit.org"]
+  schemaNameExclude: [ "chad" ]
+  hostExclude: ["chad-hcm-prod.digit.org"]
   cpu_requests: 1
   memory_requests: 4072Mi
   memory_limits: "4072Mi"
@@ -1925,7 +1925,7 @@ excel-ingestion:
   excel-ingestion-sheet-data-save-topic: "save-sheet-data-temp"
   excel-ingestion-sheet-data-delete-topic: "delete-sheet-data-temp"
   excel-ingestion-processing-result-topic: "hcm-processing-result"
-  kafka-tenant-id-pattern: "(ba|oy|ko|na|ab|pl|bo|ke|so|od|ad|kd|jg|ch|go|zf)-"
+  kafka-tenant-id-pattern: "(ba|oy|ko|na|ab|pl|bo|ke|so|od|ad|kd|jg|kb|ch|go|zf)-"
   java-enable-debug: true
   wait-time-of-each-attempt-ms: "20000"
 
@@ -2152,8 +2152,8 @@ health-attendance:
     tag: attendance-staff-deenrollment-fix-8b590d8
   central-instance-build: true
   central-instance-enabled: true
-  schemaNameExclude: [ "chad", "kb" ]
-  hostExclude: ["chad-hcm-prod.digit.org", "kebbi-azm-central-hcm.digit.org"]
+  schemaNameExclude: [ "chad" ]
+  hostExclude: ["chad-hcm-prod.digit.org"]
   java-enable-debug: false
   heap: "-Xmx512m -Xms256m"
   hpa:
@@ -2190,8 +2190,8 @@ health-muster-roll:
     tag: nigeria-go-deep-report-fix-adaa688
   central-instance-build: true
   central-instance-enabled: true
-  schemaNameExclude: [ "chad", "kb" ]
-  hostExclude: ["chad-hcm-prod.digit.org", "kebbi-azm-central-hcm.digit.org"]
+  schemaNameExclude: [ "chad" ]
+  hostExclude: ["chad-hcm-prod.digit.org"]
   java-enable-debug: false
   heap: "-Xmx512m -Xms256m"
   hpa:
@@ -2216,9 +2216,9 @@ health-expense:
     tag: nigeria-go-deep-payments-expense-15b5a23
   central-instance-build: true
   central-instance-enabled: true
-  schemaNameExclude: [ "chad", "kb", "bo" ]
-  hostExclude: ["chad-hcm-prod.digit.org", "kebbi-azm-central-hcm.digit.org", "borno-hcm.digit.org"]
-  expense-kafka-tenant-id-pattern: "(ba|oy|ko|na|ab|pl|ke|so|od|ad|kd|jg|ch|go|zf)-"
+  schemaNameExclude: [ "chad", "bo" ]
+  hostExclude: ["chad-hcm-prod.digit.org", "borno-hcm.digit.org"]
+  expense-kafka-tenant-id-pattern: "(ba|oy|ko|na|ab|pl|ke|so|od|ad|kd|jg|kb|ch|go|zf)-"
   java-enable-debug: false
   java-args: ""
   business-workflow-status-map: "{'EXPENSE.WAGES':'false','EXPENSE.PURCHASE':'false','EXPENSE.SUPERVISION':'false','PAYMENTS.BILL':'true','PAYMENTS.BILLDETAILS':'true'}"
@@ -2545,7 +2545,7 @@ dashboard-analytics:
       branch: "PROD"
   config-schema-paths: "file:///work-dir/health-campaign-config/egov-dss-dashboards/ch/dashboard-analytics/*.json"
 is-central-instance: "true"
-central-instance-tenants: "oy,ko,na,jg,pl,ab,kd,ba,ke,ch,bo,so,zf,go,ad"
+central-instance-tenants: "oy,ko,na,jg,pl,ab,kd,ba,ke,ch,bo,so,zf,go,ad,kb"
 central-instance-base-path: "file:///work-dir/health-campaign-config/egov-dss-dashboards"
 
 
@@ -2599,5 +2599,5 @@ inbox:
   egov-internal-microservice-user-uuid: "egov-internal-microservice-user-uuid"
   central-instance-build: true
   central-instance-enabled: true
-  schemaNameExclude: [ "chad", "kb" ]
-  hostExclude: ["chad-hcm-prod.digit.org", "kebbi-azm-central-hcm.digit.org"]
+  schemaNameExclude: [ "chad" ]
+  hostExclude: ["chad-hcm-prod.digit.org"]
