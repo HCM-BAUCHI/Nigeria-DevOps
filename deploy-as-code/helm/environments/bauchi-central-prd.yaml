@@ -22,6 +22,7 @@ global:
     - chad-hcm-prod.digit.org
     - zamfara-hcm.digit.org
     - abia-hcm.digit.org
+    - sierraleone-hcm.digit.org
   schema:
     - ba
     - oy
@@ -42,17 +43,18 @@ global:
     - chad
     - zf
     - abia
+    - si
 
 cluster-configs:
   namespaces:
     create: true
-    values: [ backbone, cert-manager, egov, airflow, es-cluster, kafka-cluster, logging, monitoring, playground, zookeeper-cluster, es-cluster-v8, jupyter, jhub, bauchi, oyo, kogi, nasarawa, abuja, plateau, borno, kebbi, sokoto, ondo, adamawa, kaduna, jigawa, kebbi-azm, chad, gombe, chad-prod, zamfara, abia ]
+    values: [ backbone, cert-manager, egov, airflow, es-cluster, kafka-cluster, logging, monitoring, playground, zookeeper-cluster, es-cluster-v8, jupyter, jhub, bauchi, oyo, kogi, nasarawa, abuja, plateau, borno, kebbi, sokoto, ondo, adamawa, kaduna, jigawa, kebbi-azm, chad, gombe, chad-prod, zamfara, abia, sierraleone ]
 
   root-ingress:
     cert-issuer: letsencrypt-prod
   configmaps:
     egov-config:
-      namespace: [egov, airflow, bauchi, oyo, kogi, nasarawa, abuja, plateau, borno, kebbi, sokoto, ondo, adamawa, chad, gombe, zamfara, abia]
+      namespace: [egov, airflow, bauchi, oyo, kogi, nasarawa, abuja, plateau, borno, kebbi, sokoto, ondo, adamawa, chad, gombe, zamfara, abia, sierraleone]
       data:
         db-host: "ng-central-prd-db.cpe4q0cycqi7.af-south-1.rds.amazonaws.com" ## Add db-host name eg: egov-demo.database.azure.com
         db-name: "ngcentralprd" ## Add db-name
@@ -77,12 +79,13 @@ cluster-configs:
         chad-db-url: "jdbc:postgresql://ng-central-prd-db.cpe4q0cycqi7.af-south-1.rds.amazonaws.com:5432/ngcentralprd?currentSchema=chad"
         zf-db-url: "jdbc:postgresql://ng-central-prd-db.cpe4q0cycqi7.af-south-1.rds.amazonaws.com:5432/ngcentralprd?currentSchema=zf"
         abia-db-url: "jdbc:postgresql://ng-central-prd-db.cpe4q0cycqi7.af-south-1.rds.amazonaws.com:5432/ngcentralprd?currentSchema=abia"
+        si-db-url: "jdbc:postgresql://ng-central-prd-db.cpe4q0cycqi7.af-south-1.rds.amazonaws.com:5432/ngcentralprd?currentSchema=si"
         domain: "bauchi-hcm.digit.org" ## Add your Domain Name
         redis-host: "ng-central-redis.nolaw2.ng.0001.afs1.cache.amazonaws.com"
         redis-downsync-host: "ng-central-redis.nolaw2.ng.0001.afs1.cache.amazonaws.com"
         egov-services-fqdn-name: "https://bauchi-hcm-digit.org/" ## Add your Domain Name
         state-level-tenantid-length: "1"
-        kafka-tenant-id-pattern: "(ba|oy|ko|na|ab|pl|bo|ke|so|od|ad|kd|jg|ch|go|zf|abia)-"
+        kafka-tenant-id-pattern: "(ba|oy|ko|na|ab|pl|bo|ke|so|od|ad|kd|jg|ch|go|zf|abia|si)-"
         state-schema-index-position-tenantid: "0"
         is-environment-central-instance: "true"
         aws-cluster-ip: "https://AD11FA377F3AEE4369833D9626BD7A83.gr7.af-south-1.eks.amazonaws.com"
@@ -111,8 +114,8 @@ cluster-configs:
         boundary-hierarchy: "ADMIN"
         boundary-hierarchy-chad: "ADMIN2"
         egov-internal-microservice-user-uuid: "e1f57dfe-35a0-494a-911d-22cd3f786612"
-        host-map: "{'ba':'https://bauchi-hcm.digit.org/','oy':'https://oyo-hcm.digit.org/','ko':'https://kogi-hcm.digit.org/','na':'https://nasarawa-hcm.digit.org/','ab':'https://fct-abuja-hcm.digit.org/','pl':'https://plateau-hcm.digit.org/','bo':'https://borno-hcm.digit.org/','ke':'https://kebbi-hcm-central.digit.org/','so':'https://sokoto-hcm.digit.org/','od':'https://ondo-hcm.digit.org/','ad':'https://adamawa-hcm.digit.org/','kd':'https://kaduna-central-hcm.digit.org/','jg':'https://jigawa-central-hcm.digit.org/','kb':'https://kebbi-azm-central-hcm.digit.org/','go':'https://gombe-hcm.digit.org/','chad':'https://chad-hcm-prod.digit.org/','zf':'https://zamfara-hcm.digit.org/','abia':'https://abia-hcm.digit.org/'}"
-        db-schema-names: "ba,oy,ko,na,ab,pl,bo,ke,so,od,ad,kd,jg,kb,ch,go,chad,zf,abia"
+        host-map: "{'ba':'https://bauchi-hcm.digit.org/','oy':'https://oyo-hcm.digit.org/','ko':'https://kogi-hcm.digit.org/','na':'https://nasarawa-hcm.digit.org/','ab':'https://fct-abuja-hcm.digit.org/','pl':'https://plateau-hcm.digit.org/','bo':'https://borno-hcm.digit.org/','ke':'https://kebbi-hcm-central.digit.org/','so':'https://sokoto-hcm.digit.org/','od':'https://ondo-hcm.digit.org/','ad':'https://adamawa-hcm.digit.org/','kd':'https://kaduna-central-hcm.digit.org/','jg':'https://jigawa-central-hcm.digit.org/','kb':'https://kebbi-azm-central-hcm.digit.org/','go':'https://gombe-hcm.digit.org/','chad':'https://chad-hcm-prod.digit.org/','zf':'https://zamfara-hcm.digit.org/','abia':'https://abia-hcm.digit.org/','si':'https://sierraleone-hcm.digit.org/'}"
+        db-schema-names: "ba,oy,ko,na,ab,pl,bo,ke,so,od,ad,kd,jg,kb,ch,go,chad,zf,abia,si"
       namespace-overrides:
         borno:
           egov-state-level-tenant-id: "bo"
@@ -131,7 +134,7 @@ cluster-configs:
           server-tomcat-max-threads-referral: "40"
           spring-datasource-tomcat-max-active-referral: "20"
     egov-service-host:
-      namespace: [egov, bauchi, oyo, monitoring, kogi, nasarawa, abuja, plateau, borno, kebbi, sokoto, ondo, adamawa, kaduna, jigawa, chad, gombe, zamfara, abia ]
+      namespace: [egov, bauchi, oyo, monitoring, kogi, nasarawa, abuja, plateau, borno, kebbi, sokoto, ondo, adamawa, kaduna, jigawa, chad, gombe, zamfara, abia, sierraleone ]
       data:
         dashboard-analytics: "http://dashboard-analytics.egov:8080/"
         internal-gateway-scg: "http://internal-gateway-scg.egov:8080/"
@@ -440,10 +443,10 @@ egov-user:
     dbMigration:
       image:
         repository: egovio/egov-user-db
-        tag: central-instance-switch-device-changes-bulk-ekfrazo-0d4f342
+        tag: central-instance-switch-device-changes-bulk-ekfrazo-a098f02
   image:
     repository: egovio/egov-user
-    tag: central-instance-switch-device-changes-bulk-ekfrazo-0d4f342
+    tag: central-instance-switch-device-changes-bulk-ekfrazo-a098f02
   spring-datasource-tomcat-max-active: "10"
   server-tomcat-max-threads: "200"
   bulk-bcrypt-threads: "4"
@@ -1774,7 +1777,7 @@ project-factory:
     dbMigration:
       image:
         repository: "project-factory-db"
-        tag: master-ekfrazo-f145ca4
+        tag: master-ekfrazo-21d4a7d
   image:
     repository: egovio/project-factory
     tag: master-ekfrazo-f145ca4
@@ -1843,7 +1846,7 @@ project-factory:
   serverTimezone: "UTC"
   attendanceAttendeeSearchPageSize: "100"
   attendanceStaffSearchPageSize: "100"
-  centralInstanceTenantIds: "ba,oy,ko,na,ab,pl,bo,ke,so,od,ad,kd,jg,ch,go,zf,abia"
+  centralInstanceTenantIds: "ba,oy,ko,na,ab,pl,bo,ke,so,od,ad,kd,jg,ch,go,zf,abia,si"
   userKafkaCreateBatchSize: '100'
   mappingBulkCreateChunkSize: '150'
   projectBulkCreateChunkSize: '100'
@@ -2257,6 +2260,7 @@ health-expense-calculator:
     - gombe-hcm.digit.org
     - zamfara-hcm.digit.org
     - abia-hcm.digit.org
+    - sierraleone-hcm.digit.org
   initContainers:
     dbMigration:
       image:
