@@ -23,7 +23,8 @@ Index file. Deep details live in scoped CLAUDE.md files (listed at bottom) that 
 
 - Env name = filename without `.yaml` in `helm/environments/`
 - Central instance: one shared cluster/services (namespace `egov`, config `bauchi-central-prd.yaml`) serving many states; tenant-specific separations run in per-state namespaces
-- Standalone (central instance disabled): `chad-prod`, `kebbi-azm` — own full health stacks, NOT ArgoCD-managed (deployer/Jenkins only)
+- Standalone (central instance disabled): `chad-prod` — own full health stack, NOT ArgoCD-managed (deployer/Jenkins only)
+- `kebbi-azm` (kb): adamawa-style tenant — central egov serves registries; ns runs transformer + UIs + own `egov-enc-service` (kb PII keys); keeps own `cluster-configs` so enc gets `egov-state-level-tenant-id: kb`
 
 | state | code | env file (`*-central-prd`) | namespace | argocd dir |
 |---|---|---|---|---|
@@ -37,14 +38,14 @@ Index file. Deep details live in scoped CLAUDE.md files (listed at bottom) that 
 | kebbi | ke | kebbi | kebbi | kebbi |
 | sokoto | so | sokoto | sokoto | sokoto |
 | ondo | od | ondo | ondo | — |
-| adamawa | ad | adamawa | adamawa | — |
+| adamawa | ad | adamawa | adamawa | adamawa |
 | kaduna | kd | kaduna | kaduna | kaduna |
 | jigawa | jg | jigawa | jigawa | jigawa |
 | zamfara | zf | zamfara | zamfara | zamfara |
-| gombe | go | gombe | gombe | — |
+| gombe | go | gombe | gombe | gombe |
 | chad (central) | ch | chad | chad | chad |
 | chad standalone | chad | chad-prod | chad-prod | — |
-| kebbi standalone | kb | kebbi-azm | kebbi-azm | — |
+| kebbi-azm | kb | kebbi-azm | kebbi-azm | kebbi-azm |
 
 - `egov` argocd dir = shared central services, destination namespace `*`, valueFile `bauchi-central-prd.yaml`
 - state-level tenant id for central = `ba`; `host-map` in egov-config maps code → public URL (`https://<state>-hcm.digit.org/`)
@@ -84,6 +85,7 @@ Index file. Deep details live in scoped CLAUDE.md files (listed at bottom) that 
 | render shows stale template | vendored `charts/common-0.0.5.tgz` outdated | `helm dep update` in chart dir (deployer does this automatically; bare `helm template` does not) |
 | env override silently ignored | duplicate chart dir shadows real one (index overwrites, logs warning) | find both dirs, delete the stale chart |
 | `nil pointer evaluating` in render | env file missing key referenced in `tpl` env block | add key to env file or guard template |
+| `replicas: 0` renders as 1 | template uses `.Values.replicas \| default 1`; int 0 is empty | write `replicas: "0"` (string) + `hpa.enabled: false` |
 | ArgoCD reverts replica edits | HPA owns replicas; app-sets ignoreDifferences `/spec/replicas` + RespectIgnoreDifferences | never set replicas when `hpa.enabled`; tune `hpa.minReplicas/maxReplicas` |
 | deployer aborts mid-run | any shelled command failure panics; args split on whitespace | fix underlying command; no spaces in paths |
 | deployer CLI tag has no effect | env `<svc>:` block pins `image.tag`; merge wins over `--set` | bump the tag in the env file |

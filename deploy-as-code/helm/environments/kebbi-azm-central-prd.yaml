@@ -5,114 +5,17 @@ service:
   additionalAnnotations: |
     zuul/route-host: kebbi-azm-central-hcm.digit.org
 
-cluster-configs:
-  namespaces:
-    create: true
-    values: [ kebbi-azm ]
-
-  configmaps:
-    egov-config:
-      namespace: [ kebbi-azm ]
-      data:
-        db-host: "ng-central-prd-db.cpe4q0cycqi7.af-south-1.rds.amazonaws.com" ## Add db-host name eg: egov-demo.database.azure.com
-        db-name: "ngcentralprd" ## Add db-name
-        db-url: "jdbc:postgresql://ng-central-prd-db.cpe4q0cycqi7.af-south-1.rds.amazonaws.com:5432/ngcentralprd"
-        db-read-url: "jdbc:postgresql://ng-central-prd-read-db.cpe4q0cycqi7.af-south-1.rds.amazonaws.com:5432/ngcentralprd"
-        kd-db-url: "jdbc:postgresql://ng-central-prd-db.cpe4q0cycqi7.af-south-1.rds.amazonaws.com:5432/ngcentralprd?currentSchema=kd"
-        jg-db-url: "jdbc:postgresql://ng-central-prd-db.cpe4q0cycqi7.af-south-1.rds.amazonaws.com:5432/ngcentralprd?currentSchema=jg"
-        kb-db-url: "jdbc:postgresql://ng-central-prd-db.cpe4q0cycqi7.af-south-1.rds.amazonaws.com:5432/ngcentralprd?currentSchema=kb"
-        domain: "kebbi-azm-central-hcm.digit.org" ## Add your Domain Name
-        redis-host: "ng-central-redis.nolaw2.ng.0001.afs1.cache.amazonaws.com"
-        redis-downsync-host: "ng-central-redis.nolaw2.ng.0001.afs1.cache.amazonaws.com"
-        egov-services-fqdn-name: "https://kebbi-azm-central-hcm.digit.org/" ## Add your Domain Name
-        state-level-tenantid-length: "1"
-        state-schema-index-position-tenantid: "0"
-        is-environment-central-instance: "true"
-        aws-cluster-ip: "https://AD11FA377F3AEE4369833D9626BD7A83.gr7.af-south-1.eks.amazonaws.com"
-        aws-region: "af-south-1"
-        aws-cluster-name: "arn:aws:iam::022499048165:role/ng-central-prd-cluster-20250509110729607700000001"
-        egov-state-level-tenant-id: "kb"
-        state-level-tenant-id: "kb"
-        s3-assets-bucket: "(central-instance-assets)"
-        es-host: "elasticsearch-data.es-cluster-v8"
-        es-indexer-host: "https://elasticsearch-data.es-cluster-v8:9200/"
-        flyway-locations: "filesystem:/flyway/sql,filesystem:/flyway/seed,filesystem:/flyway/qa"
-        kafka-brokers: "b-1.ngcentralprdmsk.mp3072.c2.kafka.af-south-1.amazonaws.com:9092,b-2.ngcentralprdmsk.mp3072.c2.kafka.af-south-1.amazonaws.com:9092,b-3.ngcentralprdmsk.mp3072.c2.kafka.af-south-1.amazonaws.com:9092,b-4.ngcentralprdmsk.mp3072.c2.kafka.af-south-1.amazonaws.com:9092"
-        kafka-infra-brokers: "release-name-kafka-controller-headless.kafka-cluster:9092"
-        logging-level-jdbc: "DEBUG"
-        mobile-validation-workaround: "true"
-        serializers-timezone-in-ist: "true"
-        server-tomcat-max-connections: "500"
-        server-tomcat-max-threads: "10"
-        sms-enabled: "true"
-        spring-datasource-tomcat-initialSize: "1"
-        spring-datasource-tomcat-max-active: "2"
-        spring-jpa-show-sql: "true"
-        timezone: "UTC"
-        tracer-errors-provideexceptionindetails: "true"
-        egov-env: "PROD"
-        boundary-hierarchy: "ADMIN"
-        egov-internal-microservice-user-uuid: "e1f57dfe-35a0-494a-911d-22cd3f786612"
-        host-map: "{'ba':'https://bauchi-hcm.digit.org/','oy':'https://oyo-hcm.digit.org/','ko':'https://kogi-hcm.digit.org/','na':'https://nasarawa-hcm.digit.org/','ab':'https://fct-abuja-hcm.digit.org/','pl':'https://plateau-hcm.digit.org/','bo':'https://borno-hcm.digit.org/','ke':'https://kebbi-hcm-central.digit.org/','so':'https://sokoto-hcm.digit.org/','od':'https://ondo-hcm.digit.org/','ad':'https://adamawa-hcm.digit.org/','kd':'https://kaduna-central-hcm.digit.org/','jg':'https://jigawa-central-hcm.digit.org/','kb':'https://kebbi-azm-central-hcm.digit.org/','go':'https://gombe-hcm.digit.org/','chad':'https://chad-hcm-prod.digit.org/'}"
-        db-schema-names: "kb"
-    egov-service-host:
-      namespace: [ kebbi-azm ]
-      data:
-        dashboard-analytics: "http://dashboard-analytics.egov:8080/"
-        egov-enc-service: "http://egov-enc-service.egov:8080/"
-        egov-enc-service-kaduna: "http://egov-enc-service.kaduna:8080/"
-        egov-enc-service-jigawa: "http://egov-enc-service.jigawa:8080/"
-        egov-enc-service-kebbi-azm: "http://egov-enc-service.kebbi-azm:8080/"
-        egov-accesscontrol: "http://egov-accesscontrol.egov:8080/"
-        egov-user: "http://egov-user.egov:8080/"
-        egov-user-egov: "http://egov-user.egov:8080/"
-        egov-filestore: "http://egov-filestore.egov:8080/"
-        egov-localization: "http://egov-localization.egov:8080/"
-        egov-idgen: "http://egov-idgen.egov:8080/"
-        egov-otp: "http://egov-otp.egov:8080/"
-        mdms-v2: "http://mdms-v2.egov:8080/"
-        egov-workflow-v2: "http://egov-workflow-v2.egov:8080/"
-        egov-indexer: "http://egov-indexer:8080/"
-        egov-hrms: "http://egov-hrms.kebbi-azm:8080/"
-        es-client: "https://elasticsearch-data.es-cluster-v8:9200"
-        pdf-service: "http://pdf-service.egov:8080/"
-        user-otp: "http://user-otp.egov:8080/"
-        minio-url: "https://minio-uat.digit.org/"
-        zuul: "http://zuul.egov:8080/"
-        egov-url-shortening: "http://egov-url-shortening.egov:8080/"
-        pgr-services: "http://pgr-services.egov:8080/"
-        project: "http://project.kebbi-azm:8080/"
-        project-referral: "http://project-referral.kebbi-azm:8080/"
-        product: "http://product.kebbi-azm:8080/"
-        household: "http://household.kebbi-azm:8080/"
-        household-referral: "http://household-referral.kebbi-azm:8080/"
-        boundary-service: "http://boundary-service.egov:8080/"
-        individual: "http://individual.kebbi-azm:8080/"
-        individual-referral: "http://individual-referral.kebbi-azm:8080/"
-        stock: "http://stock.kebbi-azm:8080/"
-        facility: "http://facility.kebbi-azm:8080/"
-        service-request: "http://service-request.kebbi-azm:8080/"
-        attendance-service: "http://health-attendance.egov:8080/"
-        audit-service: "http://audit-service.egov:8080/"
-        project-factory: 'http://project-factory.egov:8080/'
-        plan-service: 'http://plan-service.egov:8080/'
-        census-service: 'http://census-service.egov:8080/'
-        health-muster-roll: 'http://health-muster-roll.egov:8080/'
-        health-expense-calculator: 'http://health-expense-calculator.egov:8080/'
-        health-expense: 'http://health-expense.egov:8080/'
-
 household:
+  replicas: "0"
   db-read-url-enabled: true
   central-instance-build: true
   central-instance-enabled: false
   heap: "-Xmx1024m -Xms512m"
   ingress:
-    name: kebbi-azm-household
-    namespace: egov
-    gatewayService: gateway-2
+    enabled: false
   namespace: "kebbi-azm"
   hpa:
-    enabled: true
+    enabled: false
     minReplicas: 1
     maxReplicas: 3
   cpu_requests: 300m
@@ -134,6 +37,7 @@ household:
   household-kafka-delete-topic: kb-delete-household-topic
 
 household-referral:
+  replicas: "0"
   central-instance-build: true
   central-instance-enabled: false
   initContainers:
@@ -141,12 +45,10 @@ household-referral:
       enabled: false
   heap: "-Xmx1536m -Xms768m"
   ingress:
-    name: kebbi-azm-household-referral
-    namespace: egov
-    gatewayService: gateway-2
+    enabled: false
   namespace: "kebbi-azm"
   hpa:
-    enabled: true
+    enabled: false
     minReplicas: 1
     maxReplicas: 3
   cpu_requests: 300m
@@ -168,16 +70,15 @@ household-referral:
   household-kafka-delete-topic: kb-delete-household-topic
 
 individual:
+  replicas: "0"
   central-instance-build: true
   central-instance-enabled: false
   ingress:
-    name: kebbi-azm-individual
-    namespace: egov
-    gatewayService: gateway-2
+    enabled: false
   namespace: "kebbi-azm"
   heap: "-Xmx1g -Xms512m"
   hpa:
-    enabled: true
+    enabled: false
     minReplicas: 1
     maxReplicas: 3
   cpu_requests: 300m
@@ -194,6 +95,7 @@ individual:
   individual-producer-update-user-id-topic: kb-update-user-id-topic
 
 individual-referral:
+  replicas: "0"
   central-instance-build: true
   central-instance-enabled: false
   initContainers:
@@ -201,12 +103,10 @@ individual-referral:
       enabled: false
   heap: "-Xmx1536m -Xms768m"
   ingress:
-    name: kebbi-azm-individual-referral
-    namespace: egov
-    gatewayService: gateway-2
+    enabled: false
   namespace: "kebbi-azm"
   hpa:
-    enabled: true
+    enabled: false
     minReplicas: 1
     maxReplicas: 3
   cpu_requests: 300m
@@ -223,17 +123,16 @@ individual-referral:
   individual-producer-update-user-id-topic: kb-update-user-id-topic
 
 project:
+  replicas: "0"
   db-read-url-enabled: true
   central-instance-build: true
   central-instance-enabled: false
   heap: "-Xmx1g -Xms512m"
   ingress:
-    name: kebbi-azm-project
-    namespace: egov
-    gatewayService: gateway-2
+    enabled: false
   namespace: "kebbi-azm"
   hpa:
-    enabled: true
+    enabled: false
     minReplicas: 1
     maxReplicas: 3
   cpu_requests: 300m
@@ -283,6 +182,7 @@ project:
   project-location-capture-consumer-bulk-create-topic: kb-save-location-capture-project-bulk-health-topic
 
 project-referral:
+  replicas: "0"
   central-instance-build: true
   central-instance-enabled: false
   initContainers:
@@ -290,12 +190,10 @@ project-referral:
       enabled: false
   heap: "-Xmx1536m -Xms768m"
   ingress:
-    name: kebbi-azm-project-referral
-    namespace: egov
-    gatewayService: gateway-2
+    enabled: false
   namespace: "kebbi-azm"
   hpa:
-    enabled: true
+    enabled: false
     minReplicas: 1
     maxReplicas: 3
   cpu_requests: 200m
@@ -345,17 +243,16 @@ project-referral:
   project-location-capture-consumer-bulk-create-topic: kb-save-location-capture-project-bulk-health-topic
 
 referralmanagement:
+  replicas: "0"
   downsync-services-enabled: true
   central-instance-build: true
   central-instance-enabled: false
   heap: "-Xmx1536m -Xms768m"
   ingress:
-    name: kebbi-azm-referralmanagement
-    namespace: egov
-    gatewayService: gateway-2
+    enabled: false
   namespace: "kebbi-azm"
   hpa:
-    enabled: true
+    enabled: false
     minReplicas: 1
     maxReplicas: 3
   cpu_requests: 300m
@@ -383,16 +280,15 @@ referralmanagement:
   referralmanagement-hfreferral-consumer-bulk-delete-topic: kb-delete-hfreferral-bulk-topic
 
 product:
+  replicas: "0"
   central-instance-build: true
   central-instance-enabled: false
   heap: "-Xmx512m -Xms256m"
   ingress:
-    name: kebbi-azm-product
-    namespace: egov
-    gatewayService: gateway-2
+    enabled: false
   namespace: "kebbi-azm"
   hpa:
-    enabled: true
+    enabled: false
     minReplicas: 1
     maxReplicas: 3
   cpu_requests: 200m
@@ -406,17 +302,16 @@ product:
   product-variant-kafka-update-topic: kb-update-product-variant-topic
 
 facility:
+  replicas: "0"
   db-write-url: true
   central-instance-build: true
   central-instance-enabled: false
   heap: "-Xmx512m -Xms256m"
   ingress:
-    name: kebbi-azm-facility
-    namespace: egov
-    gatewayService: gateway-2
+    enabled: false
   namespace: "kebbi-azm"
   hpa:
-    enabled: true
+    enabled: false
     minReplicas: 1
     maxReplicas: 3
   cpu_requests: 200m
@@ -432,17 +327,16 @@ facility:
   facility-consumer-bulk-update-topic: kb-update-facility-bulk-topic
 
 stock:
+  replicas: "0"
   db-read-url-enabled: true
   central-instance-build: true
   central-instance-enabled: false
   ingress:
-    name: kebbi-azm-stock
-    namespace: egov
-    gatewayService: gateway-2
+    enabled: false
   namespace: "kebbi-azm"
   heap: "-Xmx512m -Xms256m"
   hpa:
-    enabled: true
+    enabled: false
     minReplicas: 1
     maxReplicas: 3
   cpu_requests: 200m
@@ -464,16 +358,15 @@ stock:
   stock-reconciliation-consumer-bulk-update-topic: kb-update-stock-reconciliation-bulk-topic
 
 egov-hrms:
+  replicas: "0"
   db-write-url: true
   heap: "-Xmx1024m -Xms512m"
   hpa:
-    enabled: true
+    enabled: false
     minReplicas: 1
     maxReplicas: 3
   ingress:
-    name: kebbi-azm-hrms
-    namespace: egov
-    gatewayService: gateway-2
+    enabled: false
   namespace: "kebbi-azm"
   cpu_requests: 200m
   memory_requests: 1Gi
@@ -492,18 +385,17 @@ egov-hrms:
 
 
 service-request:
+  replicas: "0"
   db-write-url: true
   central-instance-build: true
   central-instance-enabled: false
   heap: "-Xmx512m -Xms256m"
   hpa:
-    enabled: true
+    enabled: false
     minReplicas: 1
     maxReplicas: 3
   ingress:
-    name: kebbi-azm-service-request
-    namespace: egov
-    gatewayService: gateway-2
+    enabled: false
   namespace: "kebbi-azm"
   cpu_requests: 200m
   memory_requests: 512Mi
@@ -604,15 +496,59 @@ transformer:
   transformer-consumer-musterroll-enabled: "false"
   transformer-consumer-service-enabled: "false"
   transformer-consumer-side-effect-enabled: "false"
+  image:
+    repository: egovio/transformer
+    tag: HDDF-5226-c512500
+  transformer-producer-bulk-stock-index-updated-v1-topic: "kb-transformer-producer-bulk-stock-index-updated-v1-topic"
+  save-individual-topic: "kb-save-individual-topic"
+  update-individual-topic: "kb-update-individual-topic"
+  transformer-producer-individual-index-v1-topic: "kb-transformer-producer-individual-index-v1-topic"
+  transformer-producer-stock-index-v1-topic: "kb-transformer-producer-stock-index-v1-topic"
+  transformer-producer-stock-reconciliation-index-v1-topic: "kb-transformer-producer-stock-reconciliation-index-v1-topic"
+  transformer-producer-facility-index-v1-topic: "kb-transformer-producer-facility-index-v1-topic"
+  transformer-producer-resource-index-v1-topic: "kb-transformer-producer-resource-index-v1-topic"
+  save-service-topic: "kb-save-service-topic"
+  update-service-topic: "kb-update-service-topic"
+  create-side-effect-topic: "kb-create-side-effect-topic"
+  transformer-producer-project-beneficiary-downsync-index-v1-topic: "kb-transformer-producer-project-beneficiary-downsync-index-v1-topic"
+  save-product-topic: "kb-save-product-topic"
+  update-product-topic: "kb-update-product-topic"
+  transformer-producer-product-index-v1-topic: "kb-transformer-producer-product-index-v1-topic"
+  save-product-variant-topic: "kb-save-product-variant-topic"
+  update-product-variant-topic: "kb-update-product-variant-topic"
+  transformer-producer-product-variant-index-v1-topic: "kb-transformer-producer-product-variant-index-v1-topic"
+  project-campaign-search-response-topic: "kb-project-campaign-search-response-topic"
+  project-es-index-name: "project-v1"
+  transformer-consumer-error-tracer-topic: "error-details-indexer-topic"
+  transformer-error-skip-error-messages: "UPLOAD_ERROR_FROM_APP"
+  transformer-error-skip-error-codes: "DUPLICATE_ENTITY,INDIVIDUAL_ALREADY_MEMBER_OF_HOUSEHOLD,HOUSEHOLD_ALREADY_HAS_HEAD"
+  transformer-error-skip-url-contains: "facility,resource"
+  state-level-tenantid: "kb"
+  expense-bill-create-health-topic: "kb-expense-bill-create-health"
+  expense-bill-update-health-topic: "kb-expense-bill-update-health"
+  transformer-bill-index-topic: "kb-transformer-bill-index-topic"
+  transformer-billdetail-index-topic: "kb-transformer-billdetail-index-topic"
+  expense-bill-report-save-topic: "kb-expense-bill-report-save"
+  expense-bill-report-update-topic: "kb-expense-bill-report-update"
+  transformer-billreport-index-topic: "kb-transformer-billreport-index-topic"
+  save-musterroll-health-topic: "kb-save-musterroll-health"
+  update-musterroll-health-topic: "kb-update-musterroll-health"
+  transformer-producer-muster-roll-index-v1-topic: "kb-transformer-producer-muster-roll-index-v1-topic"
+  expense-bill-detail-create-topic: "kb-expense-bill-detail-create"
+  expense-bill-detail-update-topic: "kb-expense-bill-detail-update"
+  egov_localization_locale_code: "en_NG"
+  egov-localization-module-name: "hcm-boundary-admin"
+  transformer-consumer-create-user-action-topic: "kb-save-user-action-project-topic"
+  transformer-consumer-update-user-action-topic: "kb-update-user-action-project-topic"
+  transformer-producer-user-action-index-v1-topic: "kb-transformer-producer-user-action-index-v1-topic"
 
 hcm-moz-impl:
   namespace: kebbi-azm
-  replicas: 1
+  replicas: "0"
   heap: "-Xmx2048m -Xms2048m"
-  memory_limits: "2Gi"
   startDate: "29/05/2025"
   endDate: "02/06/2025"
-  boundary-code: "kd"
+  boundary-code: "kb"
   create-boundaryCSV-data: "kb-create-boundaryCSV-data"
   update-dhis2-job: "kb-update-dhis2-job"
   create-dhis2-job: "kb-create-dhis2-job"
@@ -625,12 +561,44 @@ hcm-moz-impl:
   create-dhis2-digit-mapping: "kb-create-dhis2-digit-mapping"
   update-dhis2-record: "kb-update-dhis2-record"
   create-dhis2-record: "kb-create-dhis2-record"
-  resources:
-    requests:
-      memory: "3Gi"
-    limits:
-      memory: "3Gi"
+  memory_requests: "3Gi"
+  memory_limits: "3Gi"
+  cpu_requests: 200m
+  cpu_limits: 300m
 
+
+payments-ui:
+  namespace: kebbi-azm
+  image:
+    repository: egovio/payments-ui
+    tag: HDDF-4931-151549b
+  custom-js-injection: |
+    sub_filter.conf: "
+      sub_filter  '<head>' '<head>
+      <script src=https://central-instance-assets.s3.af-south-1.amazonaws.com/globalConfigPayments-kb.js type=text/javascript></script>
+      ';"
+
+workbench-ui:
+  namespace: kebbi-azm
+  image:
+    repository: egovio/workbench-ui
+    tag: nigeria_mc-5212cd5
+  custom-js-injection: |
+    sub_filter.conf: "
+      sub_filter  '<head>' '<head>
+      <script src=https://central-instance-assets.s3.af-south-1.amazonaws.com/globalConfigWorkbench-kb.js type=text/javascript></script>
+      ';"
+
+dashboard-ui:
+  namespace: kebbi-azm
+  image:
+    repository: egovio/dashboard-ui
+    tag: HDDF-4931-ce4e572
+  custom-js-injection: |
+    sub_filter.conf: "
+      sub_filter  '<head>' '<head>
+      <script src=https://central-instance-assets.s3.af-south-1.amazonaws.com/globalConfigDashboard-kb.js type=text/javascript></script>
+      ';"
 
 digit-ui:
   namespace: kebbi-azm
