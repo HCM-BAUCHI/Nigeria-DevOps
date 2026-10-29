@@ -48,13 +48,13 @@ global:
 cluster-configs:
   namespaces:
     create: true
-    values: [ backbone, cert-manager, egov, airflow, es-cluster, kafka-cluster, logging, monitoring, playground, zookeeper-cluster, es-cluster-v8, jupyter, jhub, bauchi, oyo, kogi, nasarawa, abuja, plateau, borno, kebbi, sokoto, ondo, adamawa, kaduna, jigawa, kebbi-azm, chad, gombe, chad-prod, zamfara, abia, sierraleone ]
+    values: [ backbone, cert-manager, egov, airflow, es-cluster, kafka-cluster, logging, monitoring, playground, zookeeper-cluster, es-cluster-v8, jupyter, jhub, bauchi, oyo, kogi, nasarawa, abuja, plateau, borno, kebbi, sokoto, ondo, adamawa, kaduna, jigawa, kebbi-azm, chad, gombe, chad-prod, zamfara, abia, sierraleone, kebbi-azm ]
 
   root-ingress:
     cert-issuer: letsencrypt-prod
   configmaps:
     egov-config:
-      namespace: [egov, airflow, bauchi, oyo, kogi, nasarawa, abuja, plateau, borno, kebbi, sokoto, ondo, adamawa, chad, gombe, zamfara, abia, sierraleone]
+      namespace: [egov, airflow, bauchi, oyo, kogi, nasarawa, abuja, plateau, borno, kebbi, sokoto, ondo, adamawa, chad, gombe, zamfara, abia, sierraleone, kebbi-azm]
       data:
         db-host: "ng-central-prd-db.cpe4q0cycqi7.af-south-1.rds.amazonaws.com" ## Add db-host name eg: egov-demo.database.azure.com
         db-name: "ngcentralprd" ## Add db-name
@@ -133,8 +133,11 @@ cluster-configs:
           server-tomcat-max-connections-referral: "2000"
           server-tomcat-max-threads-referral: "40"
           spring-datasource-tomcat-max-active-referral: "20"
+        kebbi-azm:
+          state-level-tenant-id: "kb"
+          egov-state-level-tenant-id: "kb"
     egov-service-host:
-      namespace: [egov, bauchi, oyo, monitoring, kogi, nasarawa, abuja, plateau, borno, kebbi, sokoto, ondo, adamawa, kaduna, jigawa, chad, gombe, zamfara, abia, sierraleone ]
+      namespace: [egov, bauchi, oyo, monitoring, kogi, nasarawa, abuja, plateau, borno, kebbi, sokoto, ondo, adamawa, kaduna, jigawa, chad, gombe, zamfara, abia, sierraleone, kebbi-azm ]
       data:
         dashboard-analytics: "http://dashboard-analytics.egov:8080/"
         internal-gateway-scg: "http://internal-gateway-scg.egov:8080/"
