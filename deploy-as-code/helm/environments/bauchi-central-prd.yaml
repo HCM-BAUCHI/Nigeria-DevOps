@@ -2225,8 +2225,8 @@ health-expense:
     tag: nigeria-go-deep-payments-expense-15b5a23
   central-instance-build: true
   central-instance-enabled: true
-  schemaNameExclude: [ "chad", "bo" ]
-  hostExclude: ["chad-hcm-prod.digit.org", "borno-hcm.digit.org"]
+  schemaNameExclude: [ "chad", "bo", "abia", "ko" ]
+  hostExclude: ["chad-hcm-prod.digit.org", "borno-hcm.digit.org", "abia-hcm.digit.org", "kogi-hcm.digit.org"]
   expense-kafka-tenant-id-pattern: "(ba|oy|ko|na|ab|pl|ke|so|od|ad|kd|jg|kb|ch|go|zf)-"
   java-enable-debug: false
   java-args: ""
@@ -2250,6 +2250,7 @@ health-expense-calculator:
   ingress:
     name: bauchi-health-expense-calculator
     namespace: egov
+  schemaNameExclude: ["abia", "ko"]
   hostExclude:
     - oyo-hcm.digit.org
     - kogi-hcm.digit.org
