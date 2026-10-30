@@ -202,6 +202,9 @@ cluster-configs:
         abia:
           health-expense-abia: 'http://health-expense.abia:8080/'
           health-expense-calculator-abia: 'http://health-expense-calculator.abia:8080/'
+        kogi:
+          health-expense-kogi: 'http://health-expense.kogi:8080/'
+          health-expense-calculator-kogi: 'http://health-expense-calculator.kogi:8080/' 
         egov:
           health-expense-calculator: 'http://internal-gateway-scg.egov:8080/'
 
@@ -2250,7 +2253,6 @@ health-expense-calculator:
   ingress:
     name: bauchi-health-expense-calculator
     namespace: egov
-  schemaNameExclude: ["abia", "ko"]
   hostExclude:
     - oyo-hcm.digit.org
     - kogi-hcm.digit.org
