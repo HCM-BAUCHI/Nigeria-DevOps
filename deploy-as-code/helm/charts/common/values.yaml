@@ -66,6 +66,10 @@ initContainers:
               key: oy-db-url
           {{- else if eq .Values.namespace "sierraleone" }}
               key: si-db-url
+          {{- else if eq .Values.namespace "namibia" }}
+              key: namibia-db-url
+          {{- else if eq .Values.namespace "gabon" }}
+              key: gabon-db-url
           {{- else }}
               key: db-url
           {{- end }}
@@ -99,6 +103,10 @@ initContainers:
           value: "bo"
           {{- else if eq .Values.namespace "sierraleone" }}
           value: "si"
+          {{- else if eq .Values.namespace "namibia" }}
+          value: "namibia"
+          {{- else if eq .Values.namespace "gabon" }}
+          value: "gabon"
           {{- else }}
           value: "public"
           {{- end }}
@@ -206,7 +214,11 @@ extraEnv:
             {{- else if eq .Values.namespace "borno" }}
             key: bo-db-read-url
             {{- else if eq .Values.namespace "sierraleone" }}
-            key: si-db-read-url            
+            key: si-db-read-url
+            {{- else if eq .Values.namespace "namibia" }}
+            key: namibia-db-read-url
+            {{- else if eq .Values.namespace "gabon" }}
+            key: gabon-db-read-url
             {{- else }}
             key: db-read-url
             {{- end }}
@@ -231,7 +243,11 @@ extraEnv:
             {{- else if eq .Values.namespace "oyo" }}
             key: oy-db-url
             {{- else if eq .Values.namespace "sierraleone" }}
-            key: si-db-url            
+            key: si-db-url
+            {{- else if eq .Values.namespace "namibia" }}
+            key: namibia-db-url
+            {{- else if eq .Values.namespace "gabon" }}
+            key: gabon-db-url
             {{- else if index .Values "db-write-url" }}
             key: db-url
             {{- else }}
@@ -270,6 +286,10 @@ extraEnv:
             key: oy-db-url
             {{- else if eq .Values.namespace "sierraleone" }}
             key: si-db-url
+            {{- else if eq .Values.namespace "namibia" }}
+            key: namibia-db-url
+            {{- else if eq .Values.namespace "gabon" }}
+            key: gabon-db-url
             {{- else }}
             key: db-url
             {{- end }}

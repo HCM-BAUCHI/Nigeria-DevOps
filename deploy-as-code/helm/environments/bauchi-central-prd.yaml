@@ -23,6 +23,8 @@ global:
     - zamfara-hcm.digit.org
     - abia-hcm.digit.org
     - sierraleone-hcm.digit.org
+    - namibia-hcm.digit.org
+    - gabon-hcm.digit.org
   schema:
     - ba
     - oy
@@ -44,17 +46,19 @@ global:
     - zf
     - abia
     - si
+    - namibia
+    - gabon
 
 cluster-configs:
   namespaces:
     create: true
-    values: [ backbone, cert-manager, egov, airflow, es-cluster, kafka-cluster, logging, monitoring, playground, zookeeper-cluster, es-cluster-v8, jupyter, jhub, bauchi, oyo, kogi, nasarawa, abuja, plateau, borno, kebbi, sokoto, ondo, adamawa, kaduna, jigawa, kebbi-azm, chad, gombe, chad-prod, zamfara, abia, sierraleone, kebbi-azm ]
+    values: [ backbone, cert-manager, egov, airflow, es-cluster, kafka-cluster, logging, monitoring, playground, zookeeper-cluster, es-cluster-v8, jupyter, jhub, bauchi, oyo, kogi, nasarawa, abuja, plateau, borno, kebbi, sokoto, ondo, adamawa, kaduna, jigawa, kebbi-azm, chad, gombe, chad-prod, zamfara, abia, sierraleone, kebbi-azm, namibia, gabon ]
 
   root-ingress:
     cert-issuer: letsencrypt-prod
   configmaps:
     egov-config:
-      namespace: [egov, airflow, bauchi, oyo, kogi, nasarawa, abuja, plateau, borno, kebbi, sokoto, ondo, adamawa, chad, gombe, zamfara, abia, sierraleone, kebbi-azm]
+      namespace: [egov, airflow, bauchi, oyo, kogi, nasarawa, abuja, plateau, borno, kebbi, sokoto, ondo, adamawa, chad, gombe, zamfara, abia, sierraleone, kebbi-azm, namibia, gabon ]
       data:
         db-host: "ng-central-prd-db.cpe4q0cycqi7.af-south-1.rds.amazonaws.com" ## Add db-host name eg: egov-demo.database.azure.com
         db-name: "ngcentralprd" ## Add db-name
@@ -80,12 +84,14 @@ cluster-configs:
         zf-db-url: "jdbc:postgresql://ng-central-prd-db.cpe4q0cycqi7.af-south-1.rds.amazonaws.com:5432/ngcentralprd?currentSchema=zf"
         abia-db-url: "jdbc:postgresql://ng-central-prd-db.cpe4q0cycqi7.af-south-1.rds.amazonaws.com:5432/ngcentralprd?currentSchema=abia"
         si-db-url: "jdbc:postgresql://ng-central-prd-db.cpe4q0cycqi7.af-south-1.rds.amazonaws.com:5432/ngcentralprd?currentSchema=si"
+        namibia-db-url: "jdbc:postgresql://ng-central-prd-db.cpe4q0cycqi7.af-south-1.rds.amazonaws.com:5432/ngcentralprd?currentSchema=namibia"
+        gabon-db-url: "jdbc:postgresql://ng-central-prd-db.cpe4q0cycqi7.af-south-1.rds.amazonaws.com:5432/ngcentralprd?currentSchema=gabon"
         domain: "bauchi-hcm.digit.org" ## Add your Domain Name
         redis-host: "ng-central-redis.nolaw2.ng.0001.afs1.cache.amazonaws.com"
         redis-downsync-host: "ng-central-redis.nolaw2.ng.0001.afs1.cache.amazonaws.com"
         egov-services-fqdn-name: "https://bauchi-hcm-digit.org/" ## Add your Domain Name
         state-level-tenantid-length: "1"
-        kafka-tenant-id-pattern: "(ba|oy|ko|na|ab|pl|bo|ke|so|od|ad|kd|jg|kb|ch|go|zf|abia|si)-"
+        kafka-tenant-id-pattern: "(ba|oy|ko|na|ab|pl|bo|ke|so|od|ad|kd|jg|kb|ch|go|zf|abia|si|namibia|gabon)-"
         state-schema-index-position-tenantid: "0"
         is-environment-central-instance: "true"
         aws-cluster-ip: "https://AD11FA377F3AEE4369833D9626BD7A83.gr7.af-south-1.eks.amazonaws.com"
@@ -114,8 +120,8 @@ cluster-configs:
         boundary-hierarchy: "ADMIN"
         boundary-hierarchy-chad: "ADMIN2"
         egov-internal-microservice-user-uuid: "e1f57dfe-35a0-494a-911d-22cd3f786612"
-        host-map: "{'ba':'https://bauchi-hcm.digit.org/','oy':'https://oyo-hcm.digit.org/','ko':'https://kogi-hcm.digit.org/','na':'https://nasarawa-hcm.digit.org/','ab':'https://fct-abuja-hcm.digit.org/','pl':'https://plateau-hcm.digit.org/','bo':'https://borno-hcm.digit.org/','ke':'https://kebbi-hcm-central.digit.org/','so':'https://sokoto-hcm.digit.org/','od':'https://ondo-hcm.digit.org/','ad':'https://adamawa-hcm.digit.org/','kd':'https://kaduna-central-hcm.digit.org/','jg':'https://jigawa-central-hcm.digit.org/','kb':'https://kebbi-azm-central-hcm.digit.org/','go':'https://gombe-hcm.digit.org/','chad':'https://chad-hcm-prod.digit.org/','zf':'https://zamfara-hcm.digit.org/','abia':'https://abia-hcm.digit.org/','si':'https://sierraleone-hcm.digit.org/'}"
-        db-schema-names: "ba,oy,ko,na,ab,pl,bo,ke,so,od,ad,kd,jg,kb,ch,go,chad,zf,abia,si"
+        host-map: "{'ba':'https://bauchi-hcm.digit.org/','oy':'https://oyo-hcm.digit.org/','ko':'https://kogi-hcm.digit.org/','na':'https://nasarawa-hcm.digit.org/','ab':'https://fct-abuja-hcm.digit.org/','pl':'https://plateau-hcm.digit.org/','bo':'https://borno-hcm.digit.org/','ke':'https://kebbi-hcm-central.digit.org/','so':'https://sokoto-hcm.digit.org/','od':'https://ondo-hcm.digit.org/','ad':'https://adamawa-hcm.digit.org/','kd':'https://kaduna-central-hcm.digit.org/','jg':'https://jigawa-central-hcm.digit.org/','kb':'https://kebbi-azm-central-hcm.digit.org/','go':'https://gombe-hcm.digit.org/','chad':'https://chad-hcm-prod.digit.org/','zf':'https://zamfara-hcm.digit.org/','abia':'https://abia-hcm.digit.org/','si':'https://sierraleone-hcm.digit.org/','namibia':'https://namibia-hcm.digit.org/','gabon':'https://gabon-hcm.digit.org/'}"
+        db-schema-names: "ba,oy,ko,na,ab,pl,bo,ke,so,od,ad,kd,jg,kb,ch,go,chad,zf,abia,si,namibia,gabon"
       namespace-overrides:
         borno:
           egov-state-level-tenant-id: "bo"
@@ -143,7 +149,7 @@ cluster-configs:
           state-level-tenant-id: "kb"
           egov-state-level-tenant-id: "kb"
     egov-service-host:
-      namespace: [egov, bauchi, oyo, monitoring, kogi, nasarawa, abuja, plateau, borno, kebbi, sokoto, ondo, adamawa, kaduna, jigawa, chad, gombe, zamfara, abia, sierraleone, kebbi-azm ]
+      namespace: [egov, bauchi, oyo, monitoring, kogi, nasarawa, abuja, plateau, borno, kebbi, sokoto, ondo, adamawa, kaduna, jigawa, chad, gombe, zamfara, abia, sierraleone, kebbi-azm, namibia, gabon ]
       data:
         dashboard-analytics: "http://dashboard-analytics.egov:8080/"
         internal-gateway-scg: "http://internal-gateway-scg.egov:8080/"
@@ -618,6 +624,58 @@ egov-indexer-ch:
   dss-collectionindex-topic-push-enabled: "false"
   topic-push-enabled: "false"
 
+egov-indexer-namibia:
+  image:
+    repository: egovio/egov-indexer
+    tag: indexer-17-searchBody-aefd92b
+  kafka-consumer-group-id: "egov-indexer-consumer-grp-namibia"
+  heap: "-Xmx1536m -Xms1024m"
+  hpa:
+    enabled: true
+    minReplicas: 1
+    maxReplicas: 4
+  cpu_requests: 300m
+  memory_requests: 1.5Gi
+  cpu_limits: 400m
+  memory_limits: 2Gi
+  initContainers:
+    dbMigration:
+      image:
+        repository: egovio/egov-indexer-db
+        tag: indexer-17-searchBody-aefd92b
+    gitSync:
+      repo: "git@github.com:HCM-BAUCHI/health-campaign-config"        ##### Change repo url with Your fork Repo url
+      branch: "PROD"                                      ##### Change repo branch with Your fork Repo branch
+    egov-indexer-yaml-repo-path: "/work-dir/health-campaign-config/egov-indexer/namibia"
+    dss-collectionindex-topic-push-enabled: "false"
+    topic-push-enabled: "false"
+
+egov-indexer-gabon:
+  image:
+    repository: egovio/egov-indexer
+    tag: indexer-17-searchBody-aefd92b
+  kafka-consumer-group-id: "egov-indexer-consumer-grp-gabon"
+  heap: "-Xmx1536m -Xms1024m"
+  hpa:
+    enabled: true
+    minReplicas: 1
+    maxReplicas: 4
+  cpu_requests: 300m
+  memory_requests: 1.5Gi
+  cpu_limits: 400m
+  memory_limits: 2Gi
+  initContainers:
+    dbMigration:
+      image:
+        repository: egovio/egov-indexer-db
+        tag: indexer-17-searchBody-aefd92b
+    gitSync:
+      repo: "git@github.com:HCM-BAUCHI/health-campaign-config"        ##### Change repo url with Your fork Repo url
+      branch: "PROD"                                      ##### Change repo branch with Your fork Repo branch
+  egov-indexer-yaml-repo-path: "/work-dir/health-campaign-config/egov-indexer/gabon"
+  dss-collectionindex-topic-push-enabled: "false"
+  topic-push-enabled: "false"
+
 egov-indexer-so-zf:
   image:
     repository: egovio/egov-indexer
@@ -774,6 +832,49 @@ egov-persister-ht:
       repo: "git@github.com:HCM-BAUCHI/health-campaign-config"      ##### Change repo url with Your fork Repo url
       branch: "PROD"                                    ##### Change repo branch with Your fork Repo branch
 
+egov-persister-namibia:
+  image:
+    repository: egovio/egov-persister
+    tag: master-perf-fe334d2
+  kafka-consumer-group-id: "egov-infra-persist-namibia"
+  heap: "-Xmx1536m -Xms1024m"
+  hpa:
+    enabled: true
+    minReplicas: 1
+    maxReplicas: 4
+  cpu_requests: 300m
+  memory_requests: 1.5Gi
+  cpu_limits: 400m
+  memory_limits: 2Gi
+  images:
+    - egovio/egov-persister
+  persist-yml-path: "/work-dir/health-campaign-config/egov-persister/namibia"
+  initContainers:
+    gitSync:
+      repo: "git@github.com:HCM-BAUCHI/health-campaign-config"      ##### Change repo url with Your fork Repo url
+      branch: "PROD"                                    ##### Change repo branch with Your fork Repo branch
+
+egov-persister-gabon:
+  image:
+    repository: egovio/egov-persister
+    tag: master-perf-fe334d2
+  kafka-consumer-group-id: "egov-infra-persist-gabon"
+  heap: "-Xmx1536m -Xms1024m"
+  hpa:
+    enabled: true
+    minReplicas: 1
+    maxReplicas: 4
+  cpu_requests: 300m
+  memory_requests: 1.5Gi
+  cpu_limits: 400m
+  memory_limits: 2Gi
+  images:
+    - egovio/egov-persister
+  persist-yml-path: "/work-dir/health-campaign-config/egov-persister/gabon"
+  initContainers:
+    gitSync:
+      repo: "git@github.com:HCM-BAUCHI/health-campaign-config"      ##### Change repo url with Your fork Repo url
+      branch: "PROD"                                    ##### Change repo branch with Your fork Repo branch
 
 egov-persister-chad-kb-kd:
   image:
@@ -1858,7 +1959,7 @@ project-factory:
   serverTimezone: "UTC"
   attendanceAttendeeSearchPageSize: "100"
   attendanceStaffSearchPageSize: "100"
-  centralInstanceTenantIds: "ba,oy,ko,na,ab,pl,bo,ke,so,od,ad,kd,jg,kb,ch,go,zf,abia,si"
+  centralInstanceTenantIds: "ba,oy,ko,na,ab,pl,bo,ke,so,od,ad,kd,jg,kb,ch,go,zf,abia,si,namibia,gabon"
   userKafkaCreateBatchSize: '100'
   mappingBulkCreateChunkSize: '150'
   projectBulkCreateChunkSize: '100'
@@ -1937,7 +2038,7 @@ excel-ingestion:
   excel-ingestion-sheet-data-save-topic: "save-sheet-data-temp"
   excel-ingestion-sheet-data-delete-topic: "delete-sheet-data-temp"
   excel-ingestion-processing-result-topic: "hcm-processing-result"
-  kafka-tenant-id-pattern: "(ba|oy|ko|na|ab|pl|bo|ke|so|od|ad|kd|jg|kb|ch|go|zf)-"
+  kafka-tenant-id-pattern: "(ba|oy|ko|na|ab|pl|bo|ke|so|od|ad|kd|jg|kb|ch|go|zf|namibia|gabon)-"
   java-enable-debug: true
   wait-time-of-each-attempt-ms: "20000"
 
@@ -2230,7 +2331,7 @@ health-expense:
   central-instance-enabled: true
   schemaNameExclude: [ "chad", "bo", "abia", "ko" ]
   hostExclude: ["chad-hcm-prod.digit.org", "borno-hcm.digit.org", "abia-hcm.digit.org", "kogi-hcm.digit.org"]
-  expense-kafka-tenant-id-pattern: "(ba|oy|ko|na|ab|pl|ke|so|od|ad|kd|jg|kb|ch|go|zf)-"
+  expense-kafka-tenant-id-pattern: "(ba|oy|ko|na|ab|pl|ke|so|od|ad|kd|jg|kb|ch|go|zf|namibia|gabon)-"
   java-enable-debug: false
   java-args: ""
   business-workflow-status-map: "{'EXPENSE.WAGES':'false','EXPENSE.PURCHASE':'false','EXPENSE.SUPERVISION':'false','PAYMENTS.BILL':'true','PAYMENTS.BILLDETAILS':'true'}"
@@ -2273,6 +2374,8 @@ health-expense-calculator:
     - zamfara-hcm.digit.org
     - abia-hcm.digit.org
     - sierraleone-hcm.digit.org
+    - namibia-hcm.digit.org
+    - gabon-hcm.digit.org
   initContainers:
     dbMigration:
       image:
@@ -2557,7 +2660,7 @@ dashboard-analytics:
       branch: "PROD"
   config-schema-paths: "file:///work-dir/health-campaign-config/egov-dss-dashboards/ch/dashboard-analytics/*.json"
 is-central-instance: "true"
-central-instance-tenants: "oy,ko,na,jg,pl,ab,kd,ba,ke,ch,bo,so,zf,go,ad,kb"
+central-instance-tenants: "oy,ko,na,jg,pl,ab,kd,ba,ke,ch,bo,so,zf,go,ad,kb,namibia,gabon"
 central-instance-base-path: "file:///work-dir/health-campaign-config/egov-dss-dashboards"
 
 
