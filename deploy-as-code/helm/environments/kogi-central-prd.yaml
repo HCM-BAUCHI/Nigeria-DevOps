@@ -1,47 +1,6 @@
 global:
   domain: kogi-hcm.digit.org
   tracing-enabled: false
-# egov-localization:
-#   namespace: "oyo"
-#   heap: "-Xmx512m -Xms512m"
-#   memory_limits: "512Mi"
-#   resources:
-#     requests:
-#       memory: "512Mi"
-#     limits:
-#       memory: "512Mi"
-
-
-# boundary-service:
-#   namespace: "oyo"
-#   heap: "-Xmx512m -Xms512m"
-#   memory_limits: "512Mi"
-#   resources:
-#     requests:
-#       memory: "512Mi"
-#     limits:
-#       memory: "512Mi"
-
-# egov-idgen:
-#   namespace: "oyo"
-#   heap: "-Xmx512m -Xms512m"
-#   memory_limits: "512Mi"
-#   resources:
-#     requests:
-#       memory: "512Mi"
-#     limits:
-#       memory: "512Mi"
-
-# egov-enc-service:
-#   namespace: "oyo"
-#   heap: "-Xmx512m -Xms512m"
-#   memory_limits: "512Mi"
-#   resources:
-#     requests:
-#       memory: "512Mi"
-#     limits:
-#       memory: "512Mi"
-
 
 disableAnnotationTimestamp: true
 
@@ -214,3 +173,116 @@ payments-ui:
       sub_filter  '<head>' '<head>
       <script src=https://central-instance-assets.s3.af-south-1.amazonaws.com/globalConfigPayments-ko.js type=text/javascript></script>
       ';"
+
+health-expense:
+  namespace: kogi
+  central-instance-build: true
+  central-instance-enabled: false
+  ingress:
+    name: kogi-health-expense
+  service:
+    additionalAnnotations: |
+      zuul/route-host: kogi-hcm.digit.org
+  initContainers:
+    dbMigration:
+      image:
+        repository: egovio/health-expense-db
+        tag: nigeria-go-deep-ekfrazo-e8a113c
+  image:
+    repository: egovio/health-expense
+    tag: nigeria-go-deep-ekfrazo-e8a113c
+  java-enable-debug: false
+  java-args: ""
+  business-workflow-status-map: "{'EXPENSE.WAGES':'false','EXPENSE.PURCHASE':'false','EXPENSE.SUPERVISION':'false','PAYMENTS.BILL':'true','PAYMENTS.BILLDETAILS':'true'}"
+  expense-v2-periodic-billing-enabled: true
+  task-scheduler-bootstrap-tenants: "ko"
+  expense-kafka-tenant-id-pattern: ""
+  expense-billing-bill-create: "ko-expense-bill-create-health"
+  expense-billing-bill-update: "ko-expense-bill-update-health"
+  expense-bill-signature-required-actions: "SEND_FOR_REVIEW,SEND_FOR_APPROVAL,PAYMENT_INITIATION"
+  report-generation-trigger-topic: "ko-report-generation-trigger"
+  expense-billing-bill-detail-create: "ko-expense-bill-detail-create"
+  expense-billing-bill-detail-update: "ko-expense-bill-detail-update"
+  expense-bill-task: "ko-expense-bill-task"
+  expense-bill-task-details: "ko-expense-bill-task-details"
+  expense-task-status-update: "ko-expense-task-status-update"
+  expense-task-details-update: "ko-expense-task-details-update"
+  expense-billing-payment-create: "ko-expense-payment-create"
+  expense-billing-payment-update: "ko-expense-payment-update"
+  expense-bill-report-save: "ko-expense-bill-report-save"
+  expense-bill-report-update: "ko-expense-bill-report-update"
+  heap: "-Xmx512m -Xms256m"
+  hpa:
+    enabled: true
+    minReplicas: 1
+    maxReplicas: 3
+  cpu_requests: 200m
+  memory_requests: 512Mi
+  cpu_limits: 300m
+  memory_limits: 768Mi
+
+health-expense-calculator:
+  namespace: kogi
+  service:
+    additionalAnnotations: |
+      zuul/route-host: kogi-hcm.digit.org
+  ingress:
+    name: kogi-health-expense-calculator
+  egov-bill-host-configmap-key: "health-expense-kogi"
+  initContainers:
+    dbMigration:
+      image:
+        repository: egovio/health-expense-calculator-db
+        tag: nigeria-go-deep-ekfrazo-e8a113c
+  image:
+    repository: egovio/health-expense-calculator
+    tag: nigeria-go-deep-ekfrazo-e8a113c
+  heap: "-Xmx2048m -Xms1024m"
+  hpa:
+    enabled: true
+    minReplicas: 2
+    maxReplicas: 5
+  cpu_requests: 500m
+  memory_requests: 1.5Gi
+  cpu_limits: 600m
+  memory_limits: 2.5Gi
+  central-instance-build: false
+  tracing-enabled: true
+  java-enable-debug: false
+  spring-kafka-consumer-group-id: "ko-health-expense-calculator"
+  egov-mdms-service-endpoint-key: "/mdms-v2/v1/_search"
+  report-header-title: "Health Campaign Payment Report"
+  report-date-time-format: "dd/MM/yyyy HH:mm:ss z"
+  is-attendance-approval-required: "true"
+  register-batch-size: 15
+  tenantId: "ko"
+  excell-state-level-tenant-id: "ko"
+  boundary-hierarchy-name: "ITN"
+  egov-localization-module-name: "hcm-boundary-itn"
+  report-localization-boundary-module-name: "hcm-boundary-itn"
+  calculate-musterroll-health: ko-calculate-musterroll-health
+  calculate-error-health: ko-calculate-error-health
+  calculate-billmeta-health: ko-calculate-billmeta-health
+  expense-calculator-create-topic: ko-save-calculator
+  report-error-queue-topic: ko-report-error-queue-topic
+  report-retry-queue-topic: ko-report-retry-queue-topic
+  report-generation-trigger-topic: ko-report-generation-trigger
+  report-generation-retry-trigger-topic: ko-report-generation-retry-trigger
+  bill-generation-async-topic: ko-bill-generation-async-topic
+  bill-generation-async-enabled: "true"
+  expense-bill-create-topic: ko-expense-bill-create-health
+  expense-bill-update-topic: ko-expense-bill-update-health
+  expense-bill-index-topic: ko-expense-bill-index-health
+  payment-pdf-key: "health-bill-payment-ko"
+  egov-filestore-signature-connect-timeout-ms: "3000"
+  egov-filestore-signature-read-timeout-ms: "10000"
+  billing-frequency-custom-minimum-days: "1"
+  billing-config-v2-enabled: "true"
+  billing-config-create-topic: ko-billing-config-create
+  billing-config-update-topic: ko-billing-config-update
+  billing-period-status-update-topic: ko-billing-period-status-update
+  billing-period-generation-enabled: "true"
+  billing-muster-roll-period-aware-enabled: "true"
+  egov-musterroll-search-endpoint: "/health-muster-roll/v1/_search"
+  project-management-system-kafka-update-topic: ko-update-project
+  project-management-system-kafka-update-date-topic: ko-update-project-date

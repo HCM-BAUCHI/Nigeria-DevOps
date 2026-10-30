@@ -125,11 +125,17 @@ cluster-configs:
           egov-state-level-tenant-id: "abia"
           health-expense-borno: "http://health-expense.abia:8080/"
           health-expense-calculator-borno: "http://health-expense-calculator.abia:8080/"
+        kogi:
+          egov-state-level-tenant-id: "ko"
+          health-expense-kogi: "http://health-expense.kogi:8080/"
+          health-expense-calculator-kogi: "http://health-expense-calculator.kogi:8080/"
         egov:
           health-expense-borno: "http://health-expense.borno:8080/"
           health-expense-calculator-borno: "http://health-expense-calculator.borno:8080/"
           health-expense-abia: "http://health-expense.abia:8080/"
           health-expense-calculator-abia: "http://health-expense-calculator.abia:8080/"
+          health-expense-kogi: "http://health-expense.kogi:8080/"
+          health-expense-calculator-kogi: "http://health-expense-calculator.kogi:8080/"
           server-tomcat-max-connections-referral: "2000"
           server-tomcat-max-threads-referral: "40"
           spring-datasource-tomcat-max-active-referral: "20"
