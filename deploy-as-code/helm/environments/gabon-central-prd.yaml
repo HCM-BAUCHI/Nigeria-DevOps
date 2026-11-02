@@ -1,0 +1,173 @@
+global:
+  domain: gabon-hcm.digit.org
+
+disableAnnotationTimestamp: true
+
+dashboard-ui:
+  namespace: gabon
+  image:
+    repository: egovio/dashboard-ui
+    tag: HDDF-4931-a645e10
+  custom-js-injection: |
+    sub_filter.conf: "
+      sub_filter  '<head>' '<head>
+      <script src=https://central-instance-assets.s3.af-south-1.amazonaws.com/gabon/globalConfigDashboard.js type=text/javascript></script>
+      ';"
+
+workbench-ui:
+  namespace: gabon
+  image:
+    repository: egovio/workbench-ui
+    tag: nigeria_mc-5212cd5
+  custom-js-injection: |
+    sub_filter.conf: "
+      sub_filter  '<head>' '<head>
+      <script src=https://central-instance-assets.s3.af-south-1.amazonaws.com/gabon/globalConfigWorkbench.js type=text/javascript></script>
+      ';"
+
+payments-ui:
+  namespace: gabon
+  image:
+    repository: egovio/payments-ui
+    tag: HDDF-4931-427abb8
+  custom-js-injection: |
+    sub_filter.conf: "
+      sub_filter  '<head>' '<head>
+      <script src=https://central-instance-assets.s3.af-south-1.amazonaws.com/gabon/globalConfigPayments.js type=text/javascript></script>
+      ';"
+
+transformer:
+  namespace: "gabon"
+  image:
+    repository: egovio/transformer
+    tag: HDDF-5226-c512500
+  replicas: 1
+  heap: "-Xmx1536m -Xms1536m"
+  hpa:
+    enabled: true
+    minReplicas: 1
+    maxReplicas: 4
+  cpu_requests: 300m
+  memory_requests: 1.75Gi
+  cpu_limits: 400m
+  memory_limits: 2.25Gi
+  save-project-task-topic: "gabon-save-project-task-topic"
+  update-project-task-topic: "gabon-update-project-task-topic"
+  transformer-producer-bulk-project-task-index-v1-topic: "gabon-transformer-producer-bulk-project-task-index-v1-topic"
+  save-project-staff-topic: "gabon-save-project-staff-topic"
+  update-project-staff-topic: "gabon-update-project-staff-topic"
+  transformer-producer-bulk-project-staff-index-v1-topic: "gabon-transformer-producer-bulk-project-staff-index-v1-topic"
+  transformer-producer-bulk-project-index-v1-topic: "gabon-transformer-producer-bulk-project-index-v1-topic"
+  save-project: "gabon-save-project"
+  update-project: "gabon-update-project"
+  save-household-member-topic: "gabon-save-household-member-topic"
+  transformer-producer-household-member-index-v1-topic: "gabon-transformer-producer-household-member-index-v1-topic"
+  save-household-topic: "gabon-save-household-topic"
+  update-household-topic: "gabon-update-household-topic"
+  transformer-producer-household-index-v1-topic: "gabon-transformer-producer-household-index-v1-topic"
+  transformer-producer-service-index-v2-topic: "gabon-transformer-producer-service-index-v2-topic"
+  save-stock-topic: "gabon-save-stock-topic"
+  update-stock-topic: "gabon-update-stock-topic"
+  transformer-producer-bulk-stock-index-v1-topic: "gabon-transformer-producer-bulk-stock-index-v1-topic"
+  transformer-producer-bulk-stock-index-updated-v1-topic: "gabon-transformer-producer-bulk-stock-index-updated-v1-topic"
+  save-facility-topic: "gabon-save-facility-topic"
+  update-facility-topic: "gabon-update-facility-topic"
+  save-service: "gabon-save-service"
+  transformer-producer-service-request-index-v1-topic: "gabon-transformer-producer-service-request-index-v1-topic"
+  save-referral-topic: "gabon-save-referral-topic"
+  transformer-producer-referral-index-v1-topic: "gabon-transformer-producer-referral-index-v1-topic"
+  update-referral-topic: "gabon-update-referral-topic"
+  save-side-effect-topic: "gabon-save-side-effect-topic"
+  update-side-effect-topic: "gabon-update-side-effect-topic"
+  transformer-producer-side-effect-index-v1-topic: "gabon-transformer-producer-side-effect-index-v1-topic"
+  save-pgr-request: "gabon-save-pgr-request"
+  transformer-save-pgr-request: "gabon-transformer-save-pgr-request"
+  update-pgr-request: "gabon-update-pgr-request"
+  save-hfreferral-topic: "gabon-save-hfreferral-topic"
+  update-hfreferral-topic: "gabon-update-hfreferral-topic"
+  transformer-producer-hfreferral-index-v1-topic: "gabon-transformer-producer-hfreferral-index-v1-topic"
+  transformer-producer-hfreferral-service-index-topic: "gabon-transformer-producer-hfreferral-service-index-topic"
+  transformer-producer-finance-checklist-index-v1-topic: "gabon-transformer-producer-finance-checklist-index-v1-topic"
+  transformer-producer-special-spraying-index-topic: "gabon-transformer-producer-special-spraying-index-topic"
+  save-attendance-log: "gabon-save-attendance-log"
+  update-attendance-log: "gabon-update-attendance-log"
+  transformer-save-attendance-log: "gabon-transformer-save-attendance-log"
+  transformer-save-attendance-register: "gabon-transformer-save-attendance-register"
+  transformer-save-attendance-staff: "gabon-save-staff"
+  transformer-update-attendance-staff: "gabon-update-staff"
+  transformer-save-attendance-attendee: "gabon-save-attendee"
+  transformer-update-attendance-attendee: "gabon-update-attendee"
+  transformer-producer-attendance-staff-index: "gabon-transformer-producer-attendance-staff-index"
+  transformer-producer-attendee-index: "gabon-transformer-producer-attendee-index"
+  transformer-producer-extra-transformed-checklist-index-topic: "gabon-transformer-producer-extra-transformed-checklist-index-topic"
+  update-household-member-topic: "gabon-update-household-member-topic"
+  save-stock-reconciliation-topic: "gabon-save-stock-reconciliation-topic"
+  update-stock-reconciliation-topic: "gabon-update-stock-reconciliation-topic"
+  transformer-producer-stock-recon-index-v1-topic: "gabon-transformer-producer-stock-recon-index-v1-topic"
+  health-transformer: "gabon-health-transformer"
+  transformer-consumer-error-tracer-topic: "error-details-indexer-topic"
+  transformer-producer-error-details-index-v1-topic: "gabon-transformed-errors-topic"
+  transformer-error-skip-error-messages: "UPLOAD_ERROR_FROM_APP"
+  transformer-error-skip-error-codes: "DUPLICATE_ENTITY,INDIVIDUAL_ALREADY_MEMBER_OF_HOUSEHOLD,HOUSEHOLD_ALREADY_HAS_HEAD"
+  transformer-error-skip-url-contains: "facility,resource"
+  state-level-tenantid: "gabon"
+  expense-bill-create-health-topic: "gabon-expense-bill-create-health"
+  expense-bill-update-health-topic: "gabon-expense-bill-update-health"
+  transformer-bill-index-topic: "gabon-transformer-bill-index-topic"
+  transformer-billdetail-index-topic: "gabon-transformer-billdetail-index-topic"
+  expense-bill-report-save-topic: "gabon-expense-bill-report-save"
+  expense-bill-report-update-topic: "gabon-expense-bill-report-update"
+  transformer-billreport-index-topic: "gabon-transformer-billreport-index-topic"
+  save-musterroll-health-topic: "gabon-save-musterroll-health"
+  update-musterroll-health-topic: "gabon-update-musterroll-health"
+  transformer-producer-muster-roll-index-v1-topic: "gabon-transformer-producer-muster-roll-index-v1-topic"
+  expense-bill-detail-create-topic: "gabon-expense-bill-detail-create"
+  expense-bill-detail-update-topic: "gabon-expense-bill-detail-update"
+  egov_localization_locale_code: "en_NG"
+  egov-localization-module-name: "hcm-boundary-admin"
+  transformer-consumer-create-user-action-topic: "gabon-save-user-action-project-task-topic"
+  transformer-consumer-update-user-action-topic: "gabon-update-user-action-project-task-topic"
+  transformer-producer-user-action-index-v1-topic: "gabon-transformer-producer-user-action-index-v1-topic"
+  transformer-consumer-attendance-enabled: "false"
+  transformer-consumer-attendance-staff-enabled: "false"
+  transformer-consumer-attendee-enabled: "false"
+  transformer-consumer-bill-enabled: "false"
+  transformer-consumer-billdetail-enabled: "false"
+  transformer-consumer-billreport-enabled: "false"
+  transformer-consumer-musterroll-enabled: "false"
+  transformer-consumer-service-enabled: "false"
+  transformer-consumer-side-effect-enabled: "false"
+
+hcm-moz-impl:
+  namespace: gabon
+  replicas: 1
+  heap: "-Xmx2048m -Xms2048m"
+  memory_limits: "2Gi"
+  startDate: "13/06/2025"
+  endDate: "17/06/2025"
+  boundary-code: "gabon"
+  create-boundaryCSV-data: "gabon-create-boundaryCSV-data"
+  update-dhis2-job: "gabon-update-dhis2-job"
+  create-dhis2-job: "gabon-create-dhis2-job"
+  create-boundary-data: "gabon-create-boundary-data"
+  update-digit-dhis2-mapping: "gabon-update-digit-dhis2-mapping"
+  create-digit-dhis2-mapping: "gabon-create-digit-dhis2-mapping"
+  update-digit-record: "gabon-update-digit-record"
+  create-digit-record: "gabon-create-digit-record"
+  update-dhis2-digit-mapping: "gabon-update-dhis2-digit-mapping"
+  create-dhis2-digit-mapping: "gabon-create-dhis2-digit-mapping"
+  update-dhis2-record: "gabon-update-dhis2-record"
+  create-dhis2-record: "gabon-create-dhis2-record"
+  resources:
+    requests:
+      memory: "3Gi"
+    limits:
+      memory: "3Gi"
+
+digit-ui:
+  namespace: gabon
+  custom-js-injection: |
+    sub_filter.conf: "
+      sub_filter  '<head>' '<head>
+      <script src=https://central-instance-assets.s3.af-south-1.amazonaws.com/gabon/globalConfig.js type=text/javascript></script>
+      ';"

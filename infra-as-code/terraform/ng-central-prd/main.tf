@@ -40,7 +40,7 @@ module "db" {
   instance_class                = "db.m6g.4xlarge"  ## postgres db instance type
   engine_version                = "15.17"   ## postgres version
   storage_type                  = "gp3"
-  storage_gb                    = "2200"     ## postgres disk size
+  storage_gb                    = "2750"     ## postgres disk size
   backup_retention_days         = "7"
   administrator_login           = "${var.db_username}"
   administrator_login_password  = "${var.db_password}"
@@ -184,13 +184,6 @@ module "ebs_csi_irsa" {
   }
 }
 
-module "bastion" {
-  source                        = "../modules/kubernetes/aws/bastion"
-  cluster_name                  = var.cluster_name
-  public_subnet_id              = module.network.public_subnets[0]
-  vpc_id                        = module.network.vpc_id  
-}
-
 resource "aws_security_group_rule" "rds_db_ingress_workers" {
   description              = "Allow node groups to communicate with RDS database"
   from_port                = 5432
@@ -217,22 +210,45 @@ data "aws_eks_cluster_auth" "cluster" {
   name = var.cluster_name
 }
 
+data "aws_eks_addon_version" "kube_proxy" {
+  addon_name         = "kube-proxy"
+  kubernetes_version = var.kubernetes_version
+  most_recent        = true
+}
+
+data "aws_eks_addon_version" "core_dns" {
+  addon_name         = "coredns"
+  kubernetes_version = var.kubernetes_version
+  most_recent        = true
+}
+
+data "aws_eks_addon_version" "aws_ebs_csi_driver" {
+  addon_name         = "aws-ebs-csi-driver"
+  kubernetes_version = var.kubernetes_version
+  most_recent        = true
+}
+
 resource "aws_eks_addon" "kube_proxy" {
   depends_on = [module.eks_managed_node_group]
   cluster_name      = var.cluster_name
   addon_name        = "kube-proxy"
+  addon_version     = data.aws_eks_addon_version.kube_proxy.version
   resolve_conflicts_on_create = "OVERWRITE"
+  resolve_conflicts_on_update = "OVERWRITE"
 }
 resource "aws_eks_addon" "core_dns" {
   depends_on = [module.eks_managed_node_group]
   cluster_name      = var.cluster_name
   addon_name        = "coredns"
+  addon_version     = data.aws_eks_addon_version.core_dns.version
   resolve_conflicts_on_create = "OVERWRITE"
+  resolve_conflicts_on_update = "OVERWRITE"
 }
 resource "aws_eks_addon" "aws_ebs_csi_driver" {
   depends_on = [module.eks_managed_node_group]
   cluster_name      = var.cluster_name
   addon_name        = "aws-ebs-csi-driver"
+  addon_version     = data.aws_eks_addon_version.aws_ebs_csi_driver.version
   service_account_role_arn = module.ebs_csi_irsa.arn
   resolve_conflicts_on_create = "OVERWRITE"
   resolve_conflicts_on_update = "OVERWRITE"
@@ -398,7 +414,7 @@ resource "kubectl_manifest" "karpenter_node_class" {
     spec:
       amiFamily: AL2023
       amiSelectorTerms:
-      - id: ami-01d4d80ad92c2468c
+      - id: ami-0495798abdcec516b
       role: ${module.eks_managed_node_group.iam_role_name}
       subnetSelectorTerms:
         - tags:
@@ -482,7 +498,7 @@ resource "kubectl_manifest" "karpenter_arm64_node_class" {
     spec:
       amiFamily: AL2023
       amiSelectorTerms:
-      - id: ami-03e6c28ba78cf04ac
+      - id: ami-042767dbbad25226e
       role: ${module.eks_managed_node_group.iam_role_name}
       subnetSelectorTerms:
         - tags:
