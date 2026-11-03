@@ -54,9 +54,6 @@ home-isolation-chatbot-router-enabled: false
 memory_limits: "768Mi"
 cpu_limits: "400m"
 
-nodeSelector:
-  architecture: arm64
-  kubernetes.io/arch: arm64
 
 # Additional Container Envs
 env: |
