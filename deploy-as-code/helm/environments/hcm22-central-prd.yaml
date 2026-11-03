@@ -1,0 +1,581 @@
+global:
+  domain: namibia-hcm.digit.org
+  setup: fullsetup
+  tracing-enabled: true
+  hosts:
+    - namibia-hcm.digit.org
+  schema:
+    - namibia
+
+disableAnnotationTimestamp: true
+
+# render-time presence flag only; real configmaps come from bauchi-central-prd cluster-configs
+cluster-configs:
+  configmaps:
+    egov-config:
+      data:
+        redis-host: "from-bauchi-egov-config"
+    egov-service-host:
+      data: {}
+
+household:
+  namespace: hcm22
+  ingress:
+    name: hcm22-household
+    namespace: egov
+    gatewayService: gateway-hcm22
+  kafka-consumer-group-id: "hcm22-health-household"
+  db-read-url-enabled: true
+  initContainers:
+    dbMigration:
+      image:
+        repository: egovio/household-db
+        tag: HCMPRE-2656-HCM-Services-Household-5717dde
+  image:
+    repository: egovio/household
+    tag: HCMPRE-2656-HCM-Services-Household-5717dde
+  spring-datasource-tomcat-max-active: "5"
+  server-tomcat-max-threads: "10"
+  central-instance-build: true
+  central-instance-enabled: true
+  heap: "-Xmx1024m -Xms512m"
+  hpa:
+    enabled: true
+    minReplicas: 2
+    maxReplicas: 8
+  cpu_requests: 300m
+  memory_requests: 1Gi
+  cpu_limits: 400m
+  memory_limits: 1.5Gi
+  extraEnv:
+    app: |
+      - name: TRACER_ERRORSPUBLISH
+        value: "true"
+      - name: TRACER_ERRORSTOPIC
+        value: "error-details-indexer-topic"
+
+household-referral:
+  namespace: hcm22
+  ingress:
+    name: hcm22-household-referral
+    namespace: egov
+    gatewayService: gateway-hcm22
+  kafka-consumer-group-id: "hcm22-health-household"
+  image:
+    repository: egovio/household
+    tag: HCMPRE-2656-HCM-Services-Household-5717dde
+  spring-datasource-tomcat-max-active: "30"
+  db-read-url-enabled: true
+  db-read-url-enabled-2: false
+  server-tomcat-max-threads: "40"
+  central-instance-build: true
+  central-instance-enabled: true
+  initContainers:
+    dbMigration:
+      enabled: false
+  heap: "-Xmx1536m -Xms768m"
+  hpa:
+    enabled: true
+    minReplicas: 3
+    maxReplicas: 11
+  cpu_requests: 300m
+  memory_requests: 1.5Gi
+  cpu_limits: 400m
+  memory_limits: 2Gi
+  extraEnv:
+    app: |
+      - name: TRACER_ERRORSPUBLISH
+        value: "true"
+      - name: TRACER_ERRORSTOPIC
+        value: "error-details-indexer-topic"
+
+individual:
+  namespace: hcm22
+  ingress:
+    name: hcm22-individual
+    namespace: egov
+    gatewayService: gateway-hcm22
+  kafka-consumer-group-id: "hcm22-health-individual"
+  initContainers:
+    dbMigration:
+      image:
+        repository: egovio/individual-db
+        tag: customize-2.1-individual-803c4d9
+  image:
+    repository: egovio/individual
+    tag: customize-2.1-individual-803c4d9
+  central-instance-build: true
+  central-instance-enabled: true
+  heap: "-Xmx1g -Xms512m"
+  hpa:
+    enabled: true
+    minReplicas: 6
+    maxReplicas: 8
+  cpu_requests: 300m
+  memory_requests: 1Gi
+  cpu_limits: 400m
+  memory_limits: 1.5Gi
+  egov-beneficiary-idgen-integration-enabled: "true"
+  individual-beneficiary-id-validation-enabled: "false"
+  spring-datasource-tomcat-max-active: "5"
+  server-tomcat-max-threads: "10"
+  extraEnv:
+    app: |
+      - name: TRACER_ERRORSPUBLISH
+        value: "true"
+      - name: TRACER_ERRORSTOPIC
+        value: "error-details-indexer-topic"
+      - name: MANAGEMENT_ENDPOINTS_WEB_EXPOSURE_INCLUDE
+        value: "health,prometheus,metrics,threaddump,caches"
+      - name: MANAGEMENT_ENDPOINT_HEALTH_SHOW_DETAILS
+        value: "always"
+      - name: SPRING_CACHE_REDIS_ENABLE_STATISTICS
+        value: "true"
+
+individual-referral:
+  namespace: hcm22
+  ingress:
+    name: hcm22-individual-referral
+    namespace: egov
+    gatewayService: gateway-hcm22
+  kafka-consumer-group-id: "hcm22-health-individual"
+  image:
+    repository: egovio/individual
+    tag: customize-2.1-individual-803c4d9
+  spring-datasource-tomcat-max-active: "30"
+  server-tomcat-max-threads: "40"
+  central-instance-build: true
+  central-instance-enabled: true
+  initContainers:
+    dbMigration:
+      enabled: false
+  heap: "-Xmx1536m -Xms768m"
+  hpa:
+    enabled: true
+    minReplicas: 3
+    maxReplicas: 11
+  cpu_requests: 300m
+  memory_requests: 1.5Gi
+  cpu_limits: 400m
+  memory_limits: 2Gi
+  egov-beneficiary-idgen-integration-enabled: "true"
+  individual-beneficiary-id-validation-enabled: "false"
+  extraEnv:
+    app: |
+      - name: TRACER_ERRORSPUBLISH
+        value: "true"
+      - name: TRACER_ERRORSTOPIC
+        value: "error-details-indexer-topic"
+      - name: MANAGEMENT_ENDPOINTS_WEB_EXPOSURE_INCLUDE
+        value: "health,prometheus,metrics,threaddump,caches"
+      - name: MANAGEMENT_ENDPOINT_HEALTH_SHOW_DETAILS
+        value: "always"
+      - name: SPRING_CACHE_REDIS_ENABLE_STATISTICS
+        value: "true"
+
+project:
+  namespace: hcm22
+  ingress:
+    name: hcm22-project
+    namespace: egov
+    gatewayService: gateway-hcm22
+  kafka-consumer-group-id: "hcm22-health-project"
+  db-read-url-enabled: true
+  initContainers:
+    dbMigration:
+      image:
+        repository: egovio/project-db
+        tag: customize-nigeria-go-deep-2-project-bb6bfd6
+  image:
+    repository: egovio/project
+    tag: customize-nigeria-go-deep-2-project-bb6bfd6
+  central-instance-build: true
+  central-instance-enabled: true
+  heap: "-Xmx1g -Xms512m"
+  hpa:
+    enabled: true
+    minReplicas: 2
+    maxReplicas: 8
+  cpu_requests: 300m
+  memory_requests: 1.25Gi
+  cpu_limits: 400m
+  memory_limits: 1.5Gi
+  project-task-no-resource-validation-status: "ADMINISTRATION_FAILED,BENEFICIARY_REFUSED,CLOSED_HOUSEHOLD,NOT_ADMINISTERED,BENEFICIARY_DIED,BENEFICIARY_MIGRATED,BENEFICIARY_ABSENT,BENEFICIARY_INELIGIBLE,INELIGIBLE"
+  tracer-request-logging-enabled: "true"
+  spring-datasource-tomcat-max-active: "5"
+  server-tomcat-max-threads: "10"
+  extraEnv:
+    app: |
+      - name: TRACER_ERRORSPUBLISH
+        value: "true"
+      - name: TRACER_ERRORSTOPIC
+        value: "error-details-indexer-topic"
+
+project-referral:
+  namespace: hcm22
+  ingress:
+    name: hcm22-project-referral
+    namespace: egov
+    gatewayService: gateway-hcm22
+  kafka-consumer-group-id: "hcm22-health-project"
+  image:
+    repository: egovio/project
+    tag: customize-nigeria-go-deep-2-project-bb6bfd6
+  spring-datasource-tomcat-max-active: "30"
+  server-tomcat-max-threads: "40"
+  central-instance-build: true
+  central-instance-enabled: true
+  initContainers:
+    dbMigration:
+      enabled: false
+  replicas: 2
+  heap: "-Xmx1536m -Xms768m"
+  hpa:
+    enabled: true
+    minReplicas: 3
+    maxReplicas: 11
+  cpu_requests: 200m
+  memory_requests: 1.5Gi
+  cpu_limits: 300m
+  memory_limits: 2Gi
+  project-task-no-resource-validation-status: "ADMINISTRATION_FAILED,BENEFICIARY_REFUSED,CLOSED_HOUSEHOLD,NOT_ADMINISTERED,BENEFICIARY_DIED,BENEFICIARY_MIGRATED,BENEFICIARY_ABSENT,BENEFICIARY_INELIGIBLE,INELIGIBLE"
+  extraEnv:
+    app: |
+      - name: TRACER_ERRORSPUBLISH
+        value: "true"
+      - name: TRACER_ERRORSTOPIC
+        value: "error-details-indexer-topic"
+
+referralmanagement:
+  namespace: hcm22
+  ingress:
+    name: hcm22-referralmanagement
+    namespace: egov
+    gatewayService: gateway-hcm22
+  kafka-consumer-group-id: "hcm22-health-referral-management"
+  initContainers:
+    dbMigration:
+      image:
+        repository: egovio/referralmanagement-db
+        tag: master-impel-ref-cca889b
+  image:
+    repository: egovio/referralmanagement
+    tag: master-impel-ref-cca889b
+  db-read-url-enabled: true
+  db-read-url-enabled-2: false
+  downsync-services-enabled: true
+  central-instance-build: true
+  central-instance-enabled: true
+  replicas: 2
+  heap: "-Xmx1536m -Xms768m"
+  hpa:
+    enabled: true
+    minReplicas: 3
+    maxReplicas: 11
+  cpu_requests: 300m
+  memory_requests: 1.75Gi
+  cpu_limits: 400m
+  memory_limits: 2Gi
+  search-api-limit: "1000"
+  referralmanagement-default-limit: "1000"
+  referralmanagement-search-max-limit: "1000"
+  egov-service-request-search-batch-size: "100"
+  egov-household-member-search-batch-size: "1000"
+  egov-individual-search-batch-size: "1000"
+  egov-project-beneficiary-search-batch-size: "1000"
+  egov-project-task-search-batch-size: "400"
+  egov-side-effect-search-batch-size: "200"
+  egov-referral-search-batch-size: "1000"
+  egov-hf-referral-search-batch-size: "1000"
+  egov-s3-bucket: "downsync-ng-prod"
+  egov-s3-region: "af-south-1"
+  healthChecks:
+    enabled: true
+    livenessProbePath: "/referralmanagement/health"
+    readinessProbePath: "/referralmanagement/health"
+    livenessProbeInitialDelaySeconds: 30
+    readinessProbeInitialDelaySeconds: 30
+    livenessProbeTimeoutSeconds: 30
+    readinessProbeTimeoutSeconds: 30
+    livenessProbePeriodSeconds: 120
+    readinessProbePeriodSeconds: 60
+  spring-datasource-tomcat-max-active: "30"
+  server-tomcat-max-threads: "40"
+  spring-datasource-hikari-minimum-idle: "5"
+  spring-datasource-hikari-connection-timeout: "45000"
+  spring-datasource-hikari-idle-timeout: "300000"
+  spring-datasource-hikari-max-lifetime: "900000"
+  spring-datasource-hikari-leak-detection-threshold: "60000"
+  egov-wardfilegen-ward-pool-size: "8"
+  egov-wardfilegen-file-pool-size: "32"
+  extraEnv:
+    app: |
+      - name: TRACER_ERRORSPUBLISH
+        value: "true"
+      - name: TRACER_ERRORSTOPIC
+        value: "error-details-indexer-topic"
+
+product:
+  namespace: hcm22
+  ingress:
+    name: hcm22-product
+    namespace: egov
+    gatewayService: gateway-hcm22
+  kafka-consumer-group-id: "hcm22-health-product"
+  initContainers:
+    dbMigration:
+      image:
+        repository: egovio/product-db
+        tag: customize-2.1-product-4c59c40
+  image:
+    repository: egovio/product
+    tag: customize-2.1-product-4c59c40
+  central-instance-build: true
+  central-instance-enabled: true
+  db-read-url-enabled: true
+  heap: "-Xmx512m -Xms256m"
+  hpa:
+    enabled: true
+    minReplicas: 2
+    maxReplicas: 7
+  cpu_requests: 400m
+  spring-datasource-tomcat-max-active: "25"
+  server-tomcat-max-threads: "200"
+  memory_requests: 768Mi
+  cpu_limits: 1
+  memory_limits: 1024Mi
+
+facility:
+  namespace: hcm22
+  ingress:
+    name: hcm22-facility
+    namespace: egov
+    gatewayService: gateway-hcm22
+  kafka-consumer-group-id: "hcm22-health-facility"
+  db-write-url: true
+  initContainers:
+    dbMigration:
+      image:
+        repository: egovio/facility-db
+        tag: master-d673cfa
+  image:
+    repository: egovio/facility
+    tag: master-d673cfa
+  spring-datasource-tomcat-max-active: "5"
+  server-tomcat-max-threads: "10"
+  central-instance-build: true
+  central-instance-enabled: true
+  heap: "-Xmx512m -Xms256m"
+  hpa:
+    enabled: true
+    minReplicas: 2
+    maxReplicas: 8
+  cpu_requests: 200m
+  memory_requests: 512Mi
+  cpu_limits: 300m
+  memory_limits: 768Mi
+  extraEnv:
+    app: |
+      - name: TRACER_ERRORSPUBLISH
+        value: "true"
+      - name: TRACER_ERRORSTOPIC
+        value: "error-details-indexer-topic"
+      - name: MANAGEMENT_ENDPOINTS_WEB_EXPOSURE_INCLUDE
+        value: "health,prometheus,metrics,threaddump,caches"
+      - name: MANAGEMENT_ENDPOINT_HEALTH_SHOW_DETAILS
+        value: "always"
+      - name: SPRING_CACHE_REDIS_ENABLE_STATISTICS
+        value: "true"
+
+stock:
+  namespace: hcm22
+  ingress:
+    name: hcm22-stock
+    namespace: egov
+    gatewayService: gateway-hcm22
+  kafka-consumer-group-id: "hcm22-health-stock"
+  db-read-url-enabled: true
+  initContainers:
+    dbMigration:
+      image:
+        repository: egovio/stock-db
+        tag: nigeria-go-deep-2-stock-fcab257
+  image:
+    repository: egovio/stock
+    tag: nigeria-go-deep-2-stock-fcab257
+  spring-datasource-tomcat-max-active: "5"
+  server-tomcat-max-threads: "10"
+  central-instance-build: true
+  central-instance-enabled: true
+  heap: "-Xmx512m -Xms256m"
+  hpa:
+    enabled: true
+    minReplicas: 2
+    maxReplicas: 6
+  cpu_requests: 200m
+  memory_requests: 768Mi
+  cpu_limits: 300m
+  memory_limits: 1Gi
+  java-enable-debug: "true"
+  tracer-request-logging-enabled: "true"
+  extraEnv:
+    app: |
+      - name: LOGGING_LEVEL_ORG_EGOV
+        value: "DEBUG"
+      - name: TRACER_ERRORSPUBLISH
+        value: "true"
+      - name: TRACER_ERRORSTOPIC
+        value: "error-details-indexer-topic"
+
+service-request:
+  namespace: hcm22
+  ingress:
+    name: hcm22-service-request
+    namespace: egov
+    gatewayService: gateway-hcm22
+  spring-kafka-consumer-group-id: "hcm22-service-request"
+  db-write-url: true
+  initContainers:
+    dbMigration:
+      image:
+        repository: egovio/service-request-db
+        tag: master-8ddfc8a
+  image:
+    repository: egovio/service-request
+    tag: master-8ddfc8a
+  central-instance-build: true
+  central-instance-enabled: true
+  heap: "-Xmx512m -Xms256m"
+  hpa:
+    enabled: true
+    minReplicas: 2
+    maxReplicas: 5
+  cpu_requests: 200m
+  memory_requests: 512Mi
+  cpu_limits: 300m
+  memory_limits: 768Mi
+
+egov-hrms:
+  namespace: hcm22
+  ingress:
+    name: hcm22-egov-hrms
+    namespace: egov
+    gatewayService: gateway-hcm22
+  kafka-consumer-group-id: "hcm22-employee-group1"
+  db-write-url: true
+  initContainers:
+    dbMigration:
+      image:
+        repository: egovio/egov-hrms-db
+        tag: customize-2.1-hrms-88d374c
+  image:
+    repository: egovio/egov-hrms
+    tag: customize-2.1-hrms-88d374c
+  heap: "-Xmx1024m -Xms512m"
+  hpa:
+    enabled: true
+    minReplicas: 2
+    maxReplicas: 8
+  cpu_requests: 200m
+  memory_requests: 1Gi
+  cpu_limits: 300m
+  memory_limits: 1.5Gi
+  central-instance-build: true
+  central-instance-enabled: true
+  java-args: -Dspring.profiles.active=monitoring
+  employee-applink: "https://bauchi-hcm.digit.org/digit-ui/employee/login"
+  java-enable-debug: true
+  spring-datasource-tomcat-max-active: "4"
+  server-tomcat-max-threads: "4"
+
+#egov-otp:
+#  heap: "-Xmx512m -Xms512m"
+#  memory_limits: "512Mi"
+#  resources:
+#    requests:
+#      memory: "512Mi"
+#    limits:
+#      memory: "512Mi"
+#  central-instance-build: true
+#  java-args: -Dspring.profiles.active=monitoring
+#  employee-applink: "https://bauchi-hcm.digit.org/digit-ui/employee/login"
+#  java-enable-debug: true
+
+# <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+
+egov-indexer-namibia:
+  namespace: hcm22
+  ingress:
+    namespace: egov
+    gatewayService: gateway-hcm22
+  image:
+    repository: egovio/egov-indexer
+    tag: indexer-17-searchBody-aefd92b
+  kafka-consumer-group-id: "hcm22-egov-indexer-consumer-grp-namibia"
+  heap: "-Xmx1536m -Xms1024m"
+  hpa:
+    enabled: true
+    minReplicas: 1
+    maxReplicas: 4
+  cpu_requests: 300m
+  memory_requests: 1.5Gi
+  cpu_limits: 400m
+  memory_limits: 2Gi
+  initContainers:
+    dbMigration:
+      image:
+        repository: egovio/egov-indexer-db
+        tag: indexer-17-searchBody-aefd92b
+    gitSync:
+      repo: "git@github.com:HCM-BAUCHI/health-campaign-config"        ##### Change repo url with Your fork Repo url
+      branch: "PROD"                                      ##### Change repo branch with Your fork Repo branch
+  egov-indexer-yaml-repo-path: "/work-dir/health-campaign-config/egov-indexer/namibia"
+  dss-collectionindex-topic-push-enabled: "false"
+  topic-push-enabled: "false"
+
+egov-persister-namibia:
+  namespace: hcm22
+  image:
+    repository: egovio/egov-persister
+    tag: master-perf-fe334d2
+  kafka-consumer-group-id: "hcm22-egov-infra-persist-namibia"
+  heap: "-Xmx1536m -Xms1024m"
+  hpa:
+    enabled: true
+    minReplicas: 1
+    maxReplicas: 4
+  cpu_requests: 300m
+  memory_requests: 1.5Gi
+  cpu_limits: 400m
+  memory_limits: 2Gi
+  images:
+    - egovio/egov-persister
+  persist-yml-path: "/work-dir/health-campaign-config/egov-persister/namibia"
+  initContainers:
+    gitSync:
+      repo: "git@github.com:HCM-BAUCHI/health-campaign-config"      ##### Change repo url with Your fork Repo url
+      branch: "PROD"                                    ##### Change repo branch with Your fork Repo branch
+
+gateway-hcm22:
+  namespace: egov
+  image:
+    repository: egovio/gateway
+    tag: customize-2.1-gateway-dc34e2b
+  replicas: 1
+  hpa:
+    enabled: true
+    minReplicas: 2
+    maxReplicas: 5
+  custom-filter-property: "false"
+  central-instance-enabled: false
+  cpu_requests: 200m
+  memory_requests: 768Mi
+  cpu_limits: 400m
+  memory_limits: 1Gi
+  tracing-enabled: "true"
+  heap: "-Xmx768m -Xms512m"
+  server-tomcat-max-threads: "350"
+  server-tomcat-max-connections: "1500"
+  spring-data-redis-ratelimit-enabled: "false"
+  egov-open-endpoints-whitelist: "/user/v1/_validate,/user/v1/_switch,/user/oauth/token,/user-otp/v1/_send,/otp/v1/_validate,/user/citizen/_create,/localization/messages,/localization/messages/v1/_search,/user/password/nologin/_update,/pgr/servicedefinition/v1/_search,/pgr/servicecategories/v1/_search,/pgr/v1/otp/_send,/pgr-master/receivingmode/v1/_search,/tenant/v1/tenant/_search,/egov-location/boundarys,/egov-location/boundarys/boundariesByBndryTypeNameAndHierarchyTypeName,/pgr-master/service/v1/_search,/egov-location/boundarys/getLocationByLocationName,/pgr-master/OTPConfig/_search,/pgr-master/serviceGroup/v1/_search,/egov-location/boundarys/isshapefileexist,/pgr/services/v1/_search,/hr-masters/hrconfigurations/_search,/collection-services/receipts/_view,/pgr-master/service/v2/_search,/pgr-master/servicedefinition/v1/_search,/citizen-services,/citizen-services/v1/requests/receipt/_create,/citizen-services/v1/pgresponse,/citizen-services/v1/requests/anonymous/_search,/egov-mdms-service/v1/_search,/egov-mdms-service/v1/_get,/egov-mdms-service/v1/_reload,/egov-mdms-service/v1/_reloadobj,/egov-location/boundarys/getshapefile,/egov-indexer/index-operations/_index,/egov-indexer/index-operations/_reload,/egov-mdms-service-test/v1/_search,/egov-mdms-create/v1/_update,/egov-mdms-create/v1/_create,/egov-mdms-service-test/v1/_reload,/filestore/v1/files/url,/eus,/egov-url-shortening,/whatsapp-webhook/messages,/edcr/rest/dcr/downloadfile,/dashboard-ingest/ingest/upload,/egov-searcher/water-services/wateropensearch/_get,/egov-searcher/sewerage-services/sewerageopensearch/_get,/xstate-chatbot/status,/xstate-chatbot/reminder,/nlp-engine/fuzzy/city,/nlp-engine/fuzzy/locality,/user/v1/_validate,/user/v1/_switch,/user/oauth/token,/user-otp/v1/_send,/otp/v1/_validate,/localization/messages,/localization/messages/v1/_search,/user/password/nologin/_update,/tenant/v1/tenant/_search,/egov-location/boundarys,/egov-location/boundarys/boundariesByBndryTypeNameAndHierarchyTypeName,/egov-location/boundarys/getLocationByLocationName,/egov-location/boundarys/isshapefileexist,/hr-masters/hrconfigurations/_search,/egov-mdms-service/v1/_search,/egov-mdms-service/v1/_get,/egov-location/boundarys/getshapefile,/egov-indexer/index-operations/_index,/egov-indexer/index-operations/_reload,/egov-mdms-service-test/v1/_search,/egov-mdms-create/v1/_update,/egov-mdms-create/v1/_create,/egov-mdms-service-test/v1/_reload,/filestore/v1/files/url,/egov-url-shortening,/mdms-v2/schema/v1/_search,/mdms-v2/v2/_search,/mdms-v2/v1/_search,/boundary-service/boundary/_search"
+  egov-mixed-mode-endpoints-whitelist: "/workflow/history/v1/_search,/filestore/v1/files/id,/filestore/v1/files,/filestore/v1/files/tagso,/egov-idgen/id/_generate,/egf-masters/financialyears/_search,/user/_search,/billing-service/demand/_dues,/billing-service/bill/_generate,/billing-service/demand/_create,/access/v1/actions/mdms/_get,/egov-user-event/v1/events/_search,/boundary-service/boundary-relationships/_search"
