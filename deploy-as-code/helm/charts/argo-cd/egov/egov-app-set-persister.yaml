@@ -10,6 +10,8 @@ spec:
         revision: ng-central-prd
         directories:
           - path: deploy-as-code/helm/charts/persister-tenant-charts/*
+          - path: deploy-as-code/helm/charts/persister-tenant-charts/egov-persister-namibia
+            exclude: true
 
   template:
     metadata:

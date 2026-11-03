@@ -50,6 +50,8 @@ Index file. Deep details live in scoped CLAUDE.md files (listed at bottom) that 
 - `egov` argocd dir = shared central services, destination namespace `*`, valueFile `bauchi-central-prd.yaml`
 - state-level tenant id for central = `ba`; `host-map` in egov-config maps code → public URL (`https://<state>-hcm.digit.org/`)
 
+- `hcm22` (2nd central instance, env `hcm22-central-prd`): namibia registries + hrms + `egov-indexer/persister-namibia` in ns `hcm22`, consumer groups `hcm22-*`; reuses bauchi `egov-config`/`egov-service-host` (hcm22 in bauchi ns lists) with `namespace-overrides.hcm22` (`db-schema-names`, `kafka-tenant-id-pattern`, registry hosts → `.hcm22`); ingresses in egov ns → `gateway-hcm22` (egov ns, discovers ns hcm22); bauchi copies `hostExclude` namibia host; namibia tenant services (transformer, UIs, moz) stay in ns `namibia`
+
 ## Central-Instance Semantics
 
 - Kafka topics of tenant-specific services under central instance get `<code>-` prefix (e.g. `bo-save-staff`); services strip it via `kafka-tenant-id-pattern: "(ba|oy|ko|...)-"` in egov-config

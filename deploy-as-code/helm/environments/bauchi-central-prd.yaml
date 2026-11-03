@@ -52,13 +52,13 @@ global:
 cluster-configs:
   namespaces:
     create: true
-    values: [ backbone, cert-manager, egov, airflow, es-cluster, kafka-cluster, logging, monitoring, playground, zookeeper-cluster, es-cluster-v8, jupyter, jhub, bauchi, oyo, kogi, nasarawa, abuja, plateau, borno, kebbi, sokoto, ondo, adamawa, kaduna, jigawa, kebbi-azm, chad, gombe, chad-prod, zamfara, abia, sierraleone, kebbi-azm, namibia, gabon ]
+    values: [ backbone, cert-manager, egov, airflow, es-cluster, kafka-cluster, logging, monitoring, playground, zookeeper-cluster, es-cluster-v8, jupyter, jhub, bauchi, oyo, kogi, nasarawa, abuja, plateau, borno, kebbi, sokoto, ondo, adamawa, kaduna, jigawa, kebbi-azm, chad, gombe, chad-prod, zamfara, abia, sierraleone, kebbi-azm, namibia, hcm22, gabon ]
 
   root-ingress:
     cert-issuer: letsencrypt-prod
   configmaps:
     egov-config:
-      namespace: [egov, airflow, bauchi, oyo, kogi, nasarawa, abuja, plateau, borno, kebbi, sokoto, ondo, adamawa, chad, gombe, zamfara, abia, sierraleone, kebbi-azm, namibia, gabon ]
+      namespace: [egov, airflow, bauchi, oyo, kogi, nasarawa, abuja, plateau, borno, kebbi, sokoto, ondo, adamawa, chad, gombe, zamfara, abia, sierraleone, kebbi-azm, namibia, hcm22, gabon ]
       data:
         db-host: "ng-central-prd-db.cpe4q0cycqi7.af-south-1.rds.amazonaws.com" ## Add db-host name eg: egov-demo.database.azure.com
         db-name: "ngcentralprd" ## Add db-name
@@ -91,7 +91,7 @@ cluster-configs:
         redis-downsync-host: "ng-central-redis.nolaw2.ng.0001.afs1.cache.amazonaws.com"
         egov-services-fqdn-name: "https://bauchi-hcm-digit.org/" ## Add your Domain Name
         state-level-tenantid-length: "1"
-        kafka-tenant-id-pattern: "(ba|oy|ko|na|ab|pl|bo|ke|so|od|ad|kd|jg|kb|ch|go|zf|abia|si|namibia|gabon)-"
+        kafka-tenant-id-pattern: "(ba|oy|ko|na|ab|pl|bo|ke|so|od|ad|kd|jg|kb|ch|go|zf|abia|si|gabon)-"
         state-schema-index-position-tenantid: "0"
         is-environment-central-instance: "true"
         aws-cluster-ip: "https://AD11FA377F3AEE4369833D9626BD7A83.gr7.af-south-1.eks.amazonaws.com"
@@ -123,6 +123,9 @@ cluster-configs:
         host-map: "{'ba':'https://bauchi-hcm.digit.org/','oy':'https://oyo-hcm.digit.org/','ko':'https://kogi-hcm.digit.org/','na':'https://nasarawa-hcm.digit.org/','ab':'https://fct-abuja-hcm.digit.org/','pl':'https://plateau-hcm.digit.org/','bo':'https://borno-hcm.digit.org/','ke':'https://kebbi-hcm-central.digit.org/','so':'https://sokoto-hcm.digit.org/','od':'https://ondo-hcm.digit.org/','ad':'https://adamawa-hcm.digit.org/','kd':'https://kaduna-central-hcm.digit.org/','jg':'https://jigawa-central-hcm.digit.org/','kb':'https://kebbi-azm-central-hcm.digit.org/','go':'https://gombe-hcm.digit.org/','chad':'https://chad-hcm-prod.digit.org/','zf':'https://zamfara-hcm.digit.org/','abia':'https://abia-hcm.digit.org/','si':'https://sierraleone-hcm.digit.org/','namibia':'https://namibia-hcm.digit.org/','gabon':'https://gabon-hcm.digit.org/'}"
         db-schema-names: "ba,oy,ko,na,ab,pl,bo,ke,so,od,ad,kd,jg,kb,ch,go,chad,zf,abia,si,namibia,gabon"
       namespace-overrides:
+        hcm22:
+          db-schema-names: "namibia"
+          kafka-tenant-id-pattern: "(namibia)-"
         borno:
           egov-state-level-tenant-id: "bo"
           health-expense-borno: "http://health-expense.borno:8080/"
@@ -149,7 +152,7 @@ cluster-configs:
           state-level-tenant-id: "kb"
           egov-state-level-tenant-id: "kb"
     egov-service-host:
-      namespace: [egov, bauchi, oyo, monitoring, kogi, nasarawa, abuja, plateau, borno, kebbi, sokoto, ondo, adamawa, kaduna, jigawa, chad, gombe, zamfara, abia, sierraleone, kebbi-azm, namibia, gabon ]
+      namespace: [egov, bauchi, oyo, monitoring, kogi, nasarawa, abuja, plateau, borno, kebbi, sokoto, ondo, adamawa, kaduna, jigawa, chad, gombe, zamfara, abia, sierraleone, kebbi-azm, namibia, hcm22, gabon ]
       data:
         dashboard-analytics: "http://dashboard-analytics.egov:8080/"
         internal-gateway-scg: "http://internal-gateway-scg.egov:8080/"
@@ -202,6 +205,18 @@ cluster-configs:
         health-expense: 'http://health-expense.egov:8080/'
         health-notification-service: 'http://health-notification-service.egov:8080/'
       namespace-overrides:
+        hcm22:
+          household: 'http://household.hcm22:8080/'
+          household-referral: 'http://household-referral.hcm22:8080/'
+          individual: 'http://individual.hcm22:8080/'
+          individual-referral: 'http://individual-referral.hcm22:8080/'
+          project: 'http://project.hcm22:8080/'
+          project-referral: 'http://project-referral.hcm22:8080/'
+          product: 'http://product.hcm22:8080/'
+          facility: 'http://facility.hcm22:8080/'
+          stock: 'http://stock.hcm22:8080/'
+          service-request: 'http://service-request.hcm22:8080/'
+          egov-hrms: 'http://egov-hrms.hcm22:8080/'
         borno:
           health-expense-borno: 'http://health-expense.borno:8080/'
           health-expense-calculator-borno: 'http://health-expense-calculator.borno:8080/'
@@ -650,32 +665,6 @@ egov-indexer-si:
   dss-collectionindex-topic-push-enabled: "false"
   topic-push-enabled: "false"
 
-egov-indexer-namibia:
-  image:
-    repository: egovio/egov-indexer
-    tag: indexer-17-searchBody-aefd92b
-  kafka-consumer-group-id: "egov-indexer-consumer-grp-namibia"
-  heap: "-Xmx1536m -Xms1024m"
-  hpa:
-    enabled: true
-    minReplicas: 1
-    maxReplicas: 4
-  cpu_requests: 300m
-  memory_requests: 1.5Gi
-  cpu_limits: 400m
-  memory_limits: 2Gi
-  initContainers:
-    dbMigration:
-      image:
-        repository: egovio/egov-indexer-db
-        tag: indexer-17-searchBody-aefd92b
-    gitSync:
-      repo: "git@github.com:HCM-BAUCHI/health-campaign-config"        ##### Change repo url with Your fork Repo url
-      branch: "PROD"                                      ##### Change repo branch with Your fork Repo branch
-    egov-indexer-yaml-repo-path: "/work-dir/health-campaign-config/egov-indexer/namibia"
-    dss-collectionindex-topic-push-enabled: "false"
-    topic-push-enabled: "false"
-
 egov-indexer-gabon:
   image:
     repository: egovio/egov-indexer
@@ -853,28 +842,6 @@ egov-persister-ht:
 #  REMOVING EXCEPT chad, chad-prod, kebbi-azm, kaduna, jigawa, adamawa, gombe config files
 # /work-dir/health-campaign-config/egov-persister-ht/ad,/work-dir/health-campaign-config/egov-persister-ht/go,/work-dir/health-campaign-config/egov-persister-ht/ch
   persist-yml-path: "/work-dir/health-campaign-config/egov-persister-ht/ch,/work-dir/health-campaign-config/egov-persister-ht/chad,/work-dir/health-campaign-config/egov-persister-ht/kb,/work-dir/health-campaign-config/egov-persister-ht/jg,/work-dir/health-campaign-config/egov-persister-ht/kd,/work-dir/health-campaign-config/egov-persister-ht/oy,/work-dir/health-campaign-config/egov-persister-ht/na,/work-dir/health-campaign-config/egov-persister-ht/ko,/work-dir/health-campaign-config/egov-persister/common,/work-dir/health-campaign-config/egov-persister-ht/pl,/work-dir/health-campaign-config/egov-persister-ht/ab,/work-dir/health-campaign-config/egov-persister-ht/ba,/work-dir/health-campaign-config/egov-persister-ht/bo,/work-dir/health-campaign-config/egov-persister-ht/ke,/work-dir/health-campaign-config/egov-persister-ht/od,/work-dir/health-campaign-config/egov-persister-ht/so,/work-dir/health-campaign-config/egov-persister-ht/zf,/work-dir/health-campaign-config/egov-persister-ht/go,/work-dir/health-campaign-config/egov-persister-ht/ad,/work-dir/health-campaign-config/egov-persister-ht/si"
-  initContainers:
-    gitSync:
-      repo: "git@github.com:HCM-BAUCHI/health-campaign-config"      ##### Change repo url with Your fork Repo url
-      branch: "PROD"                                    ##### Change repo branch with Your fork Repo branch
-
-egov-persister-namibia:
-  image:
-    repository: egovio/egov-persister
-    tag: master-perf-fe334d2
-  kafka-consumer-group-id: "egov-infra-persist-namibia"
-  heap: "-Xmx1536m -Xms1024m"
-  hpa:
-    enabled: true
-    minReplicas: 1
-    maxReplicas: 4
-  cpu_requests: 300m
-  memory_requests: 1.5Gi
-  cpu_limits: 400m
-  memory_limits: 2Gi
-  images:
-    - egovio/egov-persister
-  persist-yml-path: "/work-dir/health-campaign-config/egov-persister/namibia"
   initContainers:
     gitSync:
       repo: "git@github.com:HCM-BAUCHI/health-campaign-config"      ##### Change repo url with Your fork Repo url
@@ -1325,8 +1292,8 @@ egov-hrms:
   java-args: -Dspring.profiles.active=monitoring
   employee-applink: "https://bauchi-hcm.digit.org/digit-ui/employee/login"
   java-enable-debug: true
-  schemaNameExclude: [ "chad" ]
-  hostExclude: ["chad-hcm-prod.digit.org"]
+  schemaNameExclude: [ "chad", "namibia" ]
+  hostExclude: ["chad-hcm-prod.digit.org", "namibia-hcm.digit.org"]
   spring-datasource-tomcat-max-active: "4"
   server-tomcat-max-threads: "4"
 
@@ -1539,8 +1506,8 @@ facility:
   memory_requests: 512Mi
   cpu_limits: 300m
   memory_limits: 768Mi
-  schemaNameExclude: [ "chad" ]
-  hostExclude: ["chad-hcm-prod.digit.org"]
+  schemaNameExclude: [ "chad", "namibia" ]
+  hostExclude: ["chad-hcm-prod.digit.org", "namibia-hcm.digit.org"]
   extraEnv:
     app: |
       - name: TRACER_ERRORSPUBLISH
@@ -1577,8 +1544,8 @@ product:
   memory_requests: 768Mi
   cpu_limits: 1
   memory_limits: 1024Mi
-  schemaNameExclude: [ "chad" ]
-  hostExclude: ["chad-hcm-prod.digit.org"]
+  schemaNameExclude: [ "chad", "namibia" ]
+  hostExclude: ["chad-hcm-prod.digit.org", "namibia-hcm.digit.org"]
 
 egov-localization:
   initContainers:
@@ -1622,8 +1589,8 @@ individual:
   memory_requests: 1Gi
   cpu_limits: 400m
   memory_limits: 1.5Gi
-  schemaNameExclude: [ "chad" ]
-  hostExclude: ["chad-hcm-prod.digit.org"]
+  schemaNameExclude: [ "chad", "namibia" ]
+  hostExclude: ["chad-hcm-prod.digit.org", "namibia-hcm.digit.org"]
   egov-beneficiary-idgen-integration-enabled: "true"
   individual-beneficiary-id-validation-enabled: "false"
   spring-datasource-tomcat-max-active: "5"
@@ -1661,8 +1628,8 @@ individual-referral:
   memory_requests: 1.5Gi
   cpu_limits: 400m
   memory_limits: 2Gi
-  schemaNameExclude: [ "chad" ]
-  hostExclude: ["chad-hcm-prod.digit.org"]
+  schemaNameExclude: [ "chad", "namibia" ]
+  hostExclude: ["chad-hcm-prod.digit.org", "namibia-hcm.digit.org"]
   egov-beneficiary-idgen-integration-enabled: "true"
   individual-beneficiary-id-validation-enabled: "false"
   extraEnv:
@@ -1702,8 +1669,8 @@ stock:
   memory_requests: 768Mi
   cpu_limits: 300m
   memory_limits: 1Gi
-  schemaNameExclude: [ "chad" ]
-  hostExclude: ["chad-hcm-prod.digit.org"]
+  schemaNameExclude: [ "chad", "namibia" ]
+  hostExclude: ["chad-hcm-prod.digit.org", "namibia-hcm.digit.org"]
   java-enable-debug: "true"
   tracer-request-logging-enabled: "true"
   extraEnv:
@@ -1738,8 +1705,8 @@ household:
   memory_requests: 1Gi
   cpu_limits: 400m
   memory_limits: 1.5Gi
-  schemaNameExclude: [ "chad" ]
-  hostExclude: ["chad-hcm-prod.digit.org"]
+  schemaNameExclude: [ "chad", "namibia" ]
+  hostExclude: ["chad-hcm-prod.digit.org", "namibia-hcm.digit.org"]
   extraEnv:
     app: |
       - name: TRACER_ERRORSPUBLISH
@@ -1769,8 +1736,8 @@ household-referral:
   memory_requests: 1.5Gi
   cpu_limits: 400m
   memory_limits: 2Gi
-  schemaNameExclude: [ "chad" ]
-  hostExclude: ["chad-hcm-prod.digit.org"]
+  schemaNameExclude: [ "chad", "namibia" ]
+  hostExclude: ["chad-hcm-prod.digit.org", "namibia-hcm.digit.org"]
   extraEnv:
     app: |
       - name: TRACER_ERRORSPUBLISH
@@ -1799,8 +1766,8 @@ project:
   memory_requests: 1.25Gi
   cpu_limits: 400m
   memory_limits: 1.5Gi
-  schemaNameExclude: [ "chad" ]
-  hostExclude: ["chad-hcm-prod.digit.org"]
+  schemaNameExclude: [ "chad", "namibia" ]
+  hostExclude: ["chad-hcm-prod.digit.org", "namibia-hcm.digit.org"]
   project-task-no-resource-validation-status: "ADMINISTRATION_FAILED,BENEFICIARY_REFUSED,CLOSED_HOUSEHOLD,NOT_ADMINISTERED,BENEFICIARY_DIED,BENEFICIARY_MIGRATED,BENEFICIARY_ABSENT,BENEFICIARY_INELIGIBLE,INELIGIBLE"
   tracer-request-logging-enabled: "true"
   spring-datasource-tomcat-max-active: "5"
@@ -1833,8 +1800,8 @@ project-referral:
   memory_requests: 1.5Gi
   cpu_limits: 300m
   memory_limits: 2Gi
-  schemaNameExclude: [ "chad" ]
-  hostExclude: ["chad-hcm-prod.digit.org"]
+  schemaNameExclude: [ "chad", "namibia" ]
+  hostExclude: ["chad-hcm-prod.digit.org", "namibia-hcm.digit.org"]
   project-task-no-resource-validation-status: "ADMINISTRATION_FAILED,BENEFICIARY_REFUSED,CLOSED_HOUSEHOLD,NOT_ADMINISTERED,BENEFICIARY_DIED,BENEFICIARY_MIGRATED,BENEFICIARY_ABSENT,BENEFICIARY_INELIGIBLE,INELIGIBLE"
   extraEnv:
     app: |
@@ -1867,8 +1834,8 @@ referralmanagement:
   memory_requests: 1.75Gi
   cpu_limits: 400m
   memory_limits: 2Gi
-  schemaNameExclude: [ "chad" ]
-  hostExclude: ["chad-hcm-prod.digit.org"]
+  schemaNameExclude: [ "chad", "namibia" ]
+  hostExclude: ["chad-hcm-prod.digit.org", "namibia-hcm.digit.org"]
   kafka-consumer-group-id: "health-referral-management"
   search-api-limit: "1000"
   referralmanagement-default-limit: "1000"
@@ -1930,8 +1897,8 @@ service-request:
   memory_requests: 512Mi
   cpu_limits: 300m
   memory_limits: 768Mi
-  schemaNameExclude: [ "chad" ]
-  hostExclude: ["chad-hcm-prod.digit.org"]
+  schemaNameExclude: [ "chad", "namibia" ]
+  hostExclude: ["chad-hcm-prod.digit.org", "namibia-hcm.digit.org"]
   
 project-factory:
   initContainers:
@@ -2007,7 +1974,7 @@ project-factory:
   serverTimezone: "UTC"
   attendanceAttendeeSearchPageSize: "100"
   attendanceStaffSearchPageSize: "100"
-  centralInstanceTenantIds: "ba,oy,ko,na,ab,pl,bo,ke,so,od,ad,kd,jg,kb,ch,go,zf,abia,si,namibia,gabon"
+  centralInstanceTenantIds: "ba,oy,ko,na,ab,pl,bo,ke,so,od,ad,kd,jg,kb,ch,go,zf,abia,si,gabon"
   userKafkaCreateBatchSize: '100'
   mappingBulkCreateChunkSize: '150'
   projectBulkCreateChunkSize: '100'
@@ -2086,7 +2053,7 @@ excel-ingestion:
   excel-ingestion-sheet-data-save-topic: "save-sheet-data-temp"
   excel-ingestion-sheet-data-delete-topic: "delete-sheet-data-temp"
   excel-ingestion-processing-result-topic: "hcm-processing-result"
-  kafka-tenant-id-pattern: "(ba|oy|ko|na|ab|pl|bo|ke|so|od|ad|kd|jg|kb|ch|go|zf|namibia|gabon)-"
+  kafka-tenant-id-pattern: "(ba|oy|ko|na|ab|pl|bo|ke|so|od|ad|kd|jg|kb|ch|go|zf|gabon)-"
   java-enable-debug: true
   wait-time-of-each-attempt-ms: "20000"
 
@@ -2379,7 +2346,7 @@ health-expense:
   central-instance-enabled: true
   schemaNameExclude: [ "chad", "bo", "abia", "ko" ]
   hostExclude: ["chad-hcm-prod.digit.org", "borno-hcm.digit.org", "abia-hcm.digit.org", "kogi-hcm.digit.org"]
-  expense-kafka-tenant-id-pattern: "(ba|oy|ko|na|ab|pl|ke|so|od|ad|kd|jg|kb|ch|go|zf|namibia|gabon)-"
+  expense-kafka-tenant-id-pattern: "(ba|oy|ko|na|ab|pl|ke|so|od|ad|kd|jg|kb|ch|go|zf|gabon)-"
   java-enable-debug: false
   java-args: ""
   business-workflow-status-map: "{'EXPENSE.WAGES':'false','EXPENSE.PURCHASE':'false','EXPENSE.SUPERVISION':'false','PAYMENTS.BILL':'true','PAYMENTS.BILLDETAILS':'true'}"
@@ -2708,7 +2675,7 @@ dashboard-analytics:
       branch: "PROD"
   config-schema-paths: "file:///work-dir/health-campaign-config/egov-dss-dashboards/ch/dashboard-analytics/*.json"
 is-central-instance: "true"
-central-instance-tenants: "oy,ko,na,jg,pl,ab,kd,ba,ke,ch,bo,so,zf,go,ad,kb,namibia,gabon"
+central-instance-tenants: "oy,ko,na,jg,pl,ab,kd,ba,ke,ch,bo,so,zf,go,ad,kb,gabon"
 central-instance-base-path: "file:///work-dir/health-campaign-config/egov-dss-dashboards"
 
 
