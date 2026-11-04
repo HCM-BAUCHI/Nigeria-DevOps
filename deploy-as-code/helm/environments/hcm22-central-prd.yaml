@@ -47,7 +47,7 @@ household:
   central-instance-build: true
   central-instance-enabled: true
   heap: "-Xmx1024m -Xms512m"
-  replicas: "0"
+  replicas: 1
   hpa:
     enabled: false
     minReplicas: 2
@@ -93,7 +93,7 @@ household-referral:
     dbMigration:
       enabled: false
   heap: "-Xmx1536m -Xms768m"
-  replicas: "0"
+  replicas: 1
   hpa:
     enabled: false
     minReplicas: 2
@@ -133,7 +133,7 @@ individual:
   central-instance-build: true
   central-instance-enabled: true
   heap: "-Xmx1g -Xms512m"
-  replicas: "0"
+  replicas: 1
   hpa:
     enabled: false
     minReplicas: 2
@@ -183,7 +183,7 @@ individual-referral:
     dbMigration:
       enabled: false
   heap: "-Xmx1536m -Xms768m"
-  replicas: "0"
+  replicas: 1
   hpa:
     enabled: false
     minReplicas: 2
@@ -246,7 +246,7 @@ project:
   central-instance-build: true
   central-instance-enabled: true
   heap: "-Xmx1g -Xms512m"
-  replicas: "0"
+  replicas: 1
   hpa:
     enabled: false
     minReplicas: 2
@@ -304,7 +304,7 @@ project-referral:
     dbMigration:
       enabled: false
   heap: "-Xmx1536m -Xms768m"
-  replicas: "0"
+  replicas: 1
   hpa:
     enabled: false
     minReplicas: 2
@@ -383,7 +383,7 @@ referralmanagement:
   central-instance-build: true
   central-instance-enabled: true
   heap: "-Xmx1536m -Xms768m"
-  replicas: "0"
+  replicas: 1
   hpa:
     enabled: false
     minReplicas: 2
@@ -456,7 +456,7 @@ product:
   central-instance-enabled: true
   db-read-url-enabled: true
   heap: "-Xmx512m -Xms256m"
-  replicas: "0"
+  replicas: 1
   hpa:
     enabled: false
     minReplicas: 2
@@ -492,7 +492,7 @@ facility:
   central-instance-build: true
   central-instance-enabled: true
   heap: "-Xmx512m -Xms256m"
-  replicas: "0"
+  replicas: 1
   hpa:
     enabled: false
     minReplicas: 2
@@ -543,7 +543,7 @@ stock:
   central-instance-build: true
   central-instance-enabled: true
   heap: "-Xmx512m -Xms256m"
-  replicas: "0"
+  replicas: 1
   hpa:
     enabled: false
     minReplicas: 2
@@ -590,7 +590,7 @@ service-request:
   central-instance-build: true
   central-instance-enabled: true
   heap: "-Xmx512m -Xms256m"
-  replicas: "0"
+  replicas: 1
   hpa:
     enabled: false
     minReplicas: 2
@@ -624,7 +624,7 @@ egov-hrms:
     repository: egovio/egov-hrms
     tag: customize-2.1-hrms-88d374c
   heap: "-Xmx1024m -Xms512m"
-  replicas: "0"
+  replicas: 1
   hpa:
     enabled: false
     minReplicas: 2
@@ -668,7 +668,7 @@ egov-indexer-namibia:
     tag: indexer-17-searchBody-1799f17903-57
   kafka-consumer-group-id: "hcm22-egov-indexer-consumer-grp-namibia"
   heap: "-Xmx1536m -Xms1024m"
-  replicas: "0"
+  replicas: 1
   hpa:
     enabled: false
     minReplicas: 2
@@ -736,7 +736,7 @@ egov-persister-namibia:
     tag: master-perf-fe334d2
   kafka-consumer-group-id: "hcm22-egov-infra-persist-namibia"
   heap: "-Xmx1536m -Xms1024m"
-  replicas: "0"
+  replicas: 1
   hpa:
     enabled: false
     minReplicas: 2
@@ -759,7 +759,7 @@ gateway-hcm22:
   image:
     repository: egovio/gateway
     tag: customize-2.1-gateway-dc34e2b
-  replicas: "0"
+  replicas: 1
   hpa:
     enabled: false
     minReplicas: 2
@@ -873,7 +873,7 @@ project-factory:
     - |
       sed -i 's/--max-old-space-size=3072/--max-old-space-size=2048/g' package.json
       yarn prod
-  replicas: "0"
+  replicas: 1
   hpa:
     enabled: false
     minReplicas: 2
@@ -904,7 +904,7 @@ boundary-management:
   cpu_limits: 400m
   memory_limits: 2Gi
   defaultLocale: 'en_NG'
-  replicas: "0"
+  replicas: 1
   hpa:
     enabled: false
     minReplicas: 2
@@ -955,7 +955,7 @@ excel-ingestion:
   kafka-tenant-id-pattern: "(namibia)-"
   java-enable-debug: true
   wait-time-of-each-attempt-ms: "20000"
-  replicas: "0"
+  replicas: 1
   hpa:
     minReplicas: 2
     maxReplicas: 2
@@ -1006,7 +1006,7 @@ health-attendance:
         value: "-Xmx512m -Xms256m"
       - name: TRACER_ERRORSTOPIC
         value: "hcm22-egov-error"
-  replicas: "0"
+  replicas: 1
   hpa:
     enabled: false
     minReplicas: 2
@@ -1045,7 +1045,7 @@ health-muster-roll:
   memory_requests: 512Mi
   cpu_limits: 300m
   memory_limits: 768Mi
-  replicas: "0"
+  replicas: 1
   hpa:
     enabled: false
     minReplicas: 2
@@ -1087,7 +1087,7 @@ health-expense:
   memory_requests: 512Mi
   cpu_limits: 300m
   memory_limits: 768Mi
-  replicas: "0"
+  replicas: 1
   hpa:
     enabled: false
     minReplicas: 2
@@ -1126,7 +1126,7 @@ worker-registry:
   heap: "-Xmx512m -Xms256m"
   cpu_requests: 200m
   memory_requests: 368Mi
-  replicas: "0"
+  replicas: 1
   hpa:
     enabled: false
     minReplicas: 2
@@ -1183,7 +1183,7 @@ health-notification-service:
 # <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 
 ### Prometheus & Alertmanager >>>>>>>>>>>>>>>>>>>>
-  replicas: "0"
+  replicas: 1
   hpa:
     enabled: false
     minReplicas: 2
@@ -1215,7 +1215,7 @@ pgr-services:
   memory_requests: 512Mi
   cpu_limits: 200m
   memory_limits: 768Mi
-  replicas: "0"
+  replicas: 1
   hpa:
     enabled: false
     minReplicas: 2
@@ -1254,7 +1254,7 @@ egov-notification-push:
         value: "true"
       - name: LOGGING_LEVEL_ORG_EGOV
         value: "INFO"
-  replicas: "0"
+  replicas: 1
   hpa:
     enabled: false
     minReplicas: 2
@@ -1293,7 +1293,7 @@ beneficiary-idgen:
   memory_requests: 512Mi
   cpu_limits: 300m
   memory_limits: 1024Mi
-  replicas: "0"
+  replicas: 1
   hpa:
     enabled: false
     minReplicas: 2
