@@ -235,7 +235,7 @@ cluster-configs:
 
     egov-notification-push:
       data:
-        fcm-tenant-project-map-json: '{"ad":"digit-hcm-nigeria","kb":"digit-hcm-nigeria","go":"digit-hcm-nigeria","si":"digit-hcm-nigeria","abia":"digit-hcm-nigeria"}'
+        fcm-tenant-project-map-json: '{"ad":"digit-hcm-nigeria","kb":"digit-hcm-nigeria","go":"digit-hcm-nigeria","si":"digit-hcm-nigeria","abia":"digit-hcm-nigeria","ba":"digit-health-75ed0","oy":"digit-health-75ed0","ko":"digit-health-75ed0","na":"digit-health-75ed0","ab":"digit-health-75ed0","pl":"digit-health-75ed0","bo":"digit-health-75ed0","ke":"digit-health-75ed0","so":"digit-health-75ed0","od":"digit-health-75ed0","kd":"digit-health-75ed0","jg":"digit-health-75ed0","ch":"digit-health-75ed0","chad":"digit-health-75ed0","zf":"digit-health-75ed0","namibia":"digit-health-75ed0","gabon":"digit-health-75ed0"}'
 
 disableAnnotationTimestamp: true
 
