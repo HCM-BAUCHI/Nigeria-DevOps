@@ -38,6 +38,10 @@ cluster-configs:
       name: hcm-moz-impl
       namespace: [egov]
 
+    egov-notification-push:
+      name: egov-notification-push
+      namespace: [egov]
+
   secrets:
     db: 
       namespace: [ egov, airflow, oyo, kogi, bauchi, nasarawa, abuja, plateau, borno, kebbi, sokoto, ondo, adamawa, kaduna, jigawa, kebbi-azm, chad, gombe, chad-prod, zamfara, abia, sierraleone, namibia, hcm22, gabon ]
@@ -46,6 +50,10 @@ cluster-configs:
     egov-notification-sms:
       namespace: egov
       name: egov-notification-sms
+
+    egov-notification-push:
+      namespace: egov
+      name: egov-notification-push
 
     egov-filestore:
       namespace: [egov, ondo, chad, chad-prod ]

@@ -233,6 +233,10 @@ cluster-configs:
       data:
         dhis2-host: "https://ccu.misau.gov.mz/ccu"
 
+    egov-notification-push:
+      data:
+        fcm-tenant-project-map-json: '{"ad":"digit-hcm-nigeria","kb":"digit-hcm-nigeria","go":"digit-hcm-nigeria","si":"digit-hcm-nigeria","abia":"digit-hcm-nigeria","ba":"digit-health-75ed0","oy":"digit-health-75ed0","ko":"digit-health-75ed0","na":"digit-health-75ed0","ab":"digit-health-75ed0","pl":"digit-health-75ed0","bo":"digit-health-75ed0","ke":"digit-health-75ed0","so":"digit-health-75ed0","od":"digit-health-75ed0","kd":"digit-health-75ed0","jg":"digit-health-75ed0","ch":"digit-health-75ed0","chad":"digit-health-75ed0","zf":"digit-health-75ed0","namibia":"digit-health-75ed0","gabon":"digit-health-75ed0"}'
+
 disableAnnotationTimestamp: true
 
 airflow-trigger:
@@ -2500,10 +2504,11 @@ egov-notification-push:
     dbMigration:
       image:
         repository: egovio/egov-notification-push-db
-        tag: nigeria-go-deep-push-notification-batch-00fb53d
+        tag: nigeria-go-deep-push-notification-batch-559f031
   image:
     repository: egovio/egov-notification-push
-    tag: nigeria-go-deep-push-notification-batch-00fb53d
+    tag: nigeria-go-deep-push-notification-batch-559f031
+  push-token-cleanup-schemas: "ba,oy,ko,na,ab,pl,bo,ke,so,od,ad,kd,jg,kb,ch,go,chad,zf,abia,si,namibia,gabon"
   hpa:
     enabled: true
     minReplicas: 4
