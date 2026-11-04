@@ -33,7 +33,7 @@ java-args: ""
 # Additional Container Envs
 env: |
   - name: SPRING_KAFKA_CONSUMER_GROUP_ID
-    value: health-notification-service
+    value: {{ index .Values "kafka-consumer-group-id" | default "health-notification-service" | quote }}
   - name: SPRING_KAFKA_CONSUMER_MAX_POLL_RECORDS
     value: "50"
   - name: SPRING_KAFKA_CONSUMER_PROPERTIES_MAX_POLL_INTERVAL_MS
@@ -160,7 +160,7 @@ env: |
   - name: KAFKA_TOPICS_NOTIFICATION_SMS
     value: "egov.core.notification.sms"
   - name: KAFKA_TOPICS_NOTIFICATION_PUSH
-    value: "egov.core.notification.push"
+    value: {{ index .Values "kafka-topics-notification-push" | default "egov.core.notification.push" | quote }}
   - name: SCHEDULED_NOTIFICATION_SAVE_TOPIC
     value: "save-scheduled-notification-topic"
   - name: SCHEDULED_NOTIFICATION_UPDATE_TOPIC
@@ -174,7 +174,7 @@ env: |
   - name: HFREFERRAL_CONSUMER_UPDATE_TOPIC
     value: "update-hfreferral-topic"
   - name: KAFKA_TOPICS_SAVE_FINAL_SMS_MESSAGE
-    value: "save-final-sms-message"
+    value: {{ index .Values "kafka-topics-save-final-sms-message" | default "save-final-sms-message" | quote }}
   - name: MDMS_NOTIFICATION_MODULE
     value: "HCM-NOTIFICATION-CONFIG"
   - name: MDMS_PROJECT_MODULE
