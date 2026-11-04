@@ -399,6 +399,22 @@ env: |
   - name: EGOV_ENC_STATE_LEVEL_TENANT_IDS
     value: {{ index .Values "egov-enc-state-level-tenant-ids" | quote }}
   {{- end }}
+  {{- range $t, $k := index .Values "egov-enc-tenant-hosts" }}
+  - name: EGOV_ENC_TENANT_HOST_{{ $t }}
+    valueFrom:
+      configMapKeyRef:
+        name: egov-service-host
+        key: {{ $k }}
+  - name: egov.enc.tenant.host.{{ $t }}
+    valueFrom:
+      configMapKeyRef:
+        name: egov-service-host
+        key: {{ $k }}
+  - name: TENANT_STATE_LEVEL_TENANT_ID_MAPPINGS_{{ $t }}
+    value: {{ $t | quote }}
+  - name: tenant.state.level.tenant.id.mappings.{{ $t }}
+    value: {{ $t | quote }}
+  {{- end }}
   {{- if hasKey .Values "referralmanagement-relationship-validation" }}
   - name: REFERRALMANAGEMENT_RELATIONSHIP_VALIDATION
     value: {{ index .Values "referralmanagement-relationship-validation" | quote }}

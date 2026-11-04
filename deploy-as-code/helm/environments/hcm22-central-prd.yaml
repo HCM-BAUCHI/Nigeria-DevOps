@@ -329,6 +329,8 @@ project-referral:
 
 referralmanagement:
   egov-enc-state-level-tenant-ids: "namibia"
+  egov-enc-tenant-hosts:
+    namibia: egov-enc-service-namibia
   referralmanagement-relationship-validation: "false"
   downsync-pregen-enabled: "false"
   downsync-storage-backend: "s3"
