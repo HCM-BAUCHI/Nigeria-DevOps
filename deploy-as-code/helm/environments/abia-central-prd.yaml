@@ -41,7 +41,7 @@ transformer:
   namespace: "abia"
   image:
     repository: egovio/transformer
-    tag: customize-2.1-transformer-mh-bd49377
+    tag: customize-2.1-transformer-mh-d71ac1d
   replicas: 1
   heap: "-Xmx1536m -Xms1536m"
   hpa:
