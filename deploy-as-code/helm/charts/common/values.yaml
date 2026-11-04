@@ -89,6 +89,8 @@ initContainers:
               key: db-schema-names
           {{- else if eq .Values.namespace "kaduna" }}
           value: "kd"
+          {{- else if eq .Values.namespace "kogi" }}
+          value: "ko"
           {{- else if eq .Values.namespace "kebbi-azm" }}
           value: "kb"
           {{- else if eq .Values.namespace "jigawa" }}
@@ -199,6 +201,8 @@ extraEnv:
             {{- if index .Values "db-read-url-enabled" }}
             {{- if eq .Values.namespace "bauchi" }}
             key: ba-db-read-url
+            {{- else if eq .Values.namespace "kogi" }}
+            key: ko-db-read-url
             {{- else if eq .Values.namespace "kaduna" }}
             key: kd-db-read-url
             {{- else if eq .Values.namespace "kebbi-azm" }}
@@ -226,6 +230,8 @@ extraEnv:
             key: db-read-url-2
             {{- else if eq .Values.namespace "bauchi" }}
             key: ba-db-url
+            {{- else if eq .Values.namespace "kogi" }}
+            key: ko-db-url
             {{- else if eq .Values.namespace "kaduna" }}
             key: kd-db-url
             {{- else if eq .Values.namespace "kebbi-azm" }}
@@ -270,6 +276,8 @@ extraEnv:
             name: egov-config
             {{- if eq .Values.namespace "bauchi" }}
             key: ba-db-url
+            {{- else if eq .Values.namespace "kogi" }}
+            key: ko-db-url
             {{- else if eq .Values.namespace "kaduna" }}
             key: kd-db-url
             {{- else if eq .Values.namespace "kebbi-azm" }}
