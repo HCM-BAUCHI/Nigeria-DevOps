@@ -52,6 +52,39 @@ spec:
           - name: gateway-hcm22
             path: core-services
             namespace: egov
+          - name: project-factory
+            path: health-services
+            namespace: hcm22
+          - name: boundary-management
+            path: health-services
+            namespace: hcm22
+          - name: excel-ingestion
+            path: health-services
+            namespace: hcm22
+          - name: health-attendance
+            path: health-services
+            namespace: hcm22
+          - name: health-muster-roll
+            path: health-services
+            namespace: hcm22
+          - name: health-expense
+            path: health-services
+            namespace: hcm22
+          - name: worker-registry
+            path: health-services
+            namespace: hcm22
+          - name: health-notification-service
+            path: health-services
+            namespace: hcm22
+          - name: beneficiary-idgen
+            path: health-services
+            namespace: hcm22
+          - name: pgr-services
+            path: core-services
+            namespace: hcm22
+          - name: egov-notification-push
+            path: core-services
+            namespace: hcm22
 
   template:
     metadata:

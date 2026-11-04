@@ -126,6 +126,9 @@ cluster-configs:
         hcm22:
           db-schema-names: "namibia"
           kafka-tenant-id-pattern: "(namibia)-"
+        namibia:
+          state-level-tenant-id: "namibia"
+          egov-state-level-tenant-id: "namibia"
         borno:
           egov-state-level-tenant-id: "bo"
           health-expense-borno: "http://health-expense.borno:8080/"
@@ -160,6 +163,7 @@ cluster-configs:
         egov-enc-service-kaduna: "http://egov-enc-service.kaduna:8080/"
         egov-enc-service-jigawa: "http://egov-enc-service.jigawa:8080/"
         egov-enc-service-kebbi-azm: "http://egov-enc-service.kebbi-azm:8080/"
+        egov-enc-service-namibia: "http://egov-enc-service.namibia:8080/"
         egov-accesscontrol: "http://egov-accesscontrol.egov:8080/"
         egov-user: "http://egov-user.egov:8080/"
         egov-user-egov: "http://egov-user.egov:8080/"
@@ -205,6 +209,29 @@ cluster-configs:
         health-expense: 'http://health-expense.egov:8080/'
         health-notification-service: 'http://health-notification-service.egov:8080/'
       namespace-overrides:
+        namibia:
+          household: 'http://household.hcm22:8080/'
+          household-referral: 'http://household-referral.hcm22:8080/'
+          individual: 'http://individual.hcm22:8080/'
+          individual-referral: 'http://individual-referral.hcm22:8080/'
+          project: 'http://project.hcm22:8080/'
+          project-referral: 'http://project-referral.hcm22:8080/'
+          product: 'http://product.hcm22:8080/'
+          facility: 'http://facility.hcm22:8080/'
+          stock: 'http://stock.hcm22:8080/'
+          service-request: 'http://service-request.hcm22:8080/'
+          egov-hrms: 'http://egov-hrms.hcm22:8080/'
+          project-factory: 'http://project-factory.hcm22:8080/'
+          boundary-management: 'http://boundary-management.hcm22:8080/'
+          excel-ingestion: 'http://excel-ingestion.hcm22:8080/'
+          attendance-service: 'http://health-attendance.hcm22:8080/'
+          health-muster-roll: 'http://health-muster-roll.hcm22:8080/'
+          health-expense: 'http://health-expense.hcm22:8080/'
+          worker-registry-host: 'http://worker-registry.hcm22:8080/'
+          health-notification-service: 'http://health-notification-service.hcm22:8080/'
+          pgr-services: 'http://pgr-services.hcm22:8080/'
+          egov-notification-push: 'http://egov-notification-push.hcm22:8080/'
+          beneficiary-idgen: 'http://beneficiary-idgen.hcm22:8080/'
         hcm22:
           household: 'http://household.hcm22:8080/'
           household-referral: 'http://household-referral.hcm22:8080/'
@@ -217,6 +244,17 @@ cluster-configs:
           stock: 'http://stock.hcm22:8080/'
           service-request: 'http://service-request.hcm22:8080/'
           egov-hrms: 'http://egov-hrms.hcm22:8080/'
+          project-factory: 'http://project-factory.hcm22:8080/'
+          boundary-management: 'http://boundary-management.hcm22:8080/'
+          excel-ingestion: 'http://excel-ingestion.hcm22:8080/'
+          attendance-service: 'http://health-attendance.hcm22:8080/'
+          health-muster-roll: 'http://health-muster-roll.hcm22:8080/'
+          health-expense: 'http://health-expense.hcm22:8080/'
+          worker-registry-host: 'http://worker-registry.hcm22:8080/'
+          health-notification-service: 'http://health-notification-service.hcm22:8080/'
+          pgr-services: 'http://pgr-services.hcm22:8080/'
+          egov-notification-push: 'http://egov-notification-push.hcm22:8080/'
+          beneficiary-idgen: 'http://beneficiary-idgen.hcm22:8080/'
         borno:
           health-expense-borno: 'http://health-expense.borno:8080/'
           health-expense-calculator-borno: 'http://health-expense-calculator.borno:8080/'
@@ -384,6 +422,8 @@ egov-accesscontrol:
   memory_limits: 768Mi
 
 pgr-services:
+  hostExclude: ["namibia-hcm.digit.org"]
+  schemaNameExclude: [ "namibia" ]
   db-write-url: true
   initContainers:
     dbMigration:
@@ -461,8 +501,8 @@ boundary-management:
     tag: master-b912a1c
   central-instance-build: true
   central-instance-enabled: true
-  schemaNameExclude: [ "chad" ]
-  hostExclude: ["chad-hcm-prod.digit.org"]
+  schemaNameExclude: [ "chad", "namibia" ]
+  hostExclude: ["chad-hcm-prod.digit.org", "namibia-hcm.digit.org"]
   java-enable-debug: false
   heap: "-Xmx512m -Xms256m"
   hpa:
@@ -1915,8 +1955,8 @@ project-factory:
     tag: master-ekfrazo-fc8b6be
   central-instance-enabled: false
   central-instance-build: true
-  schemaNameExclude: [ "chad" ]
-  hostExclude: ["chad-hcm-prod.digit.org" ]
+  schemaNameExclude: [ "chad", "namibia" ]
+  hostExclude: ["chad-hcm-prod.digit.org", "namibia-hcm.digit.org"]
   namespace: egov
   heap: "-Xmx2048m -Xms512m"
   replicas: 3
@@ -2019,8 +2059,8 @@ worker-registry:
     maxReplicas: 3
   cpu_requests: 200m
   memory_requests: 368Mi
-  schemaNameExclude: [ "chad" ]
-  hostExclude: ["chad-hcm-prod.digit.org"]
+  schemaNameExclude: [ "chad", "namibia" ]
+  hostExclude: ["chad-hcm-prod.digit.org", "namibia-hcm.digit.org"]
 
 excel-ingestion:
   namespace: egov
@@ -2035,8 +2075,8 @@ excel-ingestion:
   group-id: "egov-excel-ingestion"
   central-instance-build: true
   central-instance-enabled: true
-  schemaNameExclude: [ "chad" ]
-  hostExclude: ["chad-hcm-prod.digit.org"]
+  schemaNameExclude: [ "chad", "namibia" ]
+  hostExclude: ["chad-hcm-prod.digit.org", "namibia-hcm.digit.org"]
   cpu_requests: 1
   memory_requests: 4072Mi
   memory_limits: "4072Mi"
@@ -2284,8 +2324,8 @@ health-attendance:
     tag: attendance-staff-deenrollment-fix-8b590d8
   central-instance-build: true
   central-instance-enabled: true
-  schemaNameExclude: [ "chad" ]
-  hostExclude: ["chad-hcm-prod.digit.org"]
+  schemaNameExclude: [ "chad", "namibia" ]
+  hostExclude: ["chad-hcm-prod.digit.org", "namibia-hcm.digit.org"]
   java-enable-debug: false
   heap: "-Xmx512m -Xms256m"
   hpa:
@@ -2322,8 +2362,8 @@ health-muster-roll:
     tag: nigeria-go-deep-report-fix-adaa688
   central-instance-build: true
   central-instance-enabled: true
-  schemaNameExclude: [ "chad" ]
-  hostExclude: ["chad-hcm-prod.digit.org"]
+  schemaNameExclude: [ "chad", "namibia" ]
+  hostExclude: ["chad-hcm-prod.digit.org", "namibia-hcm.digit.org"]
   java-enable-debug: false
   heap: "-Xmx512m -Xms256m"
   hpa:
@@ -2348,8 +2388,8 @@ health-expense:
     tag: nigeria-go-deep-payments-expense-15b5a23
   central-instance-build: true
   central-instance-enabled: true
-  schemaNameExclude: [ "chad", "bo", "abia", "ko" ]
-  hostExclude: ["chad-hcm-prod.digit.org", "borno-hcm.digit.org", "abia-hcm.digit.org", "kogi-hcm.digit.org"]
+  schemaNameExclude: [ "chad", "bo", "abia", "ko", "namibia" ]
+  hostExclude: ["chad-hcm-prod.digit.org", "borno-hcm.digit.org", "abia-hcm.digit.org", "kogi-hcm.digit.org", "namibia-hcm.digit.org"]
   expense-kafka-tenant-id-pattern: "(ba|oy|ko|na|ab|pl|ke|so|od|ad|kd|jg|kb|ch|go|zf|gabon)-"
   java-enable-debug: false
   java-args: ""
@@ -2499,6 +2539,8 @@ egov-notification-mail:
   memory_limits: 512Mi
 
 egov-notification-push:
+  hostExclude: ["namibia-hcm.digit.org"]
+  schemaNameExclude: [ "namibia" ]
   namespace: egov
   initContainers:
     dbMigration:
@@ -2528,6 +2570,8 @@ egov-notification-push:
         value: "DEBUG"
 
 health-notification-service:
+  hostExclude: ["namibia-hcm.digit.org"]
+  schemaNameExclude: [ "namibia" ]
   namespace: egov
   initContainers:
     dbMigration:
@@ -2687,6 +2731,8 @@ central-instance-base-path: "file:///work-dir/health-campaign-config/egov-dss-da
 
 
 beneficiary-idgen:
+  hostExclude: ["namibia-hcm.digit.org"]
+  schemaNameExclude: [ "namibia" ]
   namespace: egov
   central-instance-build: true
   central-instance-enabled: true

@@ -105,7 +105,7 @@ transformer:
   update-stock-reconciliation-topic: "namibia-update-stock-reconciliation-topic"
   transformer-producer-stock-recon-index-v1-topic: "namibia-transformer-producer-stock-recon-index-v1-topic"
   health-transformer: "namibia-health-transformer"
-  transformer-consumer-error-tracer-topic: "error-details-indexer-topic"
+  transformer-consumer-error-tracer-topic: "hcm22-error-details-indexer-topic"
   transformer-producer-error-details-index-v1-topic: "namibia-transformed-errors-topic"
   transformer-error-skip-error-messages: "UPLOAD_ERROR_FROM_APP"
   transformer-error-skip-error-codes: "DUPLICATE_ENTITY,INDIVIDUAL_ALREADY_MEMBER_OF_HOUSEHOLD,HOUSEHOLD_ALREADY_HAS_HEAD"
@@ -137,6 +137,19 @@ transformer:
   transformer-consumer-musterroll-enabled: "false"
   transformer-consumer-service-enabled: "false"
   transformer-consumer-side-effect-enabled: "false"
+
+egov-enc-service:
+  secret-name: "egov-enc-service"
+  namespace: "namibia"
+  heap: "-Xmx512m -Xms512m"
+  hpa:
+    enabled: true
+    minReplicas: 1
+    maxReplicas: 4
+  cpu_requests: 100m
+  memory_requests: 768Mi
+  cpu_limits: 200m
+  memory_limits: 1Gi
 
 digit-ui:
   namespace: namibia

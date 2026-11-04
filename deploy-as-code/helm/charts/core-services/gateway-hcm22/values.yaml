@@ -80,7 +80,7 @@ env: |
   - name: SPRING_KAFKA_PRODUCER_VALUE_SERIALIZER
     value: org.springframework.kafka.support.serializer.JsonSerializer
   - name: EGOV_CUSTOM_ASYNC_FILTER_TOPIC
-    value: res-custom-filter
+    value: hcm22-res-custom-filter
   - name: EGOV_OPEN_ENDPOINTS_WHITELIST
     value: {{ index .Values "egov-open-endpoints-whitelist" | quote }}  
   - name: EGOV_MIXED_MODE_ENDPOINTS_WHITELIST

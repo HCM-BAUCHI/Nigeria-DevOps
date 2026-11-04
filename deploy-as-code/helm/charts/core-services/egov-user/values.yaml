@@ -211,7 +211,21 @@ env: |
   - name: EGOV_USER_SESSION_INACTIVITY_PERIOD_DAYS
     value: {{ index .Values "egov-user-session-inactivity-period-days" | quote }}
   - name: EGOV_ENC_STATE_LEVEL_TENANT_IDS
-    value: "ba,kd,kb,jg"
+    value: "ba,kd,kb,jg,namibia"
+  - name: tenant.state.level.tenant.id.mappings.namibia
+    value: "namibia"
+  - name: TENANT_STATE_LEVEL_TENANT_ID_MAPPINGS_namibia
+    value: namibia
+  - name: egov.enc.tenant.host.namibia
+    valueFrom:
+      configMapKeyRef:
+        name: egov-service-host
+        key: egov-enc-service-namibia
+  - name: EGOV_ENC_TENANT_HOST_namibia
+    valueFrom:
+      configMapKeyRef:
+        name: egov-service-host
+        key: egov-enc-service-namibia
   - name: tenant.state.level.tenant.id.mappings.kd
     value: "kd"
   - name: tenant.state.level.tenant.id.mappings.kb

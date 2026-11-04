@@ -49,7 +49,7 @@ pgr-kafka-tenant-id-pattern: "ba-|oy-|ko-|na-|ab-|pl-|bo-|ke-|so-|od-|ad-|kd-|jg
 # Additional Container Envs
 env: |
   - name: SPRING_KAFKA_CONSUMER_GROUP_ID
-    value: egov-pgr-services
+    value: {{ index .Values "kafka-consumer-group-id" | default "egov-pgr-services" | quote }}
   - name: SPRING_KAFKA_PRODUCER_KEY_SERIALIZER
     value: org.apache.kafka.common.serialization.StringSerializer
   {{- if index .Values "global" "serializers-timezone-in-ist" }}
