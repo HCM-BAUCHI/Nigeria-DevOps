@@ -167,3 +167,9 @@ env: |
       configMapKeyRef:
         name: egov-config
         key: kafka-tenant-id-pattern
+  {{- if hasKey .Values "worker-registry-state-level-tenant-id" }}
+  - name: STATE_LEVEL_TENANT_ID
+    value: {{ index .Values "worker-registry-state-level-tenant-id" | quote }}
+  - name: TENANT_STATE_LEVEL_TENANT_ID_MAPPINGS
+    value: {{ index .Values "tenant-state-level-tenant-id-mappings" | quote }}
+  {{- end }}

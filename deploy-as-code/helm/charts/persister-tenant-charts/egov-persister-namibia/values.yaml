@@ -53,3 +53,33 @@ env: |
     value: "hcm22-egov-persister-deadletter-processed"
   - name: TRACER_ERRORSTOPIC
     value: "hcm22-egov-persister-deadletter"
+  - name: PERSISTER_BULK_ENABLED
+    value: "false"
+  - name: PERSISTER_BATCH_SIZE
+    value: "100"
+  - name: TRACER_ERRORS_TOPIC
+    value: "hcm22-egov-persister-deadletter"
+  - name: TRACER_ERRORS_PUBLISH
+    value: "true"
+  - name: PERSISTER_DEAD_LETTER_REPROCESS_ENABLED
+    value: "true"
+  - name: PERSISTER_DEAD_LETTER_MAX_RETRIES
+    value: "5"
+  - name: PERSISTER_DB_HEALTH_CHECK_INTERVAL_MS
+    value: "5000"
+  - name: SPRING_KAFKA_CONSUMER_PROPERTIES_MAX_PARTITION_FETCH_BYTES
+    value: "6291456"
+  - name: SPRING_KAFKA_CONSUMER_PROPERTIES_FETCH_MAX_BYTES
+    value: "6291456"
+  - name: SPRING_KAFKA_CONSUMER_PROPERTIES_MAX_POLL_INTERVAL_MS
+    value: "300000"
+  - name: SPRING_KAFKA_PRODUCER_PROPERTIES_MAX_REQUEST_SIZE
+    value: "6291456"
+  - name: SPRING_KAFKA_PRODUCER_PROPERTIES_BUFFER_MEMORY
+    value: "33554432"
+  - name: SPRING_KAFKA_PRODUCER_PROPERTIES_COMPRESSION_TYPE
+    value: "gzip"
+  - name: SPRING_KAFKA_PRODUCER_ACKS
+    value: "all"
+  - name: SPRING_KAFKA_PRODUCER_PROPERTIES_ENABLE_IDEMPOTENCE
+    value: "true"

@@ -262,3 +262,7 @@ env: |
       configMapKeyRef:
         name: egov-service-host
         key: egov-enc-service-kebbi-azm
+  {{- if hasKey .Values "egov-bulk-create-user-url" }}
+  - name: EGOV_BULK_CREATE_USER_URL
+    value: {{ index .Values "egov-bulk-create-user-url" | quote }}
+  {{- end }}

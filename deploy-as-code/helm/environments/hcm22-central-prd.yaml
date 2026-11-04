@@ -19,6 +19,8 @@ cluster-configs:
       data: {}
 
 household:
+  mdms-service-search-uri: "/mdms-v2/v1/_search"
+  household-member-relationship-validation: "false"
   household-member-cosumer-bulk-create-topic: "hcm22-household-member-consumer-bulk-create-topic"
   household-member-cosumer-bulk-update-topic: "hcm22-household-member-consumer-bulk-update-topic"
   household-member-cosumer-bulk-delete-topic: "hcm22-household-member-consumer-bulk-delete-topic"
@@ -36,10 +38,10 @@ household:
     dbMigration:
       image:
         repository: egovio/household-db
-        tag: HCMPRE-2656-HCM-Services-Household-5717dde
+        tag: customize-2.1-household-5ef888f
   image:
     repository: egovio/household
-    tag: HCMPRE-2656-HCM-Services-Household-5717dde
+    tag: customize-2.1-household-5ef888f
   spring-datasource-tomcat-max-active: "2"
   server-tomcat-max-threads: "10"
   central-instance-build: true
@@ -64,6 +66,8 @@ household:
         value: "hcm22-error-details-indexer-topic"
 
 household-referral:
+  mdms-service-search-uri: "/mdms-v2/v1/_search"
+  household-member-relationship-validation: "false"
   household-member-cosumer-bulk-create-topic: "hcm22-household-member-consumer-bulk-create-topic"
   household-member-cosumer-bulk-update-topic: "hcm22-household-member-consumer-bulk-update-topic"
   household-member-cosumer-bulk-delete-topic: "hcm22-household-member-consumer-bulk-delete-topic"
@@ -78,7 +82,7 @@ household-referral:
   kafka-consumer-group-id: "hcm22-health-household"
   image:
     repository: egovio/household
-    tag: HCMPRE-2656-HCM-Services-Household-5717dde
+    tag: customize-2.1-household-5ef888f
   spring-datasource-tomcat-max-active: "2"
   db-read-url-enabled: true
   db-read-url-enabled-2: false
@@ -108,6 +112,7 @@ household-referral:
         value: "hcm22-error-details-indexer-topic"
 
 individual:
+  egov-bulk-create-user-url: "/user/users/v2/_create"
   individual-consumer-bulk-create-topic: "hcm22-individual-consumer-bulk-create-topic"
   individual-consumer-bulk-update-topic: "hcm22-individual-consumer-bulk-update-topic"
   individual-consumer-bulk-delete-topic: "hcm22-individual-consumer-bulk-delete-topic"
@@ -121,10 +126,10 @@ individual:
     dbMigration:
       image:
         repository: egovio/individual-db
-        tag: customize-2.1-individual-803c4d9
+        tag: customize-2.1-individual-74a073b
   image:
     repository: egovio/individual
-    tag: customize-2.1-individual-803c4d9
+    tag: customize-2.1-individual-74a073b
   central-instance-build: true
   central-instance-enabled: true
   heap: "-Xmx1g -Xms512m"
@@ -157,6 +162,7 @@ individual:
         value: "hcm22-error-details-indexer-topic"
 
 individual-referral:
+  egov-bulk-create-user-url: "/user/users/v2/_create"
   individual-consumer-bulk-create-topic: "hcm22-individual-consumer-bulk-create-topic"
   individual-consumer-bulk-update-topic: "hcm22-individual-consumer-bulk-update-topic"
   individual-consumer-bulk-delete-topic: "hcm22-individual-consumer-bulk-delete-topic"
@@ -168,7 +174,7 @@ individual-referral:
   kafka-consumer-group-id: "hcm22-health-individual"
   image:
     repository: egovio/individual
-    tag: customize-2.1-individual-803c4d9
+    tag: customize-2.1-individual-74a073b
   spring-datasource-tomcat-max-active: "2"
   server-tomcat-max-threads: "10"
   central-instance-build: true
@@ -233,10 +239,10 @@ project:
     dbMigration:
       image:
         repository: egovio/project-db
-        tag: customize-nigeria-go-deep-2-project-bb6bfd6
+        tag: customize-2.1-project-1-eec20b5
   image:
     repository: egovio/project
-    tag: customize-nigeria-go-deep-2-project-bb6bfd6
+    tag: customize-2.1-project-1-eec20b5
   central-instance-build: true
   central-instance-enabled: true
   heap: "-Xmx1g -Xms512m"
@@ -289,7 +295,7 @@ project-referral:
   kafka-consumer-group-id: "hcm22-health-project"
   image:
     repository: egovio/project
-    tag: customize-nigeria-go-deep-2-project-bb6bfd6
+    tag: customize-2.1-project-1-eec20b5
   spring-datasource-tomcat-max-active: "2"
   server-tomcat-max-threads: "10"
   central-instance-build: true
@@ -322,6 +328,27 @@ project-referral:
         value: "hcm22-error-details-indexer-topic"
 
 referralmanagement:
+  egov-enc-state-level-tenant-ids: "namibia"
+  referralmanagement-relationship-validation: "false"
+  downsync-pregen-enabled: "false"
+  downsync-storage-backend: "s3"
+  ccn:
+    enabled: "false"
+    bpp-enabled: "false"
+    onix-caller-url: ""
+    onix-bpp-caller-url: ""
+    network-id: ""
+    bap-id: ""
+    bap-uri: ""
+    bpp-id: ""
+    bpp-uri: ""
+    inbound-tenant-id: ""
+    inbound-project-id: ""
+    inbound-recipient-id: ""
+    complete-reason: "TASK_COMPLETE"
+    closed-state: "CLOSED"
+    update-consumer-group: "hcm22-referralmanagement-ccn-referral-completion"
+    tenants: "namibia"
   referralmanagement-sideeffect-consumer-bulk-create-topic: "hcm22-save-side-effect-bulk-topic"
   referralmanagement-sideeffect-consumer-bulk-update-topic: "hcm22-update-side-effect-bulk-topic"
   referralmanagement-sideeffect-consumer-bulk-delete-topic: "hcm22-delete-side-effect-bulk-topic"
@@ -341,10 +368,10 @@ referralmanagement:
     dbMigration:
       image:
         repository: egovio/referralmanagement-db
-        tag: master-impel-ref-cca889b
+        tag: filebased-downsync-final-1-38b62d1
   image:
     repository: egovio/referralmanagement
-    tag: master-impel-ref-cca889b
+    tag: filebased-downsync-final-1-38b62d1
   db-read-url-enabled: true
   db-read-url-enabled-2: false
   downsync-separate-services-enabled: false
@@ -416,10 +443,10 @@ product:
     dbMigration:
       image:
         repository: egovio/product-db
-        tag: customize-2.1-product-4c59c40
+        tag: customize-2.1-product-dbc6a01
   image:
     repository: egovio/product
-    tag: customize-2.1-product-4c59c40
+    tag: customize-2.1-product-dbc6a01
   central-instance-build: true
   central-instance-enabled: true
   db-read-url-enabled: true
@@ -502,10 +529,10 @@ stock:
     dbMigration:
       image:
         repository: egovio/stock-db
-        tag: nigeria-go-deep-2-stock-fcab257
+        tag: customize-2.1-stock-73ee75b
   image:
     repository: egovio/stock
-    tag: nigeria-go-deep-2-stock-fcab257
+    tag: customize-2.1-stock-73ee75b
   spring-datasource-tomcat-max-active: "2"
   server-tomcat-max-threads: "10"
   central-instance-build: true
@@ -551,10 +578,10 @@ service-request:
     dbMigration:
       image:
         repository: egovio/service-request-db
-        tag: master-8ddfc8a
+        tag: master-1ffeec1
   image:
     repository: egovio/service-request
-    tag: master-8ddfc8a
+    tag: master-1ffeec1
   central-instance-build: true
   central-instance-enabled: true
   heap: "-Xmx512m -Xms256m"
@@ -569,6 +596,7 @@ service-request:
   memory_limits: 768Mi
 
 egov-hrms:
+  spring-data-redis-port: "6379"
   kafka-topics-hrms-email-notification: "hcm22-hrms-send-email-notification"
   extraEnv:
     app: |
@@ -632,7 +660,7 @@ egov-indexer-namibia:
     gatewayService: gateway-hcm22
   image:
     repository: egovio/egov-indexer
-    tag: indexer-17-searchBody-aefd92b
+    tag: indexer-17-searchBody-1799f17903-57
   kafka-consumer-group-id: "hcm22-egov-indexer-consumer-grp-namibia"
   heap: "-Xmx1536m -Xms1024m"
   replicas: "0"
@@ -648,7 +676,7 @@ egov-indexer-namibia:
     dbMigration:
       image:
         repository: egovio/egov-indexer-db
-        tag: indexer-17-searchBody-aefd92b
+        tag: indexer-17-searchBody-1799f17903-57
     gitSync:
       repo: "git@github.com:HCM-BAUCHI/health-campaign-config"        ##### Change repo url with Your fork Repo url
       branch: "PROD"                                      ##### Change repo branch with Your fork Repo branch
@@ -764,10 +792,10 @@ project-factory:
     dbMigration:
       image:
         repository: "project-factory-db"
-        tag: master-ekfrazo-fc8b6be
+        tag: master-32ff216
   image:
     repository: egovio/project-factory
-    tag: master-ekfrazo-fc8b6be
+    tag: master-32ff216
   central-instance-enabled: false
   central-instance-build: true
   heap: "-Xmx2048m -Xms512m"
@@ -893,10 +921,10 @@ excel-ingestion:
     dbMigration:
       image:
         repository: egovio/excel-ingestion-db
-        tag: master-ekfrazo-32cf9ce
+        tag: master-d673cfa
   image:
     repository: egovio/excel-ingestion
-    tag: master-ekfrazo-32cf9ce
+    tag: master-d673cfa
   group-id: "hcm22-egov-excel-ingestion"
   central-instance-build: true
   central-instance-enabled: true
@@ -947,10 +975,10 @@ health-attendance:
     dbMigration:
       image:
         repository: egovio/health-attendance-db
-        tag: attendance-staff-deenrollment-fix-8b590d8
+        tag: nigeria-go-deep-6680733
   image:
     repository: egovio/health-attendance
-    tag: attendance-staff-deenrollment-fix-8b590d8
+    tag: nigeria-go-deep-6680733
   central-instance-build: true
   central-instance-enabled: true
   java-enable-debug: false
@@ -1000,10 +1028,10 @@ health-muster-roll:
     dbMigration:
       image:
         repository: egovio/health-muster-roll-db
-        tag: nigeria-go-deep-report-fix-adaa688
+        tag: nigeria-go-deep-7fe8703
   image:
     repository: egovio/health-muster-roll
-    tag: nigeria-go-deep-report-fix-adaa688
+    tag: nigeria-go-deep-7fe8703
   central-instance-build: true
   central-instance-enabled: true
   java-enable-debug: false
@@ -1038,10 +1066,10 @@ health-expense:
     dbMigration:
       image:
         repository: egovio/health-expense-db
-        tag: nigeria-go-deep-payments-expense-15b5a23
+        tag: master-f6da516
   image:
     repository: egovio/health-expense
-    tag: nigeria-go-deep-payments-expense-15b5a23
+    tag: master-f6da516
   central-instance-build: true
   central-instance-enabled: true
   expense-kafka-tenant-id-pattern: "(namibia)-"
@@ -1061,6 +1089,8 @@ health-expense:
     maxReplicas: 2
 
 worker-registry:
+  worker-registry-state-level-tenant-id: "namibia"
+  tenant-state-level-tenant-id-mappings: ""
   spring-datasource-tomcat-max-active: "2"
   server-tomcat-max-threads: "10"
   namespace: hcm22
@@ -1169,10 +1199,10 @@ pgr-services:
     dbMigration:
       image:
         repository: egovio/pgr-services-db
-        tag: master-0590cb7
+        tag: master-7ce35df
   image:
     repository: egovio/pgr-services
-    tag: master-0590cb7
+    tag: master-7ce35df
   central-instance-build: true
   central-instance-enabled: true
   heap: "-Xmx512m -Xms128m"
@@ -1247,10 +1277,10 @@ beneficiary-idgen:
     dbMigration:
       image:
         repository: egovio/beneficiary-idgen-db
-        tag: beneficiary-idgen-central-instance-a8d144a
+        tag: beneficiary-igden-tenant-specific-d5d2336
   image:
     repository: egovio/beneficiary-idgen
-    tag: beneficiary-idgen-central-instance-mdms-6b8ad7c
+    tag: beneficiary-igden-tenant-specific-d5d2336
   spring-datasource-tomcat-max-active: "2"
   server-tomcat-max-threads: "10"
   heap: "-Xmx512m -Xms384m"
