@@ -139,6 +139,14 @@ transformer:
   transformer-consumer-side-effect-enabled: "false"
 
 egov-enc-service:
+  initContainers:
+    dbMigration:
+      image:
+        repository: egovio/egov-enc-service-db
+        tag: central-instance-tracerNew-eb7ff05
+  image:
+    repository: egovio/egov-enc-service
+    tag: central-instance-tracerNew-eb7ff05
   secret-name: "egov-enc-service"
   namespace: "namibia"
   heap: "-Xmx512m -Xms512m"
