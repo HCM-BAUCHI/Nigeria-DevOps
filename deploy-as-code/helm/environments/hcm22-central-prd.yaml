@@ -39,8 +39,9 @@ household:
   central-instance-build: true
   central-instance-enabled: true
   heap: "-Xmx1024m -Xms512m"
+  replicas: "0"
   hpa:
-    enabled: true
+    enabled: false
     minReplicas: 2
     maxReplicas: 8
   cpu_requests: 300m
@@ -74,8 +75,9 @@ household-referral:
     dbMigration:
       enabled: false
   heap: "-Xmx1536m -Xms768m"
+  replicas: "0"
   hpa:
-    enabled: true
+    enabled: false
     minReplicas: 3
     maxReplicas: 11
   cpu_requests: 300m
@@ -107,8 +109,9 @@ individual:
   central-instance-build: true
   central-instance-enabled: true
   heap: "-Xmx1g -Xms512m"
+  replicas: "0"
   hpa:
-    enabled: true
+    enabled: false
     minReplicas: 6
     maxReplicas: 8
   cpu_requests: 300m
@@ -150,8 +153,9 @@ individual-referral:
     dbMigration:
       enabled: false
   heap: "-Xmx1536m -Xms768m"
+  replicas: "0"
   hpa:
-    enabled: true
+    enabled: false
     minReplicas: 3
     maxReplicas: 11
   cpu_requests: 300m
@@ -192,8 +196,9 @@ project:
   central-instance-build: true
   central-instance-enabled: true
   heap: "-Xmx1g -Xms512m"
+  replicas: "0"
   hpa:
-    enabled: true
+    enabled: false
     minReplicas: 2
     maxReplicas: 8
   cpu_requests: 300m
@@ -228,10 +233,10 @@ project-referral:
   initContainers:
     dbMigration:
       enabled: false
-  replicas: 2
   heap: "-Xmx1536m -Xms768m"
+  replicas: "0"
   hpa:
-    enabled: true
+    enabled: false
     minReplicas: 3
     maxReplicas: 11
   cpu_requests: 200m
@@ -266,10 +271,10 @@ referralmanagement:
   downsync-services-enabled: true
   central-instance-build: true
   central-instance-enabled: true
-  replicas: 2
   heap: "-Xmx1536m -Xms768m"
+  replicas: "0"
   hpa:
-    enabled: true
+    enabled: false
     minReplicas: 3
     maxReplicas: 11
   cpu_requests: 300m
@@ -334,8 +339,9 @@ product:
   central-instance-enabled: true
   db-read-url-enabled: true
   heap: "-Xmx512m -Xms256m"
+  replicas: "0"
   hpa:
-    enabled: true
+    enabled: false
     minReplicas: 2
     maxReplicas: 7
   cpu_requests: 400m
@@ -366,8 +372,9 @@ facility:
   central-instance-build: true
   central-instance-enabled: true
   heap: "-Xmx512m -Xms256m"
+  replicas: "0"
   hpa:
-    enabled: true
+    enabled: false
     minReplicas: 2
     maxReplicas: 8
   cpu_requests: 200m
@@ -408,8 +415,9 @@ stock:
   central-instance-build: true
   central-instance-enabled: true
   heap: "-Xmx512m -Xms256m"
+  replicas: "0"
   hpa:
-    enabled: true
+    enabled: false
     minReplicas: 2
     maxReplicas: 6
   cpu_requests: 200m
@@ -446,8 +454,9 @@ service-request:
   central-instance-build: true
   central-instance-enabled: true
   heap: "-Xmx512m -Xms256m"
+  replicas: "0"
   hpa:
-    enabled: true
+    enabled: false
     minReplicas: 2
     maxReplicas: 5
   cpu_requests: 200m
@@ -472,8 +481,9 @@ egov-hrms:
     repository: egovio/egov-hrms
     tag: customize-2.1-hrms-88d374c
   heap: "-Xmx1024m -Xms512m"
+  replicas: "0"
   hpa:
-    enabled: true
+    enabled: false
     minReplicas: 2
     maxReplicas: 8
   cpu_requests: 200m
@@ -513,8 +523,9 @@ egov-indexer-namibia:
     tag: indexer-17-searchBody-aefd92b
   kafka-consumer-group-id: "hcm22-egov-indexer-consumer-grp-namibia"
   heap: "-Xmx1536m -Xms1024m"
+  replicas: "0"
   hpa:
-    enabled: true
+    enabled: false
     minReplicas: 1
     maxReplicas: 4
   cpu_requests: 300m
@@ -540,8 +551,9 @@ egov-persister-namibia:
     tag: master-perf-fe334d2
   kafka-consumer-group-id: "hcm22-egov-infra-persist-namibia"
   heap: "-Xmx1536m -Xms1024m"
+  replicas: "0"
   hpa:
-    enabled: true
+    enabled: false
     minReplicas: 1
     maxReplicas: 4
   cpu_requests: 300m
@@ -561,9 +573,9 @@ gateway-hcm22:
   image:
     repository: egovio/gateway
     tag: customize-2.1-gateway-dc34e2b
-  replicas: 1
+  replicas: "0"
   hpa:
-    enabled: true
+    enabled: false
     minReplicas: 2
     maxReplicas: 5
   custom-filter-property: "false"
