@@ -40,7 +40,7 @@ cluster-configs:
 
     egov-notification-push:
       name: egov-notification-push
-      namespace: [egov]
+      namespace: [egov, hcm22]
 
   secrets:
     db: 
@@ -52,7 +52,7 @@ cluster-configs:
       name: egov-notification-sms
 
     egov-notification-push:
-      namespace: egov
+      namespace: [egov, hcm22]
       name: egov-notification-push
 
     egov-filestore:

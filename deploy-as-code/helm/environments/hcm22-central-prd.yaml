@@ -1200,10 +1200,11 @@ egov-notification-push:
     dbMigration:
       image:
         repository: egovio/egov-notification-push-db
-        tag: nigeria-go-deep-push-notification-batch-00fb53d
+        tag: nigeria-go-deep-push-notification-batch-559f031
   image:
     repository: egovio/egov-notification-push
-    tag: nigeria-go-deep-push-notification-batch-00fb53d
+    tag: nigeria-go-deep-push-notification-batch-559f031
+  push-token-cleanup-schemas: "namibia"
   central-instance-build: true
   central-instance-enabled: true
   heap: "-Xmx1296m -Xms1024m"
