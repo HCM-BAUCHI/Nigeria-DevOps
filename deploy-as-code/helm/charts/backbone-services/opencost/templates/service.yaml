@@ -1,0 +1,24 @@
+# service.yaml
+# Hand-written instead of common.service: that template emits exactly one port,
+# and this pod serves two -- the exporter API/metrics on httpPort and the UI
+# sidecar on ui.port. The ingress targets http-ui; the ServiceMonitor scrapes http.
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ template "common.name" . }}
+  namespace: {{ .Values.namespace }}
+  labels:
+{{- include "common.labels" . | nindent 4 }}
+spec:
+  selector:
+{{- include "common.labels" . | nindent 4 }}
+  ports:
+  - name: http
+    port: {{ .Values.httpPort }}
+    targetPort: {{ .Values.httpPort }}
+    protocol: TCP
+  - name: http-ui
+    port: {{ .Values.ui.port }}
+    targetPort: {{ .Values.ui.port }}
+    protocol: TCP

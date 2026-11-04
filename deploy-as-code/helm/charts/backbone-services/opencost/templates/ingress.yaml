@@ -1,0 +1,55 @@
+# ingress.yaml
+# Hand-written instead of common.ingress: that template can only emit
+# .Values.global.domain as the host, and opencost is served on its own
+# subdomain rather than as a path under the shared DIGIT hostname.
+{{- if .Values.ingress.enabled }}
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: {{ template "common.name" . }}
+  namespace: {{ .Values.namespace }}
+  annotations:
+    kubernetes.io/ingress.class: "nginx"
+    # Nothing else serves this hostname, so this ingress owns its certificate.
+    # cert-manager's ingress-shim creates the Certificate and writes
+    # <host>-tls-certs into this namespace. HTTP-01 solves against this same
+    # ingress, so the DNS record must resolve before the cert can issue.
+    cert-manager.io/cluster-issuer: {{ .Values.ingress.certIssuer }}
+{{- if .Values.ingress.waf.enabled }}
+{{ toYaml .Values.ingress.waf.annotations | nindent 4 }}
+{{- end }}
+{{- if .Values.ingress.auth.enabled }}
+    nginx.ingress.kubernetes.io/auth-signin: https://$host/oauth2/start?rd=$escaped_request_uri
+    nginx.ingress.kubernetes.io/auth-url: https://$host/oauth2/auth
+    nginx.ingress.kubernetes.io/auth-response-headers: |
+      X-Auth-Request-User,
+      X-Auth-Request-Email,
+      X-Auth-Request-Groups
+{{- end }}
+{{- if .Values.ingress.sourceRange }}
+    nginx.ingress.kubernetes.io/whitelist-source-range: {{ .Values.ingress.sourceRange | quote }}
+{{- end }}
+{{- if .Values.ingress.additionalAnnotations }}
+{{ tpl .Values.ingress.additionalAnnotations . | nindent 4 }}
+{{- end }}
+  labels:
+{{- include "common.labels" . | nindent 4 }}
+spec:
+  ingressClassName: nginx
+  rules:
+  - host: {{ .Values.ingress.host }}
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: {{ template "common.name" . }}
+            port:
+              number: {{ .Values.ui.port }}
+  tls:
+  - hosts:
+    - {{ .Values.ingress.host }}
+    secretName: {{ .Values.ingress.host }}-tls-certs
+{{- end }}
