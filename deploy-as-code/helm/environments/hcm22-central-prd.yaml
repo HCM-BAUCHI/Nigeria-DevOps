@@ -328,9 +328,12 @@ project-referral:
         value: "hcm22-error-details-indexer-topic"
 
 referralmanagement:
-  egov-enc-state-level-tenant-ids: "namibia"
+  egov-enc-state-level-tenant-ids: "ba,kd,kb,jg,namibia"
   egov-enc-tenant-hosts:
     namibia: egov-enc-service-namibia
+    kd: egov-enc-service-kaduna
+    kb: egov-enc-service-kebbi-azm
+    jg: egov-enc-service-jigawa
   referralmanagement-relationship-validation: "false"
   downsync-pregen-enabled: "false"
   downsync-storage-backend: "s3"
@@ -1091,7 +1094,7 @@ health-expense:
     maxReplicas: 2
 
 worker-registry:
-  worker-registry-state-level-tenant-id: "namibia"
+  worker-registry-state-level-tenant-id: "ba"
   tenant-state-level-tenant-id-mappings: ""
   spring-datasource-tomcat-max-active: "2"
   server-tomcat-max-threads: "10"
