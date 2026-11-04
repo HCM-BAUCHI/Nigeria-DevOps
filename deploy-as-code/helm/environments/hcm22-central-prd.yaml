@@ -38,10 +38,10 @@ household:
     dbMigration:
       image:
         repository: egovio/household-db
-        tag: customize-2.1-household-5ef888f
+        tag: customize-2.2-household-e9340bc
   image:
     repository: egovio/household
-    tag: customize-2.1-household-5ef888f
+    tag: customize-2.2-household-e9340bc
   spring-datasource-tomcat-max-active: "2"
   server-tomcat-max-threads: "10"
   central-instance-build: true
@@ -82,7 +82,7 @@ household-referral:
   kafka-consumer-group-id: "hcm22-health-household"
   image:
     repository: egovio/household
-    tag: customize-2.1-household-5ef888f
+    tag: customize-2.2-household-e9340bc
   spring-datasource-tomcat-max-active: "2"
   db-read-url-enabled: true
   db-read-url-enabled-2: false
@@ -126,10 +126,10 @@ individual:
     dbMigration:
       image:
         repository: egovio/individual-db
-        tag: customize-2.1-individual-74a073b
+        tag: customize-2.2-individual-d791346
   image:
     repository: egovio/individual
-    tag: customize-2.1-individual-74a073b
+    tag: customize-2.2-individual-d791346
   central-instance-build: true
   central-instance-enabled: true
   heap: "-Xmx1g -Xms512m"
@@ -174,7 +174,7 @@ individual-referral:
   kafka-consumer-group-id: "hcm22-health-individual"
   image:
     repository: egovio/individual
-    tag: customize-2.1-individual-74a073b
+    tag: customize-2.2-individual-d791346
   spring-datasource-tomcat-max-active: "2"
   server-tomcat-max-threads: "10"
   central-instance-build: true
@@ -239,10 +239,10 @@ project:
     dbMigration:
       image:
         repository: egovio/project-db
-        tag: customize-2.1-project-1-eec20b5
+        tag: customize-2.2-project-a639b73
   image:
     repository: egovio/project
-    tag: customize-2.1-project-1-eec20b5
+    tag: customize-2.2-project-a639b73
   central-instance-build: true
   central-instance-enabled: true
   heap: "-Xmx1g -Xms512m"
@@ -255,7 +255,7 @@ project:
   memory_requests: 1.25Gi
   cpu_limits: 400m
   memory_limits: 1.5Gi
-  project-task-no-resource-validation-status: "ADMINISTRATION_FAILED,BENEFICIARY_REFUSED,CLOSED_HOUSEHOLD,NOT_ADMINISTERED,BENEFICIARY_DIED,BENEFICIARY_MIGRATED,BENEFICIARY_ABSENT,BENEFICIARY_INELIGIBLE,INELIGIBLE"
+  project-task-no-resource-validation-status: "ADMINISTRATION_FAILED,BENEFICIARY_REFUSED,CLOSED_HOUSEHOLD,NOT_ADMINISTERED,BENEFICIARY_DIED,BENEFICIARY_MIGRATED,BENEFICIARY_ABSENT,BENEFICIARY_INELIGIBLE,INELIGIBLE,VACCINATED_ELSEWHERE"
   tracer-request-logging-enabled: "true"
   spring-datasource-tomcat-max-active: "2"
   server-tomcat-max-threads: "10"
@@ -295,7 +295,7 @@ project-referral:
   kafka-consumer-group-id: "hcm22-health-project"
   image:
     repository: egovio/project
-    tag: customize-2.1-project-1-eec20b5
+    tag: customize-2.2-project-a639b73
   spring-datasource-tomcat-max-active: "2"
   server-tomcat-max-threads: "10"
   central-instance-build: true
@@ -313,7 +313,7 @@ project-referral:
   memory_requests: 1.5Gi
   cpu_limits: 300m
   memory_limits: 2Gi
-  project-task-no-resource-validation-status: "ADMINISTRATION_FAILED,BENEFICIARY_REFUSED,CLOSED_HOUSEHOLD,NOT_ADMINISTERED,BENEFICIARY_DIED,BENEFICIARY_MIGRATED,BENEFICIARY_ABSENT,BENEFICIARY_INELIGIBLE,INELIGIBLE"
+  project-task-no-resource-validation-status: "ADMINISTRATION_FAILED,BENEFICIARY_REFUSED,CLOSED_HOUSEHOLD,NOT_ADMINISTERED,BENEFICIARY_DIED,BENEFICIARY_MIGRATED,BENEFICIARY_ABSENT,BENEFICIARY_INELIGIBLE,INELIGIBLE,VACCINATED_ELSEWHERE"
   extraEnv:
     app: |
       - name: TRACER_ERRORSPUBLISH
@@ -373,10 +373,10 @@ referralmanagement:
     dbMigration:
       image:
         repository: egovio/referralmanagement-db
-        tag: filebased-downsync-final-1-38b62d1
+        tag: customize-2.2-referralmanagement-9f22ffb
   image:
     repository: egovio/referralmanagement
-    tag: filebased-downsync-final-1-38b62d1
+    tag: customize-2.2-referralmanagement-9f22ffb
   db-read-url-enabled: true
   db-read-url-enabled-2: false
   downsync-separate-services-enabled: false
@@ -448,10 +448,10 @@ product:
     dbMigration:
       image:
         repository: egovio/product-db
-        tag: customize-2.1-product-dbc6a01
+        tag: customize-2.2-product-1544b08
   image:
     repository: egovio/product
-    tag: customize-2.1-product-dbc6a01
+    tag: customize-2.2-product-1544b08
   central-instance-build: true
   central-instance-enabled: true
   db-read-url-enabled: true
@@ -483,10 +483,10 @@ facility:
     dbMigration:
       image:
         repository: egovio/facility-db
-        tag: master-d673cfa
+        tag: customize-2.2-base-3fc47f9
   image:
     repository: egovio/facility
-    tag: master-d673cfa
+    tag: customize-2.2-base-3fc47f9
   spring-datasource-tomcat-max-active: "2"
   server-tomcat-max-threads: "10"
   central-instance-build: true
@@ -534,10 +534,10 @@ stock:
     dbMigration:
       image:
         repository: egovio/stock-db
-        tag: customize-2.1-stock-73ee75b
+        tag: customize-2.2-stock-068de7e
   image:
     repository: egovio/stock
-    tag: customize-2.1-stock-73ee75b
+    tag: customize-2.2-stock-068de7e
   spring-datasource-tomcat-max-active: "2"
   server-tomcat-max-threads: "10"
   central-instance-build: true
@@ -583,10 +583,10 @@ service-request:
     dbMigration:
       image:
         repository: egovio/service-request-db
-        tag: master-1ffeec1
+        tag: customize-2.2-base-3fc47f9
   image:
     repository: egovio/service-request
-    tag: master-1ffeec1
+    tag: customize-2.2-base-3fc47f9
   central-instance-build: true
   central-instance-enabled: true
   heap: "-Xmx512m -Xms256m"
@@ -619,10 +619,10 @@ egov-hrms:
     dbMigration:
       image:
         repository: egovio/egov-hrms-db
-        tag: customize-2.1-hrms-88d374c
+        tag: customize-2.2-hrms-1664fc7
   image:
     repository: egovio/egov-hrms
-    tag: customize-2.1-hrms-88d374c
+    tag: customize-2.2-hrms-1664fc7
   heap: "-Xmx1024m -Xms512m"
   replicas: 1
   hpa:
@@ -797,10 +797,10 @@ project-factory:
     dbMigration:
       image:
         repository: "project-factory-db"
-        tag: master-32ff216
+        tag: customize-2.2-base-3fc47f9
   image:
     repository: egovio/project-factory
-    tag: master-32ff216
+    tag: customize-2.2-base-3fc47f9
   central-instance-enabled: false
   central-instance-build: true
   heap: "-Xmx2048m -Xms512m"
@@ -891,10 +891,10 @@ boundary-management:
     dbMigration:
       image:
         repository: egovio/boundary-management-db
-        tag: master-b912a1c
+        tag: customize-2.2-base-3fc47f9
   image:
     repository: egovio/boundary-management
-    tag: master-b912a1c
+    tag: customize-2.2-base-3fc47f9
   central-instance-build: true
   central-instance-enabled: true
   java-enable-debug: false
@@ -926,10 +926,10 @@ excel-ingestion:
     dbMigration:
       image:
         repository: egovio/excel-ingestion-db
-        tag: master-d673cfa
+        tag: customize-2.2-base-3fc47f9
   image:
     repository: egovio/excel-ingestion
-    tag: master-d673cfa
+    tag: customize-2.2-base-3fc47f9
   group-id: "hcm22-egov-excel-ingestion"
   central-instance-build: true
   central-instance-enabled: true
@@ -1116,10 +1116,10 @@ worker-registry:
     dbMigration:
       image:
         repository: egovio/worker-registry-db
-        tag: customize-2.1-worker-registry-ed6e560
+        tag: customize-2.2-worker-registry-62c5270
   image:
     repository: egovio/worker-registry
-    tag: customize-2.1-worker-registry-ed6e560
+    tag: customize-2.2-worker-registry-62c5270
   central-instance-build: true
   central-instance-enabled: true
   central-instance-name: egov
@@ -1147,10 +1147,10 @@ health-notification-service:
     dbMigration:
       image:
         repository: egovio/health-notification-service-db
-        tag: customize-2.1-health-notification-service-d45063b
+        tag: customize-2.2-health-notification-service-99a138e
   image:
     repository: egovio/health-notification-service
-    tag: customize-2.1-health-notification-service-d45063b
+    tag: customize-2.2-health-notification-service-99a138e
   central-instance-build: true
   central-instance-enabled: true
   heap: "-Xmx1024m -Xms512m"
@@ -1204,10 +1204,10 @@ pgr-services:
     dbMigration:
       image:
         repository: egovio/pgr-services-db
-        tag: master-7ce35df
+        tag: customize-2.2-base-3fc47f9
   image:
     repository: egovio/pgr-services
-    tag: master-7ce35df
+    tag: customize-2.2-base-3fc47f9
   central-instance-build: true
   central-instance-enabled: true
   heap: "-Xmx512m -Xms128m"
@@ -1236,10 +1236,10 @@ egov-notification-push:
     dbMigration:
       image:
         repository: egovio/egov-notification-push-db
-        tag: nigeria-go-deep-push-notification-batch-559f031
+        tag: customize-2.2-push-e1e36b8
   image:
     repository: egovio/egov-notification-push
-    tag: nigeria-go-deep-push-notification-batch-559f031
+    tag: customize-2.2-push-e1e36b8
   push-token-cleanup-schemas: "namibia"
   central-instance-build: true
   central-instance-enabled: true
