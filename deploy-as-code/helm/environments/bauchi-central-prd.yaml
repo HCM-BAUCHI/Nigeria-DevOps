@@ -1865,7 +1865,7 @@ referralmanagement:
     tag: master-impel-ref-cca889b
   db-read-url-enabled: true
   db-read-url-enabled-2: false
-  downsync-services-enabled: true
+  downsync-separate-services-enabled: true
   central-instance-build: true
   central-instance-enabled: true
   replicas: 2

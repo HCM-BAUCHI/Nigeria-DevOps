@@ -28,7 +28,7 @@ healthChecks:
   livenessProbePath: "/referralmanagement/health"
   readinessProbePath: "/referralmanagement/health"
 appType: "java-spring"
-downsync-services-enabled: false
+downsync-separate-services-enabled: false
 heap: "-Xmx192m -Xms192m"
 java-args: ""
 persist-yml-path: "file:///work-dir/health-campaign-config/egov-persister/referral-management-persister.yml"
@@ -182,7 +182,7 @@ env: |
         key: product
   - name: EGOV_SEARCH_PRODUCT_VARIANT_URL
     value: "/product/variant/v1/_search"
-  {{- if index .Values "downsync-services-enabled" }}
+  {{- if index .Values "downsync-separate-services-enabled" }}
   - name: EGOV_PROJECT_HOST
     valueFrom:
       configMapKeyRef:

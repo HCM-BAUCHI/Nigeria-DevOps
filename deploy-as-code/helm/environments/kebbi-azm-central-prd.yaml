@@ -244,7 +244,7 @@ project-referral:
 
 referralmanagement:
   replicas: "0"
-  downsync-services-enabled: true
+  downsync-separate-services-enabled: true
   central-instance-build: true
   central-instance-enabled: false
   heap: "-Xmx1536m -Xms768m"

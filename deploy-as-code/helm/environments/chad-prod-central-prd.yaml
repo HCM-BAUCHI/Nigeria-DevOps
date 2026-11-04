@@ -406,7 +406,7 @@ project-referral:
   project-location-capture-consumer-bulk-create-topic: chad-save-location-capture-project-bulk-health-topic
 
 referralmanagement:
-  downsync-services-enabled: true
+  downsync-separate-services-enabled: true
   central-instance-build: true
   central-instance-enabled: false
   heap: "-Xmx1536m -Xms768m"
