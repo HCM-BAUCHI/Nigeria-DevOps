@@ -29,6 +29,7 @@ appType: "java-spring"
 tracing-enabled: true
 heap: "-Xmx192m -Xms192m"
 java-args: ""
+push-token-cleanup-schemas: ""
 
 # Additional Container Envs
 env: |
@@ -75,9 +76,14 @@ env: |
     valueFrom:
       secretKeyRef:
         name: egov-notification-push                                                                                                                                                                                       
-        key: fcm-service-account-key-json
-  - name: FCM_BATCH_SIZE
-    value: "500"
+        key: fcm-service-account-key-json-list
+  - name: FCM_TENANT_PROJECT_MAP_JSON
+    valueFrom:
+      configMapKeyRef:
+        name: egov-notification-push
+        key: fcm-tenant-project-map-json
+  - name: PUSH_TOKEN_CLEANUP_SCHEMAS
+    value: {{ index .Values "push-token-cleanup-schemas" | quote }}
   - name: STATE_LEVEL_TENANT_ID
     valueFrom:
       configMapKeyRef:
