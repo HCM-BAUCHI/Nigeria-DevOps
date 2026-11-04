@@ -126,6 +126,9 @@ cluster-configs:
         hcm22:
           db-schema-names: "namibia"
           kafka-tenant-id-pattern: "(namibia)-"
+        namibia:
+          state-level-tenant-id: "namibia"
+          egov-state-level-tenant-id: "namibia"
         borno:
           egov-state-level-tenant-id: "bo"
           health-expense-borno: "http://health-expense.borno:8080/"
@@ -160,6 +163,7 @@ cluster-configs:
         egov-enc-service-kaduna: "http://egov-enc-service.kaduna:8080/"
         egov-enc-service-jigawa: "http://egov-enc-service.jigawa:8080/"
         egov-enc-service-kebbi-azm: "http://egov-enc-service.kebbi-azm:8080/"
+        egov-enc-service-namibia: "http://egov-enc-service.namibia:8080/"
         egov-accesscontrol: "http://egov-accesscontrol.egov:8080/"
         egov-user: "http://egov-user.egov:8080/"
         egov-user-egov: "http://egov-user.egov:8080/"
