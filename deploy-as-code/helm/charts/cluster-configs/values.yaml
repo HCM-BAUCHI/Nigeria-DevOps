@@ -55,6 +55,10 @@ cluster-configs:
       namespace: [egov, hcm22]
       name: egov-notification-push
 
+    project-factory:
+      namespace: [egov, hcm22]
+      name: project-factory
+
     egov-filestore:
       namespace: [egov, ondo, chad, chad-prod ]
       name: egov-filestore
