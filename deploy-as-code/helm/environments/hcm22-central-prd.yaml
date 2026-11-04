@@ -40,7 +40,7 @@ household:
   image:
     repository: egovio/household
     tag: HCMPRE-2656-HCM-Services-Household-5717dde
-  spring-datasource-tomcat-max-active: "5"
+  spring-datasource-tomcat-max-active: "2"
   server-tomcat-max-threads: "10"
   central-instance-build: true
   central-instance-enabled: true
@@ -49,7 +49,7 @@ household:
   hpa:
     enabled: false
     minReplicas: 2
-    maxReplicas: 8
+    maxReplicas: 2
   cpu_requests: 300m
   memory_requests: 1Gi
   cpu_limits: 400m
@@ -79,10 +79,10 @@ household-referral:
   image:
     repository: egovio/household
     tag: HCMPRE-2656-HCM-Services-Household-5717dde
-  spring-datasource-tomcat-max-active: "30"
+  spring-datasource-tomcat-max-active: "2"
   db-read-url-enabled: true
   db-read-url-enabled-2: false
-  server-tomcat-max-threads: "40"
+  server-tomcat-max-threads: "10"
   central-instance-build: true
   central-instance-enabled: true
   initContainers:
@@ -92,8 +92,8 @@ household-referral:
   replicas: "0"
   hpa:
     enabled: false
-    minReplicas: 3
-    maxReplicas: 11
+    minReplicas: 2
+    maxReplicas: 2
   cpu_requests: 300m
   memory_requests: 1.5Gi
   cpu_limits: 400m
@@ -131,15 +131,15 @@ individual:
   replicas: "0"
   hpa:
     enabled: false
-    minReplicas: 6
-    maxReplicas: 8
+    minReplicas: 2
+    maxReplicas: 2
   cpu_requests: 300m
   memory_requests: 1Gi
   cpu_limits: 400m
   memory_limits: 1.5Gi
   egov-beneficiary-idgen-integration-enabled: "true"
   individual-beneficiary-id-validation-enabled: "false"
-  spring-datasource-tomcat-max-active: "5"
+  spring-datasource-tomcat-max-active: "2"
   server-tomcat-max-threads: "10"
   extraEnv:
     app: |
@@ -169,8 +169,8 @@ individual-referral:
   image:
     repository: egovio/individual
     tag: customize-2.1-individual-803c4d9
-  spring-datasource-tomcat-max-active: "30"
-  server-tomcat-max-threads: "40"
+  spring-datasource-tomcat-max-active: "2"
+  server-tomcat-max-threads: "10"
   central-instance-build: true
   central-instance-enabled: true
   initContainers:
@@ -180,8 +180,8 @@ individual-referral:
   replicas: "0"
   hpa:
     enabled: false
-    minReplicas: 3
-    maxReplicas: 11
+    minReplicas: 2
+    maxReplicas: 2
   cpu_requests: 300m
   memory_requests: 1.5Gi
   cpu_limits: 400m
@@ -244,14 +244,14 @@ project:
   hpa:
     enabled: false
     minReplicas: 2
-    maxReplicas: 8
+    maxReplicas: 2
   cpu_requests: 300m
   memory_requests: 1.25Gi
   cpu_limits: 400m
   memory_limits: 1.5Gi
   project-task-no-resource-validation-status: "ADMINISTRATION_FAILED,BENEFICIARY_REFUSED,CLOSED_HOUSEHOLD,NOT_ADMINISTERED,BENEFICIARY_DIED,BENEFICIARY_MIGRATED,BENEFICIARY_ABSENT,BENEFICIARY_INELIGIBLE,INELIGIBLE"
   tracer-request-logging-enabled: "true"
-  spring-datasource-tomcat-max-active: "5"
+  spring-datasource-tomcat-max-active: "2"
   server-tomcat-max-threads: "10"
   extraEnv:
     app: |
@@ -290,8 +290,8 @@ project-referral:
   image:
     repository: egovio/project
     tag: customize-nigeria-go-deep-2-project-bb6bfd6
-  spring-datasource-tomcat-max-active: "30"
-  server-tomcat-max-threads: "40"
+  spring-datasource-tomcat-max-active: "2"
+  server-tomcat-max-threads: "10"
   central-instance-build: true
   central-instance-enabled: true
   initContainers:
@@ -301,8 +301,8 @@ project-referral:
   replicas: "0"
   hpa:
     enabled: false
-    minReplicas: 3
-    maxReplicas: 11
+    minReplicas: 2
+    maxReplicas: 2
   cpu_requests: 200m
   memory_requests: 1.5Gi
   cpu_limits: 300m
@@ -354,8 +354,8 @@ referralmanagement:
   replicas: "0"
   hpa:
     enabled: false
-    minReplicas: 3
-    maxReplicas: 11
+    minReplicas: 2
+    maxReplicas: 2
   cpu_requests: 300m
   memory_requests: 1.75Gi
   cpu_limits: 400m
@@ -383,9 +383,9 @@ referralmanagement:
     readinessProbeTimeoutSeconds: 30
     livenessProbePeriodSeconds: 120
     readinessProbePeriodSeconds: 60
-  spring-datasource-tomcat-max-active: "30"
-  server-tomcat-max-threads: "40"
-  spring-datasource-hikari-minimum-idle: "5"
+  spring-datasource-tomcat-max-active: "2"
+  server-tomcat-max-threads: "10"
+  spring-datasource-hikari-minimum-idle: "2"
   spring-datasource-hikari-connection-timeout: "45000"
   spring-datasource-hikari-idle-timeout: "300000"
   spring-datasource-hikari-max-lifetime: "900000"
@@ -428,10 +428,10 @@ product:
   hpa:
     enabled: false
     minReplicas: 2
-    maxReplicas: 7
+    maxReplicas: 2
   cpu_requests: 400m
-  spring-datasource-tomcat-max-active: "25"
-  server-tomcat-max-threads: "200"
+  spring-datasource-tomcat-max-active: "2"
+  server-tomcat-max-threads: "10"
   memory_requests: 768Mi
   cpu_limits: 1
   memory_limits: 1024Mi
@@ -455,7 +455,7 @@ facility:
   image:
     repository: egovio/facility
     tag: master-d673cfa
-  spring-datasource-tomcat-max-active: "5"
+  spring-datasource-tomcat-max-active: "2"
   server-tomcat-max-threads: "10"
   central-instance-build: true
   central-instance-enabled: true
@@ -464,7 +464,7 @@ facility:
   hpa:
     enabled: false
     minReplicas: 2
-    maxReplicas: 8
+    maxReplicas: 2
   cpu_requests: 200m
   memory_requests: 512Mi
   cpu_limits: 300m
@@ -506,7 +506,7 @@ stock:
   image:
     repository: egovio/stock
     tag: nigeria-go-deep-2-stock-fcab257
-  spring-datasource-tomcat-max-active: "5"
+  spring-datasource-tomcat-max-active: "2"
   server-tomcat-max-threads: "10"
   central-instance-build: true
   central-instance-enabled: true
@@ -515,7 +515,7 @@ stock:
   hpa:
     enabled: false
     minReplicas: 2
-    maxReplicas: 6
+    maxReplicas: 2
   cpu_requests: 200m
   memory_requests: 768Mi
   cpu_limits: 300m
@@ -534,6 +534,8 @@ stock:
         value: "hcm22-error-details-indexer-topic"
 
 service-request:
+  spring-datasource-tomcat-max-active: "2"
+  server-tomcat-max-threads: "10"
   extraEnv:
     app: |
       - name: TRACER_ERRORSTOPIC
@@ -560,7 +562,7 @@ service-request:
   hpa:
     enabled: false
     minReplicas: 2
-    maxReplicas: 5
+    maxReplicas: 2
   cpu_requests: 200m
   memory_requests: 512Mi
   cpu_limits: 300m
@@ -593,7 +595,7 @@ egov-hrms:
   hpa:
     enabled: false
     minReplicas: 2
-    maxReplicas: 8
+    maxReplicas: 2
   cpu_requests: 200m
   memory_requests: 1Gi
   cpu_limits: 300m
@@ -603,8 +605,8 @@ egov-hrms:
   java-args: -Dspring.profiles.active=monitoring
   employee-applink: "https://namibia-hcm.digit.org/digit-ui/employee/login"
   java-enable-debug: true
-  spring-datasource-tomcat-max-active: "4"
-  server-tomcat-max-threads: "4"
+  spring-datasource-tomcat-max-active: "2"
+  server-tomcat-max-threads: "10"
 
 #egov-otp:
 #  heap: "-Xmx512m -Xms512m"
@@ -622,6 +624,8 @@ egov-hrms:
 # <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 
 egov-indexer-namibia:
+  spring-datasource-tomcat-max-active: "2"
+  server-tomcat-max-threads: "10"
   namespace: hcm22
   ingress:
     namespace: egov
@@ -634,8 +638,8 @@ egov-indexer-namibia:
   replicas: "0"
   hpa:
     enabled: false
-    minReplicas: 1
-    maxReplicas: 4
+    minReplicas: 2
+    maxReplicas: 2
   cpu_requests: 300m
   memory_requests: 1.5Gi
   cpu_limits: 400m
@@ -691,6 +695,8 @@ egov-indexer-namibia:
         value: "hcm22-stateb-update-pgr-request"
 
 egov-persister-namibia:
+  spring-datasource-tomcat-max-active: "2"
+  server-tomcat-max-threads: "10"
   namespace: hcm22
   image:
     repository: egovio/egov-persister
@@ -700,8 +706,8 @@ egov-persister-namibia:
   replicas: "0"
   hpa:
     enabled: false
-    minReplicas: 1
-    maxReplicas: 4
+    minReplicas: 2
+    maxReplicas: 2
   cpu_requests: 300m
   memory_requests: 1.5Gi
   cpu_limits: 400m
@@ -724,7 +730,7 @@ gateway-hcm22:
   hpa:
     enabled: false
     minReplicas: 2
-    maxReplicas: 5
+    maxReplicas: 2
   custom-filter-property: "false"
   central-instance-enabled: false
   cpu_requests: 200m
@@ -837,9 +843,11 @@ project-factory:
   hpa:
     enabled: false
     minReplicas: 2
-    maxReplicas: 3
+    maxReplicas: 2
 
 boundary-management:
+  spring-datasource-tomcat-max-active: "2"
+  server-tomcat-max-threads: "10"
   namespace: hcm22
   ingress:
     name: hcm22-boundary-management
@@ -865,10 +873,12 @@ boundary-management:
   replicas: "0"
   hpa:
     enabled: false
-    minReplicas: 1
-    maxReplicas: 3
+    minReplicas: 2
+    maxReplicas: 2
 
 excel-ingestion:
+  spring-datasource-tomcat-max-active: "2"
+  server-tomcat-max-threads: "10"
   extraEnv:
     app: |
       - name: TRACER_ERRORDETAILSTOPIC
@@ -913,9 +923,13 @@ excel-ingestion:
   wait-time-of-each-attempt-ms: "20000"
   replicas: "0"
   hpa:
+    minReplicas: 2
+    maxReplicas: 2
     enabled: false
 
 health-attendance:
+  spring-datasource-tomcat-max-active: "2"
+  server-tomcat-max-threads: "10"
   project-staff-attendance-topic: "project-staff-attendance-health-topic"
   namespace: hcm22
   attendance-log-kafka-bulk-create-topic: "hcm22-save-attendance-log-bulk-health"
@@ -962,9 +976,11 @@ health-attendance:
   hpa:
     enabled: false
     minReplicas: 2
-    maxReplicas: 6
+    maxReplicas: 2
 
 health-muster-roll:
+  spring-datasource-tomcat-max-active: "2"
+  server-tomcat-max-threads: "10"
   musterroll-attendance-report-update-topic: "hcm22-attendance-report-update"
   namespace: hcm22
   musterroll-attendance-report-generate-topic: "hcm22-generate-attendance-report"
@@ -999,9 +1015,11 @@ health-muster-roll:
   hpa:
     enabled: false
     minReplicas: 2
-    maxReplicas: 5
+    maxReplicas: 2
 
 health-expense:
+  spring-datasource-tomcat-max-active: "2"
+  server-tomcat-max-threads: "10"
   task-scheduler-bootstrap-tenants: "namibia"
   namespace: hcm22
   extraEnv:
@@ -1039,9 +1057,11 @@ health-expense:
   hpa:
     enabled: false
     minReplicas: 2
-    maxReplicas: 5
+    maxReplicas: 2
 
 worker-registry:
+  spring-datasource-tomcat-max-active: "2"
+  server-tomcat-max-threads: "10"
   namespace: hcm22
   extraEnv:
     app: |
@@ -1073,10 +1093,12 @@ worker-registry:
   replicas: "0"
   hpa:
     enabled: false
-    minReplicas: 1
-    maxReplicas: 3
+    minReplicas: 2
+    maxReplicas: 2
 
 health-notification-service:
+  spring-datasource-tomcat-max-active: "2"
+  server-tomcat-max-threads: "10"
   namespace: hcm22
   kafka-topics-notification-push: "hcm22-egov.core.notification.push"
   kafka-topics-save-final-sms-message: "hcm22-save-final-sms-message"
@@ -1128,10 +1150,12 @@ health-notification-service:
   replicas: "0"
   hpa:
     enabled: false
-    minReplicas: 4
-    maxReplicas: 6
+    minReplicas: 2
+    maxReplicas: 2
 
 pgr-services:
+  spring-datasource-tomcat-max-active: "2"
+  server-tomcat-max-threads: "10"
   namespace: hcm22
   pgr-kafka-tenant-id-pattern: "namibia-"
   ingress:
@@ -1159,9 +1183,11 @@ pgr-services:
   hpa:
     enabled: false
     minReplicas: 2
-    maxReplicas: 5
+    maxReplicas: 2
 
 egov-notification-push:
+  spring-datasource-tomcat-max-active: "2"
+  server-tomcat-max-threads: "10"
   tracer-errors-topic: "hcm22-notification-push-deadletter"
   namespace: hcm22
   kafka-topics-notification-push: "hcm22-egov.core.notification.push"
@@ -1194,8 +1220,8 @@ egov-notification-push:
   replicas: "0"
   hpa:
     enabled: false
-    minReplicas: 4
-    maxReplicas: 6
+    minReplicas: 2
+    maxReplicas: 2
 
 beneficiary-idgen:
   namespace: hcm22
@@ -1223,7 +1249,7 @@ beneficiary-idgen:
   image:
     repository: egovio/beneficiary-idgen
     tag: beneficiary-idgen-central-instance-mdms-6b8ad7c
-  spring-datasource-tomcat-max-active: "5"
+  spring-datasource-tomcat-max-active: "2"
   server-tomcat-max-threads: "10"
   heap: "-Xmx512m -Xms384m"
   cpu_requests: 200m
@@ -1234,4 +1260,4 @@ beneficiary-idgen:
   hpa:
     enabled: false
     minReplicas: 2
-    maxReplicas: 8
+    maxReplicas: 2
