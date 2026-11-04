@@ -746,6 +746,7 @@ gateway-hcm22:
   egov-mixed-mode-endpoints-whitelist: "/workflow/history/v1/_search,/filestore/v1/files/id,/filestore/v1/files,/filestore/v1/files/tagso,/egov-idgen/id/_generate,/egf-masters/financialyears/_search,/user/_search,/billing-service/demand/_dues,/billing-service/bill/_generate,/billing-service/demand/_create,/access/v1/actions/mdms/_get,/egov-user-event/v1/events/_search,/boundary-service/boundary-relationships/_search"
 
 project-factory:
+  schemaNameExclude: [ "chad" ]
   extraEnv:
     app: |
       - name: KAFKA_ATTENDANCE_ATTENDEE_UPDATE_TOPIC
