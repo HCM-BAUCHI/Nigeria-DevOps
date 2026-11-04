@@ -48,6 +48,8 @@ env: |
   - name: PERSISTER_DEADLETTER_REPROCESS_ENABLED
     value: "false"
   - name: PERSISTER_DEADLETTER_REPROCESS_ERROR_TOPIC
-    value: "egov-persister-deadletter-processed-namibia"
+    value: "hcm22-egov-persister-deadletter-processed"
+  - name: PERSISTER_DEAD_LETTER_REPROCESS_ERROR_TOPIC
+    value: "hcm22-egov-persister-deadletter-processed"
   - name: TRACER_ERRORSTOPIC
-    value: "egov-persister-deadletter-namibia"
+    value: "hcm22-egov-persister-deadletter"

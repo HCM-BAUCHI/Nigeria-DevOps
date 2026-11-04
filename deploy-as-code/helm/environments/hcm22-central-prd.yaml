@@ -59,7 +59,9 @@ household:
       - name: TRACER_ERRORSPUBLISH
         value: "true"
       - name: TRACER_ERRORSTOPIC
-        value: "error-details-indexer-topic"
+        value: "hcm22-error-details-indexer-topic"
+      - name: TRACER_ERRORDETAILSTOPIC
+        value: "hcm22-error-details-indexer-topic"
 
 household-referral:
   household-member-cosumer-bulk-create-topic: "hcm22-household-member-consumer-bulk-create-topic"
@@ -101,7 +103,9 @@ household-referral:
       - name: TRACER_ERRORSPUBLISH
         value: "true"
       - name: TRACER_ERRORSTOPIC
-        value: "error-details-indexer-topic"
+        value: "hcm22-error-details-indexer-topic"
+      - name: TRACER_ERRORDETAILSTOPIC
+        value: "hcm22-error-details-indexer-topic"
 
 individual:
   individual-consumer-bulk-create-topic: "hcm22-individual-consumer-bulk-create-topic"
@@ -142,13 +146,15 @@ individual:
       - name: TRACER_ERRORSPUBLISH
         value: "true"
       - name: TRACER_ERRORSTOPIC
-        value: "error-details-indexer-topic"
+        value: "hcm22-error-details-indexer-topic"
       - name: MANAGEMENT_ENDPOINTS_WEB_EXPOSURE_INCLUDE
         value: "health,prometheus,metrics,threaddump,caches"
       - name: MANAGEMENT_ENDPOINT_HEALTH_SHOW_DETAILS
         value: "always"
       - name: SPRING_CACHE_REDIS_ENABLE_STATISTICS
         value: "true"
+      - name: TRACER_ERRORDETAILSTOPIC
+        value: "hcm22-error-details-indexer-topic"
 
 individual-referral:
   individual-consumer-bulk-create-topic: "hcm22-individual-consumer-bulk-create-topic"
@@ -187,13 +193,15 @@ individual-referral:
       - name: TRACER_ERRORSPUBLISH
         value: "true"
       - name: TRACER_ERRORSTOPIC
-        value: "error-details-indexer-topic"
+        value: "hcm22-error-details-indexer-topic"
       - name: MANAGEMENT_ENDPOINTS_WEB_EXPOSURE_INCLUDE
         value: "health,prometheus,metrics,threaddump,caches"
       - name: MANAGEMENT_ENDPOINT_HEALTH_SHOW_DETAILS
         value: "always"
       - name: SPRING_CACHE_REDIS_ENABLE_STATISTICS
         value: "true"
+      - name: TRACER_ERRORDETAILSTOPIC
+        value: "hcm22-error-details-indexer-topic"
 
 project:
   project-task-consumer-bulk-create-topic: "hcm22-save-project-task-bulk-topic"
@@ -250,7 +258,9 @@ project:
       - name: TRACER_ERRORSPUBLISH
         value: "true"
       - name: TRACER_ERRORSTOPIC
-        value: "error-details-indexer-topic"
+        value: "hcm22-error-details-indexer-topic"
+      - name: TRACER_ERRORDETAILSTOPIC
+        value: "hcm22-error-details-indexer-topic"
 
 project-referral:
   project-task-consumer-bulk-create-topic: "hcm22-save-project-task-bulk-topic"
@@ -303,11 +313,13 @@ project-referral:
       - name: TRACER_ERRORSPUBLISH
         value: "true"
       - name: TRACER_ERRORSTOPIC
-        value: "error-details-indexer-topic"
+        value: "hcm22-error-details-indexer-topic"
       - name: PROJECT_LOCATION_CAPTURE_CONSUMER_BULK_CREATE_TOPIC
         value: "hcm22-save-location-capture-project-bulk-health-topic"
       - name: PROJECT_LOCATION_CAPTURE_KAFKA_CREATE_TOPIC
         value: "save-location-capture-project-topic"
+      - name: TRACER_ERRORDETAILSTOPIC
+        value: "hcm22-error-details-indexer-topic"
 
 referralmanagement:
   referralmanagement-sideeffect-consumer-bulk-create-topic: "hcm22-save-side-effect-bulk-topic"
@@ -385,9 +397,15 @@ referralmanagement:
       - name: TRACER_ERRORSPUBLISH
         value: "true"
       - name: TRACER_ERRORSTOPIC
-        value: "error-details-indexer-topic"
+        value: "hcm22-error-details-indexer-topic"
+      - name: TRACER_ERRORDETAILSTOPIC
+        value: "hcm22-error-details-indexer-topic"
 
 product:
+  extraEnv:
+    app: |
+      - name: TRACER_ERRORSTOPIC
+        value: "hcm22-egov-error"
   namespace: hcm22
   ingress:
     name: hcm22-product
@@ -456,13 +474,15 @@ facility:
       - name: TRACER_ERRORSPUBLISH
         value: "true"
       - name: TRACER_ERRORSTOPIC
-        value: "error-details-indexer-topic"
+        value: "hcm22-error-details-indexer-topic"
       - name: MANAGEMENT_ENDPOINTS_WEB_EXPOSURE_INCLUDE
         value: "health,prometheus,metrics,threaddump,caches"
       - name: MANAGEMENT_ENDPOINT_HEALTH_SHOW_DETAILS
         value: "always"
       - name: SPRING_CACHE_REDIS_ENABLE_STATISTICS
         value: "true"
+      - name: TRACER_ERRORDETAILSTOPIC
+        value: "hcm22-error-details-indexer-topic"
 
 stock:
   stock-consumer-bulk-delete-topic: "hcm22-delete-stock-bulk-topic"
@@ -505,13 +525,19 @@ stock:
   extraEnv:
     app: |
       - name: LOGGING_LEVEL_ORG_EGOV
-        value: "DEBUG"
+        value: "INFO"
       - name: TRACER_ERRORSPUBLISH
         value: "true"
       - name: TRACER_ERRORSTOPIC
-        value: "error-details-indexer-topic"
+        value: "hcm22-error-details-indexer-topic"
+      - name: TRACER_ERRORDETAILSTOPIC
+        value: "hcm22-error-details-indexer-topic"
 
 service-request:
+  extraEnv:
+    app: |
+      - name: TRACER_ERRORSTOPIC
+        value: "hcm22-egov-error"
   namespace: hcm22
   ingress:
     name: hcm22-service-request
@@ -541,6 +567,11 @@ service-request:
   memory_limits: 768Mi
 
 egov-hrms:
+  kafka-topics-hrms-email-notification: "hcm22-hrms-send-email-notification"
+  extraEnv:
+    app: |
+      - name: TRACER_ERRORSTOPIC
+        value: "hcm22-egov-error"
   kafka-topics-hrms-update-data: "hcm22-egov-hrms-update"
   namespace: hcm22
   ingress:
@@ -570,7 +601,7 @@ egov-hrms:
   central-instance-build: true
   central-instance-enabled: true
   java-args: -Dspring.profiles.active=monitoring
-  employee-applink: "https://bauchi-hcm.digit.org/digit-ui/employee/login"
+  employee-applink: "https://namibia-hcm.digit.org/digit-ui/employee/login"
   java-enable-debug: true
   spring-datasource-tomcat-max-active: "4"
   server-tomcat-max-threads: "4"
@@ -650,6 +681,14 @@ egov-indexer-namibia:
         value: "hcm22-update-bpa-buildingplan"
       - name: EGOV_INDEXER_BPA_UPDATE_WORKFLOW_TOPIC_NAME
         value: "hcm22-update-bpa-workflow"
+      - name: TRACER_ERRORSTOPIC
+        value: "hcm22-error-details-indexer-topic"
+      - name: EGOV_INDEXER_PERSISTER_CREATE_TOPIC
+        value: "hcm22-save-index-jobs"
+      - name: EGOV_INDEXER_PERSISTER_UPDATE_TOPIC
+        value: "hcm22-update-index-jobs"
+      - name: PGR_UPDATE_TOPIC_NAME
+        value: "hcm22-stateb-update-pgr-request"
 
 egov-persister-namibia:
   namespace: hcm22
@@ -669,13 +708,14 @@ egov-persister-namibia:
   memory_limits: 2Gi
   images:
     - egovio/egov-persister
-  persist-yml-path: "/work-dir/health-campaign-config/egov-persister/namibia"
+  persist-yml-path: "/work-dir/health-campaign-config/egov-persister/namibia,/work-dir/health-campaign-config/egov-persister-ht/namibia"
   initContainers:
     gitSync:
       repo: "git@github.com:HCM-BAUCHI/health-campaign-config"      ##### Change repo url with Your fork Repo url
       branch: "PROD"                                    ##### Change repo branch with Your fork Repo branch
 
 gateway-hcm22:
+  eventlog-topic: "hcm22-springGateway-2-event-log"
   namespace: egov
   image:
     repository: egovio/gateway
@@ -698,3 +738,500 @@ gateway-hcm22:
   spring-data-redis-ratelimit-enabled: "false"
   egov-open-endpoints-whitelist: "/user/v1/_validate,/user/v1/_switch,/user/oauth/token,/user-otp/v1/_send,/otp/v1/_validate,/user/citizen/_create,/localization/messages,/localization/messages/v1/_search,/user/password/nologin/_update,/pgr/servicedefinition/v1/_search,/pgr/servicecategories/v1/_search,/pgr/v1/otp/_send,/pgr-master/receivingmode/v1/_search,/tenant/v1/tenant/_search,/egov-location/boundarys,/egov-location/boundarys/boundariesByBndryTypeNameAndHierarchyTypeName,/pgr-master/service/v1/_search,/egov-location/boundarys/getLocationByLocationName,/pgr-master/OTPConfig/_search,/pgr-master/serviceGroup/v1/_search,/egov-location/boundarys/isshapefileexist,/pgr/services/v1/_search,/hr-masters/hrconfigurations/_search,/collection-services/receipts/_view,/pgr-master/service/v2/_search,/pgr-master/servicedefinition/v1/_search,/citizen-services,/citizen-services/v1/requests/receipt/_create,/citizen-services/v1/pgresponse,/citizen-services/v1/requests/anonymous/_search,/egov-mdms-service/v1/_search,/egov-mdms-service/v1/_get,/egov-mdms-service/v1/_reload,/egov-mdms-service/v1/_reloadobj,/egov-location/boundarys/getshapefile,/egov-indexer/index-operations/_index,/egov-indexer/index-operations/_reload,/egov-mdms-service-test/v1/_search,/egov-mdms-create/v1/_update,/egov-mdms-create/v1/_create,/egov-mdms-service-test/v1/_reload,/filestore/v1/files/url,/eus,/egov-url-shortening,/whatsapp-webhook/messages,/edcr/rest/dcr/downloadfile,/dashboard-ingest/ingest/upload,/egov-searcher/water-services/wateropensearch/_get,/egov-searcher/sewerage-services/sewerageopensearch/_get,/xstate-chatbot/status,/xstate-chatbot/reminder,/nlp-engine/fuzzy/city,/nlp-engine/fuzzy/locality,/user/v1/_validate,/user/v1/_switch,/user/oauth/token,/user-otp/v1/_send,/otp/v1/_validate,/localization/messages,/localization/messages/v1/_search,/user/password/nologin/_update,/tenant/v1/tenant/_search,/egov-location/boundarys,/egov-location/boundarys/boundariesByBndryTypeNameAndHierarchyTypeName,/egov-location/boundarys/getLocationByLocationName,/egov-location/boundarys/isshapefileexist,/hr-masters/hrconfigurations/_search,/egov-mdms-service/v1/_search,/egov-mdms-service/v1/_get,/egov-location/boundarys/getshapefile,/egov-indexer/index-operations/_index,/egov-indexer/index-operations/_reload,/egov-mdms-service-test/v1/_search,/egov-mdms-create/v1/_update,/egov-mdms-create/v1/_create,/egov-mdms-service-test/v1/_reload,/filestore/v1/files/url,/egov-url-shortening,/mdms-v2/schema/v1/_search,/mdms-v2/v2/_search,/mdms-v2/v1/_search,/boundary-service/boundary/_search"
   egov-mixed-mode-endpoints-whitelist: "/workflow/history/v1/_search,/filestore/v1/files/id,/filestore/v1/files,/filestore/v1/files/tagso,/egov-idgen/id/_generate,/egf-masters/financialyears/_search,/user/_search,/billing-service/demand/_dues,/billing-service/bill/_generate,/billing-service/demand/_create,/access/v1/actions/mdms/_get,/egov-user-event/v1/events/_search,/boundary-service/boundary-relationships/_search"
+
+project-factory:
+  extraEnv:
+    app: |
+      - name: KAFKA_ATTENDANCE_ATTENDEE_UPDATE_TOPIC
+        value: "update-attendee"
+      - name: KAFKA_ATTENDANCE_STAFF_UPDATE_TOPIC
+        value: "update-staff"
+      - name: KAFKA_ATTENDANCE_REGISTER_DELETE_TOPIC
+        value: "delete-attendance"
+  namespace: hcm22
+  ingress:
+    name: hcm22-project-factory
+    namespace: egov
+    gatewayService: gateway-hcm22
+  initContainers:
+    dbMigration:
+      image:
+        repository: "project-factory-db"
+        tag: master-ekfrazo-fc8b6be
+  image:
+    repository: egovio/project-factory
+    tag: master-ekfrazo-fc8b6be
+  central-instance-enabled: false
+  central-instance-build: true
+  heap: "-Xmx2048m -Xms512m"
+  cpu_requests: 200m
+  memory_requests: 768Mi
+  cpu_limits: 1000m
+  memory_limits: 2.5Gi
+  groupId: "hcm22-egov-project-factory"
+  logLevel: 'info'
+  maxDebugChar: '2000'
+  mdmsV2SearchEndpoint: 'mdms-v2/v2/_search'
+  mdmsV1SearchEndpoint: 'mdms-v2/v1/_search'
+  defaultLocale: "en_NG"
+  plan-service: plan-service
+  census-service: census-service
+  excel-ingestion-host: excel-ingestion
+  IS_ENVIRONMENT_CENTRAL_INSTANCE: true
+  DB_SCHEMA: public
+  defaultTenantId: ba
+  saveCampaignDetails: "save-campaign-details"
+  updateCampaignDetails: "update-campaign-details"
+  saveProjectCampaignDetailsTopic: "save-project-campaign-details"
+  updateProjectCampaignDetailsTopic: "update-project-campaign-details"
+  startCampaignMappingTopic: "start-campaign-mapping"
+  createResourceDetailsTopic: "create-resource-details"
+  updateResourceDetailsTopic: "update-resource-details"
+  createResourceActivityTopic: "create-resource-activity"
+  updateGeneratedResourceDetailsTopic: "update-generated-resource-details"
+  createGeneratedResourceDetailsTopic: "create-generated-resource-details"
+  savePlanFacilityTopic: "project-factory-save-plan-facility"
+  saveSheetDataTopic: "save-sheet-data"
+  updateSheetDataTopic: "update-sheet-data"
+  saveMappingDataTopic: "save-mapping-data"
+  updateMappingDataTopic: "update-mapping-data"
+  deleteMappingDataTopic: "delete-mapping-data"
+  saveProcessDataTopic: "save-process-data"
+  updateProcessDataTopic: "update-process-data"
+  startAdminConsoleTaskTopic: "start-admin-console-task"
+  startAdminConsoleMappingTaskTopic: "start-admin-console-mapping-task"
+  notificationEmailTopic: "egov.core.notification.email"
+  testTopic: "test-topic-project-factory"
+  hcmProcessingResultTopic: "hcm-processing-result"
+  facilityCreateBatchTopic: "hcm-facility-create-batch"
+  userCreateBatchTopic: "hcm-user-create-batch"
+  mappingBatchTopic: "hcm-mapping-batch"
+  campaignMarkFailedTopic: "hcm-campaign-mark-failed"
+  userMainBoundary: "ADMIN"
+  userMainBoundaryType: "Country"
+  maxResourceCreationAttempts: "200"
+  waitTimeOfEachAttemptMs: "5000"
+  retryTillResourceCreationCompletes: "50"
+  serverTimezone: "UTC"
+  attendanceAttendeeSearchPageSize: "100"
+  attendanceStaffSearchPageSize: "100"
+  centralInstanceTenantIds: "namibia"
+  userKafkaCreateBatchSize: '100'
+  mappingBulkCreateChunkSize: '150'
+  projectBulkCreateChunkSize: '100'
+  projectCreatePaceDelayMs: '100'
+  userWorkerCreateBatchLag: '7'
+  userIndividualConsistencyMaxPollAttempts: '10'
+  userIndividualSearchBatchSize: '150'
+  mappingKafkaBatchSize: '300'
+  projectConfirmRetries: '45'
+  projectBulkCreateConcurrency: '3'
+  command: |
+    - sh
+    - -c
+  args: |
+    - |
+      sed -i 's/--max-old-space-size=3072/--max-old-space-size=2048/g' package.json
+      yarn prod
+  replicas: "0"
+  hpa:
+    enabled: false
+    minReplicas: 2
+    maxReplicas: 3
+
+boundary-management:
+  namespace: hcm22
+  ingress:
+    name: hcm22-boundary-management
+    namespace: egov
+    gatewayService: gateway-hcm22
+  initContainers:
+    dbMigration:
+      image:
+        repository: egovio/boundary-management-db
+        tag: master-b912a1c
+  image:
+    repository: egovio/boundary-management
+    tag: master-b912a1c
+  central-instance-build: true
+  central-instance-enabled: true
+  java-enable-debug: false
+  heap: "-Xmx512m -Xms256m"
+  cpu_requests: 200m
+  memory_requests: 2Gi
+  cpu_limits: 400m
+  memory_limits: 2Gi
+  defaultLocale: 'en_NG'
+  replicas: "0"
+  hpa:
+    enabled: false
+    minReplicas: 1
+    maxReplicas: 3
+
+excel-ingestion:
+  extraEnv:
+    app: |
+      - name: TRACER_ERRORDETAILSTOPIC
+        value: "hcm22-error-details-indexer-topic"
+  namespace: hcm22
+  ingress:
+    name: hcm22-excel-ingestion
+    namespace: egov
+    gatewayService: gateway-hcm22
+  initContainers:
+    dbMigration:
+      image:
+        repository: egovio/excel-ingestion-db
+        tag: master-ekfrazo-32cf9ce
+  image:
+    repository: egovio/excel-ingestion
+    tag: master-ekfrazo-32cf9ce
+  group-id: "hcm22-egov-excel-ingestion"
+  central-instance-build: true
+  central-instance-enabled: true
+  cpu_requests: 1
+  memory_requests: 4072Mi
+  memory_limits: "4072Mi"
+  cpu_limits: "3"
+  heap: -Xms3560m -Xmx3560m
+  egov-mdms-service-host-key: 'mdms-v2'
+  egov-mdms-service-endpoint-key: "mdms-v2/v2/_search"
+  defaultLocale: 'en_NG'
+  excel-row-limit: "20000"
+  central-instance-name: egov
+  project-factory-host: project-factory
+  excel-ingestion-generation-save-topic: "save-generated-file"
+  excel-ingestion-generation-update-topic: "update-generated-file"
+  excel-ingestion-generation-init-topic: "excel-ingestion-generation-init"
+  excel-ingestion-processing-save-topic: "save-processing-file"
+  excel-ingestion-processing-update-topic: "update-processing-file"
+  excel-ingestion-sheet-data-save-topic: "save-sheet-data-temp"
+  excel-ingestion-sheet-data-delete-topic: "delete-sheet-data-temp"
+  excel-ingestion-processing-result-topic: "hcm-processing-result"
+  kafka-tenant-id-pattern: "(namibia)-"
+  java-enable-debug: true
+  wait-time-of-each-attempt-ms: "20000"
+  replicas: "0"
+  hpa:
+    enabled: false
+
+health-attendance:
+  project-staff-attendance-topic: "project-staff-attendance-health-topic"
+  namespace: hcm22
+  attendance-log-kafka-bulk-create-topic: "hcm22-save-attendance-log-bulk-health"
+  attendance-log-kafka-bulk-update-topic: "hcm22-update-attendance-log-bulk-health"
+  organisation-contact-details-update-topic: "hcm22-organisation.contact.details.update"
+  contracts-revision-topic: "hcm22-contracts-revision"
+  ingress:
+    name: hcm22-health-attendance
+    namespace: egov
+    gatewayService: gateway-hcm22
+  spring-kafka-consumer-group-id: "hcm22-egov-attendance-service"
+  db-write-url: true
+  initContainers:
+    dbMigration:
+      image:
+        repository: egovio/health-attendance-db
+        tag: attendance-staff-deenrollment-fix-8b590d8
+  image:
+    repository: egovio/health-attendance
+    tag: attendance-staff-deenrollment-fix-8b590d8
+  central-instance-build: true
+  central-instance-enabled: true
+  java-enable-debug: false
+  heap: "-Xmx512m -Xms256m"
+  cpu_requests: 200m
+  memory_requests: 512Mi
+  cpu_limits: 300m
+  memory_limits: 768Mi
+  egov-mdms-service-host-key: 'mdms-v2'
+  egov-mdms-service-endpoint-key: "/mdms-v2/v1/_search"
+  extraEnv:
+    app: |
+      - name: TRACER_REQUESTLOGGINGENABLED
+        value: "true"
+      - name: TRACER_RESTTEMPLATEDETAILEDLOGGINGENABLED
+        value: "false"
+      - name: TRACER_KAFKAMESSAGELOGGINGENABLED
+        value: "false"
+      - name: JAVA_TOOL_OPTIONS
+        value: "-Xmx512m -Xms256m"
+      - name: TRACER_ERRORSTOPIC
+        value: "hcm22-egov-error"
+  replicas: "0"
+  hpa:
+    enabled: false
+    minReplicas: 2
+    maxReplicas: 6
+
+health-muster-roll:
+  musterroll-attendance-report-update-topic: "hcm22-attendance-report-update"
+  namespace: hcm22
+  musterroll-attendance-report-generate-topic: "hcm22-generate-attendance-report"
+  extraEnv:
+    app: |
+      - name: SPRING_KAFKA_CONSUMER_GROUP_ID
+        value: "hcm22-egov-wms-muster"
+      - name: TRACER_ERRORSTOPIC
+        value: "hcm22-egov-error"
+  ingress:
+    name: hcm22-health-muster-roll
+    namespace: egov
+    gatewayService: gateway-hcm22
+  db-write-url: true
+  initContainers:
+    dbMigration:
+      image:
+        repository: egovio/health-muster-roll-db
+        tag: nigeria-go-deep-report-fix-adaa688
+  image:
+    repository: egovio/health-muster-roll
+    tag: nigeria-go-deep-report-fix-adaa688
+  central-instance-build: true
+  central-instance-enabled: true
+  java-enable-debug: false
+  heap: "-Xmx512m -Xms256m"
+  cpu_requests: 200m
+  memory_requests: 512Mi
+  cpu_limits: 300m
+  memory_limits: 768Mi
+  replicas: "0"
+  hpa:
+    enabled: false
+    minReplicas: 2
+    maxReplicas: 5
+
+health-expense:
+  task-scheduler-bootstrap-tenants: "namibia"
+  namespace: hcm22
+  extraEnv:
+    app: |
+      - name: SPRING_KAFKA_CONSUMER_GROUP_ID
+        value: "hcm22-expense"
+      - name: TRACER_ERRORSTOPIC
+        value: "hcm22-egov-error"
+  ingress:
+    name: hcm22-health-expense
+    namespace: egov
+    gatewayService: gateway-hcm22
+  db-write-url: true
+  initContainers:
+    dbMigration:
+      image:
+        repository: egovio/health-expense-db
+        tag: nigeria-go-deep-payments-expense-15b5a23
+  image:
+    repository: egovio/health-expense
+    tag: nigeria-go-deep-payments-expense-15b5a23
+  central-instance-build: true
+  central-instance-enabled: true
+  expense-kafka-tenant-id-pattern: "(namibia)-"
+  java-enable-debug: false
+  java-args: ""
+  business-workflow-status-map: "{'EXPENSE.WAGES':'false','EXPENSE.PURCHASE':'false','EXPENSE.SUPERVISION':'false','PAYMENTS.BILL':'true','PAYMENTS.BILLDETAILS':'true'}"
+  expense-v2-periodic-billing-enabled: true
+  heap: "-Xmx512m -Xms256m"
+  cpu_requests: 200m
+  memory_requests: 512Mi
+  cpu_limits: 300m
+  memory_limits: 768Mi
+  replicas: "0"
+  hpa:
+    enabled: false
+    minReplicas: 2
+    maxReplicas: 5
+
+worker-registry:
+  namespace: hcm22
+  extraEnv:
+    app: |
+      - name: SPRING_KAFKA_CONSUMER_GROUP_ID
+        value: "hcm22-worker-registry"
+      - name: TRACER_ERRORSTOPIC
+        value: "hcm22-egov-error"
+      - name: TRACER_ERRORDETAILSTOPIC
+        value: "hcm22-error-details-indexer-topic"
+  ingress:
+    name: hcm22-worker-registry
+    namespace: egov
+    gatewayService: gateway-hcm22
+  db-write-url: true
+  initContainers:
+    dbMigration:
+      image:
+        repository: egovio/worker-registry-db
+        tag: customize-2.1-worker-registry-ed6e560
+  image:
+    repository: egovio/worker-registry
+    tag: customize-2.1-worker-registry-ed6e560
+  central-instance-build: true
+  central-instance-enabled: true
+  central-instance-name: egov
+  heap: "-Xmx512m -Xms256m"
+  cpu_requests: 200m
+  memory_requests: 368Mi
+  replicas: "0"
+  hpa:
+    enabled: false
+    minReplicas: 1
+    maxReplicas: 3
+
+health-notification-service:
+  namespace: hcm22
+  kafka-topics-notification-push: "hcm22-egov.core.notification.push"
+  kafka-topics-save-final-sms-message: "hcm22-save-final-sms-message"
+  ingress:
+    name: hcm22-health-notification-service
+    namespace: egov
+    gatewayService: gateway-hcm22
+  kafka-consumer-group-id: "hcm22-health-notification-service"
+  initContainers:
+    dbMigration:
+      image:
+        repository: egovio/health-notification-service-db
+        tag: customize-2.1-health-notification-service-d45063b
+  image:
+    repository: egovio/health-notification-service
+    tag: customize-2.1-health-notification-service-d45063b
+  central-instance-build: true
+  central-instance-enabled: true
+  heap: "-Xmx1024m -Xms512m"
+  cpu_requests: 100m
+  memory_requests: 768Mi
+  cpu_limits: 300m
+  memory_limits: 1296Mi
+  extraEnv:
+    app: |
+      - name: TRACER_ERRORSPUBLISH
+        value: "true"
+      - name: TRACER_ERRORSTOPIC
+        value: "hcm22-egov-error-notification"
+      - name: LOGGING_LEVEL_ORG_EGOV
+        value: "INFO"
+
+#pdf-service:
+#  initContainers:
+#    gitSync:
+#      repo: "git@github.com:HCM-BAUCHI/health-campaign-config"
+#      branch: "PROD"
+#  data-config-urls: "file:///work-dir/health-campaign-config/pdf-service/data-config/health-bill-payment.json"
+#  format-config-urls: "file:///work-dir/health-campaign-config/pdf-service/format-config/health-bill-payment.json"
+
+### Grafana >>>>>>>>>>>>>>>>>>>>
+#grafana:
+  # github:
+  #   allowed_organizations: ["HCM-BAUCHI"]
+  #   role_attribute_path: contains(groups[*], '@egovernments/bihar-devops') && 'Editor' || contains(groups[*], '@egovernments/bihar-mgramseva-uat') && 'Viewer'
+# <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+
+### Prometheus & Alertmanager >>>>>>>>>>>>>>>>>>>>
+  replicas: "0"
+  hpa:
+    enabled: false
+    minReplicas: 4
+    maxReplicas: 6
+
+pgr-services:
+  namespace: hcm22
+  pgr-kafka-tenant-id-pattern: "namibia-"
+  ingress:
+    name: hcm22-pgr-services
+    namespace: egov
+    gatewayService: gateway-hcm22
+  kafka-consumer-group-id: "hcm22-egov-pgr-services"
+  db-write-url: true
+  initContainers:
+    dbMigration:
+      image:
+        repository: egovio/pgr-services-db
+        tag: master-0590cb7
+  image:
+    repository: egovio/pgr-services
+    tag: master-0590cb7
+  central-instance-build: true
+  central-instance-enabled: true
+  heap: "-Xmx512m -Xms128m"
+  cpu_requests: 100m
+  memory_requests: 512Mi
+  cpu_limits: 200m
+  memory_limits: 768Mi
+  replicas: "0"
+  hpa:
+    enabled: false
+    minReplicas: 2
+    maxReplicas: 5
+
+egov-notification-push:
+  tracer-errors-topic: "hcm22-notification-push-deadletter"
+  namespace: hcm22
+  kafka-topics-notification-push: "hcm22-egov.core.notification.push"
+  ingress:
+    name: hcm22-egov-notification-push
+    namespace: egov
+    gatewayService: gateway-hcm22
+  kafka-consumer-group-id: "hcm22-egov-notification-push-group"
+  initContainers:
+    dbMigration:
+      image:
+        repository: egovio/egov-notification-push-db
+        tag: nigeria-go-deep-push-notification-batch-00fb53d
+  image:
+    repository: egovio/egov-notification-push
+    tag: nigeria-go-deep-push-notification-batch-00fb53d
+  central-instance-build: true
+  central-instance-enabled: true
+  heap: "-Xmx1296m -Xms1024m"
+  cpu_requests: 200m
+  memory_requests: 1.5Gi
+  cpu_limits: 600m
+  memory_limits: 2Gi
+  extraEnv:
+    app: |
+      - name: TRACER_ERRORSPUBLISH
+        value: "true"
+      - name: LOGGING_LEVEL_ORG_EGOV
+        value: "INFO"
+  replicas: "0"
+  hpa:
+    enabled: false
+    minReplicas: 4
+    maxReplicas: 6
+
+beneficiary-idgen:
+  namespace: hcm22
+  extraEnv:
+    app: |
+      - name: SPRING_KAFKA_CONSUMER_GROUP_ID
+        value: "hcm22-healthIdGeneration"
+      - name: KAFKA_TOPICS_CONSUMER_BULK_CREATE_TOPIC
+        value: "hcm22-id-gen-consumer-bulk-create-topic"
+      - name: KAFKA_TOPICS_CONSUMER_BULK_UPDATE_TOPIC
+        value: "hcm22-id-gen-consumer-bulk-update-topic"
+      - name: TRACER_ERRORDETAILSTOPIC
+        value: "hcm22-error-details-indexer-topic"
+  ingress:
+    name: hcm22-beneficiary-idgen
+    namespace: egov
+    gatewayService: gateway-hcm22
+  central-instance-build: true
+  central-instance-enabled: true
+  initContainers:
+    dbMigration:
+      image:
+        repository: egovio/beneficiary-idgen-db
+        tag: beneficiary-idgen-central-instance-a8d144a
+  image:
+    repository: egovio/beneficiary-idgen
+    tag: beneficiary-idgen-central-instance-mdms-6b8ad7c
+  spring-datasource-tomcat-max-active: "5"
+  server-tomcat-max-threads: "10"
+  heap: "-Xmx512m -Xms384m"
+  cpu_requests: 200m
+  memory_requests: 512Mi
+  cpu_limits: 300m
+  memory_limits: 1024Mi
+  replicas: "0"
+  hpa:
+    enabled: false
+    minReplicas: 2
+    maxReplicas: 8

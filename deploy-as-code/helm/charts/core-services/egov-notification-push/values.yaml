@@ -96,4 +96,4 @@ env: |
   - name: TRACER_KAFKAMESSAGELOGGINGENABLED
     value: "true"
   - name: TRACER_ERRORSTOPIC
-    value: "notification-push-deadletter"
+    value: {{ index .Values "tracer-errors-topic" | default "notification-push-deadletter" | quote }}
