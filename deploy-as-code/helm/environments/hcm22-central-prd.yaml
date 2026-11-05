@@ -239,10 +239,10 @@ project:
     dbMigration:
       image:
         repository: egovio/project-db
-        tag: customize-2.2-project-a639b73
+        tag: customize-2.2-project-92f35f8
   image:
     repository: egovio/project
-    tag: customize-2.2-project-a639b73
+    tag: customize-2.2-project-92f35f8
   central-instance-build: true
   central-instance-enabled: true
   heap: "-Xmx1g -Xms512m"
@@ -295,7 +295,7 @@ project-referral:
   kafka-consumer-group-id: "hcm22-health-project"
   image:
     repository: egovio/project
-    tag: customize-2.2-project-a639b73
+    tag: customize-2.2-project-92f35f8
   spring-datasource-tomcat-max-active: "2"
   server-tomcat-max-threads: "10"
   central-instance-build: true
@@ -483,10 +483,10 @@ facility:
     dbMigration:
       image:
         repository: egovio/facility-db
-        tag: customize-2.2-base-3fc47f9
+        tag: customize-2.2-base-08eff0c
   image:
     repository: egovio/facility
-    tag: customize-2.2-base-3fc47f9
+    tag: customize-2.2-base-08eff0c
   spring-datasource-tomcat-max-active: "2"
   server-tomcat-max-threads: "10"
   central-instance-build: true
@@ -797,10 +797,10 @@ project-factory:
     dbMigration:
       image:
         repository: "project-factory-db"
-        tag: customize-2.2-base-3fc47f9
+        tag: customize-2.2-base-08eff0c
   image:
     repository: egovio/project-factory
-    tag: customize-2.2-base-3fc47f9
+    tag: customize-2.2-base-08eff0c
   central-instance-enabled: false
   central-instance-build: true
   heap: "-Xmx2048m -Xms512m"
@@ -891,10 +891,10 @@ boundary-management:
     dbMigration:
       image:
         repository: egovio/boundary-management-db
-        tag: customize-2.2-base-3fc47f9
+        tag: customize-2.2-base-08eff0c
   image:
     repository: egovio/boundary-management
-    tag: customize-2.2-base-3fc47f9
+    tag: customize-2.2-base-08eff0c
   central-instance-build: true
   central-instance-enabled: true
   java-enable-debug: false
@@ -926,10 +926,10 @@ excel-ingestion:
     dbMigration:
       image:
         repository: egovio/excel-ingestion-db
-        tag: customize-2.2-base-3fc47f9
+        tag: customize-2.2-base-08eff0c
   image:
     repository: egovio/excel-ingestion
-    tag: customize-2.2-base-3fc47f9
+    tag: customize-2.2-base-08eff0c
   group-id: "hcm22-egov-excel-ingestion"
   central-instance-build: true
   central-instance-enabled: true
