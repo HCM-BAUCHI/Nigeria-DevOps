@@ -111,6 +111,7 @@ transformer:
   health-transformer: "namibia-health-transformer"
   transformer-consumer-error-tracer-topic: "hcm22-error-details-indexer-topic"
   transformer-producer-error-details-index-v1-topic: "namibia-transformed-errors-topic"
+  transformer-error-topic: "namibia-transformer-error-topic"
   transformer-error-skip-error-messages: "UPLOAD_ERROR_FROM_APP"
   transformer-error-skip-error-codes: "DUPLICATE_ENTITY,INDIVIDUAL_ALREADY_MEMBER_OF_HOUSEHOLD,HOUSEHOLD_ALREADY_HAS_HEAD"
   transformer-error-skip-url-contains: "facility,resource"
