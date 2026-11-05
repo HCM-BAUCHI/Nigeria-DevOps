@@ -788,6 +788,8 @@ project-factory:
         value: "update-staff"
       - name: KAFKA_ATTENDANCE_REGISTER_DELETE_TOPIC
         value: "delete-attendance"
+      - name: CAMPAIGN_DELIVERY_CONDITION_TYPES
+        value: "POLIO,IMMUNISATION"
   namespace: hcm22
   ingress:
     name: hcm22-project-factory
@@ -917,6 +919,8 @@ excel-ingestion:
     app: |
       - name: TRACER_ERRORDETAILSTOPIC
         value: "hcm22-error-details-indexer-topic"
+      - name: EXCEL_INGESTION_OUTSIDE_HOUSEHOLD_CAMPAIGN_TYPES
+        value: "POLIO,IMMUNISATION"
   namespace: hcm22
   ingress:
     name: hcm22-excel-ingestion
