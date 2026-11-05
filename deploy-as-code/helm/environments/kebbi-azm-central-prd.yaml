@@ -423,6 +423,9 @@ egov-enc-service:
 transformer:
   replicas: 1
   namespace: "kebbi-azm"
+  image:
+    repository: egovio/transformer
+    tag: customize-2.1-transformer-mh-d71ac1d
   heap: "-Xmx1536m -Xms1536m"
   hpa:
     enabled: true
@@ -496,9 +499,6 @@ transformer:
   transformer-consumer-musterroll-enabled: "false"
   transformer-consumer-service-enabled: "false"
   transformer-consumer-side-effect-enabled: "false"
-  image:
-    repository: egovio/transformer
-    tag: HDDF-5226-c512500
   transformer-producer-bulk-stock-index-updated-v1-topic: "kb-transformer-producer-bulk-stock-index-updated-v1-topic"
   save-individual-topic: "kb-save-individual-topic"
   update-individual-topic: "kb-update-individual-topic"
@@ -537,7 +537,9 @@ transformer:
   expense-bill-detail-create-topic: "kb-expense-bill-detail-create"
   expense-bill-detail-update-topic: "kb-expense-bill-detail-update"
   egov_localization_locale_code: "en_NG"
-  egov-localization-module-name: "hcm-boundary-admin"
+  egov-localization-module-name: "hcm-boundary-"
+  egov-boundary-hierarchy-types: "ADMIN"
+  transformer-producer-push-batch-size: "100"
   transformer-consumer-create-user-action-topic: "kb-save-user-action-project-topic"
   transformer-consumer-update-user-action-topic: "kb-update-user-action-project-topic"
   transformer-producer-user-action-index-v1-topic: "kb-transformer-producer-user-action-index-v1-topic"
