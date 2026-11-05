@@ -335,7 +335,7 @@ referralmanagement:
     kb: egov-enc-service-kebbi-azm
     jg: egov-enc-service-jigawa
   referralmanagement-relationship-validation: "false"
-  downsync-pregen-enabled: "false"
+  downsync-pregen-enabled: "true"
   downsync-storage-backend: "s3"
   ccn:
     enabled: "false"
@@ -415,8 +415,8 @@ referralmanagement:
     readinessProbeTimeoutSeconds: 30
     livenessProbePeriodSeconds: 120
     readinessProbePeriodSeconds: 60
-  spring-datasource-tomcat-max-active: "2"
-  server-tomcat-max-threads: "10"
+  spring-datasource-tomcat-max-active: "12"
+  server-tomcat-max-threads: "40"
   spring-datasource-hikari-minimum-idle: "2"
   spring-datasource-hikari-connection-timeout: "45000"
   spring-datasource-hikari-idle-timeout: "300000"
