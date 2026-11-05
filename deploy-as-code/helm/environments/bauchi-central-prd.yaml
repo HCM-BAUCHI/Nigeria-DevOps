@@ -129,6 +129,7 @@ cluster-configs:
         namibia:
           state-level-tenant-id: "namibia"
           egov-state-level-tenant-id: "namibia"
+          health-expense-calculator-namibia: "http://health-expense-calculator.namibia:8080/"
         borno:
           egov-state-level-tenant-id: "bo"
           health-expense-borno: "http://health-expense.borno:8080/"
@@ -148,6 +149,7 @@ cluster-configs:
           health-expense-calculator-abia: "http://health-expense-calculator.abia:8080/"
           health-expense-kogi: "http://health-expense.kogi:8080/"
           health-expense-calculator-kogi: "http://health-expense-calculator.kogi:8080/"
+          health-expense-calculator-namibia: "http://health-expense-calculator.namibia:8080/"
           server-tomcat-max-connections-referral: "2000"
           server-tomcat-max-threads-referral: "40"
           spring-datasource-tomcat-max-active-referral: "20"
@@ -232,6 +234,7 @@ cluster-configs:
           pgr-services: 'http://pgr-services.hcm22:8080/'
           egov-notification-push: 'http://egov-notification-push.hcm22:8080/'
           beneficiary-idgen: 'http://beneficiary-idgen.hcm22:8080/'
+          health-expense-calculator-namibia: 'http://health-expense-calculator.namibia:8080/'
         hcm22:
           household: 'http://household.hcm22:8080/'
           household-referral: 'http://household-referral.hcm22:8080/'
@@ -255,6 +258,7 @@ cluster-configs:
           pgr-services: 'http://pgr-services.hcm22:8080/'
           egov-notification-push: 'http://egov-notification-push.hcm22:8080/'
           beneficiary-idgen: 'http://beneficiary-idgen.hcm22:8080/'
+          health-expense-calculator: 'http://internal-gateway-scg.egov:8080/'
         borno:
           health-expense-borno: 'http://health-expense.borno:8080/'
           health-expense-calculator-borno: 'http://health-expense-calculator.borno:8080/'
@@ -266,6 +270,7 @@ cluster-configs:
           health-expense-calculator-kogi: 'http://health-expense-calculator.kogi:8080/' 
         egov:
           health-expense-calculator: 'http://internal-gateway-scg.egov:8080/'
+          health-expense-calculator-namibia: 'http://health-expense-calculator.namibia:8080/'
 
     hcm-moz-impl:
       data:

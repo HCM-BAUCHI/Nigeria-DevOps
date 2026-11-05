@@ -173,3 +173,69 @@ digit-ui:
       sub_filter  '<head>' '<head>
       <script src=https://central-instance-assets.s3.af-south-1.amazonaws.com/namibia/globalConfig.js type=text/javascript></script>
       ';"
+
+health-expense-calculator:
+  namespace: namibia
+  service:
+    additionalAnnotations: |
+      zuul/route-host: namibia-hcm.digit.org
+  ingress:
+    name: namibia-health-expense-calculator
+  egov-bill-host-configmap-key: "health-expense"
+  initContainers:
+    dbMigration:
+      image:
+        repository: egovio/health-expense-calculator-db
+        tag: master-94cbb75
+  image:
+    repository: egovio/health-expense-calculator
+    tag: master-94cbb75
+  heap: "-Xmx2048m -Xms1024m"
+  hpa:
+    enabled: true
+    minReplicas: 1
+    maxReplicas: 2
+  cpu_requests: 500m
+  memory_requests: 1.5Gi
+  cpu_limits: 600m
+  memory_limits: 2.5Gi
+  central-instance-build: false
+  tracing-enabled: true
+  java-enable-debug: false
+  spring-kafka-consumer-group-id: "namibia-health-expense-calculator"
+  egov-mdms-service-endpoint-key: "/mdms-v2/v1/_search"
+  report-header-title: "Health Campaign Payment Report"
+  report-date-time-format: "dd/MM/yyyy HH:mm:ss z"
+  is-attendance-approval-required: "true"
+  register-batch-size: 15
+  tenantId: "namibia"
+  excell-state-level-tenant-id: "namibia"
+  boundary-hierarchy-name: "ADMIN"
+  egov-localization-module-name: "hcm-boundary-admin"
+  report-localization-boundary-module-name: "hcm-boundary-admin"
+  calculate-musterroll-health: namibia-calculate-musterroll-health
+  calculate-error-health: namibia-calculate-error-health
+  calculate-billmeta-health: namibia-calculate-billmeta-health
+  expense-calculator-create-topic: namibia-save-calculator
+  report-error-queue-topic: namibia-report-error-queue-topic
+  report-retry-queue-topic: namibia-report-retry-queue-topic
+  report-generation-trigger-topic: namibia-report-generation-trigger
+  report-generation-retry-trigger-topic: namibia-report-generation-retry-trigger
+  bill-generation-async-topic: namibia-bill-generation-async-topic
+  bill-generation-async-enabled: "true"
+  expense-bill-create-topic: namibia-expense-bill-create-health
+  expense-bill-update-topic: namibia-expense-bill-update-health
+  expense-bill-index-topic: namibia-expense-bill-index-health
+  payment-pdf-key: "health-bill-payment-namibia"
+  egov-filestore-signature-connect-timeout-ms: "3000"
+  egov-filestore-signature-read-timeout-ms: "10000"
+  billing-frequency-custom-minimum-days: "1"
+  billing-config-v2-enabled: "true"
+  billing-config-create-topic: namibia-billing-config-create
+  billing-config-update-topic: namibia-billing-config-update
+  billing-period-status-update-topic: namibia-billing-period-status-update
+  billing-period-generation-enabled: "true"
+  billing-muster-roll-period-aware-enabled: "true"
+  egov-musterroll-search-endpoint: "/health-muster-roll/v1/_search"
+  project-management-system-kafka-update-topic: namibia-update-project
+  project-management-system-kafka-update-date-topic: namibia-update-project-date

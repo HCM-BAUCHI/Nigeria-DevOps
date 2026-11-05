@@ -980,10 +980,10 @@ health-attendance:
     dbMigration:
       image:
         repository: egovio/health-attendance-db
-        tag: nigeria-go-deep-6680733
+        tag: v2.1-fcb1889
   image:
     repository: egovio/health-attendance
-    tag: nigeria-go-deep-6680733
+    tag: v2.1-fcb1889
   central-instance-build: true
   central-instance-enabled: true
   java-enable-debug: false
@@ -1033,10 +1033,10 @@ health-muster-roll:
     dbMigration:
       image:
         repository: egovio/health-muster-roll-db
-        tag: nigeria-go-deep-7fe8703
+        tag: v2.1-fcb1889
   image:
     repository: egovio/health-muster-roll
-    tag: nigeria-go-deep-7fe8703
+    tag: v2.1-fcb1889
   central-instance-build: true
   central-instance-enabled: true
   java-enable-debug: false
@@ -1062,6 +1062,13 @@ health-expense:
         value: "hcm22-expense"
       - name: TRACER_ERRORSTOPIC
         value: "hcm22-egov-error"
+      - name: EXPENSE_CALCULATOR_HOST
+        valueFrom:
+          configMapKeyRef:
+            name: egov-service-host
+            key: health-expense-calculator
+      - name: LOCALIZATION_DEFAULT_LOCALE
+        value: "en_NG"
   ingress:
     name: hcm22-health-expense
     namespace: egov
@@ -1071,10 +1078,10 @@ health-expense:
     dbMigration:
       image:
         repository: egovio/health-expense-db
-        tag: master-f6da516
+        tag: master-94cbb75
   image:
     repository: egovio/health-expense
-    tag: master-f6da516
+    tag: master-94cbb75
   central-instance-build: true
   central-instance-enabled: true
   expense-kafka-tenant-id-pattern: "(namibia)-"
