@@ -2077,6 +2077,10 @@ excel-ingestion:
   image:
     repository: egovio/excel-ingestion
     tag: master-ekfrazo-32cf9ce
+  hpa:
+    enabled: false
+    minReplicas: 1
+    maxReplicas: 3
   group-id: "egov-excel-ingestion"
   central-instance-build: true
   central-instance-enabled: true
