@@ -52,7 +52,7 @@ global:
 cluster-configs:
   namespaces:
     create: true
-    values: [ backbone, cert-manager, egov, airflow, es-cluster, kafka-cluster, logging, monitoring, playground, zookeeper-cluster, es-cluster-v8, jupyter, jhub, bauchi, oyo, kogi, nasarawa, abuja, plateau, borno, kebbi, sokoto, ondo, adamawa, kaduna, jigawa, kebbi-azm, chad, gombe, chad-prod, zamfara, abia, sierraleone, kebbi-azm, namibia, hcm22, gabon ]
+    values: [ backbone, cert-manager, egov, airflow, es-cluster, kafka-cluster, logging, monitoring, playground, zookeeper-cluster, es-cluster-v8, jupyter, jhub, bauchi, oyo, kogi, nasarawa, abuja, plateau, borno, kebbi, sokoto, ondo, adamawa, kaduna, jigawa, kebbi-azm, chad, gombe, chad-prod, zamfara, abia, sierraleone, namibia, hcm22, gabon ]
 
   root-ingress:
     cert-issuer: letsencrypt-prod
@@ -136,8 +136,12 @@ cluster-configs:
           health-expense-calculator-borno: "http://health-expense-calculator.borno:8080/"
         abia:
           egov-state-level-tenant-id: "abia"
-          health-expense-borno: "http://health-expense.abia:8080/"
-          health-expense-calculator-borno: "http://health-expense-calculator.abia:8080/"
+          health-expense-abia: "http://health-expense.abia:8080/"
+          health-expense-calculator-abia: "http://health-expense-calculator.abia:8080/"
+        abuja:
+          egov-state-level-tenant-id: "abuja"
+          health-expense-abuja: "http://health-expense.abuja:8080/"
+          health-expense-calculator-abuja: "http://health-expense-calculator.abuja:8080/"
         kogi:
           egov-state-level-tenant-id: "ko"
           health-expense-kogi: "http://health-expense.kogi:8080/"
@@ -147,6 +151,8 @@ cluster-configs:
           health-expense-calculator-borno: "http://health-expense-calculator.borno:8080/"
           health-expense-abia: "http://health-expense.abia:8080/"
           health-expense-calculator-abia: "http://health-expense-calculator.abia:8080/"
+          health-expense-abuja: "http://health-expense.abuja:8080/"
+          health-expense-calculator-abuja: "http://health-expense-calculator.abuja:8080/"
           health-expense-kogi: "http://health-expense.kogi:8080/"
           health-expense-calculator-kogi: "http://health-expense-calculator.kogi:8080/"
           health-expense-calculator-namibia: "http://health-expense-calculator.namibia:8080/"
@@ -265,6 +271,9 @@ cluster-configs:
         abia:
           health-expense-abia: 'http://health-expense.abia:8080/'
           health-expense-calculator-abia: 'http://health-expense-calculator.abia:8080/'
+        abuja:
+          health-expense-abuja: 'http://health-expense.abuja:8080/'
+          health-expense-calculator-abuja: 'http://health-expense-calculator.abuja:8080/'
         kogi:
           health-expense-kogi: 'http://health-expense.kogi:8080/'
           health-expense-calculator-kogi: 'http://health-expense-calculator.kogi:8080/'
