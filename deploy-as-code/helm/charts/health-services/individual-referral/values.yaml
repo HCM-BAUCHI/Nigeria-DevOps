@@ -205,7 +205,21 @@ env: |
   - name: NOTIFICATION_SMS_DISABLED_ROLES
     value: {{ index .Values "notification-sms-disabled-roles" | quote }}
   - name: EGOV_ENC_STATE_LEVEL_TENANT_IDS
-    value: "ba,kd,kb,jg"
+    value: "ba,kd,kb,jg,namibia"
+  - name: tenant.state.level.tenant.id.mappings.namibia
+    value: "namibia"
+  - name: TENANT_STATE_LEVEL_TENANT_ID_MAPPINGS_namibia
+    value: namibia
+  - name: egov.enc.tenant.host.namibia
+    valueFrom:
+      configMapKeyRef:
+        name: egov-service-host
+        key: egov-enc-service-namibia
+  - name: EGOV_ENC_TENANT_HOST_namibia
+    valueFrom:
+      configMapKeyRef:
+        name: egov-service-host
+        key: egov-enc-service-namibia
   - name: tenant.state.level.tenant.id.mappings.kd
     value: "kd"
   - name: tenant.state.level.tenant.id.mappings.kb
@@ -248,3 +262,7 @@ env: |
       configMapKeyRef:
         name: egov-service-host
         key: egov-enc-service-kebbi-azm
+  {{- if hasKey .Values "egov-bulk-create-user-url" }}
+  - name: EGOV_BULK_CREATE_USER_URL
+    value: {{ index .Values "egov-bulk-create-user-url" | quote }}
+  {{- end }}

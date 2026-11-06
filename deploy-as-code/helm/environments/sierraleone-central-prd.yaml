@@ -1,0 +1,147 @@
+global:
+  domain: sierraleone-hcm.digit.org
+
+disableAnnotationTimestamp: true
+
+dashboard-ui:
+  namespace: sierraleone
+  image:
+    repository: egovio/dashboard-ui
+    tag: HDDF-4931-a645e10
+  custom-js-injection: |
+    sub_filter.conf: "
+      sub_filter  '<head>' '<head>
+      <script src=https://central-instance-assets.s3.af-south-1.amazonaws.com/sierraleone/globalConfigDashboard.js type=text/javascript></script>
+      ';"
+
+workbench-ui:
+  namespace: sierraleone
+  image:
+    repository: egovio/workbench-ui
+    tag: nigeria_mc-5212cd5
+  custom-js-injection: |
+    sub_filter.conf: "
+      sub_filter  '<head>' '<head>
+      <script src=https://central-instance-assets.s3.af-south-1.amazonaws.com/sierraleone/globalConfigWorkbench.js type=text/javascript></script>
+      ';"
+
+payments-ui:
+  namespace: sierraleone
+  image:
+    repository: egovio/payments-ui
+    tag: HDDF-4931-427abb8
+  custom-js-injection: |
+    sub_filter.conf: "
+      sub_filter  '<head>' '<head>
+      <script src=https://central-instance-assets.s3.af-south-1.amazonaws.com/sierraleone/globalConfigPayments.js type=text/javascript></script>
+      ';"
+
+transformer:
+  namespace: "sierraleone"
+  image:
+    repository: egovio/transformer
+    tag: HDDF-5226-c512500
+  replicas: 1
+  heap: "-Xmx1536m -Xms1536m"
+  hpa:
+    enabled: true
+    minReplicas: 1
+    maxReplicas: 4
+  cpu_requests: 300m
+  memory_requests: 1.75Gi
+  cpu_limits: 400m
+  memory_limits: 2.25Gi
+  save-project-task-topic: "si-save-project-task-topic"
+  update-project-task-topic: "si-update-project-task-topic"
+  transformer-producer-bulk-project-task-index-v1-topic: "si-transformer-producer-bulk-project-task-index-v1-topic"
+  save-project-staff-topic: "si-save-project-staff-topic"
+  update-project-staff-topic: "si-update-project-staff-topic"
+  transformer-producer-bulk-project-staff-index-v1-topic: "si-transformer-producer-bulk-project-staff-index-v1-topic"
+  transformer-producer-bulk-project-index-v1-topic: "si-transformer-producer-bulk-project-index-v1-topic"
+  save-project: "si-save-project"
+  update-project: "si-update-project"
+  save-household-member-topic: "si-save-household-member-topic"
+  transformer-producer-household-member-index-v1-topic: "si-transformer-producer-household-member-index-v1-topic"
+  save-household-topic: "si-save-household-topic"
+  update-household-topic: "si-update-household-topic"
+  transformer-producer-household-index-v1-topic: "si-transformer-producer-household-index-v1-topic"
+  transformer-producer-service-index-v2-topic: "si-transformer-producer-service-index-v2-topic"
+  save-stock-topic: "si-save-stock-topic"
+  update-stock-topic: "si-update-stock-topic"
+  transformer-producer-bulk-stock-index-v1-topic: "si-transformer-producer-bulk-stock-index-v1-topic"
+  transformer-producer-bulk-stock-index-updated-v1-topic: "si-transformer-producer-bulk-stock-index-updated-v1-topic"
+  save-facility-topic: "si-save-facility-topic"
+  update-facility-topic: "si-update-facility-topic"
+  save-service: "si-save-service"
+  transformer-producer-service-request-index-v1-topic: "si-transformer-producer-service-request-index-v1-topic"
+  save-referral-topic: "si-save-referral-topic"
+  transformer-producer-referral-index-v1-topic: "si-transformer-producer-referral-index-v1-topic"
+  update-referral-topic: "si-update-referral-topic"
+  save-side-effect-topic: "si-save-side-effect-topic"
+  update-side-effect-topic: "si-update-side-effect-topic"
+  transformer-producer-side-effect-index-v1-topic: "si-transformer-producer-side-effect-index-v1-topic"
+  save-pgr-request: "si-save-pgr-request"
+  transformer-save-pgr-request: "si-transformer-save-pgr-request"
+  update-pgr-request: "si-update-pgr-request"
+  save-hfreferral-topic: "si-save-hfreferral-topic"
+  update-hfreferral-topic: "si-update-hfreferral-topic"
+  transformer-producer-hfreferral-index-v1-topic: "si-transformer-producer-hfreferral-index-v1-topic"
+  transformer-producer-hfreferral-service-index-topic: "si-transformer-producer-hfreferral-service-index-topic"
+  transformer-producer-finance-checklist-index-v1-topic: "si-transformer-producer-finance-checklist-index-v1-topic"
+  transformer-producer-special-spraying-index-topic: "si-transformer-producer-special-spraying-index-topic"
+  save-attendance-log: "si-save-attendance-log"
+  update-attendance-log: "si-update-attendance-log"
+  transformer-save-attendance-log: "si-transformer-save-attendance-log"
+  transformer-save-attendance-register: "si-transformer-save-attendance-register"
+  transformer-save-attendance-staff: "si-save-staff"
+  transformer-update-attendance-staff: "si-update-staff"
+  transformer-save-attendance-attendee: "si-save-attendee"
+  transformer-update-attendance-attendee: "si-update-attendee"
+  transformer-producer-attendance-staff-index: "si-transformer-producer-attendance-staff-index"
+  transformer-producer-attendee-index: "si-transformer-producer-attendee-index"
+  transformer-producer-extra-transformed-checklist-index-topic: "si-transformer-producer-extra-transformed-checklist-index-topic"
+  update-household-member-topic: "si-update-household-member-topic"
+  save-stock-reconciliation-topic: "si-save-stock-reconciliation-topic"
+  update-stock-reconciliation-topic: "si-update-stock-reconciliation-topic"
+  transformer-producer-stock-recon-index-v1-topic: "si-transformer-producer-stock-recon-index-v1-topic"
+  health-transformer: "si-health-transformer"
+  transformer-consumer-error-tracer-topic: "error-details-indexer-topic"
+  transformer-producer-error-details-index-v1-topic: "si-transformed-errors-topic"
+  transformer-error-skip-error-messages: "UPLOAD_ERROR_FROM_APP"
+  transformer-error-skip-error-codes: "DUPLICATE_ENTITY,INDIVIDUAL_ALREADY_MEMBER_OF_HOUSEHOLD,HOUSEHOLD_ALREADY_HAS_HEAD"
+  transformer-error-skip-url-contains: "facility,resource"
+  state-level-tenantid: "si"
+  expense-bill-create-health-topic: "si-expense-bill-create-health"
+  expense-bill-update-health-topic: "si-expense-bill-update-health"
+  transformer-bill-index-topic: "si-transformer-bill-index-topic"
+  transformer-billdetail-index-topic: "si-transformer-billdetail-index-topic"
+  expense-bill-report-save-topic: "si-expense-bill-report-save"
+  expense-bill-report-update-topic: "si-expense-bill-report-update"
+  transformer-billreport-index-topic: "si-transformer-billreport-index-topic"
+  save-musterroll-health-topic: "si-save-musterroll-health"
+  update-musterroll-health-topic: "si-update-musterroll-health"
+  transformer-producer-muster-roll-index-v1-topic: "si-transformer-producer-muster-roll-index-v1-topic"
+  expense-bill-detail-create-topic: "si-expense-bill-detail-create"
+  expense-bill-detail-update-topic: "si-expense-bill-detail-update"
+  egov_localization_locale_code: "en_NG"
+  egov-localization-module-name: "hcm-boundary-admin"
+  transformer-consumer-create-user-action-topic: "si-save-user-action-project-task-topic"
+  transformer-consumer-update-user-action-topic: "si-update-user-action-project-task-topic"
+  transformer-producer-user-action-index-v1-topic: "si-transformer-producer-user-action-index-v1-topic"
+  transformer-consumer-attendance-enabled: "false"
+  transformer-consumer-attendance-staff-enabled: "false"
+  transformer-consumer-attendee-enabled: "false"
+  transformer-consumer-bill-enabled: "false"
+  transformer-consumer-billdetail-enabled: "false"
+  transformer-consumer-billreport-enabled: "false"
+  transformer-consumer-musterroll-enabled: "false"
+  transformer-consumer-service-enabled: "false"
+  transformer-consumer-side-effect-enabled: "false"
+
+digit-ui:
+  namespace: sierraleone
+  custom-js-injection: |
+    sub_filter.conf: "
+      sub_filter  '<head>' '<head>
+      <script src=https://central-instance-assets.s3.af-south-1.amazonaws.com/sierraleone/globalConfig.js type=text/javascript></script>
+      ';"

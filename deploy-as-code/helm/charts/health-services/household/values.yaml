@@ -137,3 +137,16 @@ env: |
     value: {{ index .Values "household-kafka-update-topic" | quote }}
   - name: HOUSEHOLD.KAFKA.DELETE.TOPIC
     value: {{ index .Values "household-kafka-delete-topic" | quote }}
+  {{- if hasKey .Values "mdms-service-search-uri" }}
+  - name: MDMS_SERVICE_HOST
+    valueFrom:
+      configMapKeyRef:
+        name: egov-service-host
+        key: mdms-v2
+  - name: MDMS_SERVICE_SEARCH_URI
+    value: {{ index .Values "mdms-service-search-uri" | quote }}
+  {{- end }}
+  {{- if hasKey .Values "household-member-relationship-validation" }}
+  - name: HOUSEHOLD_MEMBER_RELATIONSHIP_VALIDATION
+    value: {{ index .Values "household-member-relationship-validation" | quote }}
+  {{- end }}

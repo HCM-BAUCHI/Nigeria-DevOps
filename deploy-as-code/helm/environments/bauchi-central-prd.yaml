@@ -22,6 +22,9 @@ global:
     - chad-hcm-prod.digit.org
     - zamfara-hcm.digit.org
     - abia-hcm.digit.org
+    - sierraleone-hcm.digit.org
+    - namibia-hcm.digit.org
+    - gabon-hcm.digit.org
   schema:
     - ba
     - oy
@@ -42,17 +45,20 @@ global:
     - chad
     - zf
     - abia
+    - si
+    - namibia
+    - gabon
 
 cluster-configs:
   namespaces:
     create: true
-    values: [ backbone, cert-manager, egov, airflow, es-cluster, kafka-cluster, logging, monitoring, playground, zookeeper-cluster, es-cluster-v8, jupyter, jhub, bauchi, oyo, kogi, nasarawa, abuja, plateau, borno, kebbi, sokoto, ondo, adamawa, kaduna, jigawa, kebbi-azm, chad, gombe, chad-prod, zamfara, abia ]
+    values: [ backbone, cert-manager, egov, airflow, es-cluster, kafka-cluster, logging, monitoring, playground, zookeeper-cluster, es-cluster-v8, jupyter, jhub, bauchi, oyo, kogi, nasarawa, abuja, plateau, borno, kebbi, sokoto, ondo, adamawa, kaduna, jigawa, kebbi-azm, chad, gombe, chad-prod, zamfara, abia, sierraleone, kebbi-azm, namibia, hcm22, gabon ]
 
   root-ingress:
     cert-issuer: letsencrypt-prod
   configmaps:
     egov-config:
-      namespace: [egov, airflow, bauchi, oyo, kogi, nasarawa, abuja, plateau, borno, kebbi, sokoto, ondo, adamawa, chad, gombe, zamfara, abia]
+      namespace: [egov, airflow, bauchi, oyo, kogi, nasarawa, abuja, plateau, borno, kebbi, sokoto, ondo, adamawa, chad, gombe, zamfara, abia, sierraleone, kebbi-azm, namibia, hcm22, gabon ]
       data:
         db-host: "ng-central-prd-db.cpe4q0cycqi7.af-south-1.rds.amazonaws.com" ## Add db-host name eg: egov-demo.database.azure.com
         db-name: "ngcentralprd" ## Add db-name
@@ -77,12 +83,15 @@ cluster-configs:
         chad-db-url: "jdbc:postgresql://ng-central-prd-db.cpe4q0cycqi7.af-south-1.rds.amazonaws.com:5432/ngcentralprd?currentSchema=chad"
         zf-db-url: "jdbc:postgresql://ng-central-prd-db.cpe4q0cycqi7.af-south-1.rds.amazonaws.com:5432/ngcentralprd?currentSchema=zf"
         abia-db-url: "jdbc:postgresql://ng-central-prd-db.cpe4q0cycqi7.af-south-1.rds.amazonaws.com:5432/ngcentralprd?currentSchema=abia"
+        si-db-url: "jdbc:postgresql://ng-central-prd-db.cpe4q0cycqi7.af-south-1.rds.amazonaws.com:5432/ngcentralprd?currentSchema=si"
+        namibia-db-url: "jdbc:postgresql://ng-central-prd-db.cpe4q0cycqi7.af-south-1.rds.amazonaws.com:5432/ngcentralprd?currentSchema=namibia"
+        gabon-db-url: "jdbc:postgresql://ng-central-prd-db.cpe4q0cycqi7.af-south-1.rds.amazonaws.com:5432/ngcentralprd?currentSchema=gabon"
         domain: "bauchi-hcm.digit.org" ## Add your Domain Name
         redis-host: "ng-central-redis.nolaw2.ng.0001.afs1.cache.amazonaws.com"
         redis-downsync-host: "ng-central-redis.nolaw2.ng.0001.afs1.cache.amazonaws.com"
         egov-services-fqdn-name: "https://bauchi-hcm-digit.org/" ## Add your Domain Name
         state-level-tenantid-length: "1"
-        kafka-tenant-id-pattern: "(ba|oy|ko|na|ab|pl|bo|ke|so|od|ad|kd|jg|ch|go|zf|abia)-"
+        kafka-tenant-id-pattern: "(ba|oy|ko|na|ab|pl|bo|ke|so|od|ad|kd|jg|kb|ch|go|zf|abia|si|gabon)-"
         state-schema-index-position-tenantid: "0"
         is-environment-central-instance: "true"
         aws-cluster-ip: "https://AD11FA377F3AEE4369833D9626BD7A83.gr7.af-south-1.eks.amazonaws.com"
@@ -111,9 +120,16 @@ cluster-configs:
         boundary-hierarchy: "ADMIN"
         boundary-hierarchy-chad: "ADMIN2"
         egov-internal-microservice-user-uuid: "e1f57dfe-35a0-494a-911d-22cd3f786612"
-        host-map: "{'ba':'https://bauchi-hcm.digit.org/','oy':'https://oyo-hcm.digit.org/','ko':'https://kogi-hcm.digit.org/','na':'https://nasarawa-hcm.digit.org/','ab':'https://fct-abuja-hcm.digit.org/','pl':'https://plateau-hcm.digit.org/','bo':'https://borno-hcm.digit.org/','ke':'https://kebbi-hcm-central.digit.org/','so':'https://sokoto-hcm.digit.org/','od':'https://ondo-hcm.digit.org/','ad':'https://adamawa-hcm.digit.org/','kd':'https://kaduna-central-hcm.digit.org/','jg':'https://jigawa-central-hcm.digit.org/','kb':'https://kebbi-azm-central-hcm.digit.org/','go':'https://gombe-hcm.digit.org/','chad':'https://chad-hcm-prod.digit.org/','zf':'https://zamfara-hcm.digit.org/','abia':'https://abia-hcm.digit.org/'}"
-        db-schema-names: "ba,oy,ko,na,ab,pl,bo,ke,so,od,ad,kd,jg,kb,ch,go,chad,zf,abia"
+        host-map: "{'ba':'https://bauchi-hcm.digit.org/','oy':'https://oyo-hcm.digit.org/','ko':'https://kogi-hcm.digit.org/','na':'https://nasarawa-hcm.digit.org/','ab':'https://fct-abuja-hcm.digit.org/','pl':'https://plateau-hcm.digit.org/','bo':'https://borno-hcm.digit.org/','ke':'https://kebbi-hcm-central.digit.org/','so':'https://sokoto-hcm.digit.org/','od':'https://ondo-hcm.digit.org/','ad':'https://adamawa-hcm.digit.org/','kd':'https://kaduna-central-hcm.digit.org/','jg':'https://jigawa-central-hcm.digit.org/','kb':'https://kebbi-azm-central-hcm.digit.org/','go':'https://gombe-hcm.digit.org/','chad':'https://chad-hcm-prod.digit.org/','zf':'https://zamfara-hcm.digit.org/','abia':'https://abia-hcm.digit.org/','si':'https://sierraleone-hcm.digit.org/','namibia':'https://namibia-hcm.digit.org/','gabon':'https://gabon-hcm.digit.org/'}"
+        db-schema-names: "ba,oy,ko,na,ab,pl,bo,ke,so,od,ad,kd,jg,kb,ch,go,chad,zf,abia,si,namibia,gabon"
       namespace-overrides:
+        hcm22:
+          db-schema-names: "namibia"
+          kafka-tenant-id-pattern: "(namibia)-"
+        namibia:
+          state-level-tenant-id: "namibia"
+          egov-state-level-tenant-id: "namibia"
+          health-expense-calculator-namibia: "http://health-expense-calculator.namibia:8080/"
         borno:
           egov-state-level-tenant-id: "bo"
           health-expense-borno: "http://health-expense.borno:8080/"
@@ -122,16 +138,26 @@ cluster-configs:
           egov-state-level-tenant-id: "abia"
           health-expense-borno: "http://health-expense.abia:8080/"
           health-expense-calculator-borno: "http://health-expense-calculator.abia:8080/"
+        kogi:
+          egov-state-level-tenant-id: "ko"
+          health-expense-kogi: "http://health-expense.kogi:8080/"
+          health-expense-calculator-kogi: "http://health-expense-calculator.kogi:8080/"
         egov:
           health-expense-borno: "http://health-expense.borno:8080/"
           health-expense-calculator-borno: "http://health-expense-calculator.borno:8080/"
           health-expense-abia: "http://health-expense.abia:8080/"
           health-expense-calculator-abia: "http://health-expense-calculator.abia:8080/"
+          health-expense-kogi: "http://health-expense.kogi:8080/"
+          health-expense-calculator-kogi: "http://health-expense-calculator.kogi:8080/"
+          health-expense-calculator-namibia: "http://health-expense-calculator.namibia:8080/"
           server-tomcat-max-connections-referral: "2000"
           server-tomcat-max-threads-referral: "40"
           spring-datasource-tomcat-max-active-referral: "20"
+        kebbi-azm:
+          state-level-tenant-id: "kb"
+          egov-state-level-tenant-id: "kb"
     egov-service-host:
-      namespace: [egov, bauchi, oyo, monitoring, kogi, nasarawa, abuja, plateau, borno, kebbi, sokoto, ondo, adamawa, kaduna, jigawa, chad, gombe, zamfara, abia ]
+      namespace: [egov, bauchi, oyo, monitoring, kogi, nasarawa, abuja, plateau, borno, kebbi, sokoto, ondo, adamawa, kaduna, jigawa, chad, gombe, zamfara, abia, sierraleone, kebbi-azm, namibia, hcm22, gabon ]
       data:
         dashboard-analytics: "http://dashboard-analytics.egov:8080/"
         internal-gateway-scg: "http://internal-gateway-scg.egov:8080/"
@@ -139,6 +165,7 @@ cluster-configs:
         egov-enc-service-kaduna: "http://egov-enc-service.kaduna:8080/"
         egov-enc-service-jigawa: "http://egov-enc-service.jigawa:8080/"
         egov-enc-service-kebbi-azm: "http://egov-enc-service.kebbi-azm:8080/"
+        egov-enc-service-namibia: "http://egov-enc-service.namibia:8080/"
         egov-accesscontrol: "http://egov-accesscontrol.egov:8080/"
         egov-user: "http://egov-user.egov:8080/"
         egov-user-egov: "http://egov-user.egov:8080/"
@@ -184,18 +211,74 @@ cluster-configs:
         health-expense: 'http://health-expense.egov:8080/'
         health-notification-service: 'http://health-notification-service.egov:8080/'
       namespace-overrides:
+        namibia:
+          household: 'http://household.hcm22:8080/'
+          household-referral: 'http://household-referral.hcm22:8080/'
+          individual: 'http://individual.hcm22:8080/'
+          individual-referral: 'http://individual-referral.hcm22:8080/'
+          project: 'http://project.hcm22:8080/'
+          project-referral: 'http://project-referral.hcm22:8080/'
+          product: 'http://product.hcm22:8080/'
+          facility: 'http://facility.hcm22:8080/'
+          stock: 'http://stock.hcm22:8080/'
+          service-request: 'http://service-request.hcm22:8080/'
+          egov-hrms: 'http://egov-hrms.hcm22:8080/'
+          project-factory: 'http://project-factory.hcm22:8080/'
+          boundary-management: 'http://boundary-management.hcm22:8080/'
+          excel-ingestion: 'http://excel-ingestion.hcm22:8080/'
+          attendance-service: 'http://health-attendance.hcm22:8080/'
+          health-muster-roll: 'http://health-muster-roll.hcm22:8080/'
+          health-expense: 'http://health-expense.hcm22:8080/'
+          worker-registry-host: 'http://worker-registry.hcm22:8080/'
+          health-notification-service: 'http://health-notification-service.hcm22:8080/'
+          pgr-services: 'http://pgr-services.hcm22:8080/'
+          egov-notification-push: 'http://egov-notification-push.hcm22:8080/'
+          beneficiary-idgen: 'http://beneficiary-idgen.hcm22:8080/'
+          health-expense-calculator-namibia: 'http://health-expense-calculator.namibia:8080/'
+        hcm22:
+          household: 'http://household.hcm22:8080/'
+          household-referral: 'http://household-referral.hcm22:8080/'
+          individual: 'http://individual.hcm22:8080/'
+          individual-referral: 'http://individual-referral.hcm22:8080/'
+          project: 'http://project.hcm22:8080/'
+          project-referral: 'http://project-referral.hcm22:8080/'
+          product: 'http://product.hcm22:8080/'
+          facility: 'http://facility.hcm22:8080/'
+          stock: 'http://stock.hcm22:8080/'
+          service-request: 'http://service-request.hcm22:8080/'
+          egov-hrms: 'http://egov-hrms.hcm22:8080/'
+          project-factory: 'http://project-factory.hcm22:8080/'
+          boundary-management: 'http://boundary-management.hcm22:8080/'
+          excel-ingestion: 'http://excel-ingestion.hcm22:8080/'
+          attendance-service: 'http://health-attendance.hcm22:8080/'
+          health-muster-roll: 'http://health-muster-roll.hcm22:8080/'
+          health-expense: 'http://health-expense.hcm22:8080/'
+          worker-registry-host: 'http://worker-registry.hcm22:8080/'
+          health-notification-service: 'http://health-notification-service.hcm22:8080/'
+          pgr-services: 'http://pgr-services.hcm22:8080/'
+          egov-notification-push: 'http://egov-notification-push.hcm22:8080/'
+          beneficiary-idgen: 'http://beneficiary-idgen.hcm22:8080/'
+          health-expense-calculator: 'http://internal-gateway-scg.egov:8080/'
         borno:
           health-expense-borno: 'http://health-expense.borno:8080/'
           health-expense-calculator-borno: 'http://health-expense-calculator.borno:8080/'
         abia:
           health-expense-abia: 'http://health-expense.abia:8080/'
           health-expense-calculator-abia: 'http://health-expense-calculator.abia:8080/'
+        kogi:
+          health-expense-kogi: 'http://health-expense.kogi:8080/'
+          health-expense-calculator-kogi: 'http://health-expense-calculator.kogi:8080/'
         egov:
           health-expense-calculator: 'http://internal-gateway-scg.egov:8080/'
+          health-expense-calculator-namibia: 'http://health-expense-calculator.namibia:8080/'
 
     hcm-moz-impl:
       data:
         dhis2-host: "https://ccu.misau.gov.mz/ccu"
+
+    egov-notification-push:
+      data:
+        fcm-tenant-project-map-json: '{"ad":"digit-hcm-nigeria","kb":"digit-hcm-nigeria","go":"digit-hcm-nigeria","si":"digit-hcm-nigeria","abia":"digit-hcm-nigeria","ba":"digit-health-75ed0","oy":"digit-health-75ed0","ko":"digit-health-75ed0","na":"digit-health-75ed0","ab":"digit-health-75ed0","pl":"digit-health-75ed0","bo":"digit-health-75ed0","ke":"digit-health-75ed0","so":"digit-health-75ed0","od":"digit-health-75ed0","kd":"digit-health-75ed0","jg":"digit-health-75ed0","ch":"digit-health-75ed0","chad":"digit-health-75ed0","zf":"digit-health-75ed0","namibia":"digit-health-75ed0","gabon":"digit-health-75ed0"}'
 
 disableAnnotationTimestamp: true
 
@@ -344,6 +427,8 @@ egov-accesscontrol:
   memory_limits: 768Mi
 
 pgr-services:
+  hostExclude: ["namibia-hcm.digit.org"]
+  schemaNameExclude: [ "namibia" ]
   db-write-url: true
   initContainers:
     dbMigration:
@@ -421,8 +506,8 @@ boundary-management:
     tag: master-b912a1c
   central-instance-build: true
   central-instance-enabled: true
-  schemaNameExclude: [ "chad", "kb" ]
-  hostExclude: ["chad-hcm-prod.digit.org", "kebbi-azm-central-hcm.digit.org"]
+  schemaNameExclude: [ "chad", "namibia" ]
+  hostExclude: ["chad-hcm-prod.digit.org", "namibia-hcm.digit.org"]
   java-enable-debug: false
   heap: "-Xmx512m -Xms256m"
   hpa:
@@ -440,10 +525,10 @@ egov-user:
     dbMigration:
       image:
         repository: egovio/egov-user-db
-        tag: central-instance-switch-device-changes-bulk-ekfrazo-0d4f342
+        tag: sqli-fix-egov-user-central-instance-switch-device-changes-bulk-ekfrazo-a098f02-b51ebc5
   image:
     repository: egovio/egov-user
-    tag: central-instance-switch-device-changes-bulk-ekfrazo-0d4f342
+    tag: sqli-fix-egov-user-central-instance-switch-device-changes-bulk-ekfrazo-a098f02-b51ebc5
   spring-datasource-tomcat-max-active: "10"
   server-tomcat-max-threads: "200"
   bulk-bcrypt-threads: "4"
@@ -473,7 +558,7 @@ egov-user:
   egov-user-session-single-active-enabled: "true"
   egov-user-session-last.contact-interval-seconds: "60"
   egov-user-session-inactivity-period-days: "30"
-  egov-user-session-single-active-tenants: "bo,ad"
+  egov-user-session-single-active-tenants: "bo,ko,abia,ad,kb,kd"
 
 audit-service:
 #  persist-yml-path: "https://raw.githubusercontent.com/HCM-BAUCHI/health-campaign-config/PROD/egov-persister/ch/egov-workflow-v2-persister.yml,https://raw.githubusercontent.com/HCM-BAUCHI/health-campaign-config/PROD/egov-persister/ch/facility-persister.yml,https://raw.githubusercontent.com/HCM-BAUCHI/health-campaign-config/PROD/egov-persister/ch/hcm-moz-impl-persister.yml,https://raw.githubusercontent.com/HCM-BAUCHI/health-campaign-config/PROD/egov-persister/ch/household-persister.yml,https://raw.githubusercontent.com/HCM-BAUCHI/health-campaign-config/PROD/egov-persister/ch/hrms-employee-persister.yml,https://raw.githubusercontent.com/HCM-BAUCHI/health-campaign-config/PROD/egov-persister/ch/individual-persister.yml,https://raw.githubusercontent.com/HCM-BAUCHI/health-campaign-config/PROD/egov-persister/ch/stock-persister.yml,https://raw.githubusercontent.com/HCM-BAUCHI/health-campaign-config/PROD/egov-persister-ht/ch/service-request-persister.yml,https://raw.githubusercontent.com/HCM-BAUCHI/health-campaign-config/PROD/egov-persister-ht/ch/project-task-persister.yml,https://raw.githubusercontent.com/HCM-BAUCHI/health-campaign-config/PROD/egov-persister/ch/project-persister.yml,https://raw.githubusercontent.com/HCM-BAUCHI/health-campaign-config/PROD/egov-persister/kb/egov-workflow-v2-persister.yml,https://raw.githubusercontent.com/HCM-BAUCHI/health-campaign-config/PROD/egov-persister/kb/facility-persister.yml,https://raw.githubusercontent.com/HCM-BAUCHI/health-campaign-config/PROD/egov-persister/kb/hcm-moz-impl-persister.yml,https://raw.githubusercontent.com/HCM-BAUCHI/health-campaign-config/PROD/egov-persister/kb/household-persister.yml,https://raw.githubusercontent.com/HCM-BAUCHI/health-campaign-config/PROD/egov-persister/kb/hrms-employee-persister.yml,https://raw.githubusercontent.com/HCM-BAUCHI/health-campaign-config/PROD/egov-persister/kb/individual-persister.yml,https://raw.githubusercontent.com/HCM-BAUCHI/health-campaign-config/PROD/egov-persister/kb/stock-persister.yml,https://raw.githubusercontent.com/HCM-BAUCHI/health-campaign-config/PROD/egov-persister-ht/kb/service-request-persister.yml,https://raw.githubusercontent.com/HCM-BAUCHI/health-campaign-config/PROD/egov-persister-ht/kb/project-task-persister.yml,https://raw.githubusercontent.com/HCM-BAUCHI/health-campaign-config/PROD/egov-persister/kb/project-persister.yml,https://raw.githubusercontent.com/HCM-BAUCHI/health-campaign-config/PROD/egov-persister/jg/egov-workflow-v2-persister.yml,https://raw.githubusercontent.com/HCM-BAUCHI/health-campaign-config/PROD/egov-persister/jg/facility-persister.yml,https://raw.githubusercontent.com/HCM-BAUCHI/health-campaign-config/PROD/egov-persister/jg/hcm-moz-impl-persister.yml,https://raw.githubusercontent.com/HCM-BAUCHI/health-campaign-config/PROD/egov-persister/jg/household-persister.yml,https://raw.githubusercontent.com/HCM-BAUCHI/health-campaign-config/PROD/egov-persister/jg/hrms-employee-persister.yml,https://raw.githubusercontent.com/HCM-BAUCHI/health-campaign-config/PROD/egov-persister/jg/individual-persister.yml,https://raw.githubusercontent.com/HCM-BAUCHI/health-campaign-config/PROD/egov-persister/jg/stock-persister.yml,https://raw.githubusercontent.com/HCM-BAUCHI/health-campaign-config/PROD/egov-persister-ht/jg/service-request-persister.yml,https://raw.githubusercontent.com/HCM-BAUCHI/health-campaign-config/PROD/egov-persister-ht/jg/project-task-persister.yml,https://raw.githubusercontent.com/HCM-BAUCHI/health-campaign-config/PROD/egov-persister/jg/project-persister.yml,https://raw.githubusercontent.com/HCM-BAUCHI/health-campaign-config/PROD/egov-persister/kd/egov-workflow-v2-persister.yml,https://raw.githubusercontent.com/HCM-BAUCHI/health-campaign-config/PROD/egov-persister/kd/facility-persister.yml,https://raw.githubusercontent.com/HCM-BAUCHI/health-campaign-config/PROD/egov-persister/kd/hcm-moz-impl-persister.yml,https://raw.githubusercontent.com/HCM-BAUCHI/health-campaign-config/PROD/egov-persister/kd/household-persister.yml,https://raw.githubusercontent.com/HCM-BAUCHI/health-campaign-config/PROD/egov-persister/kd/hrms-employee-persister.yml,https://raw.githubusercontent.com/HCM-BAUCHI/health-campaign-config/PROD/egov-persister/kd/individual-persister.yml,https://raw.githubusercontent.com/HCM-BAUCHI/health-campaign-config/PROD/egov-persister/kd/stock-persister.yml,https://raw.githubusercontent.com/HCM-BAUCHI/health-campaign-config/PROD/egov-persister-ht/kd/service-request-persister.yml,https://raw.githubusercontent.com/HCM-BAUCHI/health-campaign-config/PROD/egov-persister-ht/kd/project-task-persister.yml,https://raw.githubusercontent.com/HCM-BAUCHI/health-campaign-config/PROD/egov-persister/kd/project-persister.yml,https://raw.githubusercontent.com/HCM-BAUCHI/health-campaign-config/PROD/egov-persister/so/egov-workflow-v2-persister.yml,https://raw.githubusercontent.com/HCM-BAUCHI/health-campaign-config/PROD/egov-persister/so/facility-persister.yml,https://raw.githubusercontent.com/HCM-BAUCHI/health-campaign-config/PROD/egov-persister/so/hcm-moz-impl-persister.yml,https://raw.githubusercontent.com/HCM-BAUCHI/health-campaign-config/PROD/egov-persister/so/household-persister.yml,https://raw.githubusercontent.com/HCM-BAUCHI/health-campaign-config/PROD/egov-persister/so/hrms-employee-persister.yml,https://raw.githubusercontent.com/HCM-BAUCHI/health-campaign-config/PROD/egov-persister/so/individual-persister.yml,https://raw.githubusercontent.com/HCM-BAUCHI/health-campaign-config/PROD/egov-persister/so/stock-persister.yml,https://raw.githubusercontent.com/HCM-BAUCHI/health-campaign-config/PROD/egov-persister-ht/so/service-request-persister.yml,https://raw.githubusercontent.com/HCM-BAUCHI/health-campaign-config/PROD/egov-persister-ht/so/project-task-persister.yml,https://raw.githubusercontent.com/HCM-BAUCHI/health-campaign-config/PROD/egov-persister/so/project-persister.yml,https://raw.githubusercontent.com/HCM-BAUCHI/health-campaign-config/PROD/egov-persister/so/product-persister.yml,https://raw.githubusercontent.com/HCM-BAUCHI/health-campaign-config/PROD/egov-persister/ab/egov-workflow-v2-persister.yml,https://raw.githubusercontent.com/HCM-BAUCHI/health-campaign-config/PROD/egov-persister/ab/facility-persister.yml,https://raw.githubusercontent.com/HCM-BAUCHI/health-campaign-config/PROD/egov-persister/ab/hcm-moz-impl-persister.yml,https://raw.githubusercontent.com/HCM-BAUCHI/health-campaign-config/PROD/egov-persister/ab/household-persister.yml,https://raw.githubusercontent.com/HCM-BAUCHI/health-campaign-config/PROD/egov-persister/ab/hrms-employee-persister.yml,https://raw.githubusercontent.com/HCM-BAUCHI/health-campaign-config/PROD/egov-persister/ab/individual-persister.yml,https://raw.githubusercontent.com/HCM-BAUCHI/health-campaign-config/PROD/egov-persister/ab/stock-persister.yml,https://raw.githubusercontent.com/HCM-BAUCHI/health-campaign-config/PROD/egov-persister-ht/ab/service-request-persister.yml,https://raw.githubusercontent.com/HCM-BAUCHI/health-campaign-config/PROD/egov-persister-ht/ab/project-task-persister.yml,https://raw.githubusercontent.com/HCM-BAUCHI/health-campaign-config/PROD/egov-persister/ab/project-persister.yml,https://raw.githubusercontent.com/HCM-BAUCHI/health-campaign-config/PROD/egov-persister/ab/product-persister.yml,https://raw.githubusercontent.com/HCM-BAUCHI/health-campaign-config/PROD/egov-persister/ba/egov-workflow-v2-persister.yml,https://raw.githubusercontent.com/HCM-BAUCHI/health-campaign-config/PROD/egov-persister/ba/facility-persister.yml,https://raw.githubusercontent.com/HCM-BAUCHI/health-campaign-config/PROD/egov-persister/ba/hcm-moz-impl-persister.yml,https://raw.githubusercontent.com/HCM-BAUCHI/health-campaign-config/PROD/egov-persister/ba/household-persister.yml,https://raw.githubusercontent.com/HCM-BAUCHI/health-campaign-config/PROD/egov-persister/ba/hrms-employee-persister.yml,https://raw.githubusercontent.com/HCM-BAUCHI/health-campaign-config/PROD/egov-persister/ba/individual-persister.yml,https://raw.githubusercontent.com/HCM-BAUCHI/health-campaign-config/PROD/egov-persister/ba/stock-persister.yml,https://raw.githubusercontent.com/HCM-BAUCHI/health-campaign-config/PROD/egov-persister-ht/ba/service-request-persister.yml,https://raw.githubusercontent.com/HCM-BAUCHI/health-campaign-config/PROD/egov-persister-ht/ba/project-task-persister.yml,https://raw.githubusercontent.com/HCM-BAUCHI/health-campaign-config/PROD/egov-persister/ba/project-persister.yml,https://raw.githubusercontent.com/HCM-BAUCHI/health-campaign-config/PROD/egov-persister/ba/product-persister.yml,https://raw.githubusercontent.com/HCM-BAUCHI/health-campaign-config/PROD/egov-persister/oy/egov-workflow-v2-persister.yml,https://raw.githubusercontent.com/HCM-BAUCHI/health-campaign-config/PROD/egov-persister/oy/facility-persister.yml,https://raw.githubusercontent.com/HCM-BAUCHI/health-campaign-config/PROD/egov-persister/oy/hcm-moz-impl-persister.yml,https://raw.githubusercontent.com/HCM-BAUCHI/health-campaign-config/PROD/egov-persister/oy/household-persister.yml,https://raw.githubusercontent.com/HCM-BAUCHI/health-campaign-config/PROD/egov-persister/oy/hrms-employee-persister.yml,https://raw.githubusercontent.com/HCM-BAUCHI/health-campaign-config/PROD/egov-persister/oy/individual-persister.yml,https://raw.githubusercontent.com/HCM-BAUCHI/health-campaign-config/PROD/egov-persister/oy/stock-persister.yml,https://raw.githubusercontent.com/HCM-BAUCHI/health-campaign-config/PROD/egov-persister-ht/oy/service-request-persister.yml,https://raw.githubusercontent.com/HCM-BAUCHI/health-campaign-config/PROD/egov-persister-ht/oy/project-task-persister.yml,https://raw.githubusercontent.com/HCM-BAUCHI/health-campaign-config/PROD/egov-persister/oy/project-persister.yml,https://raw.githubusercontent.com/HCM-BAUCHI/health-campaign-config/PROD/egov-persister/oy/product-persister.yml,https://raw.githubusercontent.com/HCM-BAUCHI/health-campaign-config/PROD/egov-persister/ko/egov-workflow-v2-persister.yml,https://raw.githubusercontent.com/HCM-BAUCHI/health-campaign-config/PROD/egov-persister/ko/facility-persister.yml,https://raw.githubusercontent.com/HCM-BAUCHI/health-campaign-config/PROD/egov-persister/ko/hcm-moz-impl-persister.yml,https://raw.githubusercontent.com/HCM-BAUCHI/health-campaign-config/PROD/egov-persister/ko/household-persister.yml,https://raw.githubusercontent.com/HCM-BAUCHI/health-campaign-config/PROD/egov-persister/ko/hrms-employee-persister.yml,https://raw.githubusercontent.com/HCM-BAUCHI/health-campaign-config/PROD/egov-persister/ko/individual-persister.yml,https://raw.githubusercontent.com/HCM-BAUCHI/health-campaign-config/PROD/egov-persister/ko/stock-persister.yml,https://raw.githubusercontent.com/HCM-BAUCHI/health-campaign-config/PROD/egov-persister-ht/ko/service-request-persister.yml,https://raw.githubusercontent.com/HCM-BAUCHI/health-campaign-config/PROD/egov-persister-ht/ko/project-task-persister.yml,https://raw.githubusercontent.com/HCM-BAUCHI/health-campaign-config/PROD/egov-persister/ko/project-persister.yml,https://raw.githubusercontent.com/HCM-BAUCHI/health-campaign-config/PROD/egov-persister/ko/product-persister.yml,https://raw.githubusercontent.com/HCM-BAUCHI/health-campaign-config/PROD/egov-persister/na/egov-workflow-v2-persister.yml,https://raw.githubusercontent.com/HCM-BAUCHI/health-campaign-config/PROD/egov-persister/na/facility-persister.yml,https://raw.githubusercontent.com/HCM-BAUCHI/health-campaign-config/PROD/egov-persister/na/hcm-moz-impl-persister.yml,https://raw.githubusercontent.com/HCM-BAUCHI/health-campaign-config/PROD/egov-persister/na/household-persister.yml,https://raw.githubusercontent.com/HCM-BAUCHI/health-campaign-config/PROD/egov-persister/na/hrms-employee-persister.yml,https://raw.githubusercontent.com/HCM-BAUCHI/health-campaign-config/PROD/egov-persister/na/individual-persister.yml,https://raw.githubusercontent.com/HCM-BAUCHI/health-campaign-config/PROD/egov-persister/na/stock-persister.yml,https://raw.githubusercontent.com/HCM-BAUCHI/health-campaign-config/PROD/egov-persister-ht/na/service-request-persister.yml,https://raw.githubusercontent.com/HCM-BAUCHI/health-campaign-config/PROD/egov-persister-ht/na/project-task-persister.yml,https://raw.githubusercontent.com/HCM-BAUCHI/health-campaign-config/PROD/egov-persister/na/project-persister.yml,https://raw.githubusercontent.com/HCM-BAUCHI/health-campaign-config/PROD/egov-persister/na/product-persister.yml,https://raw.githubusercontent.com/HCM-BAUCHI/health-campaign-config/PROD/egov-persister/pl/egov-workflow-v2-persister.yml,https://raw.githubusercontent.com/HCM-BAUCHI/health-campaign-config/PROD/egov-persister/pl/facility-persister.yml,https://raw.githubusercontent.com/HCM-BAUCHI/health-campaign-config/PROD/egov-persister/pl/hcm-moz-impl-persister.yml,https://raw.githubusercontent.com/HCM-BAUCHI/health-campaign-config/PROD/egov-persister/pl/household-persister.yml,https://raw.githubusercontent.com/HCM-BAUCHI/health-campaign-config/PROD/egov-persister/pl/hrms-employee-persister.yml,https://raw.githubusercontent.com/HCM-BAUCHI/health-campaign-config/PROD/egov-persister/pl/individual-persister.yml,https://raw.githubusercontent.com/HCM-BAUCHI/health-campaign-config/PROD/egov-persister/pl/stock-persister.yml,https://raw.githubusercontent.com/HCM-BAUCHI/health-campaign-config/PROD/egov-persister-ht/pl/service-request-persister.yml,https://raw.githubusercontent.com/HCM-BAUCHI/health-campaign-config/PROD/egov-persister-ht/pl/project-task-persister.yml,https://raw.githubusercontent.com/HCM-BAUCHI/health-campaign-config/PROD/egov-persister/pl/project-persister.yml,https://raw.githubusercontent.com/HCM-BAUCHI/health-campaign-config/PROD/egov-persister/pl/product-persister.yml,https://raw.githubusercontent.com/HCM-BAUCHI/health-campaign-config/PROD/egov-persister/bo/egov-workflow-v2-persister.yml,https://raw.githubusercontent.com/HCM-BAUCHI/health-campaign-config/PROD/egov-persister/bo/facility-persister.yml,https://raw.githubusercontent.com/HCM-BAUCHI/health-campaign-config/PROD/egov-persister/bo/hcm-moz-impl-persister.yml,https://raw.githubusercontent.com/HCM-BAUCHI/health-campaign-config/PROD/egov-persister/bo/household-persister.yml,https://raw.githubusercontent.com/HCM-BAUCHI/health-campaign-config/PROD/egov-persister/bo/hrms-employee-persister.yml,https://raw.githubusercontent.com/HCM-BAUCHI/health-campaign-config/PROD/egov-persister/bo/individual-persister.yml,https://raw.githubusercontent.com/HCM-BAUCHI/health-campaign-config/PROD/egov-persister/bo/stock-persister.yml,https://raw.githubusercontent.com/HCM-BAUCHI/health-campaign-config/PROD/egov-persister-ht/bo/service-request-persister.yml,https://raw.githubusercontent.com/HCM-BAUCHI/health-campaign-config/PROD/egov-persister-ht/bo/project-task-persister.yml,https://raw.githubusercontent.com/HCM-BAUCHI/health-campaign-config/PROD/egov-persister/bo/project-persister.yml,https://raw.githubusercontent.com/HCM-BAUCHI/health-campaign-config/PROD/egov-persister/bo/product-persister.yml,https://raw.githubusercontent.com/HCM-BAUCHI/health-campaign-config/PROD/egov-persister/ke/egov-workflow-v2-persister.yml,https://raw.githubusercontent.com/HCM-BAUCHI/health-campaign-config/PROD/egov-persister/ke/facility-persister.yml,https://raw.githubusercontent.com/HCM-BAUCHI/health-campaign-config/PROD/egov-persister/ke/hcm-moz-impl-persister.yml,https://raw.githubusercontent.com/HCM-BAUCHI/health-campaign-config/PROD/egov-persister/ke/household-persister.yml,https://raw.githubusercontent.com/HCM-BAUCHI/health-campaign-config/PROD/egov-persister/ke/hrms-employee-persister.yml,https://raw.githubusercontent.com/HCM-BAUCHI/health-campaign-config/PROD/egov-persister/ke/individual-persister.yml,https://raw.githubusercontent.com/HCM-BAUCHI/health-campaign-config/PROD/egov-persister/ke/stock-persister.yml,https://raw.githubusercontent.com/HCM-BAUCHI/health-campaign-config/PROD/egov-persister-ht/ke/service-request-persister.yml,https://raw.githubusercontent.com/HCM-BAUCHI/health-campaign-config/PROD/egov-persister-ht/ke/project-task-persister.yml,https://raw.githubusercontent.com/HCM-BAUCHI/health-campaign-config/PROD/egov-persister/ke/project-persister.yml,https://raw.githubusercontent.com/HCM-BAUCHI/health-campaign-config/PROD/egov-persister/ke/product-persister.yml,https://raw.githubusercontent.com/HCM-BAUCHI/health-campaign-config/PROD/egov-persister/od/egov-workflow-v2-persister.yml,https://raw.githubusercontent.com/HCM-BAUCHI/health-campaign-config/PROD/egov-persister/od/facility-persister.yml,https://raw.githubusercontent.com/HCM-BAUCHI/health-campaign-config/PROD/egov-persister/od/hcm-moz-impl-persister.yml,https://raw.githubusercontent.com/HCM-BAUCHI/health-campaign-config/PROD/egov-persister/od/household-persister.yml,https://raw.githubusercontent.com/HCM-BAUCHI/health-campaign-config/PROD/egov-persister/od/hrms-employee-persister.yml,https://raw.githubusercontent.com/HCM-BAUCHI/health-campaign-config/PROD/egov-persister/od/individual-persister.yml,https://raw.githubusercontent.com/HCM-BAUCHI/health-campaign-config/PROD/egov-persister/od/stock-persister.yml,https://raw.githubusercontent.com/HCM-BAUCHI/health-campaign-config/PROD/egov-persister-ht/od/service-request-persister.yml,https://raw.githubusercontent.com/HCM-BAUCHI/health-campaign-config/PROD/egov-persister-ht/od/project-task-persister.yml,https://raw.githubusercontent.com/HCM-BAUCHI/health-campaign-config/PROD/egov-persister/od/project-persister.yml,https://raw.githubusercontent.com/HCM-BAUCHI/health-campaign-config/PROD/egov-persister/od/product-persister.yml,https://raw.githubusercontent.com/HCM-BAUCHI/health-campaign-config/PROD/egov-persister/ad/egov-workflow-v2-persister.yml,https://raw.githubusercontent.com/HCM-BAUCHI/health-campaign-config/PROD/egov-persister/ad/facility-persister.yml,https://raw.githubusercontent.com/HCM-BAUCHI/health-campaign-config/PROD/egov-persister/ad/hcm-moz-impl-persister.yml,https://raw.githubusercontent.com/HCM-BAUCHI/health-campaign-config/PROD/egov-persister/ad/household-persister.yml,https://raw.githubusercontent.com/HCM-BAUCHI/health-campaign-config/PROD/egov-persister/ad/hrms-employee-persister.yml,https://raw.githubusercontent.com/HCM-BAUCHI/health-campaign-config/PROD/egov-persister/ad/individual-persister.yml,https://raw.githubusercontent.com/HCM-BAUCHI/health-campaign-config/PROD/egov-persister/ad/stock-persister.yml,https://raw.githubusercontent.com/HCM-BAUCHI/health-campaign-config/PROD/egov-persister-ht/ad/service-request-persister.yml,https://raw.githubusercontent.com/HCM-BAUCHI/health-campaign-config/PROD/egov-persister-ht/ad/project-task-persister.yml,https://raw.githubusercontent.com/HCM-BAUCHI/health-campaign-config/PROD/egov-persister/ad/project-persister.yml,https://raw.githubusercontent.com/HCM-BAUCHI/health-campaign-config/PROD/egov-persister/ad/product-persister.yml,https://raw.githubusercontent.com/HCM-BAUCHI/health-campaign-config/PROD/egov-persister/go/egov-workflow-v2-persister.yml,https://raw.githubusercontent.com/HCM-BAUCHI/health-campaign-config/PROD/egov-persister/go/facility-persister.yml,https://raw.githubusercontent.com/HCM-BAUCHI/health-campaign-config/PROD/egov-persister/go/hcm-moz-impl-persister.yml,https://raw.githubusercontent.com/HCM-BAUCHI/health-campaign-config/PROD/egov-persister/go/household-persister.yml,https://raw.githubusercontent.com/HCM-BAUCHI/health-campaign-config/PROD/egov-persister/go/hrms-employee-persister.yml,https://raw.githubusercontent.com/HCM-BAUCHI/health-campaign-config/PROD/egov-persister/go/individual-persister.yml,https://raw.githubusercontent.com/HCM-BAUCHI/health-campaign-config/PROD/egov-persister/go/stock-persister.yml,https://raw.githubusercontent.com/HCM-BAUCHI/health-campaign-config/PROD/egov-persister-ht/go/service-request-persister.yml,https://raw.githubusercontent.com/HCM-BAUCHI/health-campaign-config/PROD/egov-persister-ht/go/project-task-persister.yml,https://raw.githubusercontent.com/HCM-BAUCHI/health-campaign-config/PROD/egov-persister/go/project-persister.yml,https://raw.githubusercontent.com/HCM-BAUCHI/health-campaign-config/PROD/egov-persister/go/product-persister.yml"
@@ -573,7 +658,7 @@ egov-indexer-ba-bo-ke:
     gitSync:
       repo: "git@github.com:HCM-BAUCHI/health-campaign-config"        ##### Change repo url with Your fork Repo url
       branch: "PROD"                                      ##### Change repo branch with Your fork Repo branch
-  egov-indexer-yaml-repo-path: "/work-dir/health-campaign-config/egov-indexer/ba,/work-dir/health-campaign-config/egov-indexer/bo,/work-dir/health-campaign-config/egov-indexer/ke"
+  egov-indexer-yaml-repo-path: "/work-dir/health-campaign-config/egov-indexer/ba,/work-dir/health-campaign-config/egov-indexer/bo,/work-dir/health-campaign-config/egov-indexer/ke,/work-dir/health-campaign-config/egov-indexer/abia"
   dss-collectionindex-topic-push-enabled: "false"
   topic-push-enabled: "false"
 
@@ -600,6 +685,58 @@ egov-indexer-ch:
       repo: "git@github.com:HCM-BAUCHI/health-campaign-config"        ##### Change repo url with Your fork Repo url
       branch: "PROD"                                      ##### Change repo branch with Your fork Repo branch
   egov-indexer-yaml-repo-path: "/work-dir/health-campaign-config/egov-indexer/ch"
+  dss-collectionindex-topic-push-enabled: "false"
+  topic-push-enabled: "false"
+
+egov-indexer-si:
+  image:
+    repository: egovio/egov-indexer
+    tag: indexer-17-searchBody-aefd92b
+  kafka-consumer-group-id: "egov-indexer-consumer-grp-si"
+  heap: "-Xmx1536m -Xms1024m"
+  hpa:
+    enabled: true
+    minReplicas: 1
+    maxReplicas: 3
+  cpu_requests: 300m
+  memory_requests: 1.5Gi
+  cpu_limits: 400m
+  memory_limits: 2Gi
+  initContainers:
+    dbMigration:
+      image:
+        repository: egovio/egov-indexer-db
+        tag: indexer-17-searchBody-aefd92b
+    gitSync:
+      repo: "git@github.com:HCM-BAUCHI/health-campaign-config"        ##### Change repo url with Your fork Repo url
+      branch: "PROD"                                      ##### Change repo branch with Your fork Repo branch
+  egov-indexer-yaml-repo-path: "/work-dir/health-campaign-config/egov-indexer/si"
+  dss-collectionindex-topic-push-enabled: "false"
+  topic-push-enabled: "false"
+
+egov-indexer-gabon:
+  image:
+    repository: egovio/egov-indexer
+    tag: indexer-17-searchBody-aefd92b
+  kafka-consumer-group-id: "egov-indexer-consumer-grp-gabon"
+  heap: "-Xmx1536m -Xms1024m"
+  hpa:
+    enabled: true
+    minReplicas: 1
+    maxReplicas: 4
+  cpu_requests: 300m
+  memory_requests: 1.5Gi
+  cpu_limits: 400m
+  memory_limits: 2Gi
+  initContainers:
+    dbMigration:
+      image:
+        repository: egovio/egov-indexer-db
+        tag: indexer-17-searchBody-aefd92b
+    gitSync:
+      repo: "git@github.com:HCM-BAUCHI/health-campaign-config"        ##### Change repo url with Your fork Repo url
+      branch: "PROD"                                      ##### Change repo branch with Your fork Repo branch
+  egov-indexer-yaml-repo-path: "/work-dir/health-campaign-config/egov-indexer/gabon"
   dss-collectionindex-topic-push-enabled: "false"
   topic-push-enabled: "false"
 
@@ -753,12 +890,33 @@ egov-persister-ht:
 #  persist-yml-path: "/work-dir/health-campaign-config/egov-persister-ht/chad,/work-dir/health-campaign-config/egov-persister-ht/ch,/work-dir/health-campaign-config/egov-persister-ht/kb,/work-dir/health-campaign-config/egov-persister-ht/jg,/work-dir/health-campaign-config/egov-persister-ht/kd,/work-dir/health-campaign-config/egov-persister-ht/so,/work-dir/health-campaign-config/egov-persister-ht/ab,/work-dir/health-campaign-config/egov-persister-ht/ba,/work-dir/health-campaign-config/egov-persister-ht/oy,/work-dir/health-campaign-config/egov-persister-ht/ko,/work-dir/health-campaign-config/egov-persister-ht/na,/work-dir/health-campaign-config/egov-persister-ht/pl,/work-dir/health-campaign-config/egov-persister-ht/bo,/work-dir/health-campaign-config/egov-persister-ht/ke,/work-dir/health-campaign-config/egov-persister-ht/od,/work-dir/health-campaign-config/egov-persister-ht/ad,/work-dir/health-campaign-config/egov-persister-ht/go"
 #  REMOVING EXCEPT chad, chad-prod, kebbi-azm, kaduna, jigawa, adamawa, gombe config files
 # /work-dir/health-campaign-config/egov-persister-ht/ad,/work-dir/health-campaign-config/egov-persister-ht/go,/work-dir/health-campaign-config/egov-persister-ht/ch
-  persist-yml-path: "/work-dir/health-campaign-config/egov-persister-ht/ch,/work-dir/health-campaign-config/egov-persister-ht/chad,/work-dir/health-campaign-config/egov-persister-ht/kb,/work-dir/health-campaign-config/egov-persister-ht/jg,/work-dir/health-campaign-config/egov-persister-ht/kd,/work-dir/health-campaign-config/egov-persister-ht/oy,/work-dir/health-campaign-config/egov-persister-ht/na,/work-dir/health-campaign-config/egov-persister-ht/ko,/work-dir/health-campaign-config/egov-persister/common,/work-dir/health-campaign-config/egov-persister-ht/pl,/work-dir/health-campaign-config/egov-persister-ht/ab,/work-dir/health-campaign-config/egov-persister-ht/ba,/work-dir/health-campaign-config/egov-persister-ht/bo,/work-dir/health-campaign-config/egov-persister-ht/ke,/work-dir/health-campaign-config/egov-persister-ht/od,/work-dir/health-campaign-config/egov-persister-ht/so,/work-dir/health-campaign-config/egov-persister-ht/zf,/work-dir/health-campaign-config/egov-persister-ht/go,/work-dir/health-campaign-config/egov-persister-ht/ad,/work-dir/health-campaign-config/egov-persister-ht/abia"
+  persist-yml-path: "/work-dir/health-campaign-config/egov-persister-ht/ch,/work-dir/health-campaign-config/egov-persister-ht/chad,/work-dir/health-campaign-config/egov-persister-ht/kb,/work-dir/health-campaign-config/egov-persister-ht/jg,/work-dir/health-campaign-config/egov-persister-ht/kd,/work-dir/health-campaign-config/egov-persister-ht/oy,/work-dir/health-campaign-config/egov-persister-ht/na,/work-dir/health-campaign-config/egov-persister-ht/ko,/work-dir/health-campaign-config/egov-persister/common,/work-dir/health-campaign-config/egov-persister-ht/pl,/work-dir/health-campaign-config/egov-persister-ht/ab,/work-dir/health-campaign-config/egov-persister-ht/ba,/work-dir/health-campaign-config/egov-persister-ht/bo,/work-dir/health-campaign-config/egov-persister-ht/ke,/work-dir/health-campaign-config/egov-persister-ht/od,/work-dir/health-campaign-config/egov-persister-ht/so,/work-dir/health-campaign-config/egov-persister-ht/zf,/work-dir/health-campaign-config/egov-persister-ht/go,/work-dir/health-campaign-config/egov-persister-ht/ad,/work-dir/health-campaign-config/egov-persister-ht/si,/work-dir/health-campaign-config/egov-persister-ht/abia"
   initContainers:
     gitSync:
       repo: "git@github.com:HCM-BAUCHI/health-campaign-config"      ##### Change repo url with Your fork Repo url
       branch: "PROD"                                    ##### Change repo branch with Your fork Repo branch
 
+egov-persister-gabon:
+  image:
+    repository: egovio/egov-persister
+    tag: master-perf-fe334d2
+  kafka-consumer-group-id: "egov-infra-persist-gabon"
+  heap: "-Xmx1536m -Xms1024m"
+  hpa:
+    enabled: true
+    minReplicas: 1
+    maxReplicas: 4
+  cpu_requests: 300m
+  memory_requests: 1.5Gi
+  cpu_limits: 400m
+  memory_limits: 2Gi
+  images:
+    - egovio/egov-persister
+  persist-yml-path: "/work-dir/health-campaign-config/egov-persister/gabon"
+  initContainers:
+    gitSync:
+      repo: "git@github.com:HCM-BAUCHI/health-campaign-config"      ##### Change repo url with Your fork Repo url
+      branch: "PROD"                                    ##### Change repo branch with Your fork Repo branch
 
 egov-persister-chad-kb-kd:
   image:
@@ -799,6 +957,28 @@ egov-persister-ch:
   images:
     - egovio/egov-persister
   persist-yml-path: "/work-dir/health-campaign-config/egov-persister/ch"
+  initContainers:
+    gitSync:
+      repo: "git@github.com:HCM-BAUCHI/health-campaign-config"      ##### Change repo url with Your fork Repo url
+      branch: "PROD"                                    ##### Change repo branch with Your fork Repo branch
+
+egov-persister-si:
+  image:
+    repository: egovio/egov-persister
+    tag: master-perf-fe334d2
+  kafka-consumer-group-id: "egov-infra-persist-si"
+  heap: "-Xmx1536m -Xms1024m"
+  hpa:
+    enabled: true
+    minReplicas: 1
+    maxReplicas: 3
+  cpu_requests: 300m
+  memory_requests: 1.5Gi
+  cpu_limits: 400m
+  memory_limits: 2Gi
+  images:
+    - egovio/egov-persister
+  persist-yml-path: "/work-dir/health-campaign-config/egov-persister/si"
   initContainers:
     gitSync:
       repo: "git@github.com:HCM-BAUCHI/health-campaign-config"      ##### Change repo url with Your fork Repo url
@@ -887,7 +1067,7 @@ egov-persister-ba-bo-ke:
   memory_limits: 2Gi
   images:
     - egovio/egov-persister
-  persist-yml-path: "/work-dir/health-campaign-config/egov-persister/ba,/work-dir/health-campaign-config/egov-persister/bo,/work-dir/health-campaign-config/egov-persister/ke"
+  persist-yml-path: "/work-dir/health-campaign-config/egov-persister/ba,/work-dir/health-campaign-config/egov-persister/bo,/work-dir/health-campaign-config/egov-persister/ke,/work-dir/health-campaign-config/egov-persister/abia"
   initContainers:
     gitSync:
       repo: "git@github.com:HCM-BAUCHI/health-campaign-config"      ##### Change repo url with Your fork Repo url
@@ -1161,8 +1341,8 @@ egov-hrms:
   java-args: -Dspring.profiles.active=monitoring
   employee-applink: "https://bauchi-hcm.digit.org/digit-ui/employee/login"
   java-enable-debug: true
-  schemaNameExclude: [ "chad", "kb" ]
-  hostExclude: ["chad-hcm-prod.digit.org", "kebbi-azm-central-hcm.digit.org"]
+  schemaNameExclude: [ "chad", "namibia" ]
+  hostExclude: ["chad-hcm-prod.digit.org", "namibia-hcm.digit.org"]
   spring-datasource-tomcat-max-active: "4"
   server-tomcat-max-threads: "4"
 
@@ -1375,8 +1555,8 @@ facility:
   memory_requests: 512Mi
   cpu_limits: 300m
   memory_limits: 768Mi
-  schemaNameExclude: [ "chad", "kb" ]
-  hostExclude: ["chad-hcm-prod.digit.org", "kebbi-azm-central-hcm.digit.org"]
+  schemaNameExclude: [ "chad", "namibia" ]
+  hostExclude: ["chad-hcm-prod.digit.org", "namibia-hcm.digit.org"]
   extraEnv:
     app: |
       - name: TRACER_ERRORSPUBLISH
@@ -1413,8 +1593,8 @@ product:
   memory_requests: 768Mi
   cpu_limits: 1
   memory_limits: 1024Mi
-  schemaNameExclude: [ "chad", "kb" ]
-  hostExclude: ["chad-hcm-prod.digit.org", "kebbi-azm-central-hcm.digit.org"]
+  schemaNameExclude: [ "chad", "namibia" ]
+  hostExclude: ["chad-hcm-prod.digit.org", "namibia-hcm.digit.org"]
 
 egov-localization:
   initContainers:
@@ -1452,14 +1632,14 @@ individual:
   heap: "-Xmx1g -Xms512m"
   hpa:
     enabled: true
-    minReplicas: 2
+    minReplicas: 6
     maxReplicas: 8
   cpu_requests: 300m
   memory_requests: 1Gi
   cpu_limits: 400m
   memory_limits: 1.5Gi
-  schemaNameExclude: [ "chad", "kb" ]
-  hostExclude: ["chad-hcm-prod.digit.org", "kebbi-azm-central-hcm.digit.org"]
+  schemaNameExclude: [ "chad", "namibia" ]
+  hostExclude: ["chad-hcm-prod.digit.org", "namibia-hcm.digit.org"]
   egov-beneficiary-idgen-integration-enabled: "true"
   individual-beneficiary-id-validation-enabled: "false"
   spring-datasource-tomcat-max-active: "5"
@@ -1497,8 +1677,8 @@ individual-referral:
   memory_requests: 1.5Gi
   cpu_limits: 400m
   memory_limits: 2Gi
-  schemaNameExclude: [ "chad", "kb" ]
-  hostExclude: ["chad-hcm-prod.digit.org", "kebbi-azm-central-hcm.digit.org"]
+  schemaNameExclude: [ "chad", "namibia" ]
+  hostExclude: ["chad-hcm-prod.digit.org", "namibia-hcm.digit.org"]
   egov-beneficiary-idgen-integration-enabled: "true"
   individual-beneficiary-id-validation-enabled: "false"
   extraEnv:
@@ -1538,8 +1718,8 @@ stock:
   memory_requests: 768Mi
   cpu_limits: 300m
   memory_limits: 1Gi
-  schemaNameExclude: [ "chad", "kb" ]
-  hostExclude: ["chad-hcm-prod.digit.org", "kebbi-azm-central-hcm.digit.org"]
+  schemaNameExclude: [ "chad", "namibia" ]
+  hostExclude: ["chad-hcm-prod.digit.org", "namibia-hcm.digit.org"]
   java-enable-debug: "true"
   tracer-request-logging-enabled: "true"
   extraEnv:
@@ -1574,8 +1754,8 @@ household:
   memory_requests: 1Gi
   cpu_limits: 400m
   memory_limits: 1.5Gi
-  schemaNameExclude: [ "chad", "kb" ]
-  hostExclude: ["chad-hcm-prod.digit.org", "kebbi-azm-central-hcm.digit.org"]
+  schemaNameExclude: [ "chad", "namibia" ]
+  hostExclude: ["chad-hcm-prod.digit.org", "namibia-hcm.digit.org"]
   extraEnv:
     app: |
       - name: TRACER_ERRORSPUBLISH
@@ -1605,8 +1785,8 @@ household-referral:
   memory_requests: 1.5Gi
   cpu_limits: 400m
   memory_limits: 2Gi
-  schemaNameExclude: [ "chad", "kb" ]
-  hostExclude: ["chad-hcm-prod.digit.org", "kebbi-azm-central-hcm.digit.org"]
+  schemaNameExclude: [ "chad", "namibia" ]
+  hostExclude: ["chad-hcm-prod.digit.org", "namibia-hcm.digit.org"]
   extraEnv:
     app: |
       - name: TRACER_ERRORSPUBLISH
@@ -1635,8 +1815,8 @@ project:
   memory_requests: 1.25Gi
   cpu_limits: 400m
   memory_limits: 1.5Gi
-  schemaNameExclude: [ "chad", "kb" ]
-  hostExclude: ["chad-hcm-prod.digit.org", "kebbi-azm-central-hcm.digit.org"]
+  schemaNameExclude: [ "chad", "namibia" ]
+  hostExclude: ["chad-hcm-prod.digit.org", "namibia-hcm.digit.org"]
   project-task-no-resource-validation-status: "ADMINISTRATION_FAILED,BENEFICIARY_REFUSED,CLOSED_HOUSEHOLD,NOT_ADMINISTERED,BENEFICIARY_DIED,BENEFICIARY_MIGRATED,BENEFICIARY_ABSENT,BENEFICIARY_INELIGIBLE,INELIGIBLE"
   tracer-request-logging-enabled: "true"
   spring-datasource-tomcat-max-active: "5"
@@ -1669,8 +1849,8 @@ project-referral:
   memory_requests: 1.5Gi
   cpu_limits: 300m
   memory_limits: 2Gi
-  schemaNameExclude: [ "chad", "kb" ]
-  hostExclude: ["chad-hcm-prod.digit.org", "kebbi-azm-central-hcm.digit.org"]
+  schemaNameExclude: [ "chad", "namibia" ]
+  hostExclude: ["chad-hcm-prod.digit.org", "namibia-hcm.digit.org"]
   project-task-no-resource-validation-status: "ADMINISTRATION_FAILED,BENEFICIARY_REFUSED,CLOSED_HOUSEHOLD,NOT_ADMINISTERED,BENEFICIARY_DIED,BENEFICIARY_MIGRATED,BENEFICIARY_ABSENT,BENEFICIARY_INELIGIBLE,INELIGIBLE"
   extraEnv:
     app: |
@@ -1690,7 +1870,7 @@ referralmanagement:
     tag: master-impel-ref-cca889b
   db-read-url-enabled: true
   db-read-url-enabled-2: false
-  downsync-services-enabled: true
+  downsync-separate-services-enabled: true
   central-instance-build: true
   central-instance-enabled: true
   replicas: 2
@@ -1703,8 +1883,8 @@ referralmanagement:
   memory_requests: 1.75Gi
   cpu_limits: 400m
   memory_limits: 2Gi
-  schemaNameExclude: [ "chad", "kb" ]
-  hostExclude: ["chad-hcm-prod.digit.org", "kebbi-azm-central-hcm.digit.org"]
+  schemaNameExclude: [ "chad", "namibia" ]
+  hostExclude: ["chad-hcm-prod.digit.org", "namibia-hcm.digit.org"]
   kafka-consumer-group-id: "health-referral-management"
   search-api-limit: "1000"
   referralmanagement-default-limit: "1000"
@@ -1766,22 +1946,22 @@ service-request:
   memory_requests: 512Mi
   cpu_limits: 300m
   memory_limits: 768Mi
-  schemaNameExclude: [ "chad", "kb" ]
-  hostExclude: ["chad-hcm-prod.digit.org", "kebbi-azm-central-hcm.digit.org"]
+  schemaNameExclude: [ "chad", "namibia" ]
+  hostExclude: ["chad-hcm-prod.digit.org", "namibia-hcm.digit.org"]
   
 project-factory:
   initContainers:
     dbMigration:
       image:
         repository: "project-factory-db"
-        tag: master-ekfrazo-f145ca4
+        tag: master-ekfrazo-fc8b6be
   image:
     repository: egovio/project-factory
-    tag: master-ekfrazo-f145ca4
+    tag: master-ekfrazo-fc8b6be
   central-instance-enabled: false
   central-instance-build: true
-  schemaNameExclude: [ "chad", "kb" ]
-  hostExclude: [ "chad-hcm-prod.digit.org", "kebbi-azm-central-hcm.digit.org" ]
+  schemaNameExclude: [ "chad", "namibia" ]
+  hostExclude: ["chad-hcm-prod.digit.org", "namibia-hcm.digit.org"]
   namespace: egov
   heap: "-Xmx2048m -Xms512m"
   replicas: 3
@@ -1843,7 +2023,7 @@ project-factory:
   serverTimezone: "UTC"
   attendanceAttendeeSearchPageSize: "100"
   attendanceStaffSearchPageSize: "100"
-  centralInstanceTenantIds: "ba,oy,ko,na,ab,pl,bo,ke,so,od,ad,kd,jg,ch,go,zf,abia"
+  centralInstanceTenantIds: "ba,oy,ko,na,ab,pl,bo,ke,so,od,ad,kd,jg,kb,ch,go,zf,abia,si,gabon"
   userKafkaCreateBatchSize: '100'
   mappingBulkCreateChunkSize: '150'
   projectBulkCreateChunkSize: '100'
@@ -1884,8 +2064,8 @@ worker-registry:
     maxReplicas: 3
   cpu_requests: 200m
   memory_requests: 368Mi
-  schemaNameExclude: [ "chad", "kb" ]
-  hostExclude: ["chad-hcm-prod.digit.org", "kebbi-azm-central-hcm.digit.org"]
+  schemaNameExclude: [ "chad", "namibia" ]
+  hostExclude: ["chad-hcm-prod.digit.org", "namibia-hcm.digit.org"]
 
 excel-ingestion:
   namespace: egov
@@ -1897,11 +2077,15 @@ excel-ingestion:
   image:
     repository: egovio/excel-ingestion
     tag: master-ekfrazo-32cf9ce
+  hpa:
+    enabled: false
+    minReplicas: 1
+    maxReplicas: 3
   group-id: "egov-excel-ingestion"
   central-instance-build: true
   central-instance-enabled: true
-  schemaNameExclude: [ "chad", "kb" ]
-  hostExclude: ["chad-hcm-prod.digit.org", "kebbi-azm-central-hcm.digit.org"]
+  schemaNameExclude: [ "chad", "namibia" ]
+  hostExclude: ["chad-hcm-prod.digit.org", "namibia-hcm.digit.org"]
   cpu_requests: 1
   memory_requests: 4072Mi
   memory_limits: "4072Mi"
@@ -1922,7 +2106,7 @@ excel-ingestion:
   excel-ingestion-sheet-data-save-topic: "save-sheet-data-temp"
   excel-ingestion-sheet-data-delete-topic: "delete-sheet-data-temp"
   excel-ingestion-processing-result-topic: "hcm-processing-result"
-  kafka-tenant-id-pattern: "(ba|oy|ko|na|ab|pl|bo|ke|so|od|ad|kd|jg|ch|go|zf)-"
+  kafka-tenant-id-pattern: "(ba|oy|ko|na|ab|pl|bo|ke|so|od|ad|kd|jg|kb|ch|go|zf|gabon|abia|si)-"
   java-enable-debug: true
   wait-time-of-each-attempt-ms: "20000"
 
@@ -2149,8 +2333,8 @@ health-attendance:
     tag: attendance-staff-deenrollment-fix-8b590d8
   central-instance-build: true
   central-instance-enabled: true
-  schemaNameExclude: [ "chad", "kb" ]
-  hostExclude: ["chad-hcm-prod.digit.org", "kebbi-azm-central-hcm.digit.org"]
+  schemaNameExclude: [ "chad", "namibia" ]
+  hostExclude: ["chad-hcm-prod.digit.org", "namibia-hcm.digit.org"]
   java-enable-debug: false
   heap: "-Xmx512m -Xms256m"
   hpa:
@@ -2187,8 +2371,8 @@ health-muster-roll:
     tag: nigeria-go-deep-report-fix-adaa688
   central-instance-build: true
   central-instance-enabled: true
-  schemaNameExclude: [ "chad", "kb" ]
-  hostExclude: ["chad-hcm-prod.digit.org", "kebbi-azm-central-hcm.digit.org"]
+  schemaNameExclude: [ "chad", "namibia" ]
+  hostExclude: ["chad-hcm-prod.digit.org", "namibia-hcm.digit.org"]
   java-enable-debug: false
   heap: "-Xmx512m -Xms256m"
   hpa:
@@ -2213,9 +2397,9 @@ health-expense:
     tag: nigeria-go-deep-payments-expense-15b5a23
   central-instance-build: true
   central-instance-enabled: true
-  schemaNameExclude: [ "chad", "kb", "bo" ]
-  hostExclude: ["chad-hcm-prod.digit.org", "kebbi-azm-central-hcm.digit.org", "borno-hcm.digit.org"]
-  expense-kafka-tenant-id-pattern: "(ba|oy|ko|na|ab|pl|ke|so|od|ad|kd|jg|ch|go|zf)-"
+  schemaNameExclude: [ "chad", "bo", "abia", "ko", "namibia" ]
+  hostExclude: ["chad-hcm-prod.digit.org", "borno-hcm.digit.org", "abia-hcm.digit.org", "kogi-hcm.digit.org", "namibia-hcm.digit.org"]
+  expense-kafka-tenant-id-pattern: "(ba|oy|ko|na|ab|pl|ke|so|od|ad|kd|jg|kb|ch|go|zf|gabon)-"
   java-enable-debug: false
   java-args: ""
   business-workflow-status-map: "{'EXPENSE.WAGES':'false','EXPENSE.PURCHASE':'false','EXPENSE.SUPERVISION':'false','PAYMENTS.BILL':'true','PAYMENTS.BILLDETAILS':'true'}"
@@ -2257,6 +2441,9 @@ health-expense-calculator:
     - gombe-hcm.digit.org
     - zamfara-hcm.digit.org
     - abia-hcm.digit.org
+    - sierraleone-hcm.digit.org
+    - namibia-hcm.digit.org
+    - gabon-hcm.digit.org
   initContainers:
     dbMigration:
       image:
@@ -2361,15 +2548,18 @@ egov-notification-mail:
   memory_limits: 512Mi
 
 egov-notification-push:
+  hostExclude: ["namibia-hcm.digit.org"]
+  schemaNameExclude: [ "namibia" ]
   namespace: egov
   initContainers:
     dbMigration:
       image:
         repository: egovio/egov-notification-push-db
-        tag: nigeria-go-deep-push-notification-batch-00fb53d
+        tag: nigeria-go-deep-push-notification-batch-559f031
   image:
     repository: egovio/egov-notification-push
-    tag: nigeria-go-deep-push-notification-batch-00fb53d
+    tag: nigeria-go-deep-push-notification-batch-559f031
+  push-token-cleanup-schemas: "ba,oy,ko,na,ab,pl,bo,ke,so,od,ad,kd,jg,kb,ch,go,chad,zf,abia,si,namibia,gabon"
   hpa:
     enabled: true
     minReplicas: 4
@@ -2389,6 +2579,8 @@ egov-notification-push:
         value: "DEBUG"
 
 health-notification-service:
+  hostExclude: ["namibia-hcm.digit.org"]
+  schemaNameExclude: [ "namibia" ]
   namespace: egov
   initContainers:
     dbMigration:
@@ -2507,6 +2699,8 @@ loki:
       shared_store: s3                             ## AWS s3 as storage
       retention_enabled: true
       compaction_interval: 720h                    ## compaction in hours
+    chunk_store_config:
+      max_look_back_period: 720h                   ## query look-back; must be <= table_manager retention_period
     table_manager:
       retention_deletes_enabled: true
       retention_period: 720h
@@ -2541,11 +2735,13 @@ dashboard-analytics:
       branch: "PROD"
   config-schema-paths: "file:///work-dir/health-campaign-config/egov-dss-dashboards/ch/dashboard-analytics/*.json"
 is-central-instance: "true"
-central-instance-tenants: "oy,ko,na,jg,pl,ab,kd,ba,ke,ch,bo,so,zf,go,ad"
+central-instance-tenants: "oy,ko,na,jg,pl,ab,kd,ba,ke,ch,bo,so,zf,go,ad,kb,gabon,abia,namibia"
 central-instance-base-path: "file:///work-dir/health-campaign-config/egov-dss-dashboards"
 
 
 beneficiary-idgen:
+  hostExclude: ["namibia-hcm.digit.org"]
+  schemaNameExclude: [ "namibia" ]
   namespace: egov
   central-instance-build: true
   central-instance-enabled: true
@@ -2595,5 +2791,5 @@ inbox:
   egov-internal-microservice-user-uuid: "egov-internal-microservice-user-uuid"
   central-instance-build: true
   central-instance-enabled: true
-  schemaNameExclude: [ "chad", "kb" ]
-  hostExclude: ["chad-hcm-prod.digit.org", "kebbi-azm-central-hcm.digit.org"]
+  schemaNameExclude: [ "chad" ]
+  hostExclude: ["chad-hcm-prod.digit.org"]

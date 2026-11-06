@@ -531,3 +531,34 @@ env: |
     value: {{ index .Values "transformer-consumer-stock-reconciliation-enabled" | default "true" | quote }}
   - name: TRANSFORMER_CONSUMER_USER_ACTION_ENABLED
     value: {{ index .Values "transformer-consumer-user-action-enabled" | default "true" | quote }}
+  {{- if hasKey .Values "egov-elastic-search-port" }}
+  - name: EGOV_ELASTIC_SEARCH_HOST
+    valueFrom:
+      configMapKeyRef:
+        name: egov-config
+        key: es-host
+  - name: EGOV_ELASTIC_SEARCH_PORT
+    value: {{ index .Values "egov-elastic-search-port" | quote }}
+  - name: EGOV_ELASTIC_SEARCH_USERNAME
+    valueFrom:
+      secretKeyRef:
+        name: elastic
+        key: username
+  - name: EGOV_ELASTIC_SEARCH_PASSWORD
+    valueFrom:
+      secretKeyRef:
+        name: elastic
+        key: password
+  {{- end }}
+  {{- if hasKey .Values "project-staff-index-name" }}
+  - name: PROJECT_STAFF_INDEX_NAME
+    value: {{ index .Values "project-staff-index-name" | quote }}
+  {{- end }}
+  {{- if hasKey .Values "transformer-consumer-max-poll-records" }}
+  - name: SPRING_KAFKA_CONSUMER_MAX_POLL_RECORDS
+    value: {{ index .Values "transformer-consumer-max-poll-records" | quote }}
+  {{- end }}
+  {{- if hasKey .Values "transformer-consumer-user-status-change-topic" }}
+  - name: TRANSFORMER_CONSUMER_USER_STATUS_CHANGE_TOPIC
+    value: {{ index .Values "transformer-consumer-user-status-change-topic" | quote }}
+  {{- end }}

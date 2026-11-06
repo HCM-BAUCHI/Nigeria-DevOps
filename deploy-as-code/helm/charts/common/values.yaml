@@ -64,6 +64,12 @@ initContainers:
               key: bo-db-url
           {{- else if eq .Values.namespace "oyo" }}
               key: oy-db-url
+          {{- else if eq .Values.namespace "sierraleone" }}
+              key: si-db-url
+          {{- else if eq .Values.namespace "namibia" }}
+              key: namibia-db-url
+          {{- else if eq .Values.namespace "gabon" }}
+              key: gabon-db-url
           {{- else }}
               key: db-url
           {{- end }}
@@ -83,6 +89,8 @@ initContainers:
               key: db-schema-names
           {{- else if eq .Values.namespace "kaduna" }}
           value: "kd"
+          {{- else if eq .Values.namespace "kogi" }}
+          value: "ko"
           {{- else if eq .Values.namespace "kebbi-azm" }}
           value: "kb"
           {{- else if eq .Values.namespace "jigawa" }}
@@ -95,6 +103,12 @@ initContainers:
           value: "abia"
           {{- else if eq .Values.namespace "borno" }}
           value: "bo"
+          {{- else if eq .Values.namespace "sierraleone" }}
+          value: "si"
+          {{- else if eq .Values.namespace "namibia" }}
+          value: "namibia"
+          {{- else if eq .Values.namespace "gabon" }}
+          value: "gabon"
           {{- else }}
           value: "public"
           {{- end }}
@@ -187,6 +201,8 @@ extraEnv:
             {{- if index .Values "db-read-url-enabled" }}
             {{- if eq .Values.namespace "bauchi" }}
             key: ba-db-read-url
+            {{- else if eq .Values.namespace "kogi" }}
+            key: ko-db-read-url
             {{- else if eq .Values.namespace "kaduna" }}
             key: kd-db-read-url
             {{- else if eq .Values.namespace "kebbi-azm" }}
@@ -201,6 +217,12 @@ extraEnv:
             key: abia-db-read-url
             {{- else if eq .Values.namespace "borno" }}
             key: bo-db-read-url
+            {{- else if eq .Values.namespace "sierraleone" }}
+            key: si-db-read-url
+            {{- else if eq .Values.namespace "namibia" }}
+            key: namibia-db-read-url
+            {{- else if eq .Values.namespace "gabon" }}
+            key: gabon-db-read-url
             {{- else }}
             key: db-read-url
             {{- end }}
@@ -208,6 +230,8 @@ extraEnv:
             key: db-read-url-2
             {{- else if eq .Values.namespace "bauchi" }}
             key: ba-db-url
+            {{- else if eq .Values.namespace "kogi" }}
+            key: ko-db-url
             {{- else if eq .Values.namespace "kaduna" }}
             key: kd-db-url
             {{- else if eq .Values.namespace "kebbi-azm" }}
@@ -224,6 +248,12 @@ extraEnv:
             key: bo-db-url
             {{- else if eq .Values.namespace "oyo" }}
             key: oy-db-url
+            {{- else if eq .Values.namespace "sierraleone" }}
+            key: si-db-url
+            {{- else if eq .Values.namespace "namibia" }}
+            key: namibia-db-url
+            {{- else if eq .Values.namespace "gabon" }}
+            key: gabon-db-url
             {{- else if index .Values "db-write-url" }}
             key: db-url
             {{- else }}
@@ -246,6 +276,8 @@ extraEnv:
             name: egov-config
             {{- if eq .Values.namespace "bauchi" }}
             key: ba-db-url
+            {{- else if eq .Values.namespace "kogi" }}
+            key: ko-db-url
             {{- else if eq .Values.namespace "kaduna" }}
             key: kd-db-url
             {{- else if eq .Values.namespace "kebbi-azm" }}
@@ -260,6 +292,12 @@ extraEnv:
             key: bo-db-url
             {{- else if eq .Values.namespace "oyo" }}
             key: oy-db-url
+            {{- else if eq .Values.namespace "sierraleone" }}
+            key: si-db-url
+            {{- else if eq .Values.namespace "namibia" }}
+            key: namibia-db-url
+            {{- else if eq .Values.namespace "gabon" }}
+            key: gabon-db-url
             {{- else }}
             key: db-url
             {{- end }}

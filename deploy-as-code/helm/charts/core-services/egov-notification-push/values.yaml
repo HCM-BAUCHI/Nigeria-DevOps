@@ -29,11 +29,12 @@ appType: "java-spring"
 tracing-enabled: true
 heap: "-Xmx192m -Xms192m"
 java-args: ""
+push-token-cleanup-schemas: ""
 
 # Additional Container Envs
 env: |
   - name: SPRING_KAFKA_CONSUMER_GROUP_ID
-    value: egov-notification-push-group
+    value: {{ index .Values "kafka-consumer-group-id" | default "egov-notification-push-group" | quote }}
   - name: SPRING_KAFKA_CONSUMER_MAX_POLL_RECORDS
     value: "50"
   - name: SPRING_KAFKA_CONSUMER_PROPERTIES_MAX_POLL_INTERVAL_MS
@@ -62,7 +63,7 @@ env: |
   - name: SERVER_SERVLET_CONTEXT_PATH
     value: "/egov-notification-push"
   - name: KAFKA_TOPICS_NOTIFICATION_PUSH
-    value: "egov.core.notification.push"
+    value: {{ index .Values "kafka-topics-notification-push" | default "egov.core.notification.push" | quote }}
   - name: KAFKA_TOPICS_PERSISTER_SAVE_DEVICE_TOKEN
     value: "save-push-device-token"
   - name: KAFKA_TOPICS_PERSISTER_DELETE_DEVICE_TOKEN
@@ -75,9 +76,14 @@ env: |
     valueFrom:
       secretKeyRef:
         name: egov-notification-push                                                                                                                                                                                       
-        key: fcm-service-account-key-json
-  - name: FCM_BATCH_SIZE
-    value: "500"
+        key: fcm-service-account-key-json-list
+  - name: FCM_TENANT_PROJECT_MAP_JSON
+    valueFrom:
+      configMapKeyRef:
+        name: egov-notification-push
+        key: fcm-tenant-project-map-json
+  - name: PUSH_TOKEN_CLEANUP_SCHEMAS
+    value: {{ index .Values "push-token-cleanup-schemas" | quote }}
   - name: STATE_LEVEL_TENANT_ID
     valueFrom:
       configMapKeyRef:
@@ -96,4 +102,4 @@ env: |
   - name: TRACER_KAFKAMESSAGELOGGINGENABLED
     value: "true"
   - name: TRACER_ERRORSTOPIC
-    value: "notification-push-deadletter"
+    value: {{ index .Values "tracer-errors-topic" | default "notification-push-deadletter" | quote }}
