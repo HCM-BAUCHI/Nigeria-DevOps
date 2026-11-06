@@ -1963,10 +1963,10 @@ project-factory:
     dbMigration:
       image:
         repository: "project-factory-db"
-        tag: master-ekfrazo-fc8b6be
+        tag: master-ekfrazo-f48806c
   image:
     repository: egovio/project-factory
-    tag: master-ekfrazo-fc8b6be
+    tag: master-ekfrazo-f48806c
   central-instance-enabled: false
   central-instance-build: true
   schemaNameExclude: [ "chad", "namibia" ]
