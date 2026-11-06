@@ -182,7 +182,7 @@ health-expense:
     name: abuja-health-expense
   service:
     additionalAnnotations: |
-      zuul/route-host: abuja-hcm.digit.org
+      zuul/route-host: fct-abuja-hcm.digit.org
   initContainers:
     dbMigration:
       image:
@@ -225,7 +225,7 @@ health-expense-calculator:
   namespace: abuja
   service:
     additionalAnnotations: |
-      zuul/route-host: abuja-hcm.digit.org
+      zuul/route-host: fct-abuja-hcm.digit.org
   ingress:
     name: abuja-health-expense-calculator
   egov-bill-host-configmap-key: "health-expense-abuja"
