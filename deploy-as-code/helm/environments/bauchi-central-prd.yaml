@@ -888,18 +888,26 @@ egov-persister-ht:
   heap: "-Xmx768m -Xms256m"
   hpa:
     enabled: true
-    minReplicas: 3
+    minReplicas: 2
     maxReplicas: 6
   cpu_requests: 300m
   memory_requests: 768Mi
   cpu_limits: 400m
   memory_limits: 1Gi
+  nodeSelector:
+    architecture: arm64
+    kubernetes.io/arch: arm64
+  tolerations:
+    - key: arm64-only
+      operator: Equal
+      value: "true"
+      effect: NoSchedule
   images:
     - egovio/egov-persister
 #  persist-yml-path: "/work-dir/health-campaign-config/egov-persister-ht/chad,/work-dir/health-campaign-config/egov-persister-ht/ch,/work-dir/health-campaign-config/egov-persister-ht/kb,/work-dir/health-campaign-config/egov-persister-ht/jg,/work-dir/health-campaign-config/egov-persister-ht/kd,/work-dir/health-campaign-config/egov-persister-ht/so,/work-dir/health-campaign-config/egov-persister-ht/ab,/work-dir/health-campaign-config/egov-persister-ht/ba,/work-dir/health-campaign-config/egov-persister-ht/oy,/work-dir/health-campaign-config/egov-persister-ht/ko,/work-dir/health-campaign-config/egov-persister-ht/na,/work-dir/health-campaign-config/egov-persister-ht/pl,/work-dir/health-campaign-config/egov-persister-ht/bo,/work-dir/health-campaign-config/egov-persister-ht/ke,/work-dir/health-campaign-config/egov-persister-ht/od,/work-dir/health-campaign-config/egov-persister-ht/ad,/work-dir/health-campaign-config/egov-persister-ht/go"
 #  REMOVING EXCEPT chad, chad-prod, kebbi-azm, kaduna, jigawa, adamawa, gombe config files
 # /work-dir/health-campaign-config/egov-persister-ht/ad,/work-dir/health-campaign-config/egov-persister-ht/go,/work-dir/health-campaign-config/egov-persister-ht/ch
-  persist-yml-path: "/work-dir/health-campaign-config/egov-persister-ht/ch,/work-dir/health-campaign-config/egov-persister-ht/chad,/work-dir/health-campaign-config/egov-persister-ht/kb,/work-dir/health-campaign-config/egov-persister-ht/jg,/work-dir/health-campaign-config/egov-persister-ht/kd,/work-dir/health-campaign-config/egov-persister-ht/oy,/work-dir/health-campaign-config/egov-persister-ht/na,/work-dir/health-campaign-config/egov-persister-ht/ko,/work-dir/health-campaign-config/egov-persister/common,/work-dir/health-campaign-config/egov-persister-ht/pl,/work-dir/health-campaign-config/egov-persister-ht/ab,/work-dir/health-campaign-config/egov-persister-ht/ba,/work-dir/health-campaign-config/egov-persister-ht/bo,/work-dir/health-campaign-config/egov-persister-ht/ke,/work-dir/health-campaign-config/egov-persister-ht/od,/work-dir/health-campaign-config/egov-persister-ht/so,/work-dir/health-campaign-config/egov-persister-ht/zf,/work-dir/health-campaign-config/egov-persister-ht/go,/work-dir/health-campaign-config/egov-persister-ht/ad,/work-dir/health-campaign-config/egov-persister-ht/si,/work-dir/health-campaign-config/egov-persister-ht/abia"
+  persist-yml-path: "/work-dir/health-campaign-config/egov-persister-ht/go,/work-dir/health-campaign-config/egov-persister-ht/ad,/work-dir/health-campaign-config/egov-persister-ht/ch,/work-dir/health-campaign-config/egov-persister-ht/chad,/work-dir/health-campaign-config/egov-persister-ht/kb,/work-dir/health-campaign-config/egov-persister-ht/jg,/work-dir/health-campaign-config/egov-persister-ht/kd,/work-dir/health-campaign-config/egov-persister-ht/oy,/work-dir/health-campaign-config/egov-persister-ht/na,/work-dir/health-campaign-config/egov-persister-ht/ko,/work-dir/health-campaign-config/egov-persister/common,/work-dir/health-campaign-config/egov-persister-ht/pl,/work-dir/health-campaign-config/egov-persister-ht/ab,/work-dir/health-campaign-config/egov-persister-ht/ba,/work-dir/health-campaign-config/egov-persister-ht/bo,/work-dir/health-campaign-config/egov-persister-ht/ke,/work-dir/health-campaign-config/egov-persister-ht/od,/work-dir/health-campaign-config/egov-persister-ht/so,/work-dir/health-campaign-config/egov-persister-ht/zf,/work-dir/health-campaign-config/egov-persister-ht/si,/work-dir/health-campaign-config/egov-persister-ht/abia"
   initContainers:
     gitSync:
       repo: "git@github.com:HCM-BAUCHI/health-campaign-config"      ##### Change repo url with Your fork Repo url
