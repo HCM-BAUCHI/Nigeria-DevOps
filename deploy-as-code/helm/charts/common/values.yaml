@@ -70,6 +70,10 @@ initContainers:
               key: namibia-db-url
           {{- else if eq .Values.namespace "gabon" }}
               key: gabon-db-url
+          {{- else if eq .Values.namespace "kogi" }}
+              key: ko-db-url
+          {{- else if eq .Values.namespace "abuja" }}
+              key: ab-db-url
           {{- else }}
               key: db-url
           {{- end }}
