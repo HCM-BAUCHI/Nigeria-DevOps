@@ -129,7 +129,6 @@ transformer:
   transformer-consumer-update-user-action-topic: "si-update-user-action-project-task-topic"
   transformer-producer-user-action-index-v1-topic: "si-transformer-producer-user-action-index-v1-topic"
   transformer-error-topic: "si-transformer-error-topic"
-  egov-bill-service-host-configmap-key: "health-expense-borno"
   egov-boundary-hierarchy-types: "ADMIN,ADMIN_KAMBIA"
   transformer-producer-push-batch-size: "100"
   transformer-consumer-attendance-enabled: "false"
