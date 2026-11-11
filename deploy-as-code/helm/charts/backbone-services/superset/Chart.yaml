@@ -1,0 +1,6 @@
+apiVersion: v2
+name: superset
+description: Apache Superset (metadata in the shared Postgres or a bundled one, + Redis) for HCM dashboards
+type: application
+version: 0.1.0
+appVersion: "6.1.0"

@@ -1,0 +1,119 @@
+# Apache Superset for HCM dashboards.
+#
+# * Web UI: https://<ingress.host><ingress.path>/ = https://bauchi-hcm.digit.org/superset/
+#   Port-forward: kubectl -n superset port-forward svc/superset 8088:8088 -> http://localhost:8088/superset/
+#   (Superset itself only answers under the path, so probes and port-forward URLs include it too.)
+# * Superset's own metadata (users, charts, dashboards, saved queries) is in the environment's shared Postgres (RDS),
+#   in its own schema (database.schema, default "superset"), created by the init container if missing.
+#   Set database.external: false to use the bundled Postgres StatefulSet instead (PVC "data-superset-postgres-0").
+# * Redis (no disk) caches chart results so dashboards don't re-query ClickHouse on every view.
+# * Secrets (Secret "superset-secrets", created by cluster-configs from environments/<env>-secrets.yaml,
+#   cluster-configs.secrets.superset; template cluster-configs/templates/secrets/superset-secret.yaml):
+#     secret-key                                    encrypts saved connection passwords; never change it
+#     admin-password / editor-password / viewer-password   Superset logins (re-applied on every pod start)
+#     db-username / db-password                     login for the shared Postgres (database.external: true)
+#     postgres-password                             bundled Postgres only (database.external: false)
+#     redis-password                                internal
+#     clickhouse-password                           ClickHouse "reader" user; only when clickhouse.enabled: true
+# * Logins, created/updated by the init container on every start:
+#     admin   Admin role: everything, incl. users and database connections
+#     editor  Alpha + sql_lab: build datasets, charts, dashboards; SQL Lab        ("write user")
+#     viewer  "HCM Viewer": view published dashboards and charts, no editing      ("read user")
+#   More people: add users in the UI (Settings > List Users) with the same roles.
+# * ClickHouse (clickhouse.enabled, off for now): the "HCM ClickHouse" connection uses the ClickHouse "reader" user
+#   (SELECT on hcm_* only, readonly). Each hcm_<schema> database shows up as a schema in it.
+#   To enable: set clickhouse.enabled: true, add clickhouse-connect to extraPackages, add clickhouse-password to the Secret.
+
+name: superset
+namespace: superset
+labels:
+  app: superset
+  group: "infra"
+
+image:
+  repository: apache/superset
+  tag: "6.1.0"
+  pullPolicy: IfNotPresent
+
+# Drivers the stock image lacks (Postgres for the metadata DB; add clickhouse-connect==0.15.1 with clickhouse.enabled). An init container installs
+# them from PyPI into an emptyDir on every pod start (~45 MB, a few seconds); superset_config.py appends that
+# directory to sys.path, so the image's own packages always win. Set to [] with an image that has them built in.
+extraPackages:
+  - psycopg2-binary==2.9.10
+
+# gunicorn (gthread). Each worker is a full Superset process (~400-500 MB).
+server:
+  workers: 2
+  threads: 20
+  timeoutSeconds: 300           # = ClickHouse reader max_execution_time
+
+resources:
+  requests:
+    cpu: "250m"
+    memory: "1Gi"
+  limits:
+    cpu: "1"
+    memory: "2Gi"
+
+ingress:
+  enabled: true
+  className: nginx
+  # Shared environment domain, like /airflow and /argocd. Superset runs under the path (SUPERSET_APP_ROOT, beta in
+  # Superset but tested with 6.1.0). For a host of its own set host to it, path to "/", and add a DNS record.
+  host: bauchi-hcm.digit.org
+  path: /superset
+  clusterIssuer: letsencrypt-prod
+  tlsSecretName: bauchi-hcm.digit.org-tls-certs    # cert-manager issues a copy in this namespace
+
+secretName: superset-secrets
+
+# Fixed logins (passwords from the Secret). Emails only need to be unique.
+users:
+  admin:
+    username: admin
+    email: superset-admin@egovernments.org
+  editor:
+    username: editor
+    email: superset-editor@egovernments.org
+  viewer:
+    username: viewer
+    email: superset-viewer@egovernments.org
+
+# Off for now: no ClickHouse connection is created and no clickhouse-password is needed.
+# (Turning it off later does not delete a connection already created; remove it in the UI.)
+clickhouse:
+  enabled: false
+  connectionName: "HCM ClickHouse"
+  host: clickhouse.clickhouse.svc.cluster.local
+  port: 8123
+  username: reader
+  database: hcm_ba              # default schema of the connection; the other hcm_* databases are selectable too
+
+config:
+  rowLimit: 50000               # max rows a chart can fetch
+  cacheTimeoutSeconds: 600      # chart results cached 10 min (the DAG refreshes every 15 min)
+
+# Superset metadata database.
+database:
+  external: true
+  configMap:
+    name: egov-config
+    hostKey: db-host
+    nameKey: db-name
+  port: 5432
+  schema: superset              # Superset's tables (incl. alembic_version) go only here, via search_path
+  sslmode: prefer
+  secretName: superset-secrets
+  usernameKey: db-username
+  passwordKey: db-password
+
+redis:
+  image: redis:7.4-alpine
+  maxMemory: 128mb              # least-recently-used keys are evicted beyond this
+  resources:
+    requests:
+      cpu: "20m"
+      memory: "64Mi"
+    limits:
+      cpu: "100m"
+      memory: "192Mi"

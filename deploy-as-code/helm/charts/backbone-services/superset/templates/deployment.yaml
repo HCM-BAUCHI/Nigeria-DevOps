@@ -1,0 +1,155 @@
+{{- include "superset.applyEnvOverrides" . }}
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Values.name }}
+  namespace: {{ .Values.namespace }}
+  labels:
+    {{- toYaml .Values.labels | nindent 4 }}
+spec:
+  replicas: 1
+  # Stop the old pod before the new one runs "superset db upgrade" (schema migrations on version upgrades)
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      app: {{ .Values.labels.app }}
+  template:
+    metadata:
+      labels:
+        {{- toYaml .Values.labels | nindent 8 }}
+      annotations:
+        checksum/config: {{ include (print $.Template.BasePath "/configmap.yaml") . | sha256sum }}
+    spec:
+      # No Docker-style service env vars: the Service "superset" would inject SUPERSET_PORT=tcp://<ip>:8088,
+      # which run-server.sh takes as the port to bind ("'tcp' is not a valid port number")
+      enableServiceLinks: false
+      securityContext:
+        runAsUser: 1000
+        runAsGroup: 1000
+        fsGroup: 1000
+      initContainers:
+        {{- if .Values.extraPackages }}
+        - name: install-drivers
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          command:
+            - uv
+            - pip
+            - install
+            - --quiet
+            - --no-cache
+            - --python
+            - /app/.venv/bin/python
+            - --target
+            - /app/extra
+            {{- range .Values.extraPackages }}
+            - {{ . | quote }}
+            {{- end }}
+          volumeMounts:
+            - name: extra
+              mountPath: /app/extra
+          resources:
+            {{- toYaml .Values.resources | nindent 12 }}
+        {{- end }}
+        - name: setup
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          command: ["bash", "/app/hcm/setup.sh"]
+          env:
+            {{- include "superset.env" . | nindent 12 }}
+            - name: ADMIN_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Values.secretName }}
+                  key: admin-password
+            - name: EDITOR_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Values.secretName }}
+                  key: editor-password
+            - name: VIEWER_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Values.secretName }}
+                  key: viewer-password
+            {{- if .Values.clickhouse.enabled }}
+            - name: CLICKHOUSE_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Values.secretName }}
+                  key: clickhouse-password
+            {{- end }}
+          volumeMounts:
+            - name: extra
+              mountPath: /app/extra
+            - name: config
+              mountPath: /app/pythonpath/superset_config.py
+              subPath: superset_config.py
+            - name: setup
+              mountPath: /app/hcm
+          resources:
+            {{- toYaml .Values.resources | nindent 12 }}
+      containers:
+        - name: superset
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          command: ["/usr/bin/run-server.sh"]
+          env:
+            {{- include "superset.env" . | nindent 12 }}
+            - name: SERVER_WORKER_AMOUNT
+              value: {{ .Values.server.workers | quote }}
+            - name: SERVER_THREADS_AMOUNT
+              value: {{ .Values.server.threads | quote }}
+            - name: GUNICORN_TIMEOUT
+              value: {{ .Values.server.timeoutSeconds | quote }}
+          ports:
+            - name: http
+              containerPort: 8088
+          volumeMounts:
+            - name: extra
+              mountPath: /app/extra
+            - name: config
+              mountPath: /app/pythonpath/superset_config.py
+              subPath: superset_config.py
+            - name: home
+              mountPath: /app/superset_home
+          resources:
+            {{- toYaml .Values.resources | nindent 12 }}
+          startupProbe:
+            httpGet:
+              path: {{ include "superset.root" . }}/health
+              port: http
+            periodSeconds: 10
+            failureThreshold: 30
+          readinessProbe:
+            httpGet:
+              path: {{ include "superset.root" . }}/health
+              port: http
+            periodSeconds: 15
+            timeoutSeconds: 5
+            failureThreshold: 3
+          livenessProbe:
+            httpGet:
+              path: {{ include "superset.root" . }}/health
+              port: http
+            periodSeconds: 30
+            timeoutSeconds: 10
+            failureThreshold: 5
+      volumes:
+        - name: config
+          configMap:
+            name: {{ .Values.name }}-config
+        # only the setup scripts (superset_config.py is mounted on its own, from the image's PYTHONPATH)
+        - name: setup
+          configMap:
+            name: {{ .Values.name }}-config
+            items:
+              - key: setup.sh
+                path: setup.sh
+              - key: setup.py
+                path: setup.py
+        - name: extra
+          emptyDir: {}
+        - name: home
+          emptyDir: {}
