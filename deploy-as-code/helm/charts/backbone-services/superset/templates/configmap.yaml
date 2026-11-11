@@ -48,6 +48,7 @@ data:
 
     FEATURE_FLAGS = {
         "ENABLE_TEMPLATE_PROCESSING": True,         # Jinja in SQL Lab / virtual datasets, e.g. {{ "{{" }} filter_values('district_name') {{ "}}" }}
+        "DASHBOARD_RBAC": True,                     # per-dashboard access by role (dashboard Properties > Roles)
     }
 
     ROW_LIMIT = {{ .Values.config.rowLimit }}
