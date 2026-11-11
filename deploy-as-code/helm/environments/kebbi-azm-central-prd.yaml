@@ -5,6 +5,8 @@ service:
   additionalAnnotations: |
     zuul/route-host: kebbi-azm-central-hcm.digit.org
 
+disableAnnotationTimestamp: true
+
 household:
   replicas: "0"
   db-read-url-enabled: true
