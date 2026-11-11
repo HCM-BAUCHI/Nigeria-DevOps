@@ -35,6 +35,13 @@ kafka-topics-update-boundary-hierarchy: "update-boundary-hierarchy-definition"
 kafka-topics-create-boundary-relationship: "save-boundary-relationship"
 kafka-topics-update-boundary-relationship: "update-boundary-relationship"
 kafka-topics-bulk-create-boundary-relationship-job: "boundary-relationship-bulk-create-job"
+kafka-topics-create-boundary-identifier: "save-boundary-identifier"
+kafka-topics-update-boundary-identifier: "update-boundary-identifier"
+boundary-identifier-max-size: "100"
+boundary-identifier-generate-batch-size: "100"
+egov-idgen-boundary-identifier-name: "boundary.identifier"
+egov-idgen-boundary-identifier-format: "[SEQ_EG_BOUNDARY_IDENTIFIER]"
+egov-idgen-boundary-identifier-sequence-min-digits: "4"
 
 boundary-default-offset: 0
 boundary-default-limit: 50
@@ -109,3 +116,24 @@ env: |
     value: {{ index .Values "spring-kafka-producer-buffer-memory" | quote }}
   - name: SPRING_KAFKA_PRODUCER_PROPERTIES_MAX_BLOCK_MS
     value: {{ index .Values "spring-kafka-producer-properties-max-block-ms" | quote }}
+  - name: KAFKA_TOPICS_CREATE_BOUNDARY_IDENTIFIER
+    value: {{ index .Values "kafka-topics-create-boundary-identifier" | quote }}
+  - name: KAFKA_TOPICS_UPDATE_BOUNDARY_IDENTIFIER
+    value: {{ index .Values "kafka-topics-update-boundary-identifier" | quote }}
+  - name: BOUNDARY_IDENTIFIER_MAX_SIZE
+    value: {{ index .Values "boundary-identifier-max-size" | quote }}
+  - name: BOUNDARY_IDENTIFIER_GENERATE_BATCH_SIZE
+    value: {{ index .Values "boundary-identifier-generate-batch-size" | quote }}
+  - name: EGOV_IDGEN_HOST
+    valueFrom:
+      configMapKeyRef:
+        name: egov-service-host
+        key: egov-idgen
+  - name: EGOV_IDGEN_PATH
+    value: "egov-idgen/id/_generate"
+  - name: EGOV_IDGEN_BOUNDARY_IDENTIFIER_NAME
+    value: {{ index .Values "egov-idgen-boundary-identifier-name" | quote }}
+  - name: EGOV_IDGEN_BOUNDARY_IDENTIFIER_FORMAT
+    value: {{ index .Values "egov-idgen-boundary-identifier-format" | quote }}
+  - name: EGOV_IDGEN_BOUNDARY_IDENTIFIER_SEQUENCE_MIN_DIGITS
+    value: {{ index .Values "egov-idgen-boundary-identifier-sequence-min-digits" | quote }}
