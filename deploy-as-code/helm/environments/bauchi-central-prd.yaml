@@ -487,10 +487,10 @@ boundary-service:
     dbMigration:
       image:
         repository: "egovio/boundary-service-db"
-        tag: "master-perf-ad568fb"
+        tag: "master-perf-sierra-boundary-c0cc80d"
   image:
     repository: "egovio/boundary-service"
-    tag: "master-perf-ad568fb"
+    tag: "master-perf-sierra-boundary-c0cc80d"
   spring-datasource-tomcat-max-active: "10"
   server-tomcat-max-threads: "20"
   hpa:
@@ -1640,10 +1640,10 @@ individual:
     dbMigration:
       image:
         repository: egovio/individual-db
-        tag: customize-2.1-individual-803c4d9
+        tag: customize-2.1-individual-sierra-fc80e80
   image:
     repository: egovio/individual
-    tag: customize-2.1-individual-803c4d9
+    tag: customize-2.1-individual-sierra-fc80e80
   central-instance-build: true
   central-instance-enabled: true
   heap: "-Xmx1g -Xms512m"
@@ -1677,7 +1677,7 @@ individual:
 individual-referral:
   image:
     repository: egovio/individual
-    tag: customize-2.1-individual-803c4d9
+    tag: customize-2.1-individual-sierra-fc80e80
   spring-datasource-tomcat-max-active: "30"
   server-tomcat-max-threads: "40"
   central-instance-build: true
