@@ -1,0 +1,73 @@
+{{- include "superset.applyEnvOverrides" . }}
+# Cache for Superset (chart results, metadata, rate limits). No disk: a restart only empties the cache.
+# Password-protected because cached results contain dashboard data.
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ .Values.name }}-redis
+  namespace: {{ .Values.namespace }}
+  labels:
+    {{- toYaml .Values.labels | nindent 4 }}
+spec:
+  type: ClusterIP
+  selector:
+    app: {{ .Values.name }}-redis
+  ports:
+    - name: redis
+      port: 6379
+      targetPort: redis
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Values.name }}-redis
+  namespace: {{ .Values.namespace }}
+  labels:
+    {{- toYaml .Values.labels | nindent 4 }}
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: {{ .Values.name }}-redis
+  template:
+    metadata:
+      labels:
+        app: {{ .Values.name }}-redis
+        group: {{ .Values.labels.group | quote }}
+    spec:
+      securityContext:
+        runAsUser: 999
+        runAsGroup: 999
+      containers:
+        - name: redis
+          image: {{ .Values.redis.image }}
+          args:
+            - --maxmemory
+            - {{ .Values.redis.maxMemory | quote }}
+            - --maxmemory-policy
+            - allkeys-lru
+            - --save
+            - ""
+            - --appendonly
+            - "no"
+            - --requirepass
+            - $(REDIS_PASSWORD)
+          env:
+            - name: REDIS_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Values.secretName }}
+                  key: redis-password
+          ports:
+            - name: redis
+              containerPort: 6379
+          resources:
+            {{- toYaml .Values.redis.resources | nindent 12 }}
+          readinessProbe:
+            tcpSocket:
+              port: redis
+            periodSeconds: 10
+          livenessProbe:
+            tcpSocket:
+              port: redis
+            periodSeconds: 30

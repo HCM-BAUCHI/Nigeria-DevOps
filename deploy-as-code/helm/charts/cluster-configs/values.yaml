@@ -166,3 +166,8 @@ cluster-configs:
     jupyter:
       namespace: jupyter
       name: jupyter
+
+    superset:
+      namespace: superset
+      name: superset-secrets
+

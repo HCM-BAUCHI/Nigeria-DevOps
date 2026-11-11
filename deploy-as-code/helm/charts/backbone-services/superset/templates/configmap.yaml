@@ -1,0 +1,176 @@
+{{- include "superset.applyEnvOverrides" . }}
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ .Values.name }}-config
+  namespace: {{ .Values.namespace }}
+  labels:
+    {{- toYaml .Values.labels | nindent 4 }}
+data:
+  # Mounted at /app/pythonpath/superset_config.py (the image's PYTHONPATH); read by every superset process
+  superset_config.py: |
+    import os
+    import sys
+    from urllib.parse import quote
+
+    sys.path.append("/app/extra")   # drivers from the install-drivers init container; appended so the image's packages win
+
+    SECRET_KEY = os.environ["SUPERSET_SECRET_KEY"]  # encrypts saved connection passwords; must never change
+
+    # Superset's own metadata: users, charts, dashboards. Either the shared Postgres, with every Superset table in
+    # its own schema (search_path set per connection in the URL, so `superset db upgrade` uses it as well), or the
+    # bundled superset-postgres StatefulSet.
+    _DB_PARAMS = "&".join(
+        f"{k}={v}" for k, v in (
+            ("options", f"-csearch_path={os.environ['SUPERSET_DB_SCHEMA']}" if os.environ.get("SUPERSET_DB_SCHEMA") else ""),
+            ("sslmode", os.environ.get("SUPERSET_DB_SSLMODE", "")),
+        ) if v
+    )
+    SQLALCHEMY_DATABASE_URI = (
+        f"postgresql+psycopg2://{quote(os.environ['SUPERSET_DB_USER'], safe='')}"
+        f":{quote(os.environ['SUPERSET_DB_PASSWORD'], safe='')}"
+        f"@{os.environ['SUPERSET_DB_HOST']}:{os.environ['SUPERSET_DB_PORT']}/{os.environ['SUPERSET_DB_NAME']}"
+        + (f"?{_DB_PARAMS}" if _DB_PARAMS else "")
+    )
+
+    # Redis (superset-redis): one logical database per use
+    _REDIS = f"redis://:{quote(os.environ['REDIS_PASSWORD'], safe='')}@{os.environ['REDIS_HOST']}:6379"
+
+
+    def _cache(db, prefix):
+        return {"CACHE_TYPE": "RedisCache", "CACHE_DEFAULT_TIMEOUT": {{ .Values.config.cacheTimeoutSeconds }},
+                "CACHE_KEY_PREFIX": prefix, "CACHE_REDIS_URL": f"{_REDIS}/{db}"}
+
+
+    CACHE_CONFIG = _cache(0, "superset_")           # dataset / dashboard metadata
+    DATA_CACHE_CONFIG = _cache(1, "superset_data_") # chart query results
+    RATELIMIT_STORAGE_URI = f"{_REDIS}/2"           # login rate limiting
+
+    FEATURE_FLAGS = {
+        "ENABLE_TEMPLATE_PROCESSING": True,         # Jinja in SQL Lab / virtual datasets, e.g. {{ "{{" }} filter_values('district_name') {{ "}}" }}
+    }
+
+    ROW_LIMIT = {{ .Values.config.rowLimit }}
+    SQLLAB_TIMEOUT = {{ .Values.server.timeoutSeconds }}
+    SUPERSET_WEBSERVER_TIMEOUT = {{ .Values.server.timeoutSeconds }}
+
+    ENABLE_PROXY_FIX = True                         # behind ingress-nginx: trust X-Forwarded-Proto/Host
+    {{- if include "superset.root" . }}
+
+    # Under a path the default logo URL gets the prefix twice (/superset/superset/static/...); pinning it
+    # here keeps Superset from adding its own prefix, and the UI adds it once.
+    APP_ICON = "{{ include "superset.root" . }}/static/assets/images/superset-logo-horiz.png"
+    {{- end }}
+
+  # Init container: prepares Superset before the web server starts. Every step is idempotent (runs on each start).
+  setup.sh: |
+    #!/usr/bin/env bash
+    set -euo pipefail
+    echo "Waiting for Postgres at ${SUPERSET_DB_HOST}:${SUPERSET_DB_PORT}"
+    for _ in $(seq 60); do
+      python -c "import socket; socket.create_connection(('${SUPERSET_DB_HOST}', ${SUPERSET_DB_PORT}), 3)" 2>/dev/null && break
+      sleep 5
+    done
+    if [ -n "${SUPERSET_DB_SCHEMA:-}" ]; then
+      echo "Creating schema ${SUPERSET_DB_SCHEMA} if missing"
+      python - <<'PY'
+    import os
+    import sys
+
+    sys.path.append("/app/extra")
+    import psycopg2
+    from psycopg2 import sql
+
+    conn = psycopg2.connect(host=os.environ["SUPERSET_DB_HOST"], port=os.environ["SUPERSET_DB_PORT"],
+                            dbname=os.environ["SUPERSET_DB_NAME"], user=os.environ["SUPERSET_DB_USER"],
+                            password=os.environ["SUPERSET_DB_PASSWORD"],
+                            sslmode=os.environ.get("SUPERSET_DB_SSLMODE") or "prefer")
+    conn.autocommit = True
+    with conn.cursor() as cur:
+        cur.execute(sql.SQL("CREATE SCHEMA IF NOT EXISTS {}").format(sql.Identifier(os.environ["SUPERSET_DB_SCHEMA"])))
+    conn.close()
+    PY
+    fi
+    superset db upgrade
+    superset init
+    python /app/hcm/setup.py
+
+  # ClickHouse connection (if enabled), viewer role and the fixed logins (run by setup.sh)
+  setup.py: |
+    """
+    Idempotent Superset setup, after `superset db upgrade` and `superset init`:
+      1. the ClickHouse connection, as the ClickHouse "reader" user (only with clickhouse.enabled)
+      2. the read-only "HCM Viewer" role: Gamma without editing rights (+ access to that connection, if any)
+      3. the admin / editor / viewer logins. Their roles, and their passwords (from the Secret), are re-applied on
+         every start, so rotating a password in the Secret and restarting the pod changes the login.
+    """
+    import os
+    from urllib.parse import quote
+
+    from superset.app import create_app
+
+    {{- if .Values.clickhouse.enabled }}
+    CONNECTION = {{ .Values.clickhouse.connectionName | quote }}
+    CLICKHOUSE_URI = "clickhousedb://{user}:{password}@{host}:{port}/{database}".format(
+        user={{ .Values.clickhouse.username | quote }},
+        password=quote(os.environ["CLICKHOUSE_PASSWORD"], safe=""),
+        host={{ .Values.clickhouse.host | quote }},
+        port={{ .Values.clickhouse.port }},
+        database={{ .Values.clickhouse.database | quote }},
+    )
+    {{- else }}
+    CONNECTION = None   # clickhouse.enabled: false, no database connection is created
+    {{- end }}
+
+    VIEWER_ROLE = "HCM Viewer"
+    # username, email, roles, environment variable with the password
+    USERS = [
+        ({{ .Values.users.admin.username | quote }}, {{ .Values.users.admin.email | quote }}, ["Admin"], "ADMIN_PASSWORD"),
+        ({{ .Values.users.editor.username | quote }}, {{ .Values.users.editor.email | quote }}, ["Alpha", "sql_lab"], "EDITOR_PASSWORD"),
+        ({{ .Values.users.viewer.username | quote }}, {{ .Values.users.viewer.email | quote }}, [VIEWER_ROLE], "VIEWER_PASSWORD"),
+    ]
+
+    # Gamma permissions the viewer role leaves out: they create or change charts, dashboards, tags, themes
+    EDIT_PERMISSIONS = {"can_add", "can_edit", "can_delete", "can_delete_embedded", "can_bulk_create", "can_tag",
+                        "can_export_as_example"}
+    EDIT_VIEWS = {"Chart", "Dashboard", "Tag", "Theme"}     # can_write on these
+
+
+    def read_only(pvm):
+        name, view = pvm.permission.name, pvm.view_menu.name
+        return name not in EDIT_PERMISSIONS and not (name == "can_write" and view in EDIT_VIEWS)
+
+
+    app = create_app()
+    with app.app_context():
+        from superset import db, security_manager as sm
+        from superset.utils.database import get_or_create_db
+        from werkzeug.security import check_password_hash
+
+        access = []
+        if CONNECTION:
+            database = get_or_create_db(CONNECTION, CLICKHOUSE_URI)   # updates the URI if the password changed
+            database.expose_in_sqllab = True
+            db.session.commit()
+            access = [sm.add_permission_view_menu("database_access", database.perm)]
+
+        viewer_role = sm.find_role(VIEWER_ROLE) or sm.add_role(VIEWER_ROLE)
+        viewer_role.permissions = [p for p in sm.find_role("Gamma").permissions if read_only(p)] + access
+        db.session.commit()
+
+        for username, email, role_names, password_env in USERS:
+            password = os.environ[password_env]
+            roles = [sm.find_role(name) for name in role_names]
+            user = sm.find_user(username=username)
+            if user is None:
+                if not sm.add_user(username, username, "HCM", email, roles, password):
+                    raise SystemExit(f"could not create user {username}")
+                print(f"created user {username}")
+                continue
+            user.roles = roles
+            user.active = True
+            db.session.commit()
+            if not check_password_hash(user.password, password):
+                sm.reset_password(user.id, password)
+                print(f"reset password of {username}")
+        print("Superset setup done")

@@ -52,13 +52,13 @@ global:
 cluster-configs:
   namespaces:
     create: true
-    values: [ backbone, cert-manager, egov, airflow, es-cluster, kafka-cluster, logging, monitoring, playground, zookeeper-cluster, es-cluster-v8, jupyter, jhub, bauchi, oyo, kogi, nasarawa, abuja, plateau, borno, kebbi, sokoto, ondo, adamawa, kaduna, jigawa, kebbi-azm, chad, gombe, chad-prod, zamfara, abia, sierraleone, namibia, hcm22, gabon ]
+    values: [ backbone, cert-manager, egov, airflow, es-cluster, kafka-cluster, logging, monitoring, playground, zookeeper-cluster, es-cluster-v8, jupyter, jhub, bauchi, oyo, kogi, nasarawa, abuja, plateau, borno, kebbi, sokoto, ondo, adamawa, kaduna, jigawa, kebbi-azm, chad, gombe, chad-prod, zamfara, abia, sierraleone, namibia, hcm22, gabon, superset ]
 
   root-ingress:
     cert-issuer: letsencrypt-prod
   configmaps:
     egov-config:
-      namespace: [egov, airflow, bauchi, oyo, kogi, nasarawa, abuja, plateau, borno, kebbi, sokoto, ondo, adamawa, chad, gombe, zamfara, abia, sierraleone, kebbi-azm, namibia, hcm22, gabon ]
+      namespace: [egov, airflow, bauchi, oyo, kogi, nasarawa, abuja, plateau, borno, kebbi, sokoto, ondo, adamawa, chad, gombe, zamfara, abia, sierraleone, kebbi-azm, namibia, hcm22, gabon, superset ]
       data:
         db-host: "ng-central-prd-db.cpe4q0cycqi7.af-south-1.rds.amazonaws.com" ## Add db-host name eg: egov-demo.database.azure.com
         db-name: "ngcentralprd" ## Add db-name
@@ -2810,3 +2810,17 @@ inbox:
   central-instance-enabled: true
   schemaNameExclude: [ "chad" ]
   hostExclude: ["chad-hcm-prod.digit.org"]
+
+superset:
+  ingress:
+    host: bauchi-hcm.digit.org
+    path: /superset
+    tlsSecretName: mc-nigeria-uat.digit.org-tls-certs
+  database:
+    external: true
+    port: 5432
+    schema: superset
+    sslmode: prefer
+  # No ClickHouse connection for now
+  clickhouse:
+    enabled: false
