@@ -1817,10 +1817,10 @@ project:
     dbMigration:
       image:
         repository: egovio/project-db
-        tag: customize-nigeria-go-deep-2-project-bb6bfd6
+        tag: chad-smc-syncissue-temp-fix-587a67f
   image:
     repository: egovio/project
-    tag: customize-nigeria-go-deep-2-project-bb6bfd6
+    tag: chad-smc-syncissue-temp-fix-587a67f
   central-instance-build: true
   central-instance-enabled: true
   heap: "-Xmx1g -Xms512m"
@@ -1848,7 +1848,7 @@ project:
 project-referral:
   image:
     repository: egovio/project
-    tag: customize-nigeria-go-deep-2-project-bb6bfd6
+    tag: chad-smc-syncissue-temp-fix-587a67f
   spring-datasource-tomcat-max-active: "30"
   server-tomcat-max-threads: "40"
   central-instance-build: true
