@@ -150,6 +150,7 @@ dashboard-ui:
     sub_filter.conf: "
       sub_filter  '<head>' '<head>
       <script src=https://central-instance-assets.s3.af-south-1.amazonaws.com/globalConfigDashboard-ko.js type=text/javascript></script>
+      <script src=https://central-instance-assets.s3.af-south-1.amazonaws.com/kogi_itn_dashboard_gtm_ga4.json type=text/javascript></script>
       ';"
 
 workbench-ui:
