@@ -546,7 +546,7 @@ egov-user:
   heap: "-Xmx1024m -Xms512m"
   hpa:
     enabled: true
-    minReplicas: 2
+    minReplicas: 4
     maxReplicas: 8
   cpu_requests: 500m
   memory_requests: 1.25Gi
@@ -1347,7 +1347,7 @@ egov-hrms:
   heap: "-Xmx1024m -Xms512m"
   hpa:
     enabled: true
-    minReplicas: 2
+    minReplicas: 4
     maxReplicas: 8
   cpu_requests: 200m
   memory_requests: 1Gi
@@ -1826,7 +1826,7 @@ project:
   heap: "-Xmx1g -Xms512m"
   hpa:
     enabled: true
-    minReplicas: 2
+    minReplicas: 4
     maxReplicas: 8
   cpu_requests: 300m
   memory_requests: 1.25Gi
