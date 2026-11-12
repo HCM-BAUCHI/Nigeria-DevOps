@@ -132,6 +132,10 @@ transformer-consumer-side-effect-enabled: "true"
 transformer-consumer-stock-enabled: "true"
 transformer-consumer-stock-reconciliation-enabled: "true"
 transformer-consumer-user-action-enabled: "true"
+hcm-bednets-projecttypes: "llin,bednet,bednets,itn"
+hcm-bednets-required-calculate: "false"
+hcm-bednets-members-per-bednet: "2"
+hcm-bednets-limit-per-household: "3"
 
 # Additional Container Envs
 env: |
@@ -562,3 +566,12 @@ env: |
   - name: TRANSFORMER_CONSUMER_USER_STATUS_CHANGE_TOPIC
     value: {{ index .Values "transformer-consumer-user-status-change-topic" | quote }}
   {{- end }}
+
+  - name: HCM_BEDNETS_PROJECTTYPES
+    value: {{ index .Values "hcm-bednets-projecttypes" | default "llin,bednet,bednets,itn" | quote }}
+  - name: HCM_BEDNETS_REQUIRED_CALCULATE
+    value: {{ index .Values "hcm-bednets-required-calculate" | default "false" | quote }}
+  - name: HCM_BEDNETS_MEMBERS_PER_BEDNET
+    value: {{ index .Values "hcm-bednets-members-per-bednet" | default "2" | quote }}
+  - name: HCM_BEDNETS_LIMIT_PER_HOUSEHOLD
+    value: {{ index .Values "hcm-bednets-limit-per-household" | default "3" | quote }}
