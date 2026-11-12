@@ -2364,6 +2364,8 @@ health-attendance:
   memory_limits: 768Mi
   egov-mdms-service-host-key: 'mdms-v2'
   egov-mdms-service-endpoint-key: "/mdms-v2/v1/_search"
+  attendance-register-default-limit: '100'
+  attendance-register-search-max-limit: '1000'
   extraEnv:
     app: |
       - name: TRACER_REQUESTLOGGINGENABLED
