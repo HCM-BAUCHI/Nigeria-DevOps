@@ -40,7 +40,7 @@ transformer:
   namespace: "sierraleone"
   image:
     repository: egovio/transformer
-    tag: customize-2.1-transformer-mh-d71ac1d
+    tag: customize-2.1-transformer-mh-f4477d4
   replicas: 1
   heap: "-Xmx1536m -Xms1536m"
   hpa:
@@ -139,6 +139,8 @@ transformer:
   transformer-consumer-billreport-enabled: "false"
   transformer-consumer-musterroll-enabled: "false"
   transformer-consumer-side-effect-enabled: "false"
+  hcm-bednets-required-calculate: "true"
+
 digit-ui:
   namespace: sierraleone
   custom-js-injection: |
