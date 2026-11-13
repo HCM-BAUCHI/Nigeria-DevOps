@@ -30,7 +30,7 @@ payments-ui:
   namespace: abia
   image:
     repository: egovio/payments-ui
-    tag: bednet-prod-payments_ui-6782072
+    tag: bednet-prod-payments_ui-448c56f
   custom-js-injection: |
     sub_filter.conf: "
       sub_filter  '<head>' '<head>
