@@ -40,7 +40,7 @@ transformer:
   namespace: "sierraleone"
   image:
     repository: egovio/transformer
-    tag: customize-2.1-transformer-mh-f4477d4
+    tag: customize-2.1-transformer-mh-09e0536
   replicas: 1
   heap: "-Xmx1536m -Xms1536m"
   hpa:
