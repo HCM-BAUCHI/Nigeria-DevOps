@@ -1,0 +1,31 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: matview-refresh-application
+  namespace: argocd
+
+spec:
+  project: matview-project
+
+  source:
+    repoURL: git@github.com:HCM-BAUCHI/Nigeria-Devops.git
+    targetRevision: ng-central-prd
+    path: config-as-code/matview-refresh-cronjobs
+
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: '*'
+
+  syncPolicy:
+    automated:
+      prune: false
+      selfHeal: true
+    syncOptions:
+      - ApplyOutOfSyncOnly=true
+      - ServerSideApply=true
+    retry:
+      limit: 10
+      backoff:
+        duration: 5s
+        factor: 2
+        maxDuration: 3m0s
