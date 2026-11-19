@@ -110,8 +110,8 @@ project-factory:
   mdmsV2SearchEndpoint: 'mdms-v2/v2/_search'
   mdmsV1SearchEndpoint: 'mdms-v2/v1/_search'
   defaultLocale: "fr_GABON"
-  plan-service: gabon-plan-service
-  census-service: gabon-census-service
+  plan-service: plan-service
+  census-service: census-service
   excel-ingestion-host: gabon-excel-ingestion
   IS_ENVIRONMENT_CENTRAL_INSTANCE: false
   DB_SCHEMA: gabon
