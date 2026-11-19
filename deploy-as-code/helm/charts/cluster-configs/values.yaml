@@ -56,7 +56,7 @@ cluster-configs:
       name: egov-notification-push
 
     project-factory:
-      namespace: [egov, hcm22]
+      namespace: [egov, hcm22, gabon]
       name: project-factory
 
     egov-filestore:

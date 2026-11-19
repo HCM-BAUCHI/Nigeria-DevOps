@@ -57,6 +57,10 @@ excel-ingestion:
   heap: -Xms3560m -Xmx3560m
   excel-row-limit: "20000"
   replicas: 1
+  hpa:
+    enabled: false
+    minReplicas: 1
+    maxReplicas: 3
   egov-mdms-service-host-key: 'mdms-v2'
   egov-mdms-service-endpoint-key: "mdms-v2/v2/_search"
   defaultLocale: 'fr_GABON'
