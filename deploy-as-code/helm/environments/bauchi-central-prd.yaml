@@ -280,7 +280,9 @@ cluster-configs:
         egov:
           health-expense-calculator: 'http://internal-gateway-scg.egov:8080/'
           health-expense-calculator-namibia: 'http://health-expense-calculator.namibia:8080/'
-
+        gabon:
+          gabon-project-factory: 'http://project-factory.gabon:8080/'
+          gabon-excel-ingestion: 'http://excel-ingestion.gabon:8080/'
     hcm-moz-impl:
       data:
         dhis2-host: "https://ccu.misau.gov.mz/ccu"
