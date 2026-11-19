@@ -8,6 +8,9 @@ spec:
     - list:
         elements:
           - name: transformer
+          - name: excel-ingestion
+          - name: project-factory
+          - name: health-expense-calculator
 
   template:
     metadata:

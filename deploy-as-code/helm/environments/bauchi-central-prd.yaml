@@ -1977,8 +1977,8 @@ project-factory:
     tag: master-ekfrazo-f48806c
   central-instance-enabled: false
   central-instance-build: true
-  schemaNameExclude: [ "chad", "namibia" ]
-  hostExclude: ["chad-hcm-prod.digit.org", "namibia-hcm.digit.org"]
+  schemaNameExclude: [ "chad", "namibia", "gabon" ]
+  hostExclude: ["chad-hcm-prod.digit.org", "namibia-hcm.digit.org", "gabon-hcm.digit.org"]
   namespace: egov
   heap: "-Xmx2048m -Xms512m"
   replicas: 3
@@ -2040,7 +2040,7 @@ project-factory:
   serverTimezone: "UTC"
   attendanceAttendeeSearchPageSize: "100"
   attendanceStaffSearchPageSize: "100"
-  centralInstanceTenantIds: "ba,oy,ko,na,ab,pl,bo,ke,so,od,ad,kd,jg,kb,ch,go,zf,abia,si,gabon"
+  centralInstanceTenantIds: "ba,oy,ko,na,ab,pl,bo,ke,so,od,ad,kd,jg,kb,ch,go,zf,abia,si"
   userKafkaCreateBatchSize: '100'
   mappingBulkCreateChunkSize: '150'
   projectBulkCreateChunkSize: '100'
@@ -2101,8 +2101,8 @@ excel-ingestion:
   group-id: "egov-excel-ingestion"
   central-instance-build: true
   central-instance-enabled: true
-  schemaNameExclude: [ "chad", "namibia" ]
-  hostExclude: ["chad-hcm-prod.digit.org", "namibia-hcm.digit.org"]
+  schemaNameExclude: [ "chad", "namibia", "gabon" ]
+  hostExclude: ["chad-hcm-prod.digit.org", "namibia-hcm.digit.org", "gabon-hcm.digit.org"]
   cpu_requests: 1
   memory_requests: 4072Mi
   memory_limits: "4072Mi"
@@ -2123,7 +2123,7 @@ excel-ingestion:
   excel-ingestion-sheet-data-save-topic: "save-sheet-data-temp"
   excel-ingestion-sheet-data-delete-topic: "delete-sheet-data-temp"
   excel-ingestion-processing-result-topic: "hcm-processing-result"
-  kafka-tenant-id-pattern: "(ba|oy|ko|na|ab|pl|bo|ke|so|od|ad|kd|jg|kb|ch|go|zf|gabon|abia|si)-"
+  kafka-tenant-id-pattern: "(ba|oy|ko|na|ab|pl|bo|ke|so|od|ad|kd|jg|kb|ch|go|zf|abia|si)-"
   java-enable-debug: true
   wait-time-of-each-attempt-ms: "20000"
 
