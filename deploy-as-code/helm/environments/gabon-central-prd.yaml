@@ -242,7 +242,7 @@ transformer:
   namespace: "gabon"
   image:
     repository: egovio/transformer
-    tag: HDDF-5226-c512500
+    tag: gabon-manualcodes-prefix-021b2e0
   replicas: 1
   heap: "-Xmx1536m -Xms1536m"
   hpa:
