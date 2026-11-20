@@ -46,6 +46,9 @@ excel-ingestion:
     repository: egovio/excel-ingestion
     tag: nigeria-go-deep-2-0248b5f
   namespace: gabon
+  service:
+    additionalAnnotations: |
+      zuul/route-host: gabon-hcm.digit.org
   ingress:
     name: gabon-excel-ingestion
     namespace: egov
@@ -102,6 +105,9 @@ project-factory:
   cpu_limits: 1000m
   memory_limits: 2.5Gi
   groupId: "gabon-project-factory"
+  service:
+    additionalAnnotations: |
+      zuul/route-host: gabon-hcm.digit.org
   ingress:
     name: gabon-project-factory
     namespace: egov
@@ -171,6 +177,9 @@ project-factory:
       yarn prod
 
 health-expense-calculator:
+  service:
+    additionalAnnotations: |
+      zuul/route-host: gabon-hcm.digit.org
   egov-localization-locale-code: "fr_GABON"
   report-localization-locale-code: "fr_GABON"
   initContainers:
