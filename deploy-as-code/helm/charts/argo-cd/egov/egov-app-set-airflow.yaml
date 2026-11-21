@@ -4,6 +4,11 @@ metadata:
   name: ng-central-prd-egov-appset-airflow
   namespace: argocd
 spec:
+  # Airflow was originally installed with `helm install airflow` in `backbone`.
+  # If this ApplicationSet is deleted, keep the workloads/DB instead of cascading.
+  syncPolicy:
+    preserveResourcesOnDeletion: true
+
   generators:
     - list:
         elements:
