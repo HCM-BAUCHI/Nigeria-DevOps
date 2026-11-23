@@ -1,0 +1,82 @@
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: gabon-appset-backbone
+  namespace: argocd
+spec:
+  generators:
+    - list:
+        elements:
+          # Upstream z2jh chart (not common-based); self-contained values, ns gabon,
+          # served at https://gabon-hcm.digit.org/jupyter/hub
+          - name: gabon-jupyterhub
+
+  template:
+    metadata:
+      name: '{{name}}'
+
+    spec:
+      project: gabon-project
+
+      source:
+        repoURL: git@github.com:HCM-BAUCHI/Nigeria-Devops.git
+        targetRevision: ng-central-prd
+        path: deploy-as-code/helm/charts/backbone-services/{{name}}
+        helm:
+          # Only the chart's own values: z2jh copies ALL .Values into its hub
+          # Secret, so an env file would get embedded there.
+          valueFiles:
+            - values.yaml
+
+      destination:
+        server: https://kubernetes.default.svc
+        namespace: gabon
+
+      syncPolicy:
+        automated:
+          prune: false
+          selfHeal: true
+        syncOptions:
+          - ApplyOutOfSyncOnly=true
+          - ServerSideApply=true
+          - RespectIgnoreDifferences=true
+        retry:
+          limit: 10
+          backoff:
+            duration: 5s
+            factor: 2
+            maxDuration: 3m0s
+
+      # z2jh auto-generates these via helm `lookup`, which returns nothing under
+      # ArgoCD, so every render yields new random values. Ignore ONLY these keys
+      # (the Secret's `values.yaml` key carries hub config and must keep syncing)
+      # plus the pod-template checksums derived from them; otherwise selfHeal
+      # would rotate secrets and restart hub/proxy (logging users out) each sync.
+      # Side effect: hub-config changes don't auto-restart the hub; restart the
+      # hub deployment after changing values.yaml.
+      ignoreDifferences:
+        - group: ""
+          kind: Secret
+          name: gabon-jupyter-hub
+          jsonPointers:
+            - /data/hub.config.ConfigurableHTTPProxy.auth_token
+            - /data/hub.config.JupyterHub.cookie_secret
+            - /data/hub.config.CryptKeeper.keys
+        - group: apps
+          kind: Deployment
+          name: gabon-jupyter-hub
+          jsonPointers:
+            - /spec/template/metadata/annotations/checksum~1secret
+        - group: apps
+          kind: Deployment
+          name: gabon-jupyter-proxy
+          jsonPointers:
+            - /spec/template/metadata/annotations/checksum~1auth-token
+        - group: apps
+          kind: Deployment
+          jsonPointers:
+            - /spec/replicas
+        - group: ""
+          kind: PersistentVolumeClaim
+          jsonPointers:
+            - /spec/volumeName
