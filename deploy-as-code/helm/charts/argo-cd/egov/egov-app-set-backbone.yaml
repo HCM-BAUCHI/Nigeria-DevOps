@@ -8,6 +8,12 @@ spec:
     - list:
         elements:
           - name: superset
+          # Debezium CDC worker (Deployment, ns debezium) publishing to MSK;
+          # reads DB creds from the dedicated `debezium-db` secret.
+          - name: debezium-postgres-connect
+          # CronJob (every 5 min) registering the CDC + localization connectors via
+          # the worker's REST API; its first run starts the initial snapshot.
+          - name: debezium-postgres-connector-registrar
 
   template:
     metadata:

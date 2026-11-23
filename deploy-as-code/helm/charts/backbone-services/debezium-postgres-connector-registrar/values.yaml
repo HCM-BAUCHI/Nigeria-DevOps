@@ -1,0 +1,194 @@
+# debezium-postgres-connector-registrar -- central prod (ngcentralprd: gabon, si)
+# Source: "HCM Analytics Stack - Central Prod Deployment Guide", Registrar values
+# (copied from unified-dev, DIGIT-DevOps 94094b72d). Lines marked CHANGED/NEW
+# differ from unified-dev; lines marked NG differ from the guide for this repo.
+
+# Common Labels
+name: debezium-postgres-connector-registrar
+namespace: backbone   # env file overrides to `debezium`
+labels:
+  app: "debezium-postgres-connector-registrar"
+  group: "infra"
+
+# Container Configs
+# Kafka Connect has no CRD-based connector object without Strimzi, so this
+# CronJob PUTs each connector config at the worker's REST API. The PUT is
+# idempotent; re-running it every 5 minutes also re-applies config changes and
+# survives Connect pod restarts.
+image:
+  repository: curlimages/curl
+  tag: "8.12.1"
+
+memory_limits: 64Mi
+resources: |
+  requests:
+    memory: {{ .Values.memory_limits | quote }}
+    cpu: 50m
+  limits:
+    memory: {{ .Values.memory_limits | quote }}
+
+cron:
+  schedule: "*/5 * * * *"
+
+# common.cronjob renders `command`/`args` with `toYaml` (no `tpl`), so these
+# must be plain values -- everything dynamic is passed in via `env` below
+# (which *is* `tpl`'d) and read back here as plain shell variables.
+command:
+  - "/bin/sh"
+  - "-c"
+args:
+  - |
+    set -eu
+    # PUT .../connectors/{name}/config takes the *flat* config map as the body.
+    #
+    # database.user/password are `${file:...}` references into the properties
+    # file the `debezium-postgres-connect` init container renders from the
+    # `debezium-db` Secret; Kafka Connect's FileConfigProvider resolves them
+    # in-memory only, so the REST API never echoes the literal credential.
+    # `\$` stops the shell expanding them. Inside these heredocs write regex
+    # dots as [.] (not \\.) and capture groups as \$1.
+    #
+    # NG: topic.creation.* -- Kafka Connect creates the topics itself (via the
+    # admin API, independent of MSK's auto.create.topics.enable) with the
+    # guide's settings: table topics 3 partitions / 7 days, heartbeat topics
+    # 1 partition / 1 day, replication factor 3.
+
+    # ---- CDC connector: 39 tables in each of gabon and si ----
+    # CHANGED: adds the heartbeat (transactional: true) and the topic-name
+    # transform. The transform turns hcm-central.<schema>.<table> into
+    # hcm-central.<table>, so both countries share one topic per table; each
+    # event still carries its country in source.schema.
+    cat <<JSON > /tmp/connector.json
+    {
+      "connector.class": "io.debezium.connector.postgresql.PostgresConnector",
+      "database.hostname": "$DB_HOST",
+      "database.port": "$DB_PORT",
+      "database.user": "\${file:/config-providers/db.properties:username}",
+      "database.password": "\${file:/config-providers/db.properties:password}",
+      "database.dbname": "$DB_NAME",
+      "topic.prefix": "$TOPIC_PREFIX",
+      "plugin.name": "pgoutput",
+      "slot.name": "$SLOT_NAME",
+      "publication.name": "$PUBLICATION_NAME",
+      "publication.autocreate.mode": "disabled",
+      "table.include.list": "$TABLE_INCLUDE_LIST",
+      "key.converter": "org.apache.kafka.connect.json.JsonConverter",
+      "value.converter": "org.apache.kafka.connect.json.JsonConverter",
+      "key.converter.schemas.enable": "false",
+      "value.converter.schemas.enable": "false",
+      "decimal.handling.mode": "string",
+      "tombstones.on.delete": "true",
+      "heartbeat.interval.ms": "300000",
+      "heartbeat.action.query": "SELECT pg_logical_emit_message(true, 'dbz-heartbeat', now()::text)",
+      "transforms": "route",
+      "transforms.route.type": "org.apache.kafka.connect.transforms.RegexRouter",
+      "transforms.route.regex": "^$TOPIC_PREFIX[.][^.]+[.]([^.]+)$",
+      "transforms.route.replacement": "$TOPIC_PREFIX.\$1",
+      "topic.creation.default.replication.factor": "$TOPIC_REPLICATION_FACTOR",
+      "topic.creation.default.partitions": "3",
+      "topic.creation.default.retention.ms": "604800000",
+      "topic.creation.groups": "heartbeat",
+      "topic.creation.heartbeat.include": "__debezium-heartbeat[.]$TOPIC_PREFIX,$TOPIC_PREFIX[.]message",
+      "topic.creation.heartbeat.partitions": "1",
+      "topic.creation.heartbeat.retention.ms": "86400000"
+    }
+    JSON
+    echo "Registering $CONNECTOR_NAME against $CONNECT_REST_URL"
+    curl -sf -X PUT -H "Content-Type: application/json" \
+      --data @/tmp/connector.json \
+      -o /dev/null -w 'HTTP %{http_code}\n' \
+      "$CONNECT_REST_URL/connectors/$CONNECTOR_NAME/config"
+
+    # ---- Localization connector: boundary names of gabon and si in public.message ----
+    # CHANGED: own topic prefix; snapshot.mode initial (unified-dev: never),
+    # with the snapshot limited to the two countries; heartbeat true (was false).
+    # No RegexRouter here: it would rename <prefix>.public.message onto
+    # <prefix>.message, the topic that already holds the heartbeat markers.
+    cat <<JSON > /tmp/connector-localization.json
+    {
+      "connector.class": "io.debezium.connector.postgresql.PostgresConnector",
+      "database.hostname": "$DB_HOST",
+      "database.port": "$DB_PORT",
+      "database.user": "\${file:/config-providers/db.properties:username}",
+      "database.password": "\${file:/config-providers/db.properties:password}",
+      "database.dbname": "$DB_NAME",
+      "topic.prefix": "$LOCALIZATION_TOPIC_PREFIX",
+      "plugin.name": "pgoutput",
+      "slot.name": "$LOCALIZATION_SLOT_NAME",
+      "publication.name": "$LOCALIZATION_PUBLICATION_NAME",
+      "publication.autocreate.mode": "disabled",
+      "table.include.list": "public.message",
+      "snapshot.mode": "initial",
+      "snapshot.select.statement.overrides": "public.message",
+      "snapshot.select.statement.overrides.public.message": "SELECT * FROM public.message WHERE module LIKE '$LOCALIZATION_MODULE_PREFIX%' AND split_part(tenantid, '.', 1) IN ('gabon', 'si')",
+      "snapshot.fetch.size": "2048",
+      "max.queue.size": "4096",
+      "max.batch.size": "1024",
+      "key.converter": "org.apache.kafka.connect.json.JsonConverter",
+      "value.converter": "org.apache.kafka.connect.json.JsonConverter",
+      "key.converter.schemas.enable": "false",
+      "value.converter.schemas.enable": "false",
+      "decimal.handling.mode": "string",
+      "tombstones.on.delete": "true",
+      "heartbeat.interval.ms": "$LOCALIZATION_HEARTBEAT_MS",
+      "heartbeat.action.query": "SELECT pg_logical_emit_message(true, 'dbz-heartbeat', now()::text)",
+      "topic.creation.default.replication.factor": "$TOPIC_REPLICATION_FACTOR",
+      "topic.creation.default.partitions": "1",
+      "topic.creation.default.retention.ms": "604800000",
+      "topic.creation.groups": "heartbeat",
+      "topic.creation.heartbeat.include": "__debezium-heartbeat[.]$LOCALIZATION_TOPIC_PREFIX,$LOCALIZATION_TOPIC_PREFIX[.]message",
+      "topic.creation.heartbeat.partitions": "1",
+      "topic.creation.heartbeat.retention.ms": "86400000"
+    }
+    JSON
+    echo "Registering $LOCALIZATION_CONNECTOR_NAME against $CONNECT_REST_URL"
+    curl -sf -X PUT -H "Content-Type: application/json" \
+      --data @/tmp/connector-localization.json \
+      -o /dev/null -w 'HTTP %{http_code}\n' \
+      "$CONNECT_REST_URL/connectors/$LOCALIZATION_CONNECTOR_NAME/config"
+
+env: |
+  # REST API of the worker deployed by the sibling `debezium-postgres-connect` chart.
+  - name: CONNECT_REST_URL               # NG: follows the release namespace
+    value: "http://debezium-postgres-connect.{{ .Values.namespace }}:8083"
+  - name: CONNECTOR_NAME                 # CHANGED
+    value: "hcm-central-cdc"
+  - name: TOPIC_PREFIX                   # CHANGED
+    value: "hcm-central"
+  - name: SLOT_NAME                      # CHANGED
+    value: "debezium_hcm_central"
+  - name: PUBLICATION_NAME               # CHANGED
+    value: "debezium_hcm_central_pub"
+  # NG: replication factor for the topics Kafka Connect creates (MSK, 4 brokers).
+  - name: TOPIC_REPLICATION_FACTOR
+    value: "3"
+  # CHANGED: the same 39 tables, in both schemas (78). Must match the publication
+  # debezium_hcm_central_pub; kept in step with the analytics repo's table list.
+  - name: TABLE_INCLUDE_LIST
+    value: "gabon.address,gabon.eg_expense_bill,gabon.eg_expense_billdetail,gabon.eg_expense_lineitem,gabon.eg_expense_party,gabon.eg_pgr_address_v2,gabon.eg_pgr_service_v2,gabon.eg_push_device_tokens,gabon.eg_service,gabon.eg_service_attribute_value,gabon.eg_service_definition,gabon.eg_wms_attendance_attendee,gabon.eg_wms_attendance_log,gabon.eg_wms_attendance_register,gabon.eg_wms_attendance_staff,gabon.eg_wms_attendance_summary,gabon.eg_wms_muster_roll,gabon.facility,gabon.hf_referral,gabon.household,gabon.household_member,gabon.individual,gabon.individual_address,gabon.product,gabon.product_variant,gabon.project,gabon.project_address,gabon.project_beneficiary,gabon.project_facility,gabon.project_staff,gabon.project_target,gabon.project_task,gabon.referral,gabon.side_effect,gabon.stock,gabon.stock_reconciliation_log,gabon.task_resource,gabon.user_action,gabon.user_location,si.address,si.eg_expense_bill,si.eg_expense_billdetail,si.eg_expense_lineitem,si.eg_expense_party,si.eg_pgr_address_v2,si.eg_pgr_service_v2,si.eg_push_device_tokens,si.eg_service,si.eg_service_attribute_value,si.eg_service_definition,si.eg_wms_attendance_attendee,si.eg_wms_attendance_log,si.eg_wms_attendance_register,si.eg_wms_attendance_staff,si.eg_wms_attendance_summary,si.eg_wms_muster_roll,si.facility,si.hf_referral,si.household,si.household_member,si.individual,si.individual_address,si.product,si.product_variant,si.project,si.project_address,si.project_beneficiary,si.project_facility,si.project_staff,si.project_target,si.project_task,si.referral,si.side_effect,si.stock,si.stock_reconciliation_log,si.task_resource,si.user_action,si.user_location"
+  # --- localization connector (public.message) ---
+  - name: LOCALIZATION_CONNECTOR_NAME    # CHANGED
+    value: "hcm-central-localization-cdc"
+  - name: LOCALIZATION_TOPIC_PREFIX      # NEW (unified-dev reuses TOPIC_PREFIX)
+    value: "hcm-central-localization"
+  - name: LOCALIZATION_HEARTBEAT_MS      # 5 minutes
+    value: "300000"
+  - name: LOCALIZATION_SLOT_NAME         # CHANGED
+    value: "debezium_hcm_central_localization"
+  - name: LOCALIZATION_PUBLICATION_NAME  # CHANGED
+    value: "debezium_hcm_central_localization_pub"
+  # Used by both the publication's row filter and the snapshot override.
+  - name: LOCALIZATION_MODULE_PREFIX
+    value: "hcm-boundary-"
+  - name: DB_PORT
+    value: "5432"
+  - name: DB_HOST
+    valueFrom:
+      configMapKeyRef:
+        name: egov-config
+        key: db-host
+  - name: DB_NAME
+    valueFrom:
+      configMapKeyRef:
+        name: egov-config
+        key: db-name

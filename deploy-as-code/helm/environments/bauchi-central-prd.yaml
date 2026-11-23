@@ -52,13 +52,13 @@ global:
 cluster-configs:
   namespaces:
     create: true
-    values: [ backbone, cert-manager, egov, airflow, es-cluster, kafka-cluster, logging, monitoring, playground, zookeeper-cluster, es-cluster-v8, jupyter, jhub, bauchi, oyo, kogi, nasarawa, abuja, plateau, borno, kebbi, sokoto, ondo, adamawa, kaduna, jigawa, kebbi-azm, chad, gombe, chad-prod, zamfara, abia, sierraleone, namibia, hcm22, gabon, superset ]
+    values: [ backbone, debezium, cert-manager, egov, airflow, es-cluster, kafka-cluster, logging, monitoring, playground, zookeeper-cluster, es-cluster-v8, jupyter, jhub, bauchi, oyo, kogi, nasarawa, abuja, plateau, borno, kebbi, sokoto, ondo, adamawa, kaduna, jigawa, kebbi-azm, chad, gombe, chad-prod, zamfara, abia, sierraleone, namibia, hcm22, gabon, superset ]
 
   root-ingress:
     cert-issuer: letsencrypt-prod
   configmaps:
     egov-config:
-      namespace: [egov, airflow, bauchi, oyo, kogi, nasarawa, abuja, plateau, borno, kebbi, sokoto, ondo, adamawa, chad, gombe, zamfara, abia, sierraleone, kebbi-azm, namibia, hcm22, gabon, superset ]
+      namespace: [egov, airflow, debezium, bauchi, oyo, kogi, nasarawa, abuja, plateau, borno, kebbi, sokoto, ondo, adamawa, chad, gombe, zamfara, abia, sierraleone, kebbi-azm, namibia, hcm22, gabon, superset ]
       data:
         db-host: "ng-central-prd-db.cpe4q0cycqi7.af-south-1.rds.amazonaws.com" ## Add db-host name eg: egov-demo.database.azure.com
         db-name: "ngcentralprd" ## Add db-name
@@ -2828,3 +2828,22 @@ superset:
   # No ClickHouse connection for now
   clickhouse:
     enabled: false
+
+# Debezium CDC (Kafka Connect worker) -> MSK via egov-config `kafka-brokers`.
+# Runs in its own `debezium` namespace with a dedicated DB login from the
+# `debezium-db` secret (cluster-configs) -- that role needs `rds_replication`.
+# Chart defaults assume a single-broker KRaft (RF 1); MSK has 4 brokers and a
+# default min.insync.replicas of 2, so RF 1 internal topics would reject acks=all writes.
+debezium-postgres-connect:
+  namespace: debezium
+  dbSecretName: debezium-db
+  config-storage-replication-factor: "3"
+  offset-storage-replication-factor: "3"
+  status-storage-replication-factor: "3"
+
+# Debezium connector registrar (CronJob) -- registers hcm-central-cdc (gabon+si,
+# 78 tables) and hcm-central-localization-cdc against the worker above.
+# DB_HOST/DB_NAME come from egov-config (`debezium` is in its namespace list).
+# Its first run starts the initial snapshot of all 78 tables on the primary.
+debezium-postgres-connector-registrar:
+  namespace: debezium
