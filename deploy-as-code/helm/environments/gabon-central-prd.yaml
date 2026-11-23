@@ -212,7 +212,7 @@ health-expense-calculator:
   register-batch-size: 15
   tenantId: "gabon"
   excell-state-level-tenant-id: "gabon"
-  boundary-hierarchy-name: "boundary-hierarchy-admin"
+  boundary-hierarchy-name: "ADMIN"
   calculate-musterroll-health: gabon-calculate-musterroll-health
   calculate-error-health: gabon-calculate-error-health
   calculate-billmeta-health: gabon-calculate-billmeta-health
