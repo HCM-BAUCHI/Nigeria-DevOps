@@ -242,13 +242,13 @@ transformer:
   namespace: "gabon"
   image:
     repository: egovio/transformer
-    tag: gabon-manualcodes-prefix-021b2e0
+    tag: customize-2.1-transformer-mh-gabon-79c818c
   replicas: 1
   heap: "-Xmx1536m -Xms1536m"
   hpa:
     enabled: true
     minReplicas: 1
-    maxReplicas: 4
+    maxReplicas: 3
   cpu_requests: 300m
   memory_requests: 1.75Gi
   cpu_limits: 400m
@@ -326,10 +326,13 @@ transformer:
   expense-bill-detail-create-topic: "gabon-expense-bill-detail-create"
   expense-bill-detail-update-topic: "gabon-expense-bill-detail-update"
   egov_localization_locale_code: "fr_GABON"
-  egov-localization-module-name: "hcm-boundary-admin"
+  egov-localization-module-name: "hcm-boundary-"
   transformer-consumer-create-user-action-topic: "gabon-save-user-action-project-task-topic"
   transformer-consumer-update-user-action-topic: "gabon-update-user-action-project-task-topic"
   transformer-producer-user-action-index-v1-topic: "gabon-transformer-producer-user-action-index-v1-topic"
+  transformer-error-topic: "gabon-transformer-error-topic"
+  egov-boundary-hierarchy-types: "ADMIN"
+  transformer-producer-push-batch-size: "100"
   transformer-consumer-attendance-enabled: "false"
   transformer-consumer-attendance-staff-enabled: "false"
   transformer-consumer-attendee-enabled: "false"
@@ -339,6 +342,7 @@ transformer:
   transformer-consumer-musterroll-enabled: "false"
   transformer-consumer-service-enabled: "false"
   transformer-consumer-side-effect-enabled: "false"
+  hcm-bednets-required-calculate: "false"
   transformer-scan-resource-key: "scanner"
   transformer-scan-resource-delimiter: ","
   transformer-scan-resource-manual-identifier: "manual"
