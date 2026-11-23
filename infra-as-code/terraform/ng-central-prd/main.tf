@@ -37,7 +37,7 @@ module "db" {
   subnet_ids                    = "${module.network.private_subnets}"
   vpc_security_group_ids        = ["${module.network.rds_db_sg_id}"]
   availability_zone             = "${element(var.availability_zones, 0)}"
-  instance_class                = "db.m6g.4xlarge"  ## postgres db instance type
+  instance_class                = "db.m6g.2xlarge"  ## postgres db instance type
   engine_version                = "15.17"   ## postgres version
   storage_type                  = "gp3"
   storage_gb                    = "2750"     ## postgres disk size
@@ -414,7 +414,7 @@ resource "kubectl_manifest" "karpenter_node_class" {
     spec:
       amiFamily: AL2023
       amiSelectorTerms:
-      - id: ami-0495798abdcec516b
+      - id: ami-06ac8c41c6405e60e
       role: ${module.eks_managed_node_group.iam_role_name}
       subnetSelectorTerms:
         - tags:
@@ -498,7 +498,7 @@ resource "kubectl_manifest" "karpenter_arm64_node_class" {
     spec:
       amiFamily: AL2023
       amiSelectorTerms:
-      - id: ami-042767dbbad25226e
+      - id: ami-06b6ec774202dfed4
       role: ${module.eks_managed_node_group.iam_role_name}
       subnetSelectorTerms:
         - tags:
