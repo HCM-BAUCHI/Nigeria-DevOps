@@ -339,6 +339,9 @@ transformer:
   transformer-consumer-musterroll-enabled: "false"
   transformer-consumer-service-enabled: "false"
   transformer-consumer-side-effect-enabled: "false"
+  transformer-scan-resource-key: "scanner"
+  transformer-scan-resource-delimiter: ","
+  transformer-scan-resource-manual-identifier: "manual"
 
 hcm-moz-impl:
   namespace: gabon

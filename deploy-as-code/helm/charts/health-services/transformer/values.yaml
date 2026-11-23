@@ -136,6 +136,9 @@ hcm-bednets-projecttypes: "llin,bednet,bednets,itn"
 hcm-bednets-required-calculate: "false"
 hcm-bednets-members-per-bednet: "2"
 hcm-bednets-limit-per-household: "3"
+transformer-scan-resource-key: "scanResource"
+transformer-scan-resource-delimiter: ";"
+transformer-scan-resource-manual-identifier: "MANUAL"
 
 # Additional Container Envs
 env: |
@@ -575,3 +578,9 @@ env: |
     value: {{ index .Values "hcm-bednets-members-per-bednet" | default "2" | quote }}
   - name: HCM_BEDNETS_LIMIT_PER_HOUSEHOLD
     value: {{ index .Values "hcm-bednets-limit-per-household" | default "3" | quote }}
+  - name: TRANSFORMER_SCAN_RESOURCE_KEY
+    value: {{ index .Values "transformer-scan-resource-key" | default "scanResource" | quote }}
+  - name: TRANSFORMER_SCAN_RESOURCE_DELIMITER
+    value: {{ index .Values "transformer-scan-resource-delimiter" | default ";" | quote }}
+  - name: TRANSFORMER_SCAN_RESOURCE_MANUAL_IDENTIFIER
+    value: {{ index .Values "transformer-scan-resource-manual-identifier" | default "MANUAL" | quote }}
