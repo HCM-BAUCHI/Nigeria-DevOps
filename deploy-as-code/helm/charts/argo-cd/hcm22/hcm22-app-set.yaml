@@ -1,0 +1,128 @@
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: hcm22-appset
+  namespace: argocd
+spec:
+  generators:
+    - list:
+        elements:
+          - name: household
+            path: health-services
+            namespace: hcm22
+          - name: household-referral
+            path: health-services
+            namespace: hcm22
+          - name: individual
+            path: health-services
+            namespace: hcm22
+          - name: individual-referral
+            path: health-services
+            namespace: hcm22
+          - name: project
+            path: health-services
+            namespace: hcm22
+          - name: project-referral
+            path: health-services
+            namespace: hcm22
+          - name: referralmanagement
+            path: health-services
+            namespace: hcm22
+          - name: product
+            path: health-services
+            namespace: hcm22
+          - name: facility
+            path: health-services
+            namespace: hcm22
+          - name: stock
+            path: health-services
+            namespace: hcm22
+          - name: service-request
+            path: core-services
+            namespace: hcm22
+          - name: egov-hrms
+            path: business-services
+            namespace: hcm22
+          - name: egov-indexer-namibia
+            path: indexer-tenant-charts
+            namespace: hcm22
+          - name: egov-persister-namibia
+            path: persister-tenant-charts
+            namespace: hcm22
+          - name: gateway-hcm22
+            path: core-services
+            namespace: egov
+          - name: project-factory
+            path: health-services
+            namespace: hcm22
+          - name: boundary-management
+            path: health-services
+            namespace: hcm22
+          - name: excel-ingestion
+            path: health-services
+            namespace: hcm22
+          - name: health-attendance
+            path: health-services
+            namespace: hcm22
+          - name: health-muster-roll
+            path: health-services
+            namespace: hcm22
+          - name: health-expense
+            path: health-services
+            namespace: hcm22
+          - name: worker-registry
+            path: health-services
+            namespace: hcm22
+          - name: health-notification-service
+            path: health-services
+            namespace: hcm22
+          - name: beneficiary-idgen
+            path: health-services
+            namespace: hcm22
+          - name: pgr-services
+            path: core-services
+            namespace: hcm22
+          - name: egov-notification-push
+            path: core-services
+            namespace: hcm22
+
+  template:
+    metadata:
+      name: 'hcm22-{{name}}'
+
+    spec:
+      project: hcm22-project
+
+      source:
+        repoURL: git@github.com:HCM-BAUCHI/Nigeria-Devops.git
+        targetRevision: ng-central-prd
+        path: deploy-as-code/helm/charts/{{path}}/{{name}}
+        helm:
+          valueFiles:
+            - values.yaml
+            - ../../../environments/hcm22-central-prd.yaml
+
+      destination:
+        server: https://kubernetes.default.svc
+        namespace: '{{namespace}}'
+
+      syncPolicy:
+        automated:
+          prune: false
+          selfHeal: true
+        syncOptions:
+          - ApplyOutOfSyncOnly=true
+          - ServerSideApply=true
+          - RespectIgnoreDifferences=true
+        retry:
+          limit: 10
+          backoff:
+            duration: 5s
+            factor: 2
+            maxDuration: 3m0s
+
+      ignoreDifferences:
+        - group: apps
+          kind: Deployment
+          jsonPointers:
+            - /spec/replicas

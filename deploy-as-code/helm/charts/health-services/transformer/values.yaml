@@ -132,6 +132,13 @@ transformer-consumer-side-effect-enabled: "true"
 transformer-consumer-stock-enabled: "true"
 transformer-consumer-stock-reconciliation-enabled: "true"
 transformer-consumer-user-action-enabled: "true"
+hcm-bednets-projecttypes: "llin,bednet,bednets,itn"
+hcm-bednets-required-calculate: "false"
+hcm-bednets-members-per-bednet: "2"
+hcm-bednets-limit-per-household: "3"
+transformer-scan-resource-key: "scanResource"
+transformer-scan-resource-delimiter: ";"
+transformer-scan-resource-manual-identifier: "MANUAL"
 
 # Additional Container Envs
 env: |
@@ -531,3 +538,49 @@ env: |
     value: {{ index .Values "transformer-consumer-stock-reconciliation-enabled" | default "true" | quote }}
   - name: TRANSFORMER_CONSUMER_USER_ACTION_ENABLED
     value: {{ index .Values "transformer-consumer-user-action-enabled" | default "true" | quote }}
+  {{- if hasKey .Values "egov-elastic-search-port" }}
+  - name: EGOV_ELASTIC_SEARCH_HOST
+    valueFrom:
+      configMapKeyRef:
+        name: egov-config
+        key: es-host
+  - name: EGOV_ELASTIC_SEARCH_PORT
+    value: {{ index .Values "egov-elastic-search-port" | quote }}
+  - name: EGOV_ELASTIC_SEARCH_USERNAME
+    valueFrom:
+      secretKeyRef:
+        name: elastic
+        key: username
+  - name: EGOV_ELASTIC_SEARCH_PASSWORD
+    valueFrom:
+      secretKeyRef:
+        name: elastic
+        key: password
+  {{- end }}
+  {{- if hasKey .Values "project-staff-index-name" }}
+  - name: PROJECT_STAFF_INDEX_NAME
+    value: {{ index .Values "project-staff-index-name" | quote }}
+  {{- end }}
+  {{- if hasKey .Values "transformer-consumer-max-poll-records" }}
+  - name: SPRING_KAFKA_CONSUMER_MAX_POLL_RECORDS
+    value: {{ index .Values "transformer-consumer-max-poll-records" | quote }}
+  {{- end }}
+  {{- if hasKey .Values "transformer-consumer-user-status-change-topic" }}
+  - name: TRANSFORMER_CONSUMER_USER_STATUS_CHANGE_TOPIC
+    value: {{ index .Values "transformer-consumer-user-status-change-topic" | quote }}
+  {{- end }}
+
+  - name: HCM_BEDNETS_PROJECTTYPES
+    value: {{ index .Values "hcm-bednets-projecttypes" | default "llin,bednet,bednets,itn" | quote }}
+  - name: HCM_BEDNETS_REQUIRED_CALCULATE
+    value: {{ index .Values "hcm-bednets-required-calculate" | default "false" | quote }}
+  - name: HCM_BEDNETS_MEMBERS_PER_BEDNET
+    value: {{ index .Values "hcm-bednets-members-per-bednet" | default "2" | quote }}
+  - name: HCM_BEDNETS_LIMIT_PER_HOUSEHOLD
+    value: {{ index .Values "hcm-bednets-limit-per-household" | default "3" | quote }}
+  - name: TRANSFORMER_SCAN_RESOURCE_KEY
+    value: {{ index .Values "transformer-scan-resource-key" | default "scanResource" | quote }}
+  - name: TRANSFORMER_SCAN_RESOURCE_DELIMITER
+    value: {{ index .Values "transformer-scan-resource-delimiter" | default ";" | quote }}
+  - name: TRANSFORMER_SCAN_RESOURCE_MANUAL_IDENTIFIER
+    value: {{ index .Values "transformer-scan-resource-manual-identifier" | default "MANUAL" | quote }}

@@ -38,14 +38,35 @@ cluster-configs:
       name: hcm-moz-impl
       namespace: [egov]
 
+    egov-notification-push:
+      name: egov-notification-push
+      namespace: [egov, hcm22]
+
   secrets:
     db: 
-      namespace: [ egov, airflow, oyo, kogi, bauchi, nasarawa, abuja, plateau, borno, kebbi, sokoto, ondo, adamawa, kaduna, jigawa, kebbi-azm, chad, gombe, chad-prod, zamfara, abia]
+      namespace: [ egov, airflow, oyo, kogi, bauchi, nasarawa, abuja, plateau, borno, kebbi, sokoto, ondo, adamawa, kaduna, jigawa, kebbi-azm, chad, gombe, chad-prod, zamfara, abia, sierraleone, namibia, hcm22, gabon ]
       name: db
+
+    # Dedicated Postgres login for Debezium CDC, consumed by
+    # backbone-services/debezium-postgres-connect (dbSecretName: debezium-db).
+    # Separate from `db` so only this role carries rds_replication. Rendered
+    # only once `cluster-configs.secrets.debezium-db.password` (and `username`,
+    # default "debezium") exist in the env secrets file.
+    debezium-db:
+      namespace: [ debezium ]
+      name: debezium-db
 
     egov-notification-sms:
       namespace: egov
       name: egov-notification-sms
+
+    egov-notification-push:
+      namespace: [egov, hcm22]
+      name: egov-notification-push
+
+    project-factory:
+      namespace: [egov, hcm22, gabon]
+      name: project-factory
 
     egov-filestore:
       namespace: [egov, ondo, chad, chad-prod ]
@@ -68,7 +89,7 @@ cluster-configs:
       name: pgadmin
 
     egov-enc-service:
-      namespace: [ egov, oyo, bauchi, nasarawa, kogi, abuja, plateau, borno, kebbi, sokoto, ondo, adamawa, kaduna, jigawa, kebbi-azm, chad, gombe, chad-prod, zamfara, abia ]
+      namespace: [ egov, oyo, bauchi, nasarawa, kogi, abuja, plateau, borno, kebbi, sokoto, ondo, adamawa, kaduna, jigawa, kebbi-azm, chad, gombe, chad-prod, zamfara, abia, sierraleone, namibia, hcm22, gabon ]
       name: egov-enc-service
 
     egov-notification-mail:
@@ -80,7 +101,7 @@ cluster-configs:
       name: home-isolation-notification-mail
 
     git-sync:
-      namespace: [ egov, oyo, bauchi, nasarawa, kogi, abuja, plateau, borno, kebbi, sokoto, ondo, monitoring, adamawa, kaduna, jigawa, kebbi-azm, chad, gombe, chad-prod, zamfara, abia ]
+      namespace: [ egov, oyo, bauchi, nasarawa, kogi, abuja, plateau, borno, kebbi, sokoto, ondo, monitoring, adamawa, kaduna, jigawa, kebbi-azm, chad, gombe, chad-prod, zamfara, abia, sierraleone, namibia, hcm22, gabon ]
       name: git-creds
 
     kibana:
@@ -148,9 +169,17 @@ cluster-configs:
       name: postgres
 
     elastic:
-      namespace: [ egov, airflow, oyo, bauchi, nasarawa, kogi, abuja, plateau, borno, kebbi, sokoto, ondo, adamawa, kaduna, jigawa, kebbi-azm, chad, gombe, chad-prod, zamfara, abia ]
+      namespace: [ egov, airflow, oyo, bauchi, nasarawa, kogi, abuja, plateau, borno, kebbi, sokoto, ondo, adamawa, kaduna, jigawa, kebbi-azm, chad, gombe, chad-prod, zamfara, abia, sierraleone, namibia, hcm22, gabon ]
       name: elastic
 
     jupyter:
       namespace: jupyter
       name: jupyter
+
+    superset:
+      namespace: superset
+      name: superset-secrets
+
+    airflow:
+      namespace: airflow
+

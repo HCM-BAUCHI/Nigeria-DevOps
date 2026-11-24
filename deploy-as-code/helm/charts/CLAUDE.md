@@ -50,4 +50,4 @@
   - syncPolicy: automated `{prune: false, selfHeal: true}`, `ApplyOutOfSyncOnly`, `ServerSideApply`, `RespectIgnoreDifferences`; retry limit 10
   - `ignoreDifferences` on Deployment `/spec/replicas` (HPA ownership)
 - `egov/` dir = shared central services, destination namespace `*`, valueFile `bauchi-central-prd.yaml`
-- Add a service to a tenant = list-generator entry in the matching app-set; standalone envs `chad-prod`/`kebbi-azm` have NO argocd wiring (deployer/Jenkins only)
+- Add a service to a tenant = list-generator entry in the matching app-set; standalone env `chad-prod` has NO argocd wiring (deployer/Jenkins only)

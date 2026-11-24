@@ -10,6 +10,8 @@ spec:
         revision: ng-central-prd
         directories:
           - path: deploy-as-code/helm/charts/indexer-tenant-charts/*
+          - path: deploy-as-code/helm/charts/indexer-tenant-charts/egov-indexer-namibia
+            exclude: true
 
   template:
     metadata:

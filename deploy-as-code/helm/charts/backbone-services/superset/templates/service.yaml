@@ -1,0 +1,16 @@
+{{- include "superset.applyEnvOverrides" . }}
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ .Values.name }}
+  namespace: {{ .Values.namespace }}
+  labels:
+    {{- toYaml .Values.labels | nindent 4 }}
+spec:
+  type: ClusterIP
+  selector:
+    app: {{ .Values.labels.app }}
+  ports:
+    - name: http
+      port: 8088
+      targetPort: http

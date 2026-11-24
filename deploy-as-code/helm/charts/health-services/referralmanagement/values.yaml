@@ -28,7 +28,7 @@ healthChecks:
   livenessProbePath: "/referralmanagement/health"
   readinessProbePath: "/referralmanagement/health"
 appType: "java-spring"
-downsync-services-enabled: false
+downsync-separate-services-enabled: false
 heap: "-Xmx192m -Xms192m"
 java-args: ""
 persist-yml-path: "file:///work-dir/health-campaign-config/egov-persister/referral-management-persister.yml"
@@ -182,7 +182,7 @@ env: |
         key: product
   - name: EGOV_SEARCH_PRODUCT_VARIANT_URL
     value: "/product/variant/v1/_search"
-  {{- if index .Values "downsync-services-enabled" }}
+  {{- if index .Values "downsync-separate-services-enabled" }}
   - name: EGOV_PROJECT_HOST
     valueFrom:
       configMapKeyRef:
@@ -392,4 +392,40 @@ env: |
   {{- if index .Values "spring-datasource-hikari-leak-detection-threshold" }}
   - name: SPRING_DATASOURCE_HIKARI_LEAK_DETECTION_THRESHOLD
     value: {{ index .Values "spring-datasource-hikari-leak-detection-threshold" | quote }}
+  {{- end }}
+  {{- if hasKey .Values "egov-enc-state-level-tenant-ids" }}
+  - name: EGOV_ENC_ENCRYPT_ENDPOINT
+    value: "/egov-enc-service/crypto/v1/_encrypt"
+  - name: EGOV_ENC_STATE_LEVEL_TENANT_IDS
+    value: {{ index .Values "egov-enc-state-level-tenant-ids" | quote }}
+  {{- end }}
+  {{- range $t, $k := index .Values "egov-enc-tenant-hosts" }}
+  - name: EGOV_ENC_TENANT_HOST_{{ $t }}
+    valueFrom:
+      configMapKeyRef:
+        name: egov-service-host
+        key: {{ $k }}
+  - name: egov.enc.tenant.host.{{ $t }}
+    valueFrom:
+      configMapKeyRef:
+        name: egov-service-host
+        key: {{ $k }}
+  - name: TENANT_STATE_LEVEL_TENANT_ID_MAPPINGS_{{ $t }}
+    value: {{ $t | quote }}
+  - name: tenant.state.level.tenant.id.mappings.{{ $t }}
+    value: {{ $t | quote }}
+  {{- end }}
+  {{- if hasKey .Values "referralmanagement-relationship-validation" }}
+  - name: REFERRALMANAGEMENT_RELATIONSHIP_VALIDATION
+    value: {{ index .Values "referralmanagement-relationship-validation" | quote }}
+  {{- end }}
+  {{- if hasKey .Values "downsync-pregen-enabled" }}
+  - name: EGOV_DOWNSYNC_PREGEN_ENABLED
+    value: {{ index .Values "downsync-pregen-enabled" | quote }}
+  - name: EGOV_DOWNSYNC_STORAGE_BACKEND
+    value: {{ index .Values "downsync-storage-backend" | default "s3" | quote }}
+  {{- end }}
+  {{- range $k, $v := index .Values "ccn" }}
+  - name: REFERRALMANAGEMENT.CCN.{{ $k | upper }}
+    value: {{ $v | quote }}
   {{- end }}

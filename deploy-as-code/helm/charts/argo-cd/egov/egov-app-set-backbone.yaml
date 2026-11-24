@@ -1,0 +1,61 @@
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: ng-central-prd-egov-appset-backbone
+  namespace: argocd
+spec:
+  generators:
+    - list:
+        elements:
+          - name: superset
+          # Debezium CDC worker (Deployment, ns debezium) publishing to MSK;
+          # reads DB creds from the dedicated `debezium-db` secret.
+          - name: debezium-postgres-connect
+          # CronJob (every 5 min) registering the CDC + localization connectors via
+          # the worker's REST API; its first run starts the initial snapshot.
+          - name: debezium-postgres-connector-registrar
+
+  template:
+    metadata:
+      name: 'egov-{{name}}'
+
+    spec:
+      project: egov-project
+
+      source:
+        repoURL: git@github.com:HCM-BAUCHI/Nigeria-Devops.git
+        targetRevision: ng-central-prd
+        path: deploy-as-code/helm/charts/backbone-services/{{name}}
+        helm:
+          valueFiles:
+            - values.yaml
+            - ../../../environments/bauchi-central-prd.yaml
+
+      destination:
+        server: https://kubernetes.default.svc
+        namespace: '*'
+
+      syncPolicy:
+        automated:
+          prune: false
+          selfHeal: true
+        syncOptions:
+          - ApplyOutOfSyncOnly=true
+          - ServerSideApply=true
+          - RespectIgnoreDifferences=true
+        retry:
+          limit: 10
+          backoff:
+            duration: 5s
+            factor: 2
+            maxDuration: 3m0s
+
+      ignoreDifferences:
+        - group: apps
+          kind: Deployment
+          jsonPointers:
+            - /spec/replicas
+        - group: ""
+          kind: PersistentVolumeClaim
+          jsonPointers:
+            - /spec/volumeName

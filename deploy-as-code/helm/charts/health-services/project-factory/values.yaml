@@ -558,6 +558,8 @@ env: |
     value: {{ .Values.egovProjectResourceBulkCreatePath | default "project/resource/v1/bulk/_create" }}
   - name: EGOV_PROJECT_FACILITY_BULK_CREATE_PATH
     value: {{ .Values.egovProjectFacilityBulkCreatePath | default "project/facility/v1/bulk/_create" }}
+  - name: EGOV_PROJECT_FACILITY_UPDATE_PATH
+    value: {{ .Values.egovProjectFacilityUpdatePath | default "project/facility/v1/_update" }}
   - name: EGOV_SERVICE_DEFINITION_SEARCH_PATH
     value: {{ .Values.egovServiceDefinitionSearchPath | default "service-request/service/definition/v1/_search" }}
   - name: EGOV_SERVICE_DEFINITION_CREATE_PATH

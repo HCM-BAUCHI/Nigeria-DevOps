@@ -1,0 +1,14 @@
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: gabon-hcm.digit.org-tls-certs
+  namespace: egov
+spec:
+  secretName: gabon-hcm.digit.org-tls-certs
+  issuerRef:
+    name: letsencrypt-prod
+    kind: ClusterIssuer
+  commonName: gabon-hcm.digit.org
+  dnsNames:
+    - gabon-hcm.digit.org
+

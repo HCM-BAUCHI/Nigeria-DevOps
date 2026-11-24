@@ -1,0 +1,14 @@
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: namibia-hcm.digit.org-tls-certs
+  namespace: egov
+spec:
+  secretName: namibia-hcm.digit.org-tls-certs
+  issuerRef:
+    name: letsencrypt-prod
+    kind: ClusterIssuer
+  commonName: namibia-hcm.digit.org
+  dnsNames:
+    - namibia-hcm.digit.org
+

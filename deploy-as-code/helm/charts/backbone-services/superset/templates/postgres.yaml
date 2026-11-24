@@ -1,0 +1,87 @@
+{{- include "superset.applyEnvOverrides" . }}
+{{- if not .Values.database.external }}
+# Bundled Superset metadata database (users, charts, dashboards), only with database.external: false. In-cluster only.
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ .Values.name }}-postgres
+  namespace: {{ .Values.namespace }}
+  labels:
+    {{- toYaml .Values.labels | nindent 4 }}
+spec:
+  type: ClusterIP
+  selector:
+    app: {{ .Values.name }}-postgres
+  ports:
+    - name: postgres
+      port: 5432
+      targetPort: postgres
+---
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: {{ .Values.name }}-postgres
+  namespace: {{ .Values.namespace }}
+  labels:
+    {{- toYaml .Values.labels | nindent 4 }}
+spec:
+  serviceName: {{ .Values.name }}-postgres
+  replicas: 1
+  # Keep the PVC (and every dashboard) if the StatefulSet is deleted or scaled down
+  persistentVolumeClaimRetentionPolicy:
+    whenDeleted: Retain
+    whenScaled: Retain
+  selector:
+    matchLabels:
+      app: {{ .Values.name }}-postgres
+  template:
+    metadata:
+      labels:
+        app: {{ .Values.name }}-postgres
+        group: {{ .Values.labels.group | quote }}
+    spec:
+      containers:
+        - name: postgres
+          image: {{ .Values.postgres.image }}
+          env:
+            - name: POSTGRES_USER
+              value: superset
+            - name: POSTGRES_DB
+              value: superset
+            - name: POSTGRES_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Values.secretName }}
+                  key: postgres-password
+            # sub-directory: the disk's root has lost+found, which initdb refuses
+            - name: PGDATA
+              value: /var/lib/postgresql/data/pgdata
+          ports:
+            - name: postgres
+              containerPort: 5432
+          volumeMounts:
+            - name: data
+              mountPath: /var/lib/postgresql/data
+          resources:
+            {{- toYaml .Values.postgres.resources | nindent 12 }}
+          readinessProbe:
+            exec:
+              command: ["pg_isready", "-U", "superset", "-d", "superset"]
+            periodSeconds: 10
+          livenessProbe:
+            exec:
+              command: ["pg_isready", "-U", "superset", "-d", "superset"]
+            periodSeconds: 30
+            failureThreshold: 6
+  volumeClaimTemplates:
+    - metadata:
+        name: data
+        labels:
+          app: {{ .Values.name }}-postgres
+      spec:
+        accessModes: ["ReadWriteOnce"]
+        storageClassName: {{ .Values.postgres.persistence.storageClass }}
+        resources:
+          requests:
+            storage: {{ .Values.postgres.persistence.size }}
+{{- end }}

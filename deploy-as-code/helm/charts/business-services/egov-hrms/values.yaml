@@ -204,3 +204,12 @@ env: |
   - name: EGOV_HRMS_MOBILE_NUMBER_MAX_LENGTH
     value: {{ index .Values "egov-hrms-mobile-number-max-length" | quote }}
 
+  {{- if hasKey .Values "spring-data-redis-port" }}
+  - name: SPRING_DATA_REDIS_HOST
+    valueFrom:
+      configMapKeyRef:
+        name: egov-config
+        key: redis-host
+  - name: SPRING_DATA_REDIS_PORT
+    value: {{ index .Values "spring-data-redis-port" | quote }}
+  {{- end }}

@@ -15,8 +15,8 @@
 ## ArgoCD Wiring
 
 - Only central envs are ArgoCD-managed (valueFile refs in `charts/argo-cd/<tenant>/`); `bauchi-central-prd.yaml` is used by both `bauchi` and shared `egov` app-sets
-- `chad-prod` and `kebbi-azm` (standalone, central-instance disabled) have no argocd refs — deployer/Jenkins only
-- No argocd dirs yet: ondo, adamawa, gombe
+- `chad-prod` (standalone, central-instance disabled) has no argocd refs — deployer/Jenkins only
+- No argocd dirs yet: ondo
 
 ## Editing Recipes
 

@@ -18,7 +18,7 @@ workbench-ui:
   namespace: abia
   image:
     repository: egovio/workbench-ui
-    tag: borno-ProdUat_Build-v1-adc912a
+    tag: HDDF-5584-login-76c5530
   custom-js-injection: |
     sub_filter.conf: "
       sub_filter  '<head>' '<head>
@@ -30,7 +30,7 @@ payments-ui:
   namespace: abia
   image:
     repository: egovio/payments-ui
-    tag: bednet-prod-payments_ui-6782072
+    tag: bednet-prod-payments_ui-448c56f
   custom-js-injection: |
     sub_filter.conf: "
       sub_filter  '<head>' '<head>
@@ -41,12 +41,12 @@ transformer:
   namespace: "abia"
   image:
     repository: egovio/transformer
-    tag: customize-2.1-transformer-mh-bd49377
+    tag: customize-2.1-transformer-mh-d71ac1d
   replicas: 1
   heap: "-Xmx1536m -Xms1536m"
   hpa:
     enabled: true
-    minReplicas: 1
+    minReplicas: 2
     maxReplicas: 6
   cpu_requests: 300m
   memory_requests: 1.75Gi
@@ -176,7 +176,7 @@ health-expense:
   heap: "-Xmx512m -Xms256m"
   hpa:
     enabled: true
-    minReplicas: 1
+    minReplicas: 2
     maxReplicas: 3
   cpu_requests: 200m
   memory_requests: 512Mi
@@ -202,7 +202,7 @@ health-expense-calculator:
   heap: "-Xmx2048m -Xms1024m"
   hpa:
     enabled: true
-    minReplicas: 1
+    minReplicas: 2
     maxReplicas: 5
   cpu_requests: 500m
   memory_requests: 1.5Gi
