@@ -169,6 +169,23 @@ env:
     value: "airflow"
   - name: K8S_NAMESPACE
     value: "airflow"
+  - name: EGOV_BOUNDARY_SERVICE_BASE_URL
+    value: http://boundary-service.egov.svc.cluster.local:8080
+  - name: EGOV_BOUNDARY_RELATIONSHIP_SEARCH_PATH
+    value: /boundary-service/boundary-relationships/_search
+  - name: EGOV_USER_SERVICE_BASE_URL
+    value: http://egov-user.egov.svc.cluster.local:8080
+  - name: EGOV_USER_SEARCH_PATH
+    value: /user/_search
+  - name: EGOV_MDMS_SERVICE_BASE_URL
+    value: http://mdms-v2.egov.svc.cluster.local:8080
+  - name: EGOV_MDMS_SEARCH_PATH
+    value: /mdms-v2/v1/_search
+  - name: EGOV_WORKFLOW_SERVICE_BASE_URL
+    value: http://egov-workflow-v2.egov.svc.cluster.local:8080
+  - name: EGOV_WORKFLOW_PROCESS_SEARCH_PATH
+    value: /egov-workflow-v2/egov-wf/process/_search
+
 
 # Extra env vars with valueFrom (secrets)
 extraEnv: |
