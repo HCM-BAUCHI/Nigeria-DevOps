@@ -180,3 +180,6 @@ cluster-configs:
       namespace: superset
       name: superset-secrets
 
+    airflow:
+      namespace: airflow
+
