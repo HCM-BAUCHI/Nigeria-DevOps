@@ -47,6 +47,15 @@ cluster-configs:
       namespace: [ egov, airflow, oyo, kogi, bauchi, nasarawa, abuja, plateau, borno, kebbi, sokoto, ondo, adamawa, kaduna, jigawa, kebbi-azm, chad, gombe, chad-prod, zamfara, abia, sierraleone, namibia, hcm22, gabon ]
       name: db
 
+    # Dedicated Postgres login for Debezium CDC, consumed by
+    # backbone-services/debezium-postgres-connect (dbSecretName: debezium-db).
+    # Separate from `db` so only this role carries rds_replication. Rendered
+    # only once `cluster-configs.secrets.debezium-db.password` (and `username`,
+    # default "debezium") exist in the env secrets file.
+    debezium-db:
+      namespace: [ debezium ]
+      name: debezium-db
+
     egov-notification-sms:
       namespace: egov
       name: egov-notification-sms
@@ -56,7 +65,7 @@ cluster-configs:
       name: egov-notification-push
 
     project-factory:
-      namespace: [egov, hcm22]
+      namespace: [egov, hcm22, gabon]
       name: project-factory
 
     egov-filestore:

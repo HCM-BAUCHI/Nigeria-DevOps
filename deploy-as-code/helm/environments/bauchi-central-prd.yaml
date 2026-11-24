@@ -52,13 +52,13 @@ global:
 cluster-configs:
   namespaces:
     create: true
-    values: [ backbone, cert-manager, egov, airflow, es-cluster, kafka-cluster, logging, monitoring, playground, zookeeper-cluster, es-cluster-v8, jupyter, jhub, bauchi, oyo, kogi, nasarawa, abuja, plateau, borno, kebbi, sokoto, ondo, adamawa, kaduna, jigawa, kebbi-azm, chad, gombe, chad-prod, zamfara, abia, sierraleone, namibia, hcm22, gabon, superset ]
+    values: [ backbone, debezium, cert-manager, egov, airflow, es-cluster, kafka-cluster, logging, monitoring, playground, zookeeper-cluster, es-cluster-v8, jupyter, jhub, bauchi, oyo, kogi, nasarawa, abuja, plateau, borno, kebbi, sokoto, ondo, adamawa, kaduna, jigawa, kebbi-azm, chad, gombe, chad-prod, zamfara, abia, sierraleone, namibia, hcm22, gabon, superset ]
 
   root-ingress:
     cert-issuer: letsencrypt-prod
   configmaps:
     egov-config:
-      namespace: [egov, airflow, bauchi, oyo, kogi, nasarawa, abuja, plateau, borno, kebbi, sokoto, ondo, adamawa, chad, gombe, zamfara, abia, sierraleone, kebbi-azm, namibia, hcm22, gabon, superset ]
+      namespace: [egov, airflow, debezium, bauchi, oyo, kogi, nasarawa, abuja, plateau, borno, kebbi, sokoto, ondo, adamawa, chad, gombe, zamfara, abia, sierraleone, kebbi-azm, namibia, hcm22, gabon, superset ]
       data:
         db-host: "ng-central-prd-db.cpe4q0cycqi7.af-south-1.rds.amazonaws.com" ## Add db-host name eg: egov-demo.database.azure.com
         db-name: "ngcentralprd" ## Add db-name
@@ -280,7 +280,9 @@ cluster-configs:
         egov:
           health-expense-calculator: 'http://internal-gateway-scg.egov:8080/'
           health-expense-calculator-namibia: 'http://health-expense-calculator.namibia:8080/'
-
+        gabon:
+          gabon-project-factory: 'http://project-factory.gabon:8080/'
+          gabon-excel-ingestion: 'http://excel-ingestion.gabon:8080/'
     hcm-moz-impl:
       data:
         dhis2-host: "https://ccu.misau.gov.mz/ccu"
@@ -812,7 +814,7 @@ egov-indexer-kd-pl-ab:
   heap: "-Xmx1536m -Xms1024m"
   hpa:
     enabled: true
-    minReplicas: 1
+    minReplicas: 2
     maxReplicas: 4
   cpu_requests: 300m
   memory_requests: 1.5Gi
@@ -1054,8 +1056,8 @@ egov-persister-kd-pl-ab:
   heap: "-Xmx1536m -Xms1024m"
   hpa:
     enabled: true
-    minReplicas: 1
-    maxReplicas: 4
+    minReplicas: 4
+    maxReplicas: 6
   cpu_requests: 300m
   memory_requests: 1.5Gi
   cpu_limits: 400m
@@ -1977,8 +1979,8 @@ project-factory:
     tag: master-ekfrazo-f48806c
   central-instance-enabled: false
   central-instance-build: true
-  schemaNameExclude: [ "chad", "namibia" ]
-  hostExclude: ["chad-hcm-prod.digit.org", "namibia-hcm.digit.org"]
+  schemaNameExclude: [ "chad", "namibia", "gabon" ]
+  hostExclude: ["chad-hcm-prod.digit.org", "namibia-hcm.digit.org", "gabon-hcm.digit.org"]
   namespace: egov
   heap: "-Xmx2048m -Xms512m"
   replicas: 3
@@ -2040,7 +2042,7 @@ project-factory:
   serverTimezone: "UTC"
   attendanceAttendeeSearchPageSize: "100"
   attendanceStaffSearchPageSize: "100"
-  centralInstanceTenantIds: "ba,oy,ko,na,ab,pl,bo,ke,so,od,ad,kd,jg,kb,ch,go,zf,abia,si,gabon"
+  centralInstanceTenantIds: "ba,oy,ko,na,ab,pl,bo,ke,so,od,ad,kd,jg,kb,ch,go,zf,abia,si"
   userKafkaCreateBatchSize: '100'
   mappingBulkCreateChunkSize: '150'
   projectBulkCreateChunkSize: '100'
@@ -2101,8 +2103,8 @@ excel-ingestion:
   group-id: "egov-excel-ingestion"
   central-instance-build: true
   central-instance-enabled: true
-  schemaNameExclude: [ "chad", "namibia" ]
-  hostExclude: ["chad-hcm-prod.digit.org", "namibia-hcm.digit.org"]
+  schemaNameExclude: [ "chad", "namibia", "gabon" ]
+  hostExclude: ["chad-hcm-prod.digit.org", "namibia-hcm.digit.org", "gabon-hcm.digit.org"]
   cpu_requests: 1
   memory_requests: 4072Mi
   memory_limits: "4072Mi"
@@ -2123,7 +2125,7 @@ excel-ingestion:
   excel-ingestion-sheet-data-save-topic: "save-sheet-data-temp"
   excel-ingestion-sheet-data-delete-topic: "delete-sheet-data-temp"
   excel-ingestion-processing-result-topic: "hcm-processing-result"
-  kafka-tenant-id-pattern: "(ba|oy|ko|na|ab|pl|bo|ke|so|od|ad|kd|jg|kb|ch|go|zf|gabon|abia|si)-"
+  kafka-tenant-id-pattern: "(ba|oy|ko|na|ab|pl|bo|ke|so|od|ad|kd|jg|kb|ch|go|zf|abia|si)-"
   java-enable-debug: true
   wait-time-of-each-attempt-ms: "20000"
 
@@ -2542,8 +2544,8 @@ pdf-service:
           value: "true"
         - name: "GITSYNC_ROOT"
           value: "/work-dir"
-  data-config-urls: "file:///work-dir/health-campaign-config/pdf-service/data-config/health-bill-payment-ba.json,file:///work-dir/health-campaign-config/pdf-service/data-config/health-bill-payment-bo.json"
-  format-config-urls: "file:///work-dir/health-campaign-config/pdf-service/format-config/health-bill-payment-ba.json,file:///work-dir/health-campaign-config/pdf-service/format-config/health-bill-payment-bo.json"
+  data-config-urls: "file:///work-dir/health-campaign-config/pdf-service/data-config/health-bill-payment-ba.json,file:///work-dir/health-campaign-config/pdf-service/data-config/health-bill-payment-bo.json,file:///work-dir/health-campaign-config/pdf-service/data-config/health-bill-payment-ab.json,file:///work-dir/health-campaign-config/pdf-service/data-config/health-bill-payment-ko.json,file:///work-dir/health-campaign-config/pdf-service/data-config/health-bill-payment-abia.json,file:///work-dir/health-campaign-config/pdf-service/data-config/health-bill-payment-gabon.json"
+  format-config-urls: "file:///work-dir/health-campaign-config/pdf-service/format-config/health-bill-payment-ba.json,file:///work-dir/health-campaign-config/pdf-service/format-config/health-bill-payment-bo.json,file:///work-dir/health-campaign-config/pdf-service/format-config/health-bill-payment-ab.json,file:///work-dir/health-campaign-config/pdf-service/format-config/health-bill-payment-ko.json,file:///work-dir/health-campaign-config/pdf-service/format-config/health-bill-payment-abia.json,file:///work-dir/health-campaign-config/pdf-service/format-config/health-bill-payment-gabon.json"
   heap: "-Xmx512m -Xms256m"
   hpa:
     enabled: true
@@ -2826,3 +2828,22 @@ superset:
   # No ClickHouse connection for now
   clickhouse:
     enabled: false
+
+# Debezium CDC (Kafka Connect worker) -> MSK via egov-config `kafka-brokers`.
+# Runs in its own `debezium` namespace with a dedicated DB login from the
+# `debezium-db` secret (cluster-configs) -- that role needs `rds_replication`.
+# Chart defaults assume a single-broker KRaft (RF 1); MSK has 4 brokers and a
+# default min.insync.replicas of 2, so RF 1 internal topics would reject acks=all writes.
+debezium-postgres-connect:
+  namespace: debezium
+  dbSecretName: debezium-db
+  config-storage-replication-factor: "3"
+  offset-storage-replication-factor: "3"
+  status-storage-replication-factor: "3"
+
+# Debezium connector registrar (CronJob) -- registers hcm-central-cdc (gabon+si,
+# 78 tables) and hcm-central-localization-cdc against the worker above.
+# DB_HOST/DB_NAME come from egov-config (`debezium` is in its namespace list).
+# Its first run starts the initial snapshot of all 78 tables on the primary.
+debezium-postgres-connector-registrar:
+  namespace: debezium
