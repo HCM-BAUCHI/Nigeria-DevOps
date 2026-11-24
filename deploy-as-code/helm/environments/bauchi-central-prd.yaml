@@ -536,10 +536,10 @@ egov-user:
     dbMigration:
       image:
         repository: egovio/egov-user-db
-        tag: sqli-fix-egov-user-central-instance-switch-device-changes-bulk-ekfrazo-a098f02-b51ebc5
+        tag: central-instance-switch-device-changes-bulk-ekfrazo-bab8d46
   image:
     repository: egovio/egov-user
-    tag: sqli-fix-egov-user-central-instance-switch-device-changes-bulk-ekfrazo-a098f02-b51ebc5
+    tag: central-instance-switch-device-changes-bulk-ekfrazo-bab8d46
   spring-datasource-tomcat-max-active: "10"
   server-tomcat-max-threads: "200"
   bulk-bcrypt-threads: "4"
