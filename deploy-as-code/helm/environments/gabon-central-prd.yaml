@@ -242,7 +242,7 @@ transformer:
   namespace: "gabon"
   image:
     repository: egovio/transformer
-    tag: customize-2.1-transformer-mh-gabon-79c818c
+    tag: gabon_roles_joined_changes-ad0a078
   replicas: 1
   heap: "-Xmx1536m -Xms1536m"
   hpa:
