@@ -2007,6 +2007,7 @@ project-factory:
   IS_ENVIRONMENT_CENTRAL_INSTANCE: true
   DB_SCHEMA: public
   defaultTenantId: ba
+  kafka-tenant-id-pattern: "(ba|oy|ko|na|ab|pl|bo|ke|so|od|ad|kd|jg|kb|ch|go|zf|abia|si)-"
   saveCampaignDetails: "save-campaign-details"
   updateCampaignDetails: "update-campaign-details"
   saveProjectCampaignDetailsTopic: "save-project-campaign-details"
