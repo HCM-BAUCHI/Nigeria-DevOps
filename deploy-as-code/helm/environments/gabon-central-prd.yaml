@@ -122,7 +122,7 @@ project-factory:
   IS_ENVIRONMENT_CENTRAL_INSTANCE: false
   DB_SCHEMA: gabon
   defaultTenantId: gabon
-  kafka-tenant-id-pattern: "(gabon)-"
+  factory-kafka-tenant-id-pattern: "(gabon)-"
   saveCampaignDetails: "gabon-save-campaign-details"
   updateCampaignDetails: "gabon-update-campaign-details"
   saveProjectCampaignDetailsTopic: "gabon-save-project-campaign-details"
