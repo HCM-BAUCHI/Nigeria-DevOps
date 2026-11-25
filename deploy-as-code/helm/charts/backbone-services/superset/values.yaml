@@ -40,6 +40,7 @@ image:
 # directory to sys.path, so the image's own packages always win. Set to [] with an image that has them built in.
 extraPackages:
   - psycopg2-binary==2.9.10
+  - clickhouse-connect==1.8.0
 
 # gunicorn (gthread). Each worker is a full Superset process (~400-500 MB).
 server:
