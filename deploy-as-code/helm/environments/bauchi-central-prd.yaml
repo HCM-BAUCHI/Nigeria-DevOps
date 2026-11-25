@@ -931,7 +931,7 @@ egov-persister-gabon:
   memory_limits: 2Gi
   images:
     - egovio/egov-persister
-  persist-yml-path: "/work-dir/health-campaign-config/egov-persister/gabon"
+  persist-yml-path: "/work-dir/health-campaign-config/egov-persister/gabon,/work-dir/health-campaign-config/egov-persister-ht/gabon"
   initContainers:
     gitSync:
       repo: "git@github.com:HCM-BAUCHI/health-campaign-config"      ##### Change repo url with Your fork Repo url
