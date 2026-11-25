@@ -454,10 +454,14 @@ env: |
   - name: SERVER_TIMEZONE
     value: {{ .Values.serverTimezone | default "UTC" }}
   - name: KAFKA_CONSUMER_TOPIC_PREFIX
+  {{- if hasKey .Values "factory-kafka-tenant-id-pattern" }}
+    value: {{ index .Values "factory-kafka-tenant-id-pattern" | quote }}
+  {{- else }}
     valueFrom:
       configMapKeyRef:
         name: egov-config
         key: kafka-tenant-id-pattern
+  {{- end }}
   - name: KAFKA_CONSUMER_GROUP_ID_PREFIX
   - name: BOUNDARY_CODE_HEADER_NAME
     value: {{ .Values.boundaryCodeHeaderName | default "HCM_ADMIN_CONSOLE_BOUNDARY_CODE" }}
