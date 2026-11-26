@@ -65,6 +65,9 @@ ingress:
   path: /superset
   clusterIssuer: letsencrypt-prod
   tlsSecretName: bauchi-hcm.digit.org-tls-certs    # cert-manager issues a copy in this namespace
+  # More hosts serving the same Superset under the same path, each with its own certificate
+  # (tlsSecretName defaults to "<host>-tls-certs"). e.g. [{host: gabon-hcm.digit.org}]
+  extraHosts: []
 
 secretName: superset-secrets
 

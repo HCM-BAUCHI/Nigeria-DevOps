@@ -26,8 +26,26 @@ spec:
                 name: {{ .Values.name }}
                 port:
                   name: http
+    {{- range .Values.ingress.extraHosts }}
+    - host: {{ .host }}
+      http:
+        paths:
+          - path: {{ $.Values.ingress.path }}
+            pathType: Prefix
+            backend:
+              service:
+                name: {{ $.Values.name }}
+                port:
+                  name: http
+    {{- end }}
   tls:
     - hosts:
         - {{ .Values.ingress.host }}
       secretName: {{ .Values.ingress.tlsSecretName }}
+    {{- /* one certificate per extra host, so the main host's certificate is never re-issued */}}
+    {{- range .Values.ingress.extraHosts }}
+    - hosts:
+        - {{ .host }}
+      secretName: {{ .tlsSecretName | default (printf "%s-tls-certs" .host) }}
+    {{- end }}
 {{- end }}

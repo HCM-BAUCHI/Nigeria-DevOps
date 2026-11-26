@@ -2823,6 +2823,9 @@ superset:
     host: bauchi-hcm.digit.org
     path: /superset
     tlsSecretName: mc-nigeria-uat.digit.org-tls-certs
+    extraHosts:
+      - host: gabon-hcm.digit.org
+        tlsSecretName: gabon-hcm.digit.org-tls-certs
   database:
     external: true
     port: 5432
