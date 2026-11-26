@@ -57,6 +57,13 @@ spec:
                   name: {{ .Values.secretName }}
                   key: {{ .Values.speechKey }}
                   optional: true
+            # Only read when LENSPACK_ADMIN_ACCESS is "password" (see extraEnv in values.yaml); absent key: not set
+            - name: LENSPACK_ADMIN_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Values.secretName }}
+                  key: {{ .Values.adminPasswordKey }}
+                  optional: true
             {{- with .Values.extraEnv }}
             {{- toYaml . | nindent 12 }}
             {{- end }}

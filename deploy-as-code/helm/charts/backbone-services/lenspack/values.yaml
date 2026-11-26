@@ -17,6 +17,7 @@
 #                                             environments/<env>-secrets.yaml, cluster-configs.secrets.lenspack;
 #                                             template cluster-configs/templates/secrets/lenspack-secret.yaml)
 #     lenspack-secrets / openrouter-api-key   optional: speech to text (the mic); without it the mic stays hidden
+#     lenspack-secrets / lenspack-admin-password  optional: only for LENSPACK_ADMIN_ACCESS=password (not used today)
 # * Before turning it on: Superset needs a database connection (e.g. clickhouse.enabled in the superset chart) and
 #   the datasets named in "datasets" below.
 
@@ -30,7 +31,7 @@ enabled: false
 
 image:
   repository: ghcr.io/theflywheel/lenspack     # public, built from Lenspack's main branch; tag = short commit
-  tag: "26b92c7"
+  tag: "39aa5ab"
   pullPolicy: IfNotPresent
 
 port: 8795
@@ -48,6 +49,7 @@ passwordKey: lenspack-password  # key in supersetSecretName
 secretName: lenspack-secrets
 modelKey: anthropic-api-key     # required
 speechKey: openrouter-api-key   # optional (the Secret may leave it out)
+adminPasswordKey: lenspack-admin-password   # optional; only used with LENSPACK_ADMIN_ACCESS=password (below)
 
 # The Superset datasets the assistant may use, by table name ("schema.table" when two schemas share a name).
 # Required before enabling: a name that matches no dataset stops the server at start, with a message saying which.
@@ -70,19 +72,25 @@ config:
     personalDashboards: false   # "My dashboards": off while logins are shared
     voice: false                # the mic: off until consent is per person
   # Who may use it and who is a Lenspack admin, by Superset role (roles made by the superset chart's setup.py).
-  # After Lenspack PR 98 (theflywheel/lenspack#98) merges; until then everyone signed in may use it and Superset admins are its admins.
-  # auth:
-  #   users: ["Lenspack user"]
-  #   admins: [Admin, "Lenspack admin"]
+  # Without these, everyone signed in may use it and Superset admins are its admins.
+  auth:
+    users: ["Lenspack user"]    # who sees the Ask button; Lenspack admins always do
+    admins: ["Lenspack admin"]  # who gets the assistant's admin panel and settings
   overlay:
     instructions: ""            # house rules for the assistant (wording, definitions)
     examples: []                # example questions shown in the chat
 
 # Extra environment for the server, e.g. LENSPACK_LLM_ROLES (https://github.com/theflywheel/lenspack/blob/main/docs/operating/models.md)
 extraEnv: []
+# Admin access modes, for a coming Lenspack release (not in the pinned image yet; docs: <link: docs/access/admin-access.md>).
+# Until then, and by default, admins are the Superset roles in config.auth.admins. Add to extraEnv when available:
+#   - { name: LENSPACK_ADMIN_ACCESS, value: superset-role }     # the default: Superset roles (LENSPACK_ADMIN_ROLES, default Admin)
+#   - { name: LENSPACK_ADMIN_ACCESS, value: superset-users }    # named owners in LENSPACK_ADMIN_USERS, who can make others admins in the UI
+#   - { name: LENSPACK_ADMIN_USERS, value: "user1,user2" }      # with superset-users: the owners' Superset usernames
+#   - { name: LENSPACK_ADMIN_ACCESS, value: password }          # one admin password: lenspack-secrets / lenspack-admin-password
 
 persistence:
-  size: 2Gi
+  size: 5Gi
   storageClass: gp3
 
 resources:

@@ -2835,15 +2835,173 @@ superset:
   clickhouse:
     enabled: false
 
-# Lenspack: the "Ask" chat assistant on Superset dashboards. This block is read by two charts: backbone-services/lenspack
-# (the server) and backbone-services/superset (its plugin), so "enabled" switches both on or off together and
-# image.tag pins both. Off until a Superset database connection (superset.clickhouse) and the production datasets
-# are decided; also needs the secrets listed in backbone-services/lenspack/values.yaml.
+# Lenspack: the "Ask HCM" chat assistant on Superset dashboards. This block is read by two charts:
+# backbone-services/lenspack (the server) and backbone-services/superset (its plugin), so "enabled" switches both on
+# or off together and image.tag pins both. Before switching on: the secrets listed in
+# backbone-services/lenspack/values.yaml, and the "Lenspack user" role given to the people who should see the button.
 lenspack:
-  enabled: false
+  enabled: false            # the switch: true turns the assistant on (both charts), false turns it off again
   image:
-    tag: "26b92c7"
-  datasets: []              # Superset dataset table names, e.g. [schema.table]; required before enabling
+    tag: "39aa5ab"
+  # The Gabon ITN dashboard's virtual datasets on the "ClickHouse" connection (schema analytics). Not itn_gab_codes
+  # (one row per bednet code).
+  datasets:
+    - analytics.itn_gab_area
+    - analytics.itn_gab_sync_hourly
+    - analytics.itn_gab_bales
+    - analytics.itn_gab_task_points
+    - analytics.itn_gab_reg_points
+    - analytics.itn_gab_complaints
+    - analytics.itn_gab_refresh
+  extraEnv:
+    # Chat model: Claude Haiku only (key: lenspack-secrets / anthropic-api-key)
+    - name: LENSPACK_LLM_PROVIDERS
+      value: '[{"name":"claude-haiku-5-5","kind":"anthropic","model":"claude-haiku-5-5"}]'
+  config:
+    # Who sees the button and who administers it: the "Lenspack user" / "Lenspack admin" roles (chart default, auth:)
+    # Every answer is about the November 2026 campaign only, whatever is picked on the dashboard. One line per dataset;
+    # itn_gab_refresh (when the data was last refreshed) has no campaign column and stays unscoped.
+    scope:
+      - { entity: activity, dimension: campaign_number, op: eq, value: CMP-2026-11-20-000750 }
+      - { entity: sync, dimension: campaign_number, op: eq, value: CMP-2026-11-20-000750 }
+      - { entity: bale, dimension: campaign_number, op: eq, value: CMP-2026-11-20-000750 }
+      - { entity: task_point, dimension: campaign_number, op: eq, value: CMP-2026-11-20-000750 }
+      - { entity: reg_point, dimension: campaign_number, op: eq, value: CMP-2026-11-20-000750 }
+      - { entity: complaint, dimension: campaign_number, op: eq, value: CMP-2026-11-20-000750 }
+    language: { default: fr, board: fr }
+    brand:
+      name: Ask HCM
+      poweredBy: false          # no "Powered by Lenspack" line under the chat
+      i18n:
+        fr: { buttonLabel: Demander à HCM }
+    features:
+      cache: false              # saved answers keep the words of questions: off (question text in usage records is off by default too)
+      # Chat edits. Chart default: editScope "own", so people change only their own dashboards (with personal
+      # dashboards off, only Lenspack admins change dashboards through the chat). A save that drops a native filter
+      # or a tab turns off the email reports using it, so to keep the chat away from shared dashboards entirely
+      # (questions only), uncomment:
+      # boardEdits: false
+    overlay:
+      pack: itn_gabon
+      timeZone: UTC             # sync times are UTC hours; another zone would drop the hourly series
+      entities:
+        itn_gab_area: activity
+        itn_gab_sync_hourly: sync
+        itn_gab_bales: bale
+        itn_gab_task_points: task_point
+        itn_gab_reg_points: reg_point
+        itn_gab_complaints: complaint
+        itn_gab_refresh: refresh
+      description: >-
+        Campagne MILDA (ITN) au Gabon, données HCM : ménages visités, servis et dénombrés, population, MILDA
+        distribuées, cibles du microplan, stock et balles, utilisateurs créés et synchronisés, plaintes, heure
+        d'actualisation des données.
+      instructions: >-
+        Campagne de distribution de MILDA (moustiquaires imprégnées, ITN) au Gabon. Données de l'application de
+        terrain HCM. La campagne (bednet_november_2026_prod, CMP-2026-11-20-000750) est fixée par le déploiement :
+        toutes les réponses portent sur elle seule. Ce n'est pas un filtre du tableau de bord ; ne le présente pas comme
+        un filtre à vérifier ou à retirer. Le filtre UserName du tableau de bord n'est pas utilisé par l'assistant.
+        Zones : Région sanitaire > Département sanitaire > Formation sanitaire. Deux modes de distribution,
+        reconnaissables au rôle : SPP (DISTRIBUTOR_REGISTRAR, dénombrement et distribution ensemble) et SFD (REGISTRAR
+        dénombre, puis DISTRIBUTOR distribue). Pour les dates, préférer event_date (une date) à task_date (du texte).
+        Coverage, percentages, stock available (stock_in - stock_dispatched) and average closing time
+        (hours_to_close_total / complaints_closed) are computed from the base measures: never add or average
+        percentages. Targets, stock and users carry no date: a date filter removes them, so do not filter them by
+        date. users_* and active_users are distinct counts: never add them across groups or hours. Stock figures add
+        every level (a transfer is logged when sent and when received): say so. Days and hours are UTC (Libreville is
+        UTC+1). The value "(not set)" in a zone column means the place was not filled in. Les noms d'utilisateur
+        (user_name) sont des codes de connexion, pas des noms de personnes : on peut les citer et ventiler par
+        utilisateur. Aucune autre donnée personnelle dans les réponses.
+      exclude:
+        # never used by the assistant: household ids, exact coordinates, bednet codes, complaint ids
+        columns: [household_id, latitude, longitude, task_latitude, task_longitude, code, complaint_id]
+      # amounts and technical columns, not something to group by (user_name stays a dimension: it is a login code)
+      notDimensions: [country, campaign_name, src, staff_src, nets, nets_success, people, people_success, codes_scanned,
+                      manual_codes, hh_reg, tasks, tasks_success, pop_reg, tgt_hh, tgt_pop, tgt_net, stk_received,
+                      stk_returned, stk_dispatched, stk_in, records, bales_quantity, actual_bale_scans,
+                      manual_bale_scans, hours_to_close]
+      measures:
+        - { dataset: itn_gab_area, name: households_visited, agg: sum, column: tasks, label: { en: Households visited, fr: Ménages visités }, hint: "Visites de ménages (tâches de distribution), servis ou non." }
+        - { dataset: itn_gab_area, name: households_served, agg: sum, column: tasks_success, label: { en: Households served, fr: Ménages servis }, hint: "Visites terminées par ADMINISTRATION_SUCCESS (MILDA remises)." }
+        - { dataset: itn_gab_area, name: households_registered, agg: sum, column: hh_reg, label: { en: Households registered, fr: Ménages dénombrés }, hint: "Ménages enregistrés (dénombrement)." }
+        - { dataset: itn_gab_area, name: population_registered, agg: sum, column: pop_reg, label: { en: Population registered, fr: Population dénombrée }, hint: "Membres des ménages enregistrés." }
+        - { dataset: itn_gab_area, name: population_covered, agg: sum, column: people, label: { en: Population covered, fr: Population couverte }, hint: "Membres des ménages visités, toutes issues confondues." }
+        - { dataset: itn_gab_area, name: population_covered_served, agg: sum, column: people_success, label: { en: Population of served households, fr: Population des ménages servis } }
+        - { dataset: itn_gab_area, name: nets_distributed, agg: sum, column: nets, label: { en: Nets distributed, fr: MILDA distribuées }, hint: "Quantité de MILDA sur les visites, toutes issues." }
+        - { dataset: itn_gab_area, name: nets_distributed_served, agg: sum, column: nets_success, label: { en: Nets distributed (served households), fr: MILDA distribuées (ménages servis) } }
+        - { dataset: itn_gab_area, name: net_codes_scanned, agg: sum, column: codes_scanned, label: { en: Net codes scanned, fr: Codes MILDA scannés } }
+        - { dataset: itn_gab_area, name: net_codes_manual, agg: sum, column: manual_codes, label: { en: Net codes typed by hand, fr: Codes MILDA saisis manuellement } }
+        - { dataset: itn_gab_area, name: target_households, agg: sum, column: tgt_hh, label: { en: Target households, fr: Ménages cibles }, hint: "Cible HOUSEHOLD du microplan. Pas de date : ne pas filtrer par date." }
+        - { dataset: itn_gab_area, name: target_population, agg: sum, column: tgt_pop, label: { en: Target population, fr: Population cible }, hint: "Cible INDIVIDUAL du microplan. Pas de date." }
+        - { dataset: itn_gab_area, name: target_nets, agg: sum, column: tgt_net, label: { en: Nets to distribute, fr: MILDA à distribuer }, hint: "Cible PRODUCT du microplan. Pas de date." }
+        - { dataset: itn_gab_area, name: stock_received, agg: sum, column: stk_received, label: { en: Stock received, fr: Stock reçu }, hint: "MILDA reçues (RECEIVED), tous niveaux confondus. Pas de date." }
+        - { dataset: itn_gab_area, name: stock_returned, agg: sum, column: stk_returned, label: { en: Returns received, fr: Retours reçus }, hint: "MILDA reçues en retour (RETURNED). Pas de date." }
+        - { dataset: itn_gab_area, name: stock_dispatched, agg: sum, column: stk_dispatched, label: { en: Stock dispatched, fr: Stock expédié }, hint: "MILDA expédiées (DISPATCHED). Pas de date." }
+        - { dataset: itn_gab_area, name: stock_in, agg: sum, column: stk_in, label: { en: Stock in (received + returns), fr: Entrées de stock (reçu + retours) }, hint: "Stock disponible = entrées - expédiées. Pas de date." }
+        - { dataset: itn_gab_area, name: users_created, agg: count_distinct, column: user_name, where: [{ column: staff_src, op: eq, value: CREATED }], label: { en: Users created, fr: Utilisateurs créés }, hint: "Comptes distincts créés pour la campagne. Pas de date. Nombre distinct : ne pas additionner." }
+        - { dataset: itn_gab_area, name: users_synced, agg: count_distinct, column: user_name, where: [{ column: staff_src, op: eq, value: SYNCED }], label: { en: Users who synced, fr: Utilisateurs ayant synchronisé }, hint: "Comptes distincts ayant synchronisé au moins un enregistrement. Pas de date. Nombre distinct." }
+        - { dataset: itn_gab_area, name: users_with_stock_records, agg: count_distinct, column: user_name, where: [{ column: src, op: eq, value: STOCK }], label: { en: Users with stock records, fr: Utilisateurs avec mouvements de stock }, hint: "Nombre distinct." }
+        - { dataset: itn_gab_sync_hourly, name: records_synced, agg: sum, column: records, label: { en: Records synced, fr: Enregistrements synchronisés }, hint: "Enregistrements synchronisés dans l'heure (UTC)." }
+        - { dataset: itn_gab_sync_hourly, name: active_users, agg: count_distinct, column: user_name, label: { en: Active users, fr: Utilisateurs actifs }, hint: "Comptes distincts ayant synchronisé dans la période. Ne pas additionner les heures." }
+        - { dataset: itn_gab_bales, name: bales_expected, agg: sum, column: bales_quantity, label: { en: Bales expected, fr: Balles attendues } }
+        - { dataset: itn_gab_bales, name: bales_scanned, agg: sum, column: actual_bale_scans, label: { en: Bales scanned, fr: Balles scannées } }
+        - { dataset: itn_gab_bales, name: bales_manual, agg: sum, column: manual_bale_scans, label: { en: Bales typed by hand, fr: Balles saisies manuellement } }
+        - { dataset: itn_gab_complaints, name: complaints_closed, agg: count, where: [{ column: hours_to_close, op: exists }], label: { en: Complaints closed, fr: Plaintes clôturées }, hint: "Plaintes RESOLVED ou REJECTED avec une durée de traitement." }
+        - { dataset: itn_gab_complaints, name: hours_to_close_total, agg: sum, column: hours_to_close, label: { en: Hours to close (total), fr: Heures de traitement (total) }, hint: "Durée moyenne = total / plaintes clôturées (calcul Lenspack)." }
+        - { dataset: itn_gab_refresh, name: data_refreshed_at, agg: max, column: data_refreshed, label: { en: Data refreshed at (UTC), fr: Données actualisées le (UTC) }, hint: "Dernière actualisation des données (heure UTC ; Libreville = UTC+1). Ce n'est pas l'heure du dernier enregistrement reçu." }
+      hierarchies:
+        zone: [region, department, health_facility]
+      labels:
+        campaign_number: { en: Campaign number, fr: Numéro de campagne }
+        region: { en: Health region, fr: Région sanitaire }
+        department: { en: Health department, fr: Département sanitaire }
+        health_facility: { en: Health facility, fr: Formation sanitaire }
+        facility_name: { en: Storage point, fr: Point de stockage }
+        role: { en: Role, fr: Rôle }
+        phase: { en: Phase, fr: Phase }
+        user_name: { en: User name, fr: Nom d'utilisateur }
+        event_date: { en: Date, fr: Date }
+        task_date: { en: Date (text), fr: Date (texte) }
+        synced_hour: { en: Hour (UTC), fr: Heure (UTC) }
+        complaint_type: { en: Complaint type, fr: Type de plainte }
+        complaint_status: { en: Complaint status, fr: Statut de la plainte }
+        open_age: { en: Open for, fr: Ouverte depuis }
+        activity_count: { en: Summary rows (not records), fr: Lignes du résumé (pas un nombre d'enregistrements) }
+        sync_count: { en: Summary rows (not records), fr: Lignes du résumé (pas un nombre d'enregistrements) }
+        bale_count: { en: Summary rows (not records), fr: Lignes du résumé (pas un nombre d'enregistrements) }
+        refresh_count: { en: Summary rows (not records), fr: Lignes du résumé (pas un nombre d'enregistrements) }
+        task_point_count: { en: Household visits with a location, fr: Visites de ménages géolocalisées }
+        reg_point_count: { en: Registrations with a location, fr: Dénombrements géolocalisés }
+        complaint_count: { en: Complaints, fr: Plaintes }
+      hints:
+        activity_count: Counts summary rows, not records. Do not use.
+        sync_count: Counts summary rows, not records. Do not use.
+        bale_count: Counts summary rows, not records. Do not use.
+        refresh_count: Counts summary rows, not records. Do not use.
+        complaint_count: Plaintes enregistrées (une ligne par plainte).
+        phase: >-
+          "Phase N" = un tour de distribution ; "No phase" = en dehors d'un tour. Vide sur les lignes d'utilisateurs,
+          de stock et de cibles.
+        role: >-
+          Codes de rôle, à traduire en français : DISTRIBUTOR_REGISTRAR = distributeur-dénombreur (SPP),
+          REGISTRAR = dénombreur, DISTRIBUTOR = distributeur, WAREHOUSE_MANAGER = magasinier, SUPERVISOR = superviseur.
+        complaint_type: >-
+          Codes de type de plainte en anglais : les traduire en français dans les réponses (par exemple
+          NotEnoughStock = stock insuffisant, SyncNotWorking = synchronisation impossible).
+        task_date: Date en texte ; préférer event_date.
+      examples:
+        - question: { fr: "Combien de MILDA ont été distribuées par département sanitaire ?", en: "Nets distributed by health department" }
+          query: { kind: breakdown, dimension: department, measure: nets_distributed, sort: desc }
+        - question: { fr: "MILDA distribuées par jour", en: "Nets distributed per day" }
+          query: { kind: series, measure: nets_distributed, grain: day }
+        - question: { fr: "Ménages servis et ménages cibles par région", en: "Households served and target households by region" }
+          query: { kind: breakdown, dimension: region, measure: households_served, measures: [target_households] }
+        - question: { fr: "Combien d'utilisateurs ont été créés et combien ont synchronisé, par rôle ?", en: "Users created and synced, by role" }
+          query: { kind: breakdown, dimension: role, measure: users_created, measures: [users_synced] }
+        - question: { fr: "Répartition des plaintes par type et statut", en: "Complaints by type and status" }
+          query: { kind: breakdown, dimension: complaint_type, measure: complaint_count, split: complaint_status }
+        - question: { fr: "Les données sont à jour jusqu'à quelle heure ?", en: "How fresh is the data?" }
+          query: { kind: value, measure: data_refreshed_at }
 
 # Debezium CDC (Kafka Connect worker) -> MSK via egov-config `kafka-brokers`.
 # Runs in its own `debezium` namespace with a dedicated DB login from the
