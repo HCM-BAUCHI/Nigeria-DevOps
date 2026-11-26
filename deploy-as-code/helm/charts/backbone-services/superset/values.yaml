@@ -73,6 +73,10 @@ ingress:
   # More hosts serving the same Superset under the same path, each with its own certificate
   # (tlsSecretName defaults to "<host>-tls-certs"). e.g. [{host: gabon-hcm.digit.org}]
   extraHosts: []
+  # nginx's buffer for Superset's reply headers. "" keeps the controller's default (4k). Superset 6.1.0 lets its session
+  # cookie grow with every "Access is Denied" notice (apache/superset#44541), which can pass 4k and give a 502:
+  # "16k" avoids that. Changes only the Ingress annotation (no Superset restart).
+  proxyBufferSize: ""
 
 secretName: superset-secrets
 
@@ -145,7 +149,7 @@ lenspack:
   enabled: false
   image:
     repository: ghcr.io/theflywheel/lenspack     # public: no pull secret needed
-    tag: "26b92c7"                                # keep equal to the lenspack chart's tag (shared block: automatic)
+    tag: "39aa5ab"                                # keep equal to the lenspack chart's tag (shared block: automatic)
     pullPolicy: IfNotPresent
   # Where Superset's server reaches the Lenspack server (Service "lenspack", same namespace)
   internalUrl: http://lenspack.superset.svc.cluster.local:8795
@@ -154,9 +158,9 @@ lenspack:
   # Superset 6.1 dropped the hash suffix on ClickHouse column aliases, which breaks a saved metric named like its
   # column; the plugin puts it back. "off" keeps Superset's own. No effect without a ClickHouse connection.
   clickhouseLabelSuffix: "on"
-  # Roles made by setup.py, with no Superset permissions: Lenspack reads them by name. Nothing reads them until
-  # Lenspack PR 98 (theflywheel/lenspack#98) merges (who may use the assistant, who is a Lenspack admin); harmless before that. Give them to
-  # named logins in Settings > List Users, never to admin / editor / viewer (setup.py resets those). "" skips one.
+  # Roles made by setup.py, with no Superset permissions: Lenspack reads them by name (auth.users: who sees the
+  # button; auth.admins: who gets its admin panel). Give them to named logins in Settings > List Users, never to
+  # admin / editor / viewer (setup.py resets those logins' roles on every start). "" skips one.
   roles:
     user: "Lenspack user"
     admin: "Lenspack admin"

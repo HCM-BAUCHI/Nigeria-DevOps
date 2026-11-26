@@ -191,8 +191,8 @@ data:
                 print(f"reset password of {username}")
         {{- if .Values.lenspack.enabled }}
 
-        # Lenspack's roles: no Superset permissions; Lenspack reads them by name (after Lenspack PR 98 (theflywheel/lenspack#98) merges:
-        # who may use the assistant, who is a Lenspack admin). Until then nothing reads them.
+        # Lenspack's roles: no Superset permissions. Lenspack reads them by name (its auth.users / auth.admins config):
+        # who may use the assistant, and who gets its admin panel.
         for name in [r for r in ({{ .Values.lenspack.roles.user | quote }}, {{ .Values.lenspack.roles.admin | quote }}) if r]:
             if sm.find_role(name) is None:
                 sm.add_role(name)

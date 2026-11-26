@@ -2826,6 +2826,9 @@ superset:
     extraHosts:
       - host: gabon-hcm.digit.org
         tlsSecretName: gabon-hcm.digit.org-tls-certs
+    # Recommended with Superset 6.1.0 (session cookie growth, apache/superset#44541; see the chart's values.yaml).
+    # Uncomment to apply: only the Ingress annotation changes, Superset does not restart.
+    # proxyBufferSize: 16k
   database:
     external: true
     port: 5432
