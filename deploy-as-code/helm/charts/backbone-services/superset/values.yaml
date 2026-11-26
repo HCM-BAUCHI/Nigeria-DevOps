@@ -15,6 +15,8 @@
 #     postgres-password                             bundled Postgres only (database.external: false)
 #     redis-password                                internal
 #     clickhouse-password                           ClickHouse "reader" user; only when clickhouse.enabled: true
+#     lenspack-password                             the "lenspack" login, read by Superset and the Lenspack server;
+#                                                   only when lenspack.enabled: true (at least 24 characters)
 # * Logins, created/updated by the init container on every start:
 #     admin   Admin role: everything, incl. users and database connections
 #     editor  Alpha + sql_lab: build datasets, charts, dashboards; SQL Lab        ("write user")
@@ -23,6 +25,9 @@
 # * ClickHouse (clickhouse.enabled, off for now): the "HCM ClickHouse" connection uses the ClickHouse "reader" user
 #   (SELECT on hcm_* only, readonly). Each hcm_<schema> database shows up as a schema in it.
 #   To enable: set clickhouse.enabled: true, add clickhouse-connect to extraPackages, add clickhouse-password to the Secret.
+# * Lenspack (lenspack.enabled, off by default): an "Ask" chat button on dashboards, answered from Superset's own
+#   datasets. Superset's side is one Python file (lenspack_superset.py), copied from the Lenspack image by an init
+#   container; the Lenspack server is the backbone-services/lenspack chart. See the lenspack: block below.
 
 name: superset
 namespace: superset
@@ -121,3 +126,37 @@ redis:
     limits:
       cpu: "100m"
       memory: "192Mi"
+
+# Lenspack's Superset side. Off: the chart renders exactly as it does without this block.
+#
+# The environment file's top-level "lenspack:" block is shared with the backbone-services/lenspack chart (Argo CD
+# passes the whole file to both), so lenspack.enabled and lenspack.image there switch on, and pin, both sides at
+# once: the plugin file always comes from the same image as the server. "superset.lenspack.*" overrides them for
+# this chart only.
+#
+# On:
+#   * an init container copies lenspack_superset.py from the Lenspack image into an emptyDir (no custom Superset
+#     image); superset_config.py imports it. It adds /lenspack/... (forwarded to the Lenspack server for signed-in
+#     users), the Ask button script, Settings > Manage > AI assistant (admins) and /api/v1/lenspack/... for the server;
+#   * setup.py makes the "lenspack" login (Admin role: it edits dashboards it does not own) with the password in the
+#     Secret's lenspack-password key (at least 24 characters, also read by the Lenspack server), and the two
+#     Lenspack roles, which hold no Superset permissions. The admin / editor / viewer logins are left as they are.
+lenspack:
+  enabled: false
+  image:
+    repository: ghcr.io/theflywheel/lenspack     # public: no pull secret needed
+    tag: "26b92c7"                                # keep equal to the lenspack chart's tag (shared block: automatic)
+    pullPolicy: IfNotPresent
+  # Where Superset's server reaches the Lenspack server (Service "lenspack", same namespace)
+  internalUrl: http://lenspack.superset.svc.cluster.local:8795
+  serviceUser: lenspack                           # the Lenspack server's Superset login
+  passwordKey: lenspack-password                  # key in secretName (superset-secrets)
+  # Superset 6.1 dropped the hash suffix on ClickHouse column aliases, which breaks a saved metric named like its
+  # column; the plugin puts it back. "off" keeps Superset's own. No effect without a ClickHouse connection.
+  clickhouseLabelSuffix: "on"
+  # Roles made by setup.py, with no Superset permissions: Lenspack reads them by name. Nothing reads them until
+  # Lenspack PR 98 (theflywheel/lenspack#98) merges (who may use the assistant, who is a Lenspack admin); harmless before that. Give them to
+  # named logins in Settings > List Users, never to admin / editor / viewer (setup.py resets those). "" skips one.
+  roles:
+    user: "Lenspack user"
+    admin: "Lenspack admin"

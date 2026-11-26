@@ -52,6 +52,23 @@ spec:
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
         {{- end }}
+        {{- if .Values.lenspack.enabled }}
+        # Lenspack's Superset side, from the same image as the Lenspack server, so the two always match
+        - name: copy-lenspack-plugin
+          image: "{{ .Values.lenspack.image.repository }}:{{ .Values.lenspack.image.tag }}"
+          imagePullPolicy: {{ .Values.lenspack.image.pullPolicy }}
+          command: ["cp", "/app/packages/hosts/superset/plugin/lenspack_superset.py", "/app/lenspack/"]
+          volumeMounts:
+            - name: lenspack
+              mountPath: /app/lenspack
+          resources:
+            requests:
+              cpu: "10m"
+              memory: "16Mi"
+            limits:
+              cpu: "100m"
+              memory: "64Mi"
+        {{- end }}
         - name: setup
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
@@ -80,6 +97,14 @@ spec:
                   name: {{ .Values.secretName }}
                   key: clickhouse-password
             {{- end }}
+            {{- if .Values.lenspack.enabled }}
+            - name: LENSPACK_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Values.secretName }}
+                  key: {{ .Values.lenspack.passwordKey }}
+                  optional: true          # missing: setup.py skips the lenspack login, Superset starts as usual
+            {{- end }}
           volumeMounts:
             - name: extra
               mountPath: /app/extra
@@ -88,6 +113,10 @@ spec:
               subPath: superset_config.py
             - name: setup
               mountPath: /app/hcm
+            {{- if .Values.lenspack.enabled }}
+            - name: lenspack
+              mountPath: /app/lenspack
+            {{- end }}
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
       containers:
@@ -114,6 +143,10 @@ spec:
               subPath: superset_config.py
             - name: home
               mountPath: /app/superset_home
+            {{- if .Values.lenspack.enabled }}
+            - name: lenspack
+              mountPath: /app/lenspack
+            {{- end }}
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
           startupProbe:
@@ -153,3 +186,7 @@ spec:
           emptyDir: {}
         - name: home
           emptyDir: {}
+        {{- if .Values.lenspack.enabled }}
+        - name: lenspack
+          emptyDir: {}
+        {{- end }}
