@@ -2835,6 +2835,16 @@ superset:
   clickhouse:
     enabled: false
 
+# Lenspack: the "Ask" chat assistant on Superset dashboards. This block is read by two charts: backbone-services/lenspack
+# (the server) and backbone-services/superset (its plugin), so "enabled" switches both on or off together and
+# image.tag pins both. Off until a Superset database connection (superset.clickhouse) and the production datasets
+# are decided; also needs the secrets listed in backbone-services/lenspack/values.yaml.
+lenspack:
+  enabled: false
+  image:
+    tag: "26b92c7"
+  datasets: []              # Superset dataset table names, e.g. [schema.table]; required before enabling
+
 # Debezium CDC (Kafka Connect worker) -> MSK via egov-config `kafka-brokers`.
 # Runs in its own `debezium` namespace with a dedicated DB login from the
 # `debezium-db` secret (cluster-configs) -- that role needs `rds_replication`.

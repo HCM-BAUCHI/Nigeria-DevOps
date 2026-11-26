@@ -180,6 +180,10 @@ cluster-configs:
       namespace: superset
       name: superset-secrets
 
+    lenspack:
+      namespace: superset
+      name: lenspack-secrets
+
     airflow:
       namespace: airflow
 

@@ -1,0 +1,101 @@
+# Lenspack server for Superset: the "Ask" chat assistant on Superset dashboards (theflywheel/lenspack, public).
+#
+# * Off by default (enabled: false): the chart renders nothing.
+# * No Ingress. Browsers reach it only through Superset's own /lenspack route (the plugin in backbone-services/superset),
+#   which lets signed-in users through with a signed header saying who they are. Superset reaches this Service at
+#   http://lenspack.superset.svc.cluster.local:8795; this server reaches Superset's Service.
+# * What each person may see follows their Superset access (datasets, row-level security, dashboard roles).
+# * One replica (Recreate): board bookkeeping is per process. State (its settings page values, the audit log, usage
+#   records, saved answers) lives on a PVC at /data.
+# * Environment overrides go under a "lenspack:" key in environments/<env>.yaml (Argo CD passes the whole file to
+#   every backbone chart). That block is shared with backbone-services/superset: lenspack.enabled and lenspack.image
+#   there switch on, and pin, both the server and Superset's side at once.
+# * Secrets:
+#     superset-secrets / lenspack-password    the "lenspack" Superset login (made by Superset's setup.py), at least
+#                                             24 characters; the same key Superset reads
+#     lenspack-secrets / anthropic-api-key    the chat model key (Secret created by cluster-configs from
+#                                             environments/<env>-secrets.yaml, cluster-configs.secrets.lenspack;
+#                                             template cluster-configs/templates/secrets/lenspack-secret.yaml)
+#     lenspack-secrets / openrouter-api-key   optional: speech to text (the mic); without it the mic stays hidden
+# * Before turning it on: Superset needs a database connection (e.g. clickhouse.enabled in the superset chart) and
+#   the datasets named in "datasets" below.
+
+name: lenspack
+namespace: superset             # Superset's namespace
+labels:
+  app: lenspack
+  group: "infra"
+
+enabled: false
+
+image:
+  repository: ghcr.io/theflywheel/lenspack     # public, built from Lenspack's main branch; tag = short commit
+  tag: "26b92c7"
+  pullPolicy: IfNotPresent
+
+port: 8795
+
+# Where this server reaches Superset: its Service, plus Superset's path (superset ingress.path) because Superset
+# answers only under it.
+supersetUrl: http://superset.superset.svc.cluster.local:8088/superset
+# Where browsers reach this server: Superset's path + /lenspack (Superset forwards that route here).
+publicPath: /superset/lenspack
+
+serviceUser: lenspack           # same as in the superset chart (shared block)
+supersetSecretName: superset-secrets
+passwordKey: lenspack-password  # key in supersetSecretName
+
+secretName: lenspack-secrets
+modelKey: anthropic-api-key     # required
+speechKey: openrouter-api-key   # optional (the Secret may leave it out)
+
+# The Superset datasets the assistant may use, by table name ("schema.table" when two schemas share a name).
+# Required before enabling: a name that matches no dataset stops the server at start, with a message saying which.
+# Prefer datasets without names, phone numbers, dates of birth or coordinates: rows go to the model provider.
+datasets: []
+
+# The rest of Lenspack's superset.yaml (keys: https://github.com/theflywheel/lenspack/blob/main/docs/reference/config.md).
+# superset.url, publicPath, port and the state folder come from the values above.
+config:
+  hostPolicy: superset          # each person's own Superset access narrows what they see
+  editPolicy: superset          # chat edits follow Superset's dashboard rights
+  editScope: own                # the chat changes only people's own dashboards; official ones stay as they are.
+                                # With personalDashboards off, only Superset admins change dashboards through the
+                                # chat (the server logs a warning saying so); everyone else asks questions.
+  budget:
+    usdPerDay: 20               # daily cap on model spend for the whole deployment
+  audit:
+    retentionDays: 30           # the audit log holds questions, answers and result rows
+  features:
+    personalDashboards: false   # "My dashboards": off while logins are shared
+    voice: false                # the mic: off until consent is per person
+  # Who may use it and who is a Lenspack admin, by Superset role (roles made by the superset chart's setup.py).
+  # After Lenspack PR 98 (theflywheel/lenspack#98) merges; until then everyone signed in may use it and Superset admins are its admins.
+  # auth:
+  #   users: ["Lenspack user"]
+  #   admins: [Admin, "Lenspack admin"]
+  overlay:
+    instructions: ""            # house rules for the assistant (wording, definitions)
+    examples: []                # example questions shown in the chat
+
+# Extra environment for the server, e.g. LENSPACK_LLM_ROLES (https://github.com/theflywheel/lenspack/blob/main/docs/operating/models.md)
+extraEnv: []
+
+persistence:
+  size: 2Gi
+  storageClass: gp3
+
+resources:
+  requests:
+    cpu: "100m"
+    memory: "256Mi"
+  limits:
+    cpu: "1"
+    memory: "1Gi"
+
+# Only Superset's pods may open port 8795. Takes effect only where the cluster's network plugin enforces
+# NetworkPolicy; check before relying on it.
+networkPolicy:
+  enabled: false
+  supersetPodLabels:
+    app: superset

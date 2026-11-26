@@ -1,0 +1,15 @@
+{{- include "lenspack.applyEnvOverrides" . }}
+{{- if .Values.enabled }}
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ .Values.name }}-config
+  namespace: {{ .Values.namespace }}
+  labels:
+    {{- toYaml .Values.labels | nindent 4 }}
+data:
+  # Mounted read-only at /config/superset.yaml. Every key: https://github.com/theflywheel/lenspack/blob/main/docs/reference/config.md
+  # Values set later on Superset's Settings > Manage > AI assistant page are kept on the PVC and win over this file.
+  superset.yaml: |
+    {{- include "lenspack.config" . | nindent 4 }}
+{{- end }}
