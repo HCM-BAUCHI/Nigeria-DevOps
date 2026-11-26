@@ -149,7 +149,7 @@ lenspack:
   enabled: false
   image:
     repository: ghcr.io/theflywheel/lenspack     # public: no pull secret needed
-    tag: "39aa5ab"                                # keep equal to the lenspack chart's tag (shared block: automatic)
+    tag: "2b9eb83"                                # keep equal to the lenspack chart's tag (shared block: automatic)
     pullPolicy: IfNotPresent
   # Where Superset's server reaches the Lenspack server (Service "lenspack", same namespace)
   internalUrl: http://lenspack.superset.svc.cluster.local:8795
