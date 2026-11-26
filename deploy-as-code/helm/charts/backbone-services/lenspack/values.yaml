@@ -31,7 +31,7 @@ enabled: false
 
 image:
   repository: ghcr.io/theflywheel/lenspack     # public, built from Lenspack's main branch; tag = short commit
-  tag: "39aa5ab"
+  tag: "2b9eb83"
   pullPolicy: IfNotPresent
 
 port: 8795

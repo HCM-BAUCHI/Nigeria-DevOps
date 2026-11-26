@@ -92,9 +92,10 @@ spec:
               port: http
             periodSeconds: 10
             failureThreshold: 30
+          # Ready once Superset has given it the identity key; until then it refuses every chat but keeps retrying
           readinessProbe:
             httpGet:
-              path: /healthz
+              path: /readyz
               port: http
             periodSeconds: 15
             timeoutSeconds: 5

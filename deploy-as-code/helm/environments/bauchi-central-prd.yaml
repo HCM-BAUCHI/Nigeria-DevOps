@@ -2842,7 +2842,7 @@ superset:
 lenspack:
   enabled: false            # the switch: true turns the assistant on (both charts), false turns it off again
   image:
-    tag: "39aa5ab"
+    tag: "2b9eb83"
   # The Gabon ITN dashboard's virtual datasets on the "ClickHouse" connection (schema analytics). Not itn_gab_codes
   # (one row per bednet code).
   datasets:

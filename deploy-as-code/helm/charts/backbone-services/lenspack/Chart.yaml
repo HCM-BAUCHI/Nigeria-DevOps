@@ -3,4 +3,4 @@ name: lenspack
 description: Lenspack server for Superset (the "Ask" chat assistant on dashboards), reached only through Superset
 type: application
 version: 0.1.0
-appVersion: "39aa5ab"
+appVersion: "2b9eb83"
