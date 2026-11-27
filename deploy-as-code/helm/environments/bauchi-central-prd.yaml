@@ -2840,7 +2840,7 @@ superset:
 lenspack:
   enabled: false            # turns both charts on or off
   image:
-    tag: "b91d2bb"
+    tag: "70f1003"
   datasets:                 # schema analytics on the "ClickHouse" connection; not itn_gab_codes (one row per net code)
     - analytics.itn_gab_area
     - analytics.itn_gab_sync_hourly
@@ -2860,6 +2860,10 @@ lenspack:
       value: superset-role,granted
     - name: LENSPACK_ADMIN_SURFACE        # every settings and usage page inside Superset's own AI assistant page
       value: superset
+    - name: LENSPACK_DASHBOARD_SCOPE      # the assistant only on the dashboards listed below; no Ask button elsewhere
+      value: listed
+    - name: LENSPACK_DASHBOARDS           # the Gabon ITN dashboard
+      value: "25"
   config:
     auth:
       users: ["Lenspack user"]            # held by nobody at launch: only the owner sees the Ask button

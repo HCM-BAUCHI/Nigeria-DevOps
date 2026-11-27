@@ -13,7 +13,7 @@ enabled: false
 
 image:
   repository: ghcr.io/theflywheel/lenspack
-  tag: "b91d2bb"
+  tag: "70f1003"
   pullPolicy: IfNotPresent
 
 port: 8795
@@ -27,12 +27,12 @@ passwordKey: lenspack-password
 
 secretName: lenspack-secrets
 modelKey: anthropic-api-key
-speechKey: openrouter-api-key   # optional: the mic stays hidden without it
+speechKey: openrouter-api-key   # optional; the mic also needs config.features.voice: true
 
 # Superset datasets the assistant may use. Required before enabling; rows go to the model provider.
 datasets: []
 
-# The rest of Lenspack's config (keys, at the pinned version: github.com/theflywheel/lenspack/blob/b91d2bb54ccb20c27891c77186b06a1069671290/docs/reference/config.md)
+# The rest of Lenspack's config (keys, at the pinned version: github.com/theflywheel/lenspack/blob/70f1003df1505acb72dc33cfdc115fa288240cef/docs/reference/config.md)
 config:
   hostPolicy: superset          # each person sees only what Superset lets them see
   editPolicy: superset          # chat edits follow Superset's dashboard rights
@@ -46,7 +46,7 @@ config:
     voice: false
   auth:
     users: ["Lenspack user"]    # Superset role that sees the Ask button (admins always do)
-    admins: ["Lenspack admin"]  # Superset role that gets the settings and usage pages
+    admins: ["Lenspack admin"]  # admin role under LENSPACK_ADMIN_ACCESS=superset-role (the default); unused under superset-users
   overlay:
     instructions: ""
     examples: []
