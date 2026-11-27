@@ -1,0 +1,18 @@
+{{- include "lenspack.applyEnvOverrides" . }}
+{{- if .Values.enabled }}
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ .Values.name }}
+  namespace: {{ .Values.namespace }}
+  labels:
+    {{- toYaml .Values.labels | nindent 4 }}
+spec:
+  type: ClusterIP
+  selector:
+    app: {{ .Values.labels.app }}
+  ports:
+    - name: http
+      port: {{ .Values.port }}
+      targetPort: http
+{{- end }}

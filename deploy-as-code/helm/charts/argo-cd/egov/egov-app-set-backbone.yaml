@@ -8,6 +8,8 @@ spec:
     - list:
         elements:
           - name: superset
+          # Lenspack server for Superset (ns superset, no Ingress); renders nothing while lenspack.enabled is false
+          - name: lenspack
           # Debezium CDC worker (Deployment, ns debezium) publishing to MSK;
           # reads DB creds from the dedicated `debezium-db` secret.
           - name: debezium-postgres-connect

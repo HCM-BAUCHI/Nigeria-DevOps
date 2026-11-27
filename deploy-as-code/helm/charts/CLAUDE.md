@@ -51,3 +51,7 @@
   - `ignoreDifferences` on Deployment `/spec/replicas` (HPA ownership)
 - `egov/` dir = shared central services, destination namespace `*`, valueFile `bauchi-central-prd.yaml`
 - Add a service to a tenant = list-generator entry in the matching app-set; standalone env `chad-prod` has NO argocd wiring (deployer/Jenkins only)
+
+## Standalone charts
+
+- `backbone-services/superset` and `backbone-services/lenspack` don't use `common`: each merges its env-file key (`superset:` / `lenspack:`) over its values in `applyEnvOverrides`; the superset chart also reads `lenspack:` (one switch and one image tag for both)
