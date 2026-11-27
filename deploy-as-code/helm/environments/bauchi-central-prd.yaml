@@ -2839,7 +2839,7 @@ superset:
 lenspack:
   enabled: false            # turns both charts on or off
   image:
-    tag: "{{lenspack image tag}}"   # <-- needs updating: Lenspack main once its access and settings-page changes merge
+    tag: "b91d2bb"
   datasets:                 # schema analytics on the "ClickHouse" connection; not itn_gab_codes (one row per net code)
     - analytics.itn_gab_area
     - analytics.itn_gab_sync_hourly
