@@ -2838,7 +2838,7 @@ superset:
 # Lenspack ("Ask HCM" on the Gabon ITN dashboard). Read by backbone-services/lenspack and backbone-services/superset.
 # Setup notes: github.com/egovernments/innovations/blob/master/nl-dashboard/docs/gabon-pilot-config-notes.md
 lenspack:
-  enabled: false            # turns both charts on or off
+  enabled: true             # turns both charts on or off; add the secrets before this syncs
   image:
     tag: "3d0bc57"           # the Lenspack server; changing only this restarts only the server
   pluginTag: "3d0bc57"       # Superset's copy of the plugin; change it only when the plugin changes (restarts Superset)
