@@ -56,11 +56,60 @@ data:
     SUPERSET_WEBSERVER_TIMEOUT = {{ .Values.server.timeoutSeconds }}
 
     ENABLE_PROXY_FIX = True                         # behind ingress-nginx: trust X-Forwarded-Proto/Host
+
+    _APP_ROOT = "{{ include "superset.root" . }}"   # URL prefix ("/superset"), "" on a host of its own
+
+    # Languages offered in the navbar dropdown (values: config.languages). Superset's default is {} (i18n off).
+    LANGUAGES = {{ .Values.config.languages | default dict | toJson }}
+
+
+    def _bootstrap_overrides(bootstrap_data):
+        """Adjusts the navbar data the UI gets on every page (merged into the bootstrap payload)."""
+        import copy
+        menu = bootstrap_data.get("menu_data")
+        if not isinstance(menu, dict):
+            return {}
+        menu = copy.deepcopy(menu)
+        nav = menu.get("navbar_right") or {}
+        # 6.1.0 shows the language dropdown only for len(languages) > 1; show it for a single language too
+        if LANGUAGES:
+            nav["show_language_picker"] = True
+        # Logout under a path (apache/superset#40576, fixed on master by #38033, not in 6.1.x): the server sends
+        # user_logout_url already prefixed (/superset/logout/) and the UI's ensureAppRoot() prefixes it again
+        # (/superset/superset/logout/ -> 404). Strip the prefix so the UI adds it once. Drop after upgrading.
+        url = nav.get("user_logout_url")
+        if _APP_ROOT and isinstance(url, str) and url.startswith(_APP_ROOT + "/"):
+            nav["user_logout_url"] = url[len(_APP_ROOT):]
+        return {"menu_data": menu}
+
+
+    COMMON_BOOTSTRAP_OVERRIDES_FUNC = _bootstrap_overrides
     {{- if include "superset.root" . }}
 
     # Under a path the default logo URL gets the prefix twice (/superset/superset/static/...); pinning it
     # here keeps Superset from adding its own prefix, and the UI adds it once.
     APP_ICON = "{{ include "superset.root" . }}/static/assets/images/superset-logo-horiz.png"
+
+
+    # Same bug for chart downloads (apache/superset#35883): exportChart() prefixes /api/v1/chart/data and
+    # SupersetClient.postForm() prefixes it again, so the browser POSTs to /superset/superset/api/v1/... -> 404.
+    # ADDITIONAL_MIDDLEWARE wraps Superset's AppRootMiddleware, so it sees the raw path first; collapse the double
+    # prefix for /api/ only (/superset/superset/explore_json/ etc. are real legacy routes and must stay).
+    class _CollapseDoubleAppRootApi:
+        _BAD = _APP_ROOT + _APP_ROOT + "/api/"
+        _GOOD = _APP_ROOT + "/api/"
+
+        def __init__(self, wsgi_app):
+            self.wsgi_app = wsgi_app
+
+        def __call__(self, environ, start_response):
+            path = environ.get("PATH_INFO", "")
+            if path.startswith(self._BAD):
+                environ["PATH_INFO"] = self._GOOD + path[len(self._BAD):]
+            return self.wsgi_app(environ, start_response)
+
+
+    ADDITIONAL_MIDDLEWARE = [_CollapseDoubleAppRootApi]
     {{- end }}
     {{- if .Values.lenspack.enabled }}
 
