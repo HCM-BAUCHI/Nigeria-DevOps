@@ -2840,7 +2840,7 @@ superset:
 lenspack:
   enabled: true             # turns both charts on or off; add the secrets before this syncs
   image:
-    tag: "f257903"           # the Lenspack server; changing only this restarts only the server
+    tag: "3d6fa92"           # the Lenspack server; changing only this restarts only the server
   pluginTag: "3d0bc57"       # Superset's copy of the plugin; change it only when the plugin changes (restarts Superset)
   datasets:                 # schema analytics on the "ClickHouse" connection; not itn_gab_codes (one row per net code)
     - analytics.itn_gab_area

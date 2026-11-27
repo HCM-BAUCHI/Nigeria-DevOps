@@ -13,7 +13,7 @@ enabled: false
 
 image:
   repository: ghcr.io/theflywheel/lenspack
-  tag: "f257903"
+  tag: "3d6fa92"
   pullPolicy: IfNotPresent
 
 port: 8795
@@ -33,7 +33,7 @@ adminKeysKey: admin-api-keys   # optional; "name:scrypt$…" admin API keys (doc
 # Superset datasets the assistant may use. Required before enabling; rows go to the model provider.
 datasets: []
 
-# The rest of Lenspack's config (keys, at the pinned version: github.com/theflywheel/lenspack/blob/f2579032e00d82e23faf25c71e7b6c5b6e1909a5/docs/reference/config.md)
+# The rest of Lenspack's config (keys, at the pinned version: github.com/theflywheel/lenspack/blob/3d6fa922b2bdc1f9a8af2b18e64478685c392dd9/docs/reference/config.md)
 config:
   hostPolicy: superset          # each person sees only what Superset lets them see
   editPolicy: superset          # chat edits follow Superset's dashboard rights
