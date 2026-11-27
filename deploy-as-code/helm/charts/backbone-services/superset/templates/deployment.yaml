@@ -55,7 +55,7 @@ spec:
         {{- if .Values.lenspack.enabled }}
         # From the same image as the Lenspack server
         - name: copy-lenspack-plugin
-          image: "{{ .Values.lenspack.image.repository }}:{{ .Values.lenspack.image.tag }}"
+          image: "{{ .Values.lenspack.image.repository }}:{{ .Values.lenspack.pluginTag | default .Values.lenspack.image.tag }}"
           imagePullPolicy: {{ .Values.lenspack.image.pullPolicy }}
           command: ["cp", "/app/packages/hosts/superset/plugin/lenspack_superset.py", "/app/lenspack/"]
           volumeMounts:

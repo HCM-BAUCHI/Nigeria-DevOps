@@ -126,13 +126,14 @@ redis:
       memory: "192Mi"
 
 # Lenspack's Superset side: a plugin file copied from the Lenspack image, its login and two roles. Off: no change.
-# The env file's top-level "lenspack:" block (shared with backbone-services/lenspack) sets enabled and image.tag.
+# The env file's top-level "lenspack:" block (shared with backbone-services/lenspack) sets enabled, image.tag and pluginTag.
 lenspack:
   enabled: false
   image:
     repository: ghcr.io/theflywheel/lenspack
     tag: "3d0bc57"
     pullPolicy: IfNotPresent
+  pluginTag: ""                                   # image the plugin file is copied from; empty = image.tag. Changing it restarts Superset
   internalUrl: http://lenspack.superset.svc.cluster.local:8795
   serviceUser: lenspack                           # Superset login for the Lenspack server (Admin role)
   passwordKey: lenspack-password                  # key in secretName
