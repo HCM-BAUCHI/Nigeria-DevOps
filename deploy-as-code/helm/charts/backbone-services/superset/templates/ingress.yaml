@@ -14,7 +14,6 @@ metadata:
     nginx.ingress.kubernetes.io/proxy-read-timeout: {{ .Values.server.timeoutSeconds | quote }}
     nginx.ingress.kubernetes.io/proxy-body-size: "50m"   # dashboard / CSV imports
     {{- with .Values.ingress.proxyBufferSize }}
-    # Superset 6.1.0's session cookie can outgrow nginx's default 4k header buffer (apache/superset#44541): 502
     nginx.ingress.kubernetes.io/proxy-buffer-size: {{ . | quote }}
     {{- end }}
 spec:

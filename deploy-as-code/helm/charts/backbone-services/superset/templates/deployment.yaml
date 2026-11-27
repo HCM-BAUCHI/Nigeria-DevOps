@@ -53,7 +53,7 @@ spec:
             {{- toYaml .Values.resources | nindent 12 }}
         {{- end }}
         {{- if .Values.lenspack.enabled }}
-        # Lenspack's Superset side, from the same image as the Lenspack server, so the two always match
+        # From the same image as the Lenspack server
         - name: copy-lenspack-plugin
           image: "{{ .Values.lenspack.image.repository }}:{{ .Values.lenspack.image.tag }}"
           imagePullPolicy: {{ .Values.lenspack.image.pullPolicy }}
@@ -103,7 +103,7 @@ spec:
                 secretKeyRef:
                   name: {{ .Values.secretName }}
                   key: {{ .Values.lenspack.passwordKey }}
-                  optional: true          # missing: setup.py skips the lenspack login, Superset starts as usual
+                  optional: true
             {{- end }}
           volumeMounts:
             - name: extra

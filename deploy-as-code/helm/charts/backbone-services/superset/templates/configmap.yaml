@@ -64,8 +64,7 @@ data:
     {{- end }}
     {{- if .Values.lenspack.enabled }}
 
-    # Lenspack (lenspack.enabled): lenspack_superset.py, copied from the Lenspack image by the copy-lenspack-plugin
-    # init container. It sets FLASK_APP_MUTATOR (nothing above does). If it cannot load, Superset starts without it.
+    # Lenspack plugin (copied by the copy-lenspack-plugin init container); Superset starts without it if it fails
     sys.path.append("/app/lenspack")
     try:
         from lenspack_superset import *  # noqa: E402,F401,F403
@@ -191,17 +190,15 @@ data:
                 print(f"reset password of {username}")
         {{- if .Values.lenspack.enabled }}
 
-        # Lenspack's roles: no Superset permissions. Lenspack reads them by name (its auth.users / auth.admins config):
-        # who may use the assistant, and who gets its admin panel.
+        # Lenspack's roles (no Superset permissions; Lenspack reads them by name)
         for name in [r for r in ({{ .Values.lenspack.roles.user | quote }}, {{ .Values.lenspack.roles.admin | quote }}) if r]:
             if sm.find_role(name) is None:
                 sm.add_role(name)
                 print(f"created role {name}")
         db.session.commit()
 
-        # Lenspack's own login. Admin role: it edits dashboards it does not own, which Superset allows only owners
-        # and admins; what each person may do through the chat is decided per user, per dashboard. Without the
-        # Secret's key this step is skipped and Superset starts as usual (the Lenspack server cannot sign in).
+        # Lenspack's login: Admin, to save dashboards it doesn't own (each person's rights are checked per request).
+        # Skipped without the Secret's key.
         LENSPACK_USER = {{ .Values.lenspack.serviceUser | quote }}
         lenspack_password = os.environ.get("LENSPACK_PASSWORD", "")
         if LENSPACK_USER in {u[0] for u in USERS}:
