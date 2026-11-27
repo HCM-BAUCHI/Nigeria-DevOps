@@ -2854,8 +2854,8 @@ lenspack:
       value: '[{"name":"claude-haiku-5-5","kind":"anthropic","model":"claude-haiku-5-5"}]'
     - name: LENSPACK_ADMIN_ACCESS         # admins = named Superset users; Superset roles grant no admin
       value: superset-users
-    - name: LENSPACK_ADMIN_USERS          # the owner (pilot team account), who adds other admins and users on the Access page
-      value: "id:{{pilot account user id}}"   # <-- needs updating: GET /superset/api/v1/me/ signed in as that account
+    - name: LENSPACK_ADMIN_USERS          # the owner (Superset user "editor"), who adds other admins and users on the Access page
+      value: "id:2"
     - name: LENSPACK_USER_ACCESS          # users = people the owner adds, or holders of config.auth.users
       value: superset-role,granted
     - name: LENSPACK_ADMIN_SURFACE        # every settings and usage page inside Superset's own AI assistant page
