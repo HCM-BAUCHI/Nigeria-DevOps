@@ -99,6 +99,12 @@ clickhouse:
 config:
   rowLimit: 50000               # max rows a chart can fetch
   cacheTimeoutSeconds: 600      # chart results cached 10 min (the DAG refreshes every 15 min)
+  # Navbar language dropdown (Superset LANGUAGES: code -> {flag, name}); shown even with one entry. {} hides it.
+  # More, e.g. fr: {flag: fr, name: French} (bundled translations are partly incomplete).
+  languages:
+    en:
+      flag: us
+      name: English
 
 # Superset metadata database.
 database:
