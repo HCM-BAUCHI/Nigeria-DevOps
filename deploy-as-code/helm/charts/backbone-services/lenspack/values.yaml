@@ -32,7 +32,7 @@ speechKey: openrouter-api-key   # optional: the mic stays hidden without it
 # Superset datasets the assistant may use. Required before enabling; rows go to the model provider.
 datasets: []
 
-# The rest of Lenspack's config (keys: github.com/theflywheel/lenspack/blob/main/docs/reference/config.md)
+# The rest of Lenspack's config (keys, at the pinned version: github.com/theflywheel/lenspack/blob/b91d2bb54ccb20c27891c77186b06a1069671290/docs/reference/config.md)
 config:
   hostPolicy: superset          # each person sees only what Superset lets them see
   editPolicy: superset          # chat edits follow Superset's dashboard rights
