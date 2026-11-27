@@ -40,7 +40,7 @@ config:
   editScope: own                # only people's own dashboards
   budget:
     usdPerDay: 20               # model spend cap for the whole deployment
-    usdPerUserPerDay: 2         # and for each person
+    usdPerUserPerDay: 4         # and for each person
   audit:
     retentionDays: 30
   features:
