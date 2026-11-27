@@ -2884,6 +2884,7 @@ lenspack:
         fr: { buttonLabel: Demander à HCM }
     features:
       cache: false              # saved answers keep the words of questions
+      voice: true               # the mic (English, French, Portuguese); needs openrouter-api-key in lenspack-secrets. Recordings aren't kept
       # boardEdits: false       # uncomment for questions only (no dashboard edits through the chat)
     overlay:
       pack: itn_gabon
