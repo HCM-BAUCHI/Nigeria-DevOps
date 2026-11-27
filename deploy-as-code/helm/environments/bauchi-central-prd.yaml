@@ -2851,16 +2851,17 @@ lenspack:
   extraEnv:
     - name: LENSPACK_LLM_PROVIDERS        # Claude Haiku only
       value: '[{"name":"claude-haiku-5-5","kind":"anthropic","model":"claude-haiku-5-5"}]'
-    - name: LENSPACK_ADMIN_ACCESS         # admins = holders of the Superset role in config.auth.admins
-      value: superset-role
-    - name: LENSPACK_USER_ACCESS          # users = holders of the Superset role in config.auth.users
-      value: superset-role
+    - name: LENSPACK_ADMIN_ACCESS         # admins = named Superset users; Superset roles grant no admin
+      value: superset-users
+    - name: LENSPACK_ADMIN_USERS          # the owner (pilot team account), who adds other admins and users on the Access page
+      value: "id:{{pilot account user id}}"   # <-- needs updating: GET /superset/api/v1/me/ signed in as that account
+    - name: LENSPACK_USER_ACCESS          # users = people the owner adds, or holders of config.auth.users
+      value: superset-role,granted
     - name: LENSPACK_ADMIN_SURFACE        # every settings and usage page inside Superset's own AI assistant page
       value: superset
   config:
     auth:
-      admins: ["Lenspack admin"]          # held only by the pilot team's account at launch
-      users: ["Lenspack user"]            # held by nobody at launch: only admins see the Ask button
+      users: ["Lenspack user"]            # held by nobody at launch: only the owner sees the Ask button
     scope:                                # every answer is about this campaign (itn_gab_refresh has no campaign column)
       - { entity: activity, dimension: campaign_number, op: eq, value: CMP-2026-11-20-000750 }
       - { entity: sync, dimension: campaign_number, op: eq, value: CMP-2026-11-20-000750 }
