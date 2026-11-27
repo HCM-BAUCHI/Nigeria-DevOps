@@ -54,6 +54,12 @@ spec:
                   name: {{ .Values.secretName }}
                   key: {{ .Values.speechKey }}
                   optional: true
+            - name: LENSPACK_ADMIN_API_KEYS
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Values.secretName }}
+                  key: {{ .Values.adminKeysKey }}
+                  optional: true
             {{- with .Values.extraEnv }}
             {{- toYaml . | nindent 12 }}
             {{- end }}

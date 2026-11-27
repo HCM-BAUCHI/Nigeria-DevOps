@@ -2840,7 +2840,7 @@ superset:
 lenspack:
   enabled: false            # turns both charts on or off
   image:
-    tag: "70f1003"
+    tag: "3d0bc57"
   datasets:                 # schema analytics on the "ClickHouse" connection; not itn_gab_codes (one row per net code)
     - analytics.itn_gab_area
     - analytics.itn_gab_sync_hourly
@@ -2876,7 +2876,8 @@ lenspack:
       - { entity: complaint, dimension: campaign_number, op: eq, value: CMP-2026-11-20-000750 }
     language: { default: fr, board: fr }
     brand:
-      name: Ask HCM
+      name: HCM Assistant
+      buttonLabel: Ask HCM
       poweredBy: false
       i18n:
         fr: { buttonLabel: Demander à HCM }
