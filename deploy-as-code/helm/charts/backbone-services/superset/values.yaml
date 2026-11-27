@@ -131,7 +131,7 @@ lenspack:
   enabled: false
   image:
     repository: ghcr.io/theflywheel/lenspack
-    tag: "b91d2bb"
+    tag: "70f1003"
     pullPolicy: IfNotPresent
   internalUrl: http://lenspack.superset.svc.cluster.local:8795
   serviceUser: lenspack                           # Superset login for the Lenspack server (Admin role)
