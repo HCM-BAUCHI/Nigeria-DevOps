@@ -2840,7 +2840,7 @@ superset:
 lenspack:
   enabled: true             # turns both charts on or off; add the secrets before this syncs
   image:
-    tag: "3d6fa92"           # the Lenspack server; changing only this restarts only the server
+    tag: "ff551aa"           # the Lenspack server; changing only this restarts only the server
   pluginTag: "3d0bc57"       # Superset's copy of the plugin; change it only when the plugin changes (restarts Superset)
   datasets:                 # schema analytics on the "ClickHouse" connection; not itn_gab_codes (one row per net code)
     - analytics.itn_gab_area
@@ -2875,7 +2875,7 @@ lenspack:
       - { entity: task_point, dimension: campaign_number, op: eq, value: CMP-2026-11-20-000750 }
       - { entity: reg_point, dimension: campaign_number, op: eq, value: CMP-2026-11-20-000750 }
       - { entity: complaint, dimension: campaign_number, op: eq, value: CMP-2026-11-20-000750 }
-    language: { default: fr, board: fr }
+    language: { default: fr, board: fr, offer: [en, fr, pt] }   # the chat menu offers English, French, Portuguese
     brand:
       name: HCM Assistant
       buttonLabel: Ask HCM
