@@ -8,8 +8,7 @@ metadata:
   labels:
     {{- toYaml .Values.labels | nindent 4 }}
 data:
-  # Mounted read-only at /config/superset.yaml. Every key: https://github.com/theflywheel/lenspack/blob/main/docs/reference/config.md
-  # Values set later on Superset's Settings > Manage > AI assistant page are kept on the PVC and win over this file.
+  # Values changed later on the settings page are kept on the PVC and win over this file
   superset.yaml: |
     {{- include "lenspack.config" . | nindent 4 }}
 {{- end }}

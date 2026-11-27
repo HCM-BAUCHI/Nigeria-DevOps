@@ -1,6 +1,5 @@
 {{- include "lenspack.applyEnvOverrides" . }}
 {{- if and .Values.enabled .Values.networkPolicy.enabled }}
-# Only Superset's pods may reach Lenspack's port (needs a network plugin that enforces NetworkPolicy)
 apiVersion: networking.k8s.io/v1
 kind: NetworkPolicy
 metadata:

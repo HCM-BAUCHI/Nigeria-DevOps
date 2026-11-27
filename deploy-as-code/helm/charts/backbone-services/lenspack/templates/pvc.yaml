@@ -1,7 +1,6 @@
 {{- include "lenspack.applyEnvOverrides" . }}
 {{- if .Values.enabled }}
-# The state folder (/data): its Superset login's settings, settings page values, the audit log, usage records,
-# saved answers. Never pruned by Argo CD, so turning the chart off keeps it.
+# State (/data): settings page values, audit log, usage records. Argo CD never prunes it.
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:

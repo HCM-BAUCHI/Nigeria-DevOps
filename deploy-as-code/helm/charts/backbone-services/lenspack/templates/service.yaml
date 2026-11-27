@@ -1,6 +1,5 @@
 {{- include "lenspack.applyEnvOverrides" . }}
 {{- if .Values.enabled }}
-# In-cluster only: Superset's /lenspack route forwards here. No Ingress.
 apiVersion: v1
 kind: Service
 metadata:

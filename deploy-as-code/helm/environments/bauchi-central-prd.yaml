@@ -2835,17 +2835,12 @@ superset:
   clickhouse:
     enabled: false
 
-# Lenspack: the "Ask HCM" chat assistant on Superset dashboards. This block is read by two charts:
-# backbone-services/lenspack (the server) and backbone-services/superset (its plugin), so "enabled" switches both on
-# or off together and image.tag pins both. Before switching on: the secrets listed in
-# backbone-services/lenspack/values.yaml, and the "Lenspack user" role given to the people who should see the button.
+# Lenspack ("Ask HCM" on the Gabon ITN dashboard). Read by backbone-services/lenspack and backbone-services/superset.
 lenspack:
-  enabled: false            # the switch: true turns the assistant on (both charts), false turns it off again
+  enabled: false            # turns both charts on or off
   image:
-    tag: "2b9eb83"
-  # The Gabon ITN dashboard's virtual datasets on the "ClickHouse" connection (schema analytics). Not itn_gab_codes
-  # (one row per bednet code).
-  datasets:
+    tag: "{{lenspack image tag}}"   # <-- needs updating: Lenspack main once its access and settings-page changes merge
+  datasets:                 # schema analytics on the "ClickHouse" connection; not itn_gab_codes (one row per net code)
     - analytics.itn_gab_area
     - analytics.itn_gab_sync_hourly
     - analytics.itn_gab_bales
@@ -2854,14 +2849,19 @@ lenspack:
     - analytics.itn_gab_complaints
     - analytics.itn_gab_refresh
   extraEnv:
-    # Chat model: Claude Haiku only (key: lenspack-secrets / anthropic-api-key)
-    - name: LENSPACK_LLM_PROVIDERS
+    - name: LENSPACK_LLM_PROVIDERS        # Claude Haiku only
       value: '[{"name":"claude-haiku-5-5","kind":"anthropic","model":"claude-haiku-5-5"}]'
+    - name: LENSPACK_ADMIN_ACCESS         # admins = holders of the Superset role in config.auth.admins
+      value: superset-role
+    - name: LENSPACK_USER_ACCESS          # users = holders of the Superset role in config.auth.users
+      value: superset-role
+    - name: LENSPACK_ADMIN_SURFACE        # every settings and usage page inside Superset's own AI assistant page
+      value: superset
   config:
-    # Who sees the button and who administers it: the "Lenspack user" / "Lenspack admin" roles (chart default, auth:)
-    # Every answer is about the November 2026 campaign only, whatever is picked on the dashboard. One line per dataset;
-    # itn_gab_refresh (when the data was last refreshed) has no campaign column and stays unscoped.
-    scope:
+    auth:
+      admins: ["Lenspack admin"]          # held only by the pilot team's account at launch
+      users: ["Lenspack user"]            # held by nobody at launch: only admins see the Ask button
+    scope:                                # every answer is about this campaign (itn_gab_refresh has no campaign column)
       - { entity: activity, dimension: campaign_number, op: eq, value: CMP-2026-11-20-000750 }
       - { entity: sync, dimension: campaign_number, op: eq, value: CMP-2026-11-20-000750 }
       - { entity: bale, dimension: campaign_number, op: eq, value: CMP-2026-11-20-000750 }
@@ -2871,19 +2871,15 @@ lenspack:
     language: { default: fr, board: fr }
     brand:
       name: Ask HCM
-      poweredBy: false          # no "Powered by Lenspack" line under the chat
+      poweredBy: false
       i18n:
         fr: { buttonLabel: Demander à HCM }
     features:
-      cache: false              # saved answers keep the words of questions: off (question text in usage records is off by default too)
-      # Chat edits. Chart default: editScope "own", so people change only their own dashboards (with personal
-      # dashboards off, only Lenspack admins change dashboards through the chat). A save that drops a native filter
-      # or a tab turns off the email reports using it, so to keep the chat away from shared dashboards entirely
-      # (questions only), uncomment:
-      # boardEdits: false
+      cache: false              # saved answers keep the words of questions
+      # boardEdits: false       # uncomment for questions only (no dashboard edits through the chat)
     overlay:
       pack: itn_gabon
-      timeZone: UTC             # sync times are UTC hours; another zone would drop the hourly series
+      timeZone: UTC             # sync times are UTC hours
       entities:
         itn_gab_area: activity
         itn_gab_sync_hourly: sync
@@ -2912,10 +2908,9 @@ lenspack:
         UTC+1). The value "(not set)" in a zone column means the place was not filled in. Les noms d'utilisateur
         (user_name) sont des codes de connexion, pas des noms de personnes : on peut les citer et ventiler par
         utilisateur. Aucune autre donnée personnelle dans les réponses.
-      exclude:
-        # never used by the assistant: household ids, exact coordinates, bednet codes, complaint ids
+      exclude:                  # never used: household ids, coordinates, net codes, complaint ids
         columns: [household_id, latitude, longitude, task_latitude, task_longitude, code, complaint_id]
-      # amounts and technical columns, not something to group by (user_name stays a dimension: it is a login code)
+      # amounts and technical columns (user_name is a login code, so it stays)
       notDimensions: [country, campaign_name, src, staff_src, nets, nets_success, people, people_success, codes_scanned,
                       manual_codes, hh_reg, tasks, tasks_success, pop_reg, tgt_hh, tgt_pop, tgt_net, stk_received,
                       stk_returned, stk_dispatched, stk_in, records, bales_quantity, actual_bale_scans,

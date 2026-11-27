@@ -21,9 +21,7 @@ spec:
       annotations:
         checksum/config: {{ include (print $.Template.BasePath "/configmap.yaml") . | sha256sum }}
     spec:
-      # No Docker-style service env vars: the Service "lenspack" would inject LENSPACK_PORT=tcp://<ip>:8795,
-      # which Lenspack reads as its port
-      enableServiceLinks: false
+      enableServiceLinks: false   # else the Service injects LENSPACK_PORT=tcp://..., read as the port
       automountServiceAccountToken: false
       securityContext:
         runAsNonRoot: true
@@ -36,7 +34,6 @@ spec:
         - name: lenspack
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
-          # The image's entry point is the lenspack command; this starts its Superset mode
           args: ["superset", "--config", "/config/superset.yaml"]
           env:
             - name: LENSPACK_STATE_DIR
@@ -56,13 +53,6 @@ spec:
                 secretKeyRef:
                   name: {{ .Values.secretName }}
                   key: {{ .Values.speechKey }}
-                  optional: true
-            # Only read when LENSPACK_ADMIN_ACCESS is "password" (see extraEnv in values.yaml); absent key: not set
-            - name: LENSPACK_ADMIN_PASSWORD
-              valueFrom:
-                secretKeyRef:
-                  name: {{ .Values.secretName }}
-                  key: {{ .Values.adminPasswordKey }}
                   optional: true
             {{- with .Values.extraEnv }}
             {{- toYaml . | nindent 12 }}
@@ -85,15 +75,13 @@ spec:
               mountPath: /tmp
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
-          # Up once it has signed in to Superset and read the datasets; until then it restarts (Superset may still be starting)
           startupProbe:
             httpGet:
               path: /healthz
               port: http
             periodSeconds: 10
             failureThreshold: 30
-          # Ready once Superset has given it the identity key; until then it refuses every chat but keeps retrying
-          readinessProbe:
+          readinessProbe:               # ready once Superset has given it the key that signs who is asking
             httpGet:
               path: /readyz
               port: http

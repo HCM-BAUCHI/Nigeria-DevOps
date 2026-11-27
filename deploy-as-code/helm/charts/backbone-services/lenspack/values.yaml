@@ -1,28 +1,10 @@
-# Lenspack server for Superset: the "Ask" chat assistant on Superset dashboards (theflywheel/lenspack, public).
-#
-# * Off by default (enabled: false): the chart renders nothing.
-# * No Ingress. Browsers reach it only through Superset's own /lenspack route (the plugin in backbone-services/superset),
-#   which lets signed-in users through with a signed header saying who they are. Superset reaches this Service at
-#   http://lenspack.superset.svc.cluster.local:8795; this server reaches Superset's Service.
-# * What each person may see follows their Superset access (datasets, row-level security, dashboard roles).
-# * One replica (Recreate): board bookkeeping is per process. State (its settings page values, the audit log, usage
-#   records, saved answers) lives on a PVC at /data.
-# * Environment overrides go under a "lenspack:" key in environments/<env>.yaml (Argo CD passes the whole file to
-#   every backbone chart). That block is shared with backbone-services/superset: lenspack.enabled and lenspack.image
-#   there switch on, and pin, both the server and Superset's side at once.
-# * Secrets:
-#     superset-secrets / lenspack-password    the "lenspack" Superset login (made by Superset's setup.py), at least
-#                                             24 characters; the same key Superset reads
-#     lenspack-secrets / anthropic-api-key    the chat model key (Secret created by cluster-configs from
-#                                             environments/<env>-secrets.yaml, cluster-configs.secrets.lenspack;
-#                                             template cluster-configs/templates/secrets/lenspack-secret.yaml)
-#     lenspack-secrets / openrouter-api-key   optional: speech to text (the mic); without it the mic stays hidden
-#     lenspack-secrets / lenspack-admin-password  optional: only for LENSPACK_ADMIN_ACCESS=password (not used today)
-# * Before turning it on: Superset needs a database connection (e.g. clickhouse.enabled in the superset chart) and
-#   the datasets named in "datasets" below.
+# Lenspack server: the "Ask" chat assistant on Superset dashboards (github.com/theflywheel/lenspack, public image).
+# Off by default. No Ingress: browsers reach it only through Superset's /lenspack route (backbone-services/superset).
+# Environment overrides go under the "lenspack:" key, which the superset chart also reads (one switch, one tag).
+# Secrets: superset-secrets/lenspack-password (Superset login) and lenspack-secrets/anthropic-api-key (model key).
 
 name: lenspack
-namespace: superset             # Superset's namespace
+namespace: superset
 labels:
   app: lenspack
   group: "infra"
@@ -30,64 +12,46 @@ labels:
 enabled: false
 
 image:
-  repository: ghcr.io/theflywheel/lenspack     # public, built from Lenspack's main branch; tag = short commit
+  repository: ghcr.io/theflywheel/lenspack
   tag: "2b9eb83"
   pullPolicy: IfNotPresent
 
 port: 8795
 
-# Where this server reaches Superset: its Service, plus Superset's path (superset ingress.path) because Superset
-# answers only under it.
-supersetUrl: http://superset.superset.svc.cluster.local:8088/superset
-# Where browsers reach this server: Superset's path + /lenspack (Superset forwards that route here).
-publicPath: /superset/lenspack
+supersetUrl: http://superset.superset.svc.cluster.local:8088/superset   # Superset's Service + its ingress path
+publicPath: /superset/lenspack                                         # where browsers reach it, through Superset
 
-serviceUser: lenspack           # same as in the superset chart (shared block)
+serviceUser: lenspack           # Superset login, made by the superset chart
 supersetSecretName: superset-secrets
-passwordKey: lenspack-password  # key in supersetSecretName
+passwordKey: lenspack-password
 
 secretName: lenspack-secrets
-modelKey: anthropic-api-key     # required
-speechKey: openrouter-api-key   # optional (the Secret may leave it out)
-adminPasswordKey: lenspack-admin-password   # optional; only used with LENSPACK_ADMIN_ACCESS=password (below)
+modelKey: anthropic-api-key
+speechKey: openrouter-api-key   # optional: the mic stays hidden without it
 
-# The Superset datasets the assistant may use, by table name ("schema.table" when two schemas share a name).
-# Required before enabling: a name that matches no dataset stops the server at start, with a message saying which.
-# Prefer datasets without names, phone numbers, dates of birth or coordinates: rows go to the model provider.
+# Superset datasets the assistant may use. Required before enabling; rows go to the model provider.
 datasets: []
 
-# The rest of Lenspack's superset.yaml (keys: https://github.com/theflywheel/lenspack/blob/main/docs/reference/config.md).
-# superset.url, publicPath, port and the state folder come from the values above.
+# The rest of Lenspack's config (keys: github.com/theflywheel/lenspack/blob/main/docs/reference/config.md)
 config:
-  hostPolicy: superset          # each person's own Superset access narrows what they see
+  hostPolicy: superset          # each person sees only what Superset lets them see
   editPolicy: superset          # chat edits follow Superset's dashboard rights
-  editScope: own                # the chat changes only people's own dashboards; official ones stay as they are.
-                                # With personalDashboards off, only Superset admins change dashboards through the
-                                # chat (the server logs a warning saying so); everyone else asks questions.
+  editScope: own                # only people's own dashboards
   budget:
-    usdPerDay: 20               # daily cap on model spend for the whole deployment
+    usdPerDay: 20               # model spend cap for the whole deployment
   audit:
-    retentionDays: 30           # the audit log holds questions, answers and result rows
+    retentionDays: 30
   features:
-    personalDashboards: false   # "My dashboards": off while logins are shared
-    voice: false                # the mic: off until consent is per person
-  # Who may use it and who is a Lenspack admin, by Superset role (roles made by the superset chart's setup.py).
-  # Without these, everyone signed in may use it and Superset admins are its admins.
+    personalDashboards: false   # off while logins are shared
+    voice: false
   auth:
-    users: ["Lenspack user"]    # who sees the Ask button; Lenspack admins always do
-    admins: ["Lenspack admin"]  # who gets the assistant's admin panel and settings
+    users: ["Lenspack user"]    # Superset role that sees the Ask button (admins always do)
+    admins: ["Lenspack admin"]  # Superset role that gets the settings and usage pages
   overlay:
-    instructions: ""            # house rules for the assistant (wording, definitions)
-    examples: []                # example questions shown in the chat
+    instructions: ""
+    examples: []
 
-# Extra environment for the server, e.g. LENSPACK_LLM_ROLES (https://github.com/theflywheel/lenspack/blob/main/docs/operating/models.md)
 extraEnv: []
-# Admin access modes, for a coming Lenspack release (not in the pinned image yet; docs: <link: docs/access/admin-access.md>).
-# Until then, and by default, admins are the Superset roles in config.auth.admins. Add to extraEnv when available:
-#   - { name: LENSPACK_ADMIN_ACCESS, value: superset-role }     # the default: Superset roles (LENSPACK_ADMIN_ROLES, default Admin)
-#   - { name: LENSPACK_ADMIN_ACCESS, value: superset-users }    # named owners in LENSPACK_ADMIN_USERS, who can make others admins in the UI
-#   - { name: LENSPACK_ADMIN_USERS, value: "user1,user2" }      # with superset-users: the owners' Superset usernames
-#   - { name: LENSPACK_ADMIN_ACCESS, value: password }          # one admin password: lenspack-secrets / lenspack-admin-password
 
 persistence:
   size: 5Gi
@@ -101,8 +65,7 @@ resources:
     cpu: "1"
     memory: "1Gi"
 
-# Only Superset's pods may open port 8795. Takes effect only where the cluster's network plugin enforces
-# NetworkPolicy; check before relying on it.
+# Only Superset's pods may reach port 8795 (only where the network plugin enforces NetworkPolicy)
 networkPolicy:
   enabled: false
   supersetPodLabels:
