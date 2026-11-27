@@ -62,6 +62,17 @@ data:
     # here keeps Superset from adding its own prefix, and the UI adds it once.
     APP_ICON = "{{ include "superset.root" . }}/static/assets/images/superset-logo-horiz.png"
     {{- end }}
+    {{- if .Values.lenspack.enabled }}
+
+    # Lenspack plugin (copied by the copy-lenspack-plugin init container); Superset starts without it if it fails
+    sys.path.append("/app/lenspack")
+    try:
+        from lenspack_superset import *  # noqa: E402,F401,F403
+    except Exception:  # noqa: BLE001
+        import logging
+
+        logging.getLogger(__name__).exception("Lenspack plugin not loaded; Superset runs without it")
+    {{- end }}
 
   # Init container: prepares Superset before the web server starts. Every step is idempotent (runs on each start).
   setup.sh: |
@@ -104,6 +115,9 @@ data:
       2. the read-only "HCM Viewer" role: Gamma without editing rights (+ access to that connection, if any)
       3. the admin / editor / viewer logins. Their roles, and their passwords (from the Secret), are re-applied on
          every start, so rotating a password in the Secret and restarting the pod changes the login.
+    {{- if .Values.lenspack.enabled }}
+      4. Lenspack (lenspack.enabled): its two roles (no Superset permissions) and its own login, re-applied the same way.
+    {{- end }}
     """
     import os
     from urllib.parse import quote
@@ -174,4 +188,38 @@ data:
             if not check_password_hash(user.password, password):
                 sm.reset_password(user.id, password)
                 print(f"reset password of {username}")
+        {{- if .Values.lenspack.enabled }}
+
+        # Lenspack's roles (no Superset permissions; Lenspack reads them by name)
+        for name in [r for r in ({{ .Values.lenspack.roles.user | quote }}, {{ .Values.lenspack.roles.admin | quote }}) if r]:
+            if sm.find_role(name) is None:
+                sm.add_role(name)
+                print(f"created role {name}")
+        db.session.commit()
+
+        # Lenspack's login: Admin, to save dashboards it doesn't own (each person's rights are checked per request).
+        # Skipped without the Secret's key.
+        LENSPACK_USER = {{ .Values.lenspack.serviceUser | quote }}
+        lenspack_password = os.environ.get("LENSPACK_PASSWORD", "")
+        if LENSPACK_USER in {u[0] for u in USERS}:
+            raise SystemExit(f"lenspack.serviceUser must not be one of the fixed logins ({LENSPACK_USER})")
+        if len(lenspack_password) < 24:
+            print(f"WARNING: {{ .Values.secretName }} has no {{ .Values.lenspack.passwordKey }} of at least 24 characters; "
+                  f"{LENSPACK_USER} login not created or updated")
+        else:
+            admin_role = sm.find_role("Admin")
+            user = sm.find_user(username=LENSPACK_USER)
+            if user is None:
+                if not sm.add_user(LENSPACK_USER, "Lenspack", "Service", f"{LENSPACK_USER}@lenspack.invalid",
+                                   [admin_role], lenspack_password):
+                    raise SystemExit(f"could not create user {LENSPACK_USER}")
+                print(f"created user {LENSPACK_USER}")
+            else:
+                user.roles = [admin_role]
+                user.active = True
+                db.session.commit()
+                if not check_password_hash(user.password, lenspack_password):
+                    sm.reset_password(user.id, lenspack_password)
+                    print(f"reset password of {LENSPACK_USER}")
+        {{- end }}
         print("Superset setup done")

@@ -15,6 +15,7 @@
 #     postgres-password                             bundled Postgres only (database.external: false)
 #     redis-password                                internal
 #     clickhouse-password                           ClickHouse "reader" user; only when clickhouse.enabled: true
+#     lenspack-password                             the "lenspack" login (24+ characters); only when lenspack.enabled
 # * Logins, created/updated by the init container on every start:
 #     admin   Admin role: everything, incl. users and database connections
 #     editor  Alpha + sql_lab: build datasets, charts, dashboards; SQL Lab        ("write user")
@@ -23,6 +24,7 @@
 # * ClickHouse (clickhouse.enabled, off for now): the "HCM ClickHouse" connection uses the ClickHouse "reader" user
 #   (SELECT on hcm_* only, readonly). Each hcm_<schema> database shows up as a schema in it.
 #   To enable: set clickhouse.enabled: true, add clickhouse-connect to extraPackages, add clickhouse-password to the Secret.
+# * Lenspack (off by default): the "Ask" chat on dashboards. See the lenspack: block below.
 
 name: superset
 namespace: superset
@@ -68,6 +70,7 @@ ingress:
   # More hosts serving the same Superset under the same path, each with its own certificate
   # (tlsSecretName defaults to "<host>-tls-certs"). e.g. [{host: gabon-hcm.digit.org}]
   extraHosts: []
+  proxyBufferSize: ""   # "16k" avoids 502s from Superset 6.1.0's growing session cookie (apache/superset#44541)
 
 secretName: superset-secrets
 
@@ -121,3 +124,21 @@ redis:
     limits:
       cpu: "100m"
       memory: "192Mi"
+
+# Lenspack's Superset side: a plugin file copied from the Lenspack image, its login and two roles. Off: no change.
+# The env file's top-level "lenspack:" block (shared with backbone-services/lenspack) sets enabled, image.tag and pluginTag.
+lenspack:
+  enabled: false
+  image:
+    repository: ghcr.io/theflywheel/lenspack
+    tag: "3d0bc57"
+    pullPolicy: IfNotPresent
+  pluginTag: ""                                   # image the plugin file is copied from; empty = image.tag. Changing it restarts Superset
+  internalUrl: http://lenspack.superset.svc.cluster.local:8795
+  serviceUser: lenspack                           # Superset login for the Lenspack server (Admin role)
+  passwordKey: lenspack-password                  # key in secretName
+  clickhouseLabelSuffix: "on"                     # restores ClickHouse metric labels Superset 6.1 changed
+  # Made with no Superset permissions. Give them in Settings > List Users, never to admin/editor/viewer (reset on start)
+  roles:
+    user: "Lenspack user"
+    admin: "Lenspack admin"

@@ -71,6 +71,15 @@
     secretKeyRef:
       name: {{ .Values.secretName }}
       key: redis-password
+{{- if .Values.lenspack.enabled }}
+{{- /* read by lenspack_superset.py */}}
+- name: LENSPACK_INTERNAL_URL
+  value: {{ .Values.lenspack.internalUrl | quote }}
+- name: LENSPACK_SERVICE_USER
+  value: {{ .Values.lenspack.serviceUser | quote }}
+- name: LENSPACK_CLICKHOUSE_LABEL_SUFFIX
+  value: {{ .Values.lenspack.clickhouseLabelSuffix | quote }}
+{{- end }}
 {{- end }}
 
 {{/*

@@ -13,6 +13,9 @@ metadata:
     cert-manager.io/cluster-issuer: {{ .Values.ingress.clusterIssuer }}
     nginx.ingress.kubernetes.io/proxy-read-timeout: {{ .Values.server.timeoutSeconds | quote }}
     nginx.ingress.kubernetes.io/proxy-body-size: "50m"   # dashboard / CSV imports
+    {{- with .Values.ingress.proxyBufferSize }}
+    nginx.ingress.kubernetes.io/proxy-buffer-size: {{ . | quote }}
+    {{- end }}
 spec:
   ingressClassName: {{ .Values.ingress.className }}
   rules:

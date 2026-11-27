@@ -2826,6 +2826,7 @@ superset:
     extraHosts:
       - host: gabon-hcm.digit.org
         tlsSecretName: gabon-hcm.digit.org-tls-certs
+    # proxyBufferSize: 16k   # recommended with Superset 6.1.0 (see the chart's values.yaml)
   database:
     external: true
     port: 5432
